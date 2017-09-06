@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DatePicker from 'react-date-picker/src/entry';
 
 import LocaleOptions from './LocaleOptions';
+import ValueOptions from './ValueOptions';
 
 import './Test.less';
 
@@ -33,6 +34,10 @@ export default class Test extends Component {
             <LocaleOptions
               setState={setState}
               locale={locale}
+            />
+            <ValueOptions
+              setState={setState}
+              value={value}
             />
           </aside>
           <main className="Test__container__content">
