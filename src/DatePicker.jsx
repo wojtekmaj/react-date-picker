@@ -90,7 +90,6 @@ export default class DatePicker extends Component {
           locale={locale}
           onChange={this.onChange}
           placeholder={this.placeholder}
-          preferNative={preferNative}
           value={value}
         />
         <button

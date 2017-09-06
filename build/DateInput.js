@@ -99,6 +99,11 @@ var DateInput = function (_Component) {
       updateInputWidth(event.target);
 
       _this.onSubmit({ target: event.target.form });
+    }, _this.onChangeNative = function (event) {
+      var value = event.target.value;
+
+
+      _this.props.onChange(new Date(value));
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
@@ -175,40 +180,64 @@ var DateInput = function (_Component) {
       }, this.commonInputProps));
     }
   }, {
-    key: 'render',
-    value: function render() {
+    key: 'renderCustomInputs',
+    value: function renderCustomInputs() {
       var _this2 = this;
 
       var divider = this.divider;
       var placeholder = this.props.placeholder;
 
 
+      return placeholder.split(divider).map(function (part) {
+        switch (part) {
+          case 'DD':
+            return _this2.renderDay();
+          case 'MM':
+            return _this2.renderMonth();
+          case 'YYYY':
+            return _this2.renderYear();
+          default:
+            return null;
+        }
+      }).reduce(function (result, element, index, array) {
+        result.push(element);
+
+        if (index + 1 < array.length) {
+          result.push(divider);
+        }
+
+        return result;
+      }, []);
+    }
+  }, {
+    key: 'renderNativeInput',
+    value: function renderNativeInput() {
+      var value = this.props.value;
+
+
+      return _react2.default.createElement('input', {
+        type: 'date',
+        onChange: this.onChangeNative,
+        style: {
+          visibility: 'hidden',
+          position: 'absolute',
+          top: '-9999px',
+          left: '-9999px'
+        },
+        value: value ? (0, _dates.getISOLocalDate)(value) : ''
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
       return _react2.default.createElement(
         'div',
         { className: 'react-date-picker__button__input' },
         _react2.default.createElement(
           'form',
           { onSubmit: this.onSubmit },
-          placeholder.split(divider).map(function (part) {
-            switch (part) {
-              case 'DD':
-                return _this2.renderDay();
-              case 'MM':
-                return _this2.renderMonth();
-              case 'YYYY':
-                return _this2.renderYear();
-              default:
-                return null;
-            }
-          }).reduce(function (result, element, index, array) {
-            result.push(element);
-
-            if (index + 1 < array.length) {
-              result.push(divider);
-            }
-
-            return result;
-          }, []),
+          this.renderCustomInputs(),
+          this.renderNativeInput(),
           _react2.default.createElement('button', { type: 'submit', style: { display: 'none' } })
         )
       );

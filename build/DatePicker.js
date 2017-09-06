@@ -116,6 +116,12 @@ var DatePicker = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'react-date-picker__button' },
+        _react2.default.createElement(_DateInput2.default, {
+          locale: locale,
+          onChange: this.onChange,
+          placeholder: this.placeholder,
+          value: value
+        }),
         _react2.default.createElement(
           'button',
           {
@@ -134,13 +140,7 @@ var DatePicker = function (_Component) {
               _react2.default.createElement('line', { x1: '13', y1: '0', x2: '13', y2: '4' })
             )
           )
-        ),
-        _react2.default.createElement(_DateInput2.default, {
-          locale: locale,
-          onChange: this.onChange,
-          placeholder: this.placeholder,
-          value: value
-        })
+        )
       );
     }
   }, {
