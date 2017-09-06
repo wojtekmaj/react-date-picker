@@ -3,11 +3,25 @@ import PropTypes from 'prop-types';
 
 import { getDaysInMonth } from './shared/dates';
 
+const updateInputWidth = (element) => {
+  const span = document.createElement('span');
+  span.innerHTML = element.value;
+
+  const container = element.parentElement;
+
+  container.appendChild(span);
+
+  const width = span.clientWidth;
+  element.style.width = `${width}px`;
+
+  container.removeChild(span);
+};
+
 export default class DateInput extends Component {
   state = {
-    year: null,
-    month: null,
-    day: null,
+    year: '',
+    month: '',
+    day: '',
   }
 
   componentDidMount() {
@@ -47,6 +61,13 @@ export default class DateInput extends Component {
       onFocus: openCalendar,
       onBlur: closeCalendar,
       required: true,
+      ref: (ref) => {
+        if (!ref) {
+          return;
+        }
+
+        updateInputWidth(ref);
+      },
     };
   }
 
@@ -83,6 +104,8 @@ export default class DateInput extends Component {
 
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
+
+    updateInputWidth(event.target);
 
     this.onSubmit({ target: event.target.form });
   }
