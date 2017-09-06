@@ -30,7 +30,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "detect-element-overflow": "0.2.0-alpha",
+    "detect-element-overflow": "1.0.0",
     "prop-types": ">=15.5",
     "react": ">=15.5",
     "react-calendar": "wojtekmaj/react-calendar#v1.0.0",
