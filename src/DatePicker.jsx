@@ -124,15 +124,23 @@ export default class DatePicker extends Component {
       value,
     } = this.props;
 
+    const className = 'react-date-picker__calendar';
+
     return (
       <div
-        className={`react-date-picker__calendar react-date-picker__calendar--${isOpen ? 'open' : 'closed'}`}
+        className={`${className} ${className}--${isOpen ? 'open' : 'closed'}`}
         ref={(ref) => {
           if (!ref) {
             return;
           }
 
+          ref.classList.remove(`${className}--above-label`);
+
           const collisions = detectElementOverflow(ref, document.body);
+
+          if (collisions.collidedBottom) {
+            ref.classList.add(`${className}--above-label`);
+          }
         }}
       >
         <Calendar
