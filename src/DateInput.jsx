@@ -53,13 +53,9 @@ export default class DateInput extends Component {
   }
 
   get commonInputProps() {
-    const { closeCalendar, openCalendar } = this.props;
-
     return {
       type: 'number',
       onChange: this.onChange,
-      onFocus: openCalendar,
-      onBlur: closeCalendar,
       required: true,
       ref: (ref) => {
         if (!ref) {
@@ -193,10 +189,8 @@ export default class DateInput extends Component {
 }
 
 DateInput.propTypes = {
-  closeCalendar: PropTypes.func.isRequired,
   locale: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  openCalendar: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.instanceOf(Date),
 };

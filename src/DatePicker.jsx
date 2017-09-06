@@ -61,6 +61,26 @@ export default class DatePicker extends Component {
     );
   }
 
+  onFocus = () => {
+    this.blurRequested = false;
+
+    this.openCalendar();
+  }
+
+  onBlur = () => {
+    this.blurRequested = true;
+
+    setTimeout(() => {
+      if (this.blurRequested) {
+        this.closeCalendar();
+
+        this.blurRequested = false;
+      }
+    }, 100);
+  }
+
+  stopPropagation = event => event.stopPropagation()
+
   renderInput() {
     const { locale, value } = this.props;
 
@@ -69,6 +89,7 @@ export default class DatePicker extends Component {
         <button
           className="react-date-picker__button__icon"
           onClick={this.toggleCalendar}
+          onFocus={this.stopPropagation}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
             <g className="stroke-primary" stroke="black" strokeWidth="2">
@@ -79,10 +100,8 @@ export default class DatePicker extends Component {
           </svg>
         </button>
         <DateInput
-          closeCalendar={this.closeCalendar}
           locale={locale}
           onChange={this.onChange}
-          openCalendar={this.openCalendar}
           placeholder={this.placeholder}
           value={value}
         />
@@ -130,7 +149,11 @@ export default class DatePicker extends Component {
 
   render() {
     return (
-      <div className="react-date-picker">
+      <div
+        className="react-date-picker"
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+      >
         {this.renderInput()}
         {this.renderCalendar()}
       </div>

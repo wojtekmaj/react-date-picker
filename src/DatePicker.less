@@ -1,10 +1,11 @@
 .react-date-picker {
   display: inline-flex;
   position: relative;
+  width: 120px;
 
   &__button {
     display: flex;
-    border: 1px solid gray;
+    border: thin solid gray;
 
     &__icon {
       border: 0;
@@ -18,8 +19,7 @@
 
     &__input {
       display: flex;
-      padding-left: 4px;
-      padding-right: 4px;
+      padding: 0 2px;
 
       form {
         display: flex;
@@ -29,6 +29,7 @@
 
       input {
         height: calc(~"100% - 2px");
+        padding: 1px 4px;
         border: 0;
 
         &::-webkit-outer-spin-button,
@@ -41,14 +42,6 @@
           background: fade(red, 10%);
         }
       }
-
-      &__day, &__month {
-        width: 1.25em;
-      }
-
-      &__year {
-        width: 2.5em;
-      }
     }
   }
 
@@ -58,12 +51,13 @@
     top: 100%;
     left: 0;
 
-    &--open {
-
-    }
-
     &--closed {
       display: none;
+    }
+
+    &--above-abel {
+      bottom: 100%;
+      top: auto;
     }
   }
 }
