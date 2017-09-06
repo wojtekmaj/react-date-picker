@@ -106,6 +106,12 @@ export default class DateInput extends Component {
     this.onSubmit({ target: event.target.form });
   }
 
+  onChangeNative = (event) => {
+    const { value } = event.target;
+
+    this.props.onChange(new Date(value));
+  }
+
   renderDay() {
     const { day } = this.state;
 
@@ -186,6 +192,7 @@ export default class DateInput extends Component {
     return (
       <input
         type="date"
+        onChange={this.onChangeNative}
         style={{
           visibility: 'hidden',
           position: 'absolute',
