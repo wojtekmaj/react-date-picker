@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { getDaysInMonth } from './shared/dates';
+import { getDaysInMonth, getISOLocalDate } from './shared/dates';
 
 const updateInputWidth = (element) => {
   const span = document.createElement('span');
@@ -153,34 +153,56 @@ export default class DateInput extends Component {
     );
   }
 
-  render() {
+  renderCustomInputs() {
     const { divider } = this;
     const { placeholder } = this.props;
 
     return (
+      placeholder
+        .split(divider)
+        .map((part) => {
+          switch (part) {
+            case 'DD': return this.renderDay();
+            case 'MM': return this.renderMonth();
+            case 'YYYY': return this.renderYear();
+            default: return null;
+          }
+        })
+        .reduce((result, element, index, array) => {
+          result.push(element);
+
+          if (index + 1 < array.length) {
+            result.push(divider);
+          }
+
+          return result;
+        }, [])
+    );
+  }
+
+  renderNativeInput() {
+    const { value } = this.props;
+
+    return (
+      <input
+        type="date"
+        style={{
+          visibility: 'hidden',
+          position: 'absolute',
+          top: '-9999px',
+          left: '-9999px',
+        }}
+        value={value ? getISOLocalDate(value) : ''}
+      />
+    );
+  }
+
+  render() {
+    return (
       <div className="react-date-picker__button__input">
         <form onSubmit={this.onSubmit}>
-          {
-            placeholder
-              .split(divider)
-              .map((part) => {
-                switch (part) {
-                  case 'DD': return this.renderDay();
-                  case 'MM': return this.renderMonth();
-                  case 'YYYY': return this.renderYear();
-                  default: return null;
-                }
-              })
-              .reduce((result, element, index, array) => {
-                result.push(element);
-
-                if (index + 1 < array.length) {
-                  result.push(divider);
-                }
-
-                return result;
-              }, [])
-          }
+          {this.renderCustomInputs()}
+          {this.renderNativeInput()}
           <button type="submit" style={{ display: 'none' }} />
         </form>
       </div>

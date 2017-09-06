@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { isValue } from '../src/shared/propTypes';
-import { getISOLocalDate } from './shared/dates';
+import { getISOLocalDate } from '../src/shared/dates';
 
 export default class ValueOptions extends Component {
   get startDate() {
