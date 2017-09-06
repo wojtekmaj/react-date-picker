@@ -86,6 +86,13 @@ export default class DatePicker extends Component {
 
     return (
       <div className="react-date-picker__button">
+        <DateInput
+          locale={locale}
+          onChange={this.onChange}
+          placeholder={this.placeholder}
+          preferNative={preferNative}
+          value={value}
+        />
         <button
           className="react-date-picker__button__icon"
           onClick={this.toggleCalendar}
@@ -99,12 +106,6 @@ export default class DatePicker extends Component {
             </g>
           </svg>
         </button>
-        <DateInput
-          locale={locale}
-          onChange={this.onChange}
-          placeholder={this.placeholder}
-          value={value}
-        />
       </div>
     );
   }

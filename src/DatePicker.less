@@ -1,23 +1,19 @@
 .react-date-picker {
   display: inline-flex;
   position: relative;
-  width: 120px;
 
   &__button {
+    min-width: 135px;
     display: flex;
     border: thin solid gray;
 
-    &__icon {
-      border: 0;
-      background: transparent;
-      padding: 4px 6px;
-
-      svg {
-        display: inherit;
-      }
-    }
+    // To help with automatic input resizing
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 
     &__input {
+      flex-grow: 1;
       display: flex;
       padding: 0 2px;
 
@@ -28,9 +24,11 @@
       }
 
       input {
+        min-width: 9px;
         height: calc(~"100% - 2px");
-        padding: 1px 4px;
+        padding: 1px;
         border: 0;
+        text-align: right;
 
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
@@ -41,6 +39,16 @@
         &:invalid {
           background: fade(red, 10%);
         }
+      }
+    }
+
+    &__icon {
+      border: 0;
+      background: transparent;
+      padding: 4px 6px;
+
+      svg {
+        display: inherit;
       }
     }
   }
