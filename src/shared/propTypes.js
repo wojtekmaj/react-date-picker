@@ -39,3 +39,8 @@ export const isMaxDate = (props, propName, componentName) => {
   // Everything is fine
   return null;
 };
+
+export const isValue = PropTypes.oneOfType([
+  PropTypes.instanceOf(Date),
+  PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+]);

@@ -1,11 +1,63 @@
 .react-date-picker {
-  &__input {
+  display: inline-flex;
+  position: relative;
 
+  &__button {
+    display: flex;
+    border: 1px solid gray;
+
+    &__icon {
+      border: 0;
+      background: transparent;
+      padding: 4px 6px;
+
+      svg {
+        display: inherit;
+      }
+    }
+
+    &__input {
+      display: flex;
+      padding-left: 4px;
+      padding-right: 4px;
+
+      form {
+        display: flex;
+        align-items: baseline;
+        height: 100%;
+      }
+
+      input {
+        height: calc(~"100% - 2px");
+        border: 0;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &:invalid {
+          background: fade(red, 10%);
+        }
+      }
+
+      &__day, &__month {
+        width: 1.25em;
+      }
+
+      &__year {
+        width: 2.5em;
+      }
+    }
   }
 
   &__calendar {
     width: 350px;
-    
+    position: absolute;
+    top: 100%;
+    left: 0;
+
     &--open {
 
     }
