@@ -121,6 +121,7 @@ export default class DatePicker extends Component {
       locale,
       maxDate,
       minDate,
+      showWeekNumbers,
       value,
     } = this.props;
 
@@ -149,6 +150,7 @@ export default class DatePicker extends Component {
           maxDate={maxDate}
           minDate={minDate}
           onChange={this.onChange}
+          showWeekNumbers={showWeekNumbers}
           value={value}
         />
       </div>
@@ -176,5 +178,6 @@ DatePicker.propTypes = {
   maxDate: isMaxDate,
   minDate: isMinDate,
   onChange: PropTypes.func,
+  showWeekNumbers: PropTypes.bool,
   value: PropTypes.instanceOf(Date),
 };
