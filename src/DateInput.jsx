@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { formatDate } from './shared/dateFormatter';
 import { getDaysInMonth, getISOLocalDate } from './shared/dates';
 
 const updateInputWidth = (element) => {
@@ -39,11 +40,11 @@ export default class DateInput extends Component {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get divider() {
-    const { locale } = this.props;
     const date = new Date(2017, 11, 11);
 
-    return date.toLocaleDateString(locale || false).match(/[^0-9]/)[0];
+    return formatDate(date).match(/[^0-9]/)[0];
   }
 
   get currentMonthMaxDays() {

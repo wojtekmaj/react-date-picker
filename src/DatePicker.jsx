@@ -10,6 +10,8 @@ import './DatePicker.less';
 
 import DateInput from './DateInput';
 
+import { setLocale } from './shared/locales';
+import { formatDate } from './shared/dateFormatter';
 import {
   isCalendarType,
   isMaxDate,
@@ -19,6 +21,18 @@ import {
 export default class DatePicker extends Component {
   state = {
     isOpen: this.props.isOpen,
+  }
+
+  componentWillMount() {
+    setLocale(this.props.locale);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { props } = this;
+
+    if (nextProps.locale !== props.locale) {
+      setLocale(nextProps.locale);
+    }
   }
 
   openCalendar = () => {
@@ -43,18 +57,12 @@ export default class DatePicker extends Component {
     }
   }
 
-  get formattedDate() {
-    const { locale, value } = this.props;
-
-    return value.toLocaleDateString(locale || false);
-  }
-
+  // eslint-disable-next-line class-methods-use-this
   get placeholder() {
-    const { locale } = this.props;
     const date = new Date(2017, 11, 11);
 
     return (
-      date.toLocaleDateString(locale || false)
+      formatDate(date)
         .replace('2017', 'YYYY')
         .replace('12', 'MM')
         .replace('11', 'DD')
@@ -82,12 +90,11 @@ export default class DatePicker extends Component {
   stopPropagation = event => event.stopPropagation()
 
   renderInput() {
-    const { locale, value } = this.props;
+    const { value } = this.props;
 
     return (
       <div className="react-date-picker__button">
         <DateInput
-          locale={locale}
           onChange={this.onChange}
           placeholder={this.placeholder}
           value={value}
@@ -98,7 +105,7 @@ export default class DatePicker extends Component {
           onFocus={this.stopPropagation}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
-            <g className="stroke-primary" stroke="black" strokeWidth="2">
+            <g stroke="black" strokeWidth="2">
               <rect width="15" height="15" x="2" y="2" fill="none" />
               <line x1="6" y1="0" x2="6" y2="4" />
               <line x1="13" y1="0" x2="13" y2="4" />
