@@ -260,6 +260,10 @@ var DateInput = function (_Component) {
       var value = this.props.value;
 
 
+      if (!value) {
+        return null;
+      }
+
       return (0, _dates.getDaysInMonth)(value);
     }
   }, {
