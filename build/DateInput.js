@@ -40,6 +40,8 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _dateFormatter = require('./shared/dateFormatter');
+
 var _dates = require('./shared/dates');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -122,6 +124,9 @@ var DateInput = function (_Component) {
         this.updateValues(nextProps);
       }
     }
+
+    // eslint-disable-next-line class-methods-use-this
+
   }, {
     key: 'updateValues',
     value: function updateValues() {
@@ -245,11 +250,9 @@ var DateInput = function (_Component) {
   }, {
     key: 'divider',
     get: function get() {
-      var locale = this.props.locale;
-
       var date = new Date(2017, 11, 11);
 
-      return date.toLocaleDateString(locale || false).match(/[^0-9]/)[0];
+      return (0, _dateFormatter.formatDate)(date).match(/[^0-9]/)[0];
     }
   }, {
     key: 'currentMonthMaxDays',

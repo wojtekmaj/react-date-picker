@@ -48,6 +48,10 @@ var _DateInput = require('./DateInput');
 
 var _DateInput2 = _interopRequireDefault(_DateInput);
 
+var _locales = require('./shared/locales');
+
+var _dateFormatter = require('./shared/dateFormatter');
+
 var _propTypes3 = require('./shared/propTypes');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -106,18 +110,30 @@ var DatePicker = function (_Component) {
   }
 
   (0, _createClass3.default)(DatePicker, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      (0, _locales.setLocale)(this.props.locale);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var props = this.props;
+
+
+      if (nextProps.locale !== props.locale) {
+        (0, _locales.setLocale)(nextProps.locale);
+      }
+    }
+  }, {
     key: 'renderInput',
     value: function renderInput() {
-      var _props = this.props,
-          locale = _props.locale,
-          value = _props.value;
+      var value = this.props.value;
 
 
       return _react2.default.createElement(
         'div',
         { className: 'react-date-picker__button' },
         _react2.default.createElement(_DateInput2.default, {
-          locale: locale,
           onChange: this.onChange,
           placeholder: this.placeholder,
           value: value
@@ -134,7 +150,7 @@ var DatePicker = function (_Component) {
             { xmlns: 'http://www.w3.org/2000/svg', width: '19', height: '19', viewBox: '0 0 19 19' },
             _react2.default.createElement(
               'g',
-              { className: 'stroke-primary', stroke: 'black', strokeWidth: '2' },
+              { stroke: 'black', strokeWidth: '2' },
               _react2.default.createElement('rect', { width: '15', height: '15', x: '2', y: '2', fill: 'none' }),
               _react2.default.createElement('line', { x1: '6', y1: '0', x2: '6', y2: '4' }),
               _react2.default.createElement('line', { x1: '13', y1: '0', x2: '13', y2: '4' })
@@ -153,13 +169,13 @@ var DatePicker = function (_Component) {
         return null;
       }
 
-      var _props2 = this.props,
-          calendarType = _props2.calendarType,
-          locale = _props2.locale,
-          maxDate = _props2.maxDate,
-          minDate = _props2.minDate,
-          showWeekNumbers = _props2.showWeekNumbers,
-          value = _props2.value;
+      var _props = this.props,
+          calendarType = _props.calendarType,
+          locale = _props.locale,
+          maxDate = _props.maxDate,
+          minDate = _props.minDate,
+          showWeekNumbers = _props.showWeekNumbers,
+          value = _props.value;
 
 
       var className = 'react-date-picker__calendar';
@@ -208,23 +224,14 @@ var DatePicker = function (_Component) {
       );
     }
   }, {
-    key: 'formattedDate',
-    get: function get() {
-      var _props3 = this.props,
-          locale = _props3.locale,
-          value = _props3.value;
-
-
-      return value.toLocaleDateString(locale || false);
-    }
-  }, {
     key: 'placeholder',
-    get: function get() {
-      var locale = this.props.locale;
 
+
+    // eslint-disable-next-line class-methods-use-this
+    get: function get() {
       var date = new Date(2017, 11, 11);
 
-      return date.toLocaleDateString(locale || false).replace('2017', 'YYYY').replace('12', 'MM').replace('11', 'DD');
+      return (0, _dateFormatter.formatDate)(date).replace('2017', 'YYYY').replace('12', 'MM').replace('11', 'DD');
     }
   }]);
   return DatePicker;
