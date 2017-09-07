@@ -50,6 +50,10 @@ export default class DateInput extends Component {
   get currentMonthMaxDays() {
     const { value } = this.props;
 
+    if (!value) {
+      return null;
+    }
+
     return getDaysInMonth(value);
   }
 
