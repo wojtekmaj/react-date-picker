@@ -4,6 +4,18 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -48,13 +60,15 @@ var _DateInput = require('./DateInput');
 
 var _DateInput2 = _interopRequireDefault(_DateInput);
 
-var _locales = require('./shared/locales');
-
 var _dateFormatter = require('./shared/dateFormatter');
+
+var _locales = require('./shared/locales');
 
 var _propTypes3 = require('./shared/propTypes');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var allViews = ['century', 'decade', 'year', 'month'];
 
 var DatePicker = function (_Component) {
   (0, _inherits3.default)(DatePicker, _Component);
@@ -127,16 +141,26 @@ var DatePicker = function (_Component) {
   }, {
     key: 'renderInput',
     value: function renderInput() {
-      var value = this.props.value;
+      var _props = this.props,
+          maxDate = _props.maxDate,
+          maxDetail = _props.maxDetail,
+          minDate = _props.minDate,
+          value = _props.value;
 
+      var _concat = [].concat(value),
+          _concat2 = (0, _slicedToArray3.default)(_concat, 1),
+          valueFrom = _concat2[0];
 
       return _react2.default.createElement(
         'div',
         { className: 'react-date-picker__button' },
         _react2.default.createElement(_DateInput2.default, {
+          maxDate: maxDate,
+          maxDetail: maxDetail,
+          minDate: minDate,
           onChange: this.onChange,
           placeholder: this.placeholder,
-          value: value
+          value: valueFrom
         }),
         _react2.default.createElement(
           'button',
@@ -169,13 +193,9 @@ var DatePicker = function (_Component) {
         return null;
       }
 
-      var _props = this.props,
-          calendarType = _props.calendarType,
-          locale = _props.locale,
-          maxDate = _props.maxDate,
-          minDate = _props.minDate,
-          showWeekNumbers = _props.showWeekNumbers,
-          value = _props.value;
+      var _props2 = this.props,
+          onChange = _props2.onChange,
+          calendarProps = (0, _objectWithoutProperties3.default)(_props2, ['onChange']);
 
 
       var className = 'react-date-picker__calendar';
@@ -198,15 +218,9 @@ var DatePicker = function (_Component) {
             }
           }
         },
-        _react2.default.createElement(_reactCalendar2.default, {
-          calendarType: calendarType,
-          locale: locale,
-          maxDate: maxDate,
-          minDate: minDate,
-          onChange: this.onChange,
-          showWeekNumbers: showWeekNumbers,
-          value: value
-        })
+        _react2.default.createElement(_reactCalendar2.default, (0, _extends3.default)({
+          onChange: this.onChange
+        }, calendarProps))
       );
     }
   }, {
@@ -240,13 +254,30 @@ var DatePicker = function (_Component) {
 exports.default = DatePicker;
 
 
+DatePicker.defaultProps = {
+  maxDetail: 'month',
+  returnValue: 'start'
+};
+
 DatePicker.propTypes = {
   calendarType: _propTypes3.isCalendarType,
   isOpen: _propTypes2.default.bool,
   locale: _propTypes2.default.string,
   maxDate: _propTypes3.isMaxDate,
+  maxDetail: _propTypes2.default.oneOf(allViews),
   minDate: _propTypes3.isMinDate,
+  minDetail: _propTypes2.default.oneOf(allViews),
+  next2Label: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.node]),
+  nextLabel: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.node]),
   onChange: _propTypes2.default.func,
+  onClickDay: _propTypes2.default.func,
+  onClickDecade: _propTypes2.default.func,
+  onClickMonth: _propTypes2.default.func,
+  onClickYear: _propTypes2.default.func,
+  prev2Label: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.node]),
+  prevLabel: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.node]),
+  returnValue: _propTypes2.default.oneOf(['start', 'end', 'range']).isRequired,
+  showNeighboringMonth: _propTypes2.default.bool,
   showWeekNumbers: _propTypes2.default.bool,
-  value: _propTypes2.default.instanceOf(Date)
+  value: _propTypes3.isValue
 };

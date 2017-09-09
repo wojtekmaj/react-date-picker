@@ -3,45 +3,39 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.getISOLocalDate = exports.getISOLocalMonth = exports.getMonth = exports.getDaysInMonth = exports.getDay = exports.getMonthIndex = exports.getYear = undefined;
+
+var _dates = require('react-calendar/src/shared/dates');
+
+exports.getYear = _dates.getYear;
+exports.getMonthIndex = _dates.getMonthIndex;
+exports.getDay = _dates.getDay;
+exports.getDaysInMonth = _dates.getDaysInMonth;
+
 /* Simple getters - getting a property of a given point in time */
 
-var getYear = exports.getYear = function getYear(date) {
-  if (date instanceof Date) {
-    return date.getFullYear();
-  }
-
-  if (typeof date === 'number') {
-    return date;
-  }
-
-  var year = parseInt(date, 10);
-
-  if (typeof date === 'string' && !isNaN(year)) {
-    return year;
-  }
-
-  throw new Error('Failed to get year from date: ' + date + '.');
-};
-
-var getMonthIndex = exports.getMonthIndex = function getMonthIndex(date) {
-  return date.getMonth();
-};
-
-var getDay = exports.getDay = function getDay(date) {
-  return date.getDate();
+var getMonth = exports.getMonth = function getMonth(date) {
+  return date.getMonth() + 1;
 };
 
 /* Complex getters - getting a property somehow related to a given point in time */
 
 /**
- * Returns a number of days in a month of a given date.
- *
- * @param {Date} date Date.
+ * Returns local month in ISO-like format (YYYY-MM).
  */
-var getDaysInMonth = exports.getDaysInMonth = function getDaysInMonth(date) {
-  var year = getYear(date);
-  var monthIndex = getMonthIndex(date);
-  return new Date(year, monthIndex + 1, 0).getDate();
+var getISOLocalMonth = exports.getISOLocalMonth = function getISOLocalMonth(value) {
+  if (!value) {
+    return value;
+  }
+
+  if (!(value instanceof Date)) {
+    throw new Error('Invalid date: ' + value);
+  }
+
+  var year = (0, _dates.getYear)(value);
+  var month = ('0' + getMonth(value)).slice(-2);
+
+  return year + '-' + month;
 };
 
 /**
@@ -56,9 +50,9 @@ var getISOLocalDate = exports.getISOLocalDate = function getISOLocalDate(value) 
     throw new Error('Invalid date: ' + value);
   }
 
-  var year = getYear(value);
-  var month = ('0' + (getMonthIndex(value) + 1)).slice(-2);
-  var day = ('0' + getDay(value)).slice(-2);
+  var year = (0, _dates.getYear)(value);
+  var month = ('0' + getMonth(value)).slice(-2);
+  var day = ('0' + (0, _dates.getDay)(value)).slice(-2);
 
   return year + '-' + month + '-' + day;
 };
