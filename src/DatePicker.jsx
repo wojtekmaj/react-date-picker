@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/src/Calendar.less';
-import { isCalendarType, isMaxDate, isMinDate, isValue } from 'react-calendar/src/shared/propTypes';
 
 import detectElementOverflow from 'detect-element-overflow';
 
@@ -11,8 +10,9 @@ import './DatePicker.less';
 
 import DateInput from './DateInput';
 
-import { setLocale } from './shared/locales';
 import { formatDate } from './shared/dateFormatter';
+import { setLocale } from './shared/locales';
+import { isCalendarType, isMaxDate, isMinDate, isValue } from './shared/propTypes';
 
 const allViews = ['century', 'decade', 'year', 'month'];
 

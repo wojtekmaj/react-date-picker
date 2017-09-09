@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isMaxDate, isMinDate } from 'react-calendar/src/shared/propTypes';
 
 import { formatDate } from './shared/dateFormatter';
 import {
@@ -11,6 +10,7 @@ import {
   getMonth,
   getYear,
 } from './shared/dates';
+import { isMaxDate, isMinDate } from './shared/propTypes';
 
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
