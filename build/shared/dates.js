@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getISOLocalDate = exports.getISOLocalMonth = exports.getMonth = exports.getDaysInMonth = exports.getDay = exports.getMonthIndex = exports.getYear = undefined;
+exports.getISOLocalDate = exports.getISOLocalMonth = exports.getMonth = exports.getEnd = exports.getBegin = exports.getDaysInMonth = exports.getDay = exports.getMonthIndex = exports.getYear = undefined;
 
 var _dates = require('react-calendar/src/shared/dates');
 
@@ -11,6 +11,8 @@ exports.getYear = _dates.getYear;
 exports.getMonthIndex = _dates.getMonthIndex;
 exports.getDay = _dates.getDay;
 exports.getDaysInMonth = _dates.getDaysInMonth;
+exports.getBegin = _dates.getBegin;
+exports.getEnd = _dates.getEnd;
 
 /* Simple getters - getting a property of a given point in time */
 

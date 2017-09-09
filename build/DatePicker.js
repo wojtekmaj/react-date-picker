@@ -101,8 +101,10 @@ var DatePicker = function (_Component) {
         isOpen: !closeCalendar
       });
 
-      if (_this.props.onChange) {
-        _this.props.onChange(value);
+      var onChange = _this.props.onChange;
+
+      if (onChange) {
+        onChange(value);
       }
     }, _this.onFocus = function () {
       _this.blurRequested = false;
@@ -145,6 +147,7 @@ var DatePicker = function (_Component) {
           maxDate = _props.maxDate,
           maxDetail = _props.maxDetail,
           minDate = _props.minDate,
+          returnValue = _props.returnValue,
           value = _props.value;
 
       var _concat = [].concat(value),
@@ -160,6 +163,7 @@ var DatePicker = function (_Component) {
           minDate: minDate,
           onChange: this.onChange,
           placeholder: this.placeholder,
+          returnValue: returnValue,
           value: valueFrom
         }),
         _react2.default.createElement(
@@ -276,7 +280,7 @@ DatePicker.propTypes = {
   onClickYear: _propTypes2.default.func,
   prev2Label: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.node]),
   prevLabel: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.node]),
-  returnValue: _propTypes2.default.oneOf(['start', 'end', 'range']).isRequired,
+  returnValue: _propTypes2.default.oneOf(['start', 'end']).isRequired,
   showNeighboringMonth: _propTypes2.default.bool,
   showWeekNumbers: _propTypes2.default.bool,
   value: _propTypes3.isValue

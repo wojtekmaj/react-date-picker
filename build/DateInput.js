@@ -125,15 +125,9 @@ var DateInput = function (_Component) {
       }
 
       if (form.checkValidity()) {
-        var _this$props = _this.props,
-            minDate = _this$props.minDate,
-            maxDate = _this$props.maxDate;
-        // @TODO: For returnValue set to "end", return year's/month's end.
-
         var proposedValue = new Date(values.year, values.month - 1 || 0, values.day || 1);
-        var value = new Date(between(proposedValue.getTime(), minDate && minDate.getTime(), maxDate && maxDate.getTime()));
-        _this.props.onChange(value, false // Prevent closing the calendar
-        );
+        var processedValue = _this.getProcessedValue(proposedValue);
+        _this.props.onChange(processedValue);
       }
     }, _this.onKeyDown = function (event) {
       if (event.key === _this.divider) {
@@ -164,6 +158,50 @@ var DateInput = function (_Component) {
   }
 
   (0, _createClass3.default)(DateInput, [{
+    key: 'getValueFrom',
+    value: function getValueFrom(value) {
+      if (!value) {
+        return value;
+      }
+      var minDate = this.props.minDate;
+
+      var rawValueFrom = value instanceof Array ? value[0] : value;
+      var valueFrom = (0, _dates.getBegin)(this.valueType, rawValueFrom);
+      return minDate && minDate > valueFrom ? minDate : valueFrom;
+    }
+  }, {
+    key: 'getValueTo',
+    value: function getValueTo(value) {
+      if (!value) {
+        return value;
+      }
+      var maxDate = this.props.maxDate;
+
+      var rawValueFrom = value instanceof Array ? value[1] : value;
+      var valueTo = (0, _dates.getEnd)(this.valueType, rawValueFrom);
+      return maxDate && maxDate < valueTo ? maxDate : valueTo;
+    }
+
+    /**
+     * Gets current value in a desired format.
+     */
+
+  }, {
+    key: 'getProcessedValue',
+    value: function getProcessedValue(value) {
+      var returnValue = this.props.returnValue;
+
+
+      switch (returnValue) {
+        case 'start':
+          return this.getValueFrom(value);
+        case 'end':
+          return this.getValueTo(value);
+        default:
+          throw new Error('Invalid returnValue.');
+      }
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.updateValues();
@@ -486,5 +524,6 @@ DateInput.propTypes = {
   minDate: _propTypes3.isMinDate,
   onChange: _propTypes2.default.func.isRequired,
   placeholder: _propTypes2.default.string.isRequired,
+  returnValue: _propTypes2.default.oneOf(['start', 'end']).isRequired,
   value: _propTypes2.default.instanceOf(Date)
 };
