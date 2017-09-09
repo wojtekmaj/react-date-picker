@@ -50,8 +50,9 @@ export default class DatePicker extends Component {
       isOpen: !closeCalendar,
     });
 
-    if (this.props.onChange) {
-      this.props.onChange(value);
+    const { onChange } = this.props;
+    if (onChange) {
+      onChange(value);
     }
   }
 
@@ -92,6 +93,7 @@ export default class DatePicker extends Component {
       maxDate,
       maxDetail,
       minDate,
+      returnValue,
       value,
     } = this.props;
 
@@ -105,6 +107,7 @@ export default class DatePicker extends Component {
           minDate={minDate}
           onChange={this.onChange}
           placeholder={this.placeholder}
+          returnValue={returnValue}
           value={valueFrom}
         />
         <button
@@ -199,7 +202,7 @@ DatePicker.propTypes = {
   onClickYear: PropTypes.func,
   prev2Label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   prevLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  returnValue: PropTypes.oneOf(['start', 'end', 'range']).isRequired,
+  returnValue: PropTypes.oneOf(['start', 'end']).isRequired,
   showNeighboringMonth: PropTypes.bool,
   showWeekNumbers: PropTypes.bool,
   value: isValue,

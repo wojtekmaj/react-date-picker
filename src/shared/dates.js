@@ -3,6 +3,8 @@ import {
   getMonthIndex,
   getDay,
   getDaysInMonth,
+  getBegin,
+  getEnd,
 } from 'react-calendar/src/shared/dates';
 
 export {
@@ -10,6 +12,8 @@ export {
   getMonthIndex,
   getDay,
   getDaysInMonth,
+  getBegin,
+  getEnd,
 };
 
 /* Simple getters - getting a property of a given point in time */

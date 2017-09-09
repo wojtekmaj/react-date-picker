@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 import { formatDate } from './shared/dateFormatter';
 import {
+  getBegin,
   getDay,
   getDaysInMonth,
+  getEnd,
   getISOLocalDate,
   getISOLocalMonth,
   getMonth,
@@ -35,6 +37,50 @@ const between = (value, minValue = -Infinity, maxValue = Infinity) =>
   Math.min(Math.max(value, minValue), maxValue);
 
 export default class DateInput extends Component {
+  getValueFrom(value) {
+    if (!value) {
+      return value;
+    }
+    const { minDate } = this.props;
+    const rawValueFrom = value instanceof Array ? value[0] : value;
+    const valueFrom = getBegin(this.valueType, rawValueFrom);
+    return (
+      minDate && minDate > valueFrom ?
+        minDate :
+        valueFrom
+    );
+  }
+
+  getValueTo(value) {
+    if (!value) {
+      return value;
+    }
+    const { maxDate } = this.props;
+    const rawValueFrom = value instanceof Array ? value[1] : value;
+    const valueTo = getEnd(this.valueType, rawValueFrom);
+    return (
+      maxDate && maxDate < valueTo ?
+        maxDate :
+        valueTo
+    );
+  }
+
+  /**
+   * Gets current value in a desired format.
+   */
+  getProcessedValue(value) {
+    const { returnValue } = this.props;
+
+    switch (returnValue) {
+      case 'start':
+        return this.getValueFrom(value);
+      case 'end':
+        return this.getValueTo(value);
+      default:
+        throw new Error('Invalid returnValue.');
+    }
+  }
+
   state = {
     year: '',
     month: '',
@@ -208,16 +254,9 @@ export default class DateInput extends Component {
     }
 
     if (form.checkValidity()) {
-      const { minDate, maxDate } = this.props;
-      // @TODO: For returnValue set to "end", return year's/month's end.
       const proposedValue = new Date(values.year, values.month - 1 || 0, values.day || 1);
-      const value = new Date(between(
-        proposedValue.getTime(), minDate && minDate.getTime(), maxDate && maxDate.getTime(),
-      ));
-      this.props.onChange(
-        value,
-        false, // Prevent closing the calendar
-      );
+      const processedValue = this.getProcessedValue(proposedValue);
+      this.props.onChange(processedValue);
     }
   }
 
@@ -379,5 +418,6 @@ DateInput.propTypes = {
   minDate: isMinDate,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
+  returnValue: PropTypes.oneOf(['start', 'end']).isRequired,
   value: PropTypes.instanceOf(Date),
 };
