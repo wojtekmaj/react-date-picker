@@ -20,6 +20,8 @@ export const getYear = (date) => {
 
 export const getMonthIndex = date => date.getMonth();
 
+export const getMonth = date => date.getMonth() + 1;
+
 export const getDay = date => date.getDate();
 
 /* Complex getters - getting a property somehow related to a given point in time */
@@ -33,6 +35,24 @@ export const getDaysInMonth = (date) => {
   const year = getYear(date);
   const monthIndex = getMonthIndex(date);
   return new Date(year, monthIndex + 1, 0).getDate();
+};
+
+/**
+ * Returns local month in ISO-like format (YYYY-MM).
+ */
+export const getISOLocalMonth = (value) => {
+  if (!value) {
+    return value;
+  }
+
+  if (!(value instanceof Date)) {
+    throw new Error(`Invalid date: ${value}`);
+  }
+
+  const year = getYear(value);
+  const month = `0${getMonthIndex(value) + 1}`.slice(-2);
+
+  return `${year}-${month}`;
 };
 
 /**

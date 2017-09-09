@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isMaxDate, isMinDate } from 'react-calendar/src/shared/propTypes';
 
 import { formatDate } from './shared/dateFormatter';
-import { getDaysInMonth, getISOLocalDate } from './shared/dates';
+import {
+  getDay,
+  getDaysInMonth,
+  getISOLocalDate,
+  getISOLocalMonth,
+  getMonth,
+  getYear,
+} from './shared/dates';
+
+const allViews = ['century', 'decade', 'year', 'month'];
+const allValueTypes = [...allViews.slice(1), 'day'];
 
 const updateInputWidth = (element) => {
   const span = document.createElement('span');
@@ -17,6 +28,11 @@ const updateInputWidth = (element) => {
 
   container.removeChild(span);
 };
+
+const min = (...args) => Math.min(...args.filter(a => typeof a === 'number'));
+const max = (...args) => Math.max(...args.filter(a => typeof a === 'number'));
+const between = (value, minValue = -Infinity, maxValue = Infinity) =>
+  Math.min(Math.max(value, minValue), maxValue);
 
 export default class DateInput extends Component {
   state = {
@@ -38,6 +54,101 @@ export default class DateInput extends Component {
     ) {
       this.updateValues(nextProps);
     }
+  }
+
+  get maxDay() {
+    const { maxDate } = this.props;
+    const { month, year } = this.state;
+    return min(
+      this.currentMonthMaxDays,
+      maxDate && year === getYear(maxDate) && month === getMonth(maxDate) && getDay(maxDate),
+    );
+  }
+
+  get minDay() {
+    const { minDate } = this.props;
+    const { month, year } = this.state;
+    return max(
+      1, minDate && year === getYear(minDate) && month === getMonth(minDate) && getDay(minDate),
+    );
+  }
+
+  get day() {
+    return between(this.state.day, this.minDay, this.maxDay);
+  }
+
+  get maxMonth() {
+    const { maxDate } = this.props;
+    const { year } = this.state;
+    return min(12, maxDate && year === getYear(maxDate) && getMonth(maxDate));
+  }
+
+  get minMonth() {
+    const { minDate } = this.props;
+    const { year } = this.state;
+    return max(1, minDate && year === getYear(minDate) && getMonth(minDate));
+  }
+
+  get month() {
+    return between(this.state.month, this.minMonth, this.maxMonth);
+  }
+
+  get maxYear() {
+    const { maxDate } = this.props;
+    return maxDate ? getYear(maxDate) : null;
+  }
+
+  get minYear() {
+    const { minDate } = this.props;
+    return max(1000, minDate && getYear(minDate));
+  }
+
+  get year() {
+    return between(this.state.year, this.minYear, this.maxYear);
+  }
+
+  /**
+   * Returns value type that can be returned with currently applied settings.
+   */
+  get valueType() {
+    const { maxDetail } = this.props;
+    return allValueTypes[allViews.indexOf(maxDetail)];
+  }
+
+  get nativeInputType() {
+    switch (this.valueType) {
+      case 'decade':
+      case 'year':
+        return 'number';
+      case 'month':
+        return 'month';
+      case 'day':
+        return 'date';
+      default:
+        throw new Error('Invalid maxDetail.');
+    }
+  }
+
+  get nativeValueParser() {
+    switch (this.valueType) {
+      case 'century':
+      case 'decade':
+      case 'year':
+        return getYear;
+      case 'month':
+        return getISOLocalMonth;
+      case 'day':
+        return getISOLocalDate;
+      default:
+        throw new Error('Invalid maxDetail.');
+    }
+  }
+
+  get yearStep() {
+    if (this.valueType === 'century') {
+      return 10;
+    }
+    return 1;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -77,9 +188,9 @@ export default class DateInput extends Component {
     const { value } = props;
 
     this.setState({
-      year: value ? value.getFullYear() : '',
-      month: value ? value.getMonth() + 1 : '',
-      day: value ? value.getDate() : '',
+      year: value ? getYear(value) : '',
+      month: value ? getMonth(value) : '',
+      day: value ? getDay(value) : '',
     });
   }
 
@@ -97,8 +208,14 @@ export default class DateInput extends Component {
     }
 
     if (form.checkValidity()) {
+      const { minDate, maxDate } = this.props;
+      // @TODO: For returnValue set to "end", return year's/month's end.
+      const proposedValue = new Date(values.year, values.month - 1 || 0, values.day || 1);
+      const value = new Date(between(
+        proposedValue.getTime(), minDate && minDate.getTime(), maxDate && maxDate.getTime(),
+      ));
       this.props.onChange(
-        new Date(values.year, values.month - 1, values.day),
+        value,
         false, // Prevent closing the calendar
       );
     }
@@ -132,48 +249,60 @@ export default class DateInput extends Component {
     this.props.onChange(new Date(value));
   }
 
+  stopPropagation = event => event.stopPropagation()
+
   renderDay() {
-    const { day } = this.state;
+    const { maxDetail } = this.props;
+
+    // Do not display if maxDetail is "year" or less
+    if (allViews.indexOf(maxDetail) < 3) {
+      return null;
+    }
 
     return (
       <input
         className="react-date-picker__button__input__day"
         name="day"
         key="day"
-        min={1}
-        max={this.currentMonthMaxDays}
-        value={day}
+        max={this.maxDay}
+        min={this.minDay}
+        value={this.day}
         {...this.commonInputProps}
       />
     );
   }
 
   renderMonth() {
-    const { month } = this.state;
+    const { maxDetail } = this.props;
+
+    // Do not display if maxDetail is "decade" or less
+    if (allViews.indexOf(maxDetail) < 2) {
+      return null;
+    }
 
     return (
       <input
         className="react-date-picker__button__input__month"
         name="month"
         key="month"
-        min={1}
-        max={12}
-        value={month}
+        max={this.maxMonth}
+        min={this.minMonth}
+        value={this.month}
         {...this.commonInputProps}
       />
     );
   }
 
   renderYear() {
-    const { year } = this.state;
-
     return (
       <input
         className="react-date-picker__button__input__year"
         name="year"
         key="year"
-        min={1000}
-        value={year}
+        max={this.maxYear}
+        min={this.minYear}
+        step={this.yearStep}
+        value={this.year}
         {...this.commonInputProps}
       />
     );
@@ -194,6 +323,7 @@ export default class DateInput extends Component {
             default: return null;
           }
         })
+        .filter(part => part)
         .reduce((result, element, index, array) => {
           result.push(element);
 
@@ -207,19 +337,24 @@ export default class DateInput extends Component {
   }
 
   renderNativeInput() {
-    const { value } = this.props;
+    const { nativeValueParser } = this;
+    const { maxDate, minDate, value } = this.props;
 
     return (
       <input
-        type="date"
+        type={this.nativeInputType}
+        max={minDate ? nativeValueParser(maxDate) : null}
+        min={minDate ? nativeValueParser(minDate) : null}
         onChange={this.onChangeNative}
+        onFocus={this.stopPropagation}
+        step={this.yearStep}
         style={{
           visibility: 'hidden',
           position: 'absolute',
           top: '-9999px',
           left: '-9999px',
         }}
-        value={value ? getISOLocalDate(value) : ''}
+        value={value ? nativeValueParser(value) : ''}
       />
     );
   }
@@ -239,6 +374,9 @@ export default class DateInput extends Component {
 
 DateInput.propTypes = {
   locale: PropTypes.string,
+  maxDate: isMaxDate,
+  maxDetail: PropTypes.oneOf(allViews).isRequired,
+  minDate: isMinDate,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.instanceOf(Date),

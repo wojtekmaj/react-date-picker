@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/src/Calendar.less';
+import { isCalendarType, isMaxDate, isMinDate, isValue } from 'react-calendar/src/shared/propTypes';
 
 import detectElementOverflow from 'detect-element-overflow';
 
@@ -12,11 +13,8 @@ import DateInput from './DateInput';
 
 import { setLocale } from './shared/locales';
 import { formatDate } from './shared/dateFormatter';
-import {
-  isCalendarType,
-  isMaxDate,
-  isMinDate,
-} from './shared/propTypes';
+
+const allViews = ['century', 'decade', 'year', 'month'];
 
 export default class DatePicker extends Component {
   state = {
@@ -90,14 +88,24 @@ export default class DatePicker extends Component {
   stopPropagation = event => event.stopPropagation()
 
   renderInput() {
-    const { value } = this.props;
+    const {
+      maxDate,
+      maxDetail,
+      minDate,
+      value,
+    } = this.props;
+
+    const [valueFrom] = [].concat(value);
 
     return (
       <div className="react-date-picker__button">
         <DateInput
+          maxDate={maxDate}
+          maxDetail={maxDetail}
+          minDate={minDate}
           onChange={this.onChange}
           placeholder={this.placeholder}
-          value={value}
+          value={valueFrom}
         />
         <button
           className="react-date-picker__button__icon"
@@ -124,12 +132,8 @@ export default class DatePicker extends Component {
     }
 
     const {
-      calendarType,
-      locale,
-      maxDate,
-      minDate,
-      showWeekNumbers,
-      value,
+      onChange,
+      ...calendarProps
     } = this.props;
 
     const className = 'react-date-picker__calendar';
@@ -152,13 +156,8 @@ export default class DatePicker extends Component {
         }}
       >
         <Calendar
-          calendarType={calendarType}
-          locale={locale}
-          maxDate={maxDate}
-          minDate={minDate}
           onChange={this.onChange}
-          showWeekNumbers={showWeekNumbers}
-          value={value}
+          {...calendarProps}
         />
       </div>
     );
@@ -178,13 +177,30 @@ export default class DatePicker extends Component {
   }
 }
 
+DatePicker.defaultProps = {
+  maxDetail: 'month',
+  returnValue: 'start',
+};
+
 DatePicker.propTypes = {
   calendarType: isCalendarType,
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDate: isMaxDate,
+  maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
+  minDetail: PropTypes.oneOf(allViews),
+  next2Label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  nextLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   onChange: PropTypes.func,
+  onClickDay: PropTypes.func,
+  onClickDecade: PropTypes.func,
+  onClickMonth: PropTypes.func,
+  onClickYear: PropTypes.func,
+  prev2Label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  prevLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  returnValue: PropTypes.oneOf(['start', 'end', 'range']).isRequired,
+  showNeighboringMonth: PropTypes.bool,
   showWeekNumbers: PropTypes.bool,
-  value: PropTypes.instanceOf(Date),
+  value: isValue,
 };
