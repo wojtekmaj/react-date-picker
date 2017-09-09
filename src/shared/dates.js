@@ -33,7 +33,7 @@ export const getISOLocalMonth = (value) => {
   }
 
   const year = getYear(value);
-  const month = `0${getMonthIndex(value) + 1}`.slice(-2);
+  const month = `0${getMonth(value)}`.slice(-2);
 
   return `${year}-${month}`;
 };
