@@ -61,6 +61,7 @@ export default class DateInput extends Component {
     return {
       type: 'number',
       onChange: this.onChange,
+      onKeyDown: this.onKeyDown,
       required: true,
       ref: (ref) => {
         if (!ref) {
@@ -100,6 +101,20 @@ export default class DateInput extends Component {
         new Date(values.year, values.month - 1, values.day),
         false, // Prevent closing the calendar
       );
+    }
+  }
+
+  onKeyDown = (event) => {
+    if (event.key === this.divider) {
+      event.preventDefault();
+
+      const input = event.target;
+      const nextInput = input.nextElementSibling;
+
+      if (nextInput) {
+        nextInput.focus();
+        nextInput.select();
+      }
     }
   }
 
@@ -173,9 +188,9 @@ export default class DateInput extends Component {
         .split(divider)
         .map((part) => {
           switch (part) {
-            case 'DD': return this.renderDay();
-            case 'MM': return this.renderMonth();
-            case 'YYYY': return this.renderYear();
+            case 'day': return this.renderDay();
+            case 'month': return this.renderMonth();
+            case 'year': return this.renderYear();
             default: return null;
           }
         })
@@ -213,9 +228,9 @@ export default class DateInput extends Component {
     return (
       <div className="react-date-picker__button__input">
         <form onSubmit={this.onSubmit}>
-          {this.renderCustomInputs()}
-          {this.renderNativeInput()}
           <button type="submit" style={{ display: 'none' }} />
+          {this.renderNativeInput()}
+          {this.renderCustomInputs()}
         </form>
       </div>
     );

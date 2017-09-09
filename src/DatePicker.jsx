@@ -63,9 +63,9 @@ export default class DatePicker extends Component {
 
     return (
       formatDate(date)
-        .replace('2017', 'YYYY')
-        .replace('12', 'MM')
-        .replace('11', 'DD')
+        .replace('2017', 'year')
+        .replace('12', 'month')
+        .replace('11', 'day')
     );
   }
 
