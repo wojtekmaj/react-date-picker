@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { isValue } from '../src/shared/propTypes';
 import { getISOLocalDate } from '../src/shared/dates';
 
 export default class ValueOptions extends Component {
@@ -44,5 +43,8 @@ export default class ValueOptions extends Component {
 
 ValueOptions.propTypes = {
   setState: PropTypes.func.isRequired,
-  value: isValue,
+  value: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  ]),
 };

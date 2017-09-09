@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-date-picker/src/entry';
 
+import DateBonduariesOptions from './DateBonduariesOptions';
+import MaxDetailOptions from './MaxDetailOptions';
+import MinDetailOptions from './MinDetailOptions';
 import LocaleOptions from './LocaleOptions';
 import ValueOptions from './ValueOptions';
+import ViewOptions from './ViewOptions';
 
 import './Test.less';
 
@@ -11,6 +15,13 @@ const now = new Date();
 export default class Test extends Component {
   state = {
     locale: null,
+    maxDate: new Date(now.getUTCFullYear(), now.getUTCMonth() + 1, 15, 12),
+    maxDetail: 'month',
+    minDate: new Date(1995, now.getUTCMonth() + 1, 15, 12),
+    minDetail: 'century',
+    returnValue: 'start',
+    showNeighboringMonth: false,
+    showWeekNumbers: false,
     value: now,
   }
 
@@ -19,6 +30,13 @@ export default class Test extends Component {
   render() {
     const {
       locale,
+      maxDate,
+      maxDetail,
+      minDate,
+      minDetail,
+      returnValue,
+      showNeighboringMonth,
+      showWeekNumbers,
       value,
     } = this.state;
 
@@ -31,6 +49,21 @@ export default class Test extends Component {
         </header>
         <div className="Test__container">
           <aside className="Test__container__options">
+            <MinDetailOptions
+              maxDetail={maxDetail}
+              minDetail={minDetail}
+              setState={setState}
+            />
+            <MaxDetailOptions
+              maxDetail={maxDetail}
+              minDetail={minDetail}
+              setState={setState}
+            />
+            <DateBonduariesOptions
+              maxDate={maxDate}
+              minDate={minDate}
+              setState={setState}
+            />
             <LocaleOptions
               setState={setState}
               locale={locale}
@@ -39,11 +72,23 @@ export default class Test extends Component {
               setState={setState}
               value={value}
             />
+            <ViewOptions
+              setState={setState}
+              showNeighboringMonth={showNeighboringMonth}
+              showWeekNumbers={showWeekNumbers}
+            />
           </aside>
           <main className="Test__container__content">
             <DatePicker
               locale={locale}
+              maxDate={maxDate}
+              maxDetail={maxDetail}
+              minDate={minDate}
+              minDetail={minDetail}
               onChange={this.onChange}
+              returnValue={returnValue}
+              showNeighboringMonth={showNeighboringMonth}
+              showWeekNumbers={showWeekNumbers}
               value={value}
             />
           </main>
