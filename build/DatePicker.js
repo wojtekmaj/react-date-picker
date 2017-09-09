@@ -231,7 +231,7 @@ var DatePicker = function (_Component) {
     get: function get() {
       var date = new Date(2017, 11, 11);
 
-      return (0, _dateFormatter.formatDate)(date).replace('2017', 'YYYY').replace('12', 'MM').replace('11', 'DD');
+      return (0, _dateFormatter.formatDate)(date).replace('2017', 'year').replace('12', 'month').replace('11', 'day');
     }
   }]);
   return DatePicker;

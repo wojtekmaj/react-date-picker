@@ -95,6 +95,18 @@ var DateInput = function (_Component) {
         _this.props.onChange(new Date(values.year, values.month - 1, values.day), false // Prevent closing the calendar
         );
       }
+    }, _this.onKeyDown = function (event) {
+      if (event.key === _this.divider) {
+        event.preventDefault();
+
+        var input = event.target;
+        var nextInput = input.nextElementSibling;
+
+        if (nextInput) {
+          nextInput.focus();
+          nextInput.select();
+        }
+      }
     }, _this.onChange = function (event) {
       _this.setState((0, _defineProperty3.default)({}, event.target.name, event.target.value));
 
@@ -195,11 +207,11 @@ var DateInput = function (_Component) {
 
       return placeholder.split(divider).map(function (part) {
         switch (part) {
-          case 'DD':
+          case 'day':
             return _this2.renderDay();
-          case 'MM':
+          case 'month':
             return _this2.renderMonth();
-          case 'YYYY':
+          case 'year':
             return _this2.renderYear();
           default:
             return null;
@@ -241,9 +253,9 @@ var DateInput = function (_Component) {
         _react2.default.createElement(
           'form',
           { onSubmit: this.onSubmit },
-          this.renderCustomInputs(),
+          _react2.default.createElement('button', { type: 'submit', style: { display: 'none' } }),
           this.renderNativeInput(),
-          _react2.default.createElement('button', { type: 'submit', style: { display: 'none' } })
+          this.renderCustomInputs()
         )
       );
     }
@@ -272,6 +284,7 @@ var DateInput = function (_Component) {
       return {
         type: 'number',
         onChange: this.onChange,
+        onKeyDown: this.onKeyDown,
         required: true,
         ref: function ref(_ref2) {
           if (!_ref2) {
