@@ -69,6 +69,9 @@ var updateInputWidth = function updateInputWidth(element) {
   container.removeChild(span);
 };
 
+var isDefined = function isDefined(value) {
+  return typeof value !== 'undefined' && value !== null;
+};
 var min = function min() {
   for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
@@ -87,10 +90,15 @@ var max = function max() {
     return typeof a === 'number';
   })));
 };
-var between = function between(value) {
-  var minValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -Infinity;
-  var maxValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Infinity;
-  return Math.min(Math.max(value, minValue), maxValue);
+var between = function between(value, minValue, maxValue) {
+  if (isDefined(minValue) && isDefined(maxValue)) {
+    return Math.min(Math.max(value, minValue), maxValue);
+  } else if (isDefined(minValue)) {
+    return Math.max(value, minValue);
+  } else if (isDefined(maxValue)) {
+    return Math.min(value, maxValue);
+  }
+  return value;
 };
 
 var DateInput = function (_Component) {
