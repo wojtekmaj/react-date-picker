@@ -31,10 +31,19 @@ const updateInputWidth = (element) => {
   container.removeChild(span);
 };
 
+const isDefined = value => (typeof value !== 'undefined' && value !== null);
 const min = (...args) => Math.min(...args.filter(a => typeof a === 'number'));
 const max = (...args) => Math.max(...args.filter(a => typeof a === 'number'));
-const between = (value, minValue = -Infinity, maxValue = Infinity) =>
-  Math.min(Math.max(value, minValue), maxValue);
+const between = (value, minValue, maxValue) => {
+  if (isDefined(minValue) && isDefined(maxValue)) {
+    return Math.min(Math.max(value, minValue), maxValue);
+  } else if (isDefined(minValue)) {
+    return Math.max(value, minValue);
+  } else if (isDefined(maxValue)) {
+    return Math.min(value, maxValue);
+  }
+  return value;
+};
 
 export default class DateInput extends Component {
   getValueFrom(value) {
