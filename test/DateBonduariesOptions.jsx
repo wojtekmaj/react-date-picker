@@ -7,13 +7,13 @@ export default class DateBonduariesOptions extends Component {
   onMinChange = (event) => {
     const { value } = event.target;
 
-    this.props.setState({ minDate: new Date(value) });
+    this.props.setState({ minDate: value ? new Date(value) : null });
   }
 
   onMaxChange = (event) => {
     const { value } = event.target;
 
-    this.props.setState({ maxDate: new Date(value) });
+    this.props.setState({ maxDate: value ? new Date(value) : null });
   }
 
   render() {
