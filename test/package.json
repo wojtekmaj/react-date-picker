@@ -1,6 +1,6 @@
 {
   "name": "react-date-picker-test-page",
-  "version": "0.6.2-alpha",
+  "version": "0.6.3-alpha",
   "description": "A test page for React-Date-Picker.",
   "scripts": {
     "build": "webpack",
