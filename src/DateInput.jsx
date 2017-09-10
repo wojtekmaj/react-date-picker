@@ -201,7 +201,11 @@ export default class DateInput extends Component {
   get divider() {
     const date = new Date(2017, 11, 11);
 
-    return formatDate(date).match(/[^0-9]/)[0];
+    return formatDate(date)
+      .split('')
+      .filter(a => a.charCodeAt(0) !== 8206)
+      .join('')
+      .match(/[^0-9]/)[0];
   }
 
   get currentMonthMaxDays() {
@@ -353,6 +357,9 @@ export default class DateInput extends Component {
 
     return (
       placeholder
+        .split('')
+        .filter(a => a.charCodeAt(0) !== 8206)
+        .join('')
         .split(divider)
         .map((part) => {
           switch (part) {

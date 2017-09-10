@@ -291,7 +291,9 @@ var DateInput = function (_Component) {
       var placeholder = this.props.placeholder;
 
 
-      return placeholder.split(divider).map(function (part) {
+      return placeholder.split('').filter(function (a) {
+        return a.charCodeAt(0) !== 8206;
+      }).join('').split(divider).map(function (part) {
         switch (part) {
           case 'day':
             return _this2.renderDay();
@@ -479,7 +481,9 @@ var DateInput = function (_Component) {
     get: function get() {
       var date = new Date(2017, 11, 11);
 
-      return (0, _dateFormatter.formatDate)(date).match(/[^0-9]/)[0];
+      return (0, _dateFormatter.formatDate)(date).split('').filter(function (a) {
+        return a.charCodeAt(0) !== 8206;
+      }).join('').match(/[^0-9]/)[0];
     }
   }, {
     key: 'currentMonthMaxDays',
