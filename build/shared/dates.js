@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getISOLocalDate = exports.getISOLocalMonth = exports.getMonth = exports.getEnd = exports.getBegin = exports.getDaysInMonth = exports.getDay = exports.getMonthIndex = exports.getYear = undefined;
 
-var _dates = require('react-calendar/src/shared/dates');
+var _dates = require('react-calendar/build/shared/dates');
 
 exports.getYear = _dates.getYear;
 exports.getMonthIndex = _dates.getMonthIndex;

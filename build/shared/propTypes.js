@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.isValue = exports.isMinDate = exports.isMaxDate = exports.isCalendarType = undefined;
 
-var _propTypes = require('react-calendar/src/shared/propTypes');
+var _propTypes = require('react-calendar/build/shared/propTypes');
 
 exports.isCalendarType = _propTypes.isCalendarType;
 exports.isMaxDate = _propTypes.isMaxDate;

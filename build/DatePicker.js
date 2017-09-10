@@ -48,7 +48,7 @@ var _reactCalendar = require('react-calendar');
 
 var _reactCalendar2 = _interopRequireDefault(_reactCalendar);
 
-require('react-calendar/src/Calendar.less');
+require('react-calendar/build/Calendar.less');
 
 var _detectElementOverflow = require('detect-element-overflow');
 
