@@ -5,7 +5,7 @@ import {
   getDaysInMonth,
   getBegin,
   getEnd,
-} from 'react-calendar/src/shared/dates';
+} from 'react-calendar/build/shared/dates';
 
 export {
   getYear,

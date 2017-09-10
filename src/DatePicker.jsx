@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Calendar from 'react-calendar';
-import 'react-calendar/src/Calendar.less';
+import 'react-calendar/build/Calendar.less';
 
 import detectElementOverflow from 'detect-element-overflow';
 

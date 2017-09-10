@@ -3,7 +3,7 @@ import {
   isMaxDate,
   isMinDate,
   isValue,
-} from 'react-calendar/src/shared/propTypes';
+} from 'react-calendar/build/shared/propTypes';
 
 export {
   isCalendarType,

@@ -1,7 +1,7 @@
 import {
   getLocale,
   setLocale,
-} from 'react-calendar/src/shared/locales';
+} from 'react-calendar/build/shared/locales';
 
 export {
   getLocale,
