@@ -6,9 +6,9 @@
 An input component for picking dates for your React application.
 
 ## tl;dr
-* Install by executing `npm install --save {NPM_NAME_GOES_HERE}`.
-* Import by adding `import DatePicker from '{NPM_NAME_GOES_HERE}'`.
-* Import styles by adding `import '{NPM_NAME_GOES_HERE}/build/DatePicker.less'` or style the calendar on your own.
+* Install by executing `npm install {PACKAGE_NAME_GOES_HERE}` or `yarn add {PACKAGE_NAME_GOES_HERE}`.
+* Import by adding `import DatePicker from '{PACKAGE_NAME_GOES_HERE}'`.
+* Import styles by adding `import '{PACKAGE_NAME_GOES_HERE}/build/DatePicker.less'` or style the calendar on your own.
 * Use by adding `<DatePicker />`. Use `onChange` prop for getting new values.
 
 ## Demo
@@ -18,12 +18,6 @@ Minimal demo page is included in sample directory.
 [Online demo](http://projekty.wojtekmaj.pl/react-date-picker/) is also available!
 
 ## Getting started
-
-### Prerequisites
-
-You'll need to have Node >= 4 on your machine.
-
-We strongly recommend to use Node >= 6 and npm >= 5 for faster installation speed and better disk usage.
 
 ### Compatibility
 
@@ -43,7 +37,7 @@ React-Calendar, on which React-Date-Picker relies heavily, uses modern web techn
 
 ### Installation
 
-Add React-Date-Picker to your project by executing `npm install --save {NPM_NAME_GOES_HERE}`.
+Add React-Date-Picker to your project by executing `npm install {PACKAGE_NAME_GOES_HERE}` or `yarn add {PACKAGE_NAME_GOES_HERE}`.
 
 ### Usage
 
@@ -51,7 +45,7 @@ Here's an example of basic usage:
 
 ```js
 import React, { Component } from 'react';
-import DatePicker from '{NPM_NAME_GOES_HERE}';
+import DatePicker from '{PACKAGE_NAME_GOES_HERE}';
 
 class MyApp extends Component {
   state = {
