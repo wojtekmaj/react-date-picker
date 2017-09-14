@@ -46,6 +46,7 @@ Here's an example of basic usage:
 ```js
 import React, { Component } from 'react';
 import DatePicker from '{PACKAGE_NAME_GOES_HERE}';
+import 'react-date-picker/build/DatePicker.less';
 
 class MyApp extends Component {
   state = {
