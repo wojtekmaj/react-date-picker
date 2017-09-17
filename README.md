@@ -21,7 +21,7 @@ Minimal demo page is included in sample directory.
 
 ### Compatibility
 
-React-Calendar, on which React-Date-Picker relies heavily, uses modern web technologies. That's why it's so fast, lightweight and easy to style. This, however, comes at a cost of supporting only modern browsers.
+[React-Calendar](https://github.com/wojtekmaj/react-calendar), on which React-Date-Picker relies heavily, uses modern web technologies. That's why it's so fast, lightweight and easy to style. This, however, comes at a cost of supporting only modern browsers.
 
 |Browser|Minimum supported version|
 |----|----|
@@ -34,6 +34,9 @@ React-Calendar, on which React-Date-Picker relies heavily, uses modern web techn
 |Internet Explorer|11|
 |Samsung Internet|4|
 
+#### Legacy browsers
+
+If you need to support legacy browsers like Internet Explorer 10, you will need to use [Intl.js](https://github.com/andyearnshaw/Intl.js/) or another Intl polyfill along with React-Calendar.
 
 ### Installation
 
