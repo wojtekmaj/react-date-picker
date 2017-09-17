@@ -3316,9 +3316,9 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"react-calendar@github:wojtekmaj/react-calendar#v1.1.0":
-  version "1.1.0"
-  resolved "https://codeload.github.com/wojtekmaj/react-calendar/tar.gz/e169909931212c42d3e8939d9dfdd142f67646dd"
+react-calendar@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.0.1.tgz#1b5e1e0a5d2671ee80e16bed1edd79fa945766c8"
   dependencies:
     lodash.once "^4.1.1"
     prop-types ">=15.5"
