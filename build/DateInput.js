@@ -4,37 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = require('babel-runtime/helpers/extends');
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = require('babel-runtime/helpers/createClass');
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = require('babel-runtime/helpers/inherits');
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -52,8 +24,18 @@ var _propTypes3 = require('./shared/propTypes');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var allViews = ['century', 'decade', 'year', 'month'];
-var allValueTypes = [].concat((0, _toConsumableArray3.default)(allViews.slice(1)), ['day']);
+var allValueTypes = [].concat(_toConsumableArray(allViews.slice(1)), ['day']);
 
 var updateInputWidth = function updateInputWidth(element) {
   var span = document.createElement('span');
@@ -77,7 +59,7 @@ var min = function min() {
     args[_key] = arguments[_key];
   }
 
-  return Math.min.apply(Math, (0, _toConsumableArray3.default)(args.filter(function (a) {
+  return Math.min.apply(Math, _toConsumableArray(args.filter(function (a) {
     return typeof a === 'number';
   })));
 };
@@ -86,7 +68,7 @@ var max = function max() {
     args[_key2] = arguments[_key2];
   }
 
-  return Math.max.apply(Math, (0, _toConsumableArray3.default)(args.filter(function (a) {
+  return Math.max.apply(Math, _toConsumableArray(args.filter(function (a) {
     return typeof a === 'number';
   })));
 };
@@ -102,20 +84,20 @@ var between = function between(value, minValue, maxValue) {
 };
 
 var DateInput = function (_Component) {
-  (0, _inherits3.default)(DateInput, _Component);
+  _inherits(DateInput, _Component);
 
   function DateInput() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    (0, _classCallCheck3.default)(this, DateInput);
+    _classCallCheck(this, DateInput);
 
     for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
       args[_key3] = arguments[_key3];
     }
 
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = DateInput.__proto__ || (0, _getPrototypeOf2.default)(DateInput)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateInput.__proto__ || Object.getPrototypeOf(DateInput)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       year: '',
       month: '',
       day: ''
@@ -150,7 +132,7 @@ var DateInput = function (_Component) {
         }
       }
     }, _this.onChange = function (event) {
-      _this.setState((0, _defineProperty3.default)({}, event.target.name, event.target.value));
+      _this.setState(_defineProperty({}, event.target.name, event.target.value));
 
       updateInputWidth(event.target);
 
@@ -162,10 +144,10 @@ var DateInput = function (_Component) {
       _this.props.onChange(new Date(value));
     }, _this.stopPropagation = function (event) {
       return event.stopPropagation();
-    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  (0, _createClass3.default)(DateInput, [{
+  _createClass(DateInput, [{
     key: 'getValueFrom',
     value: function getValueFrom(value) {
       if (!value) {
@@ -248,7 +230,7 @@ var DateInput = function (_Component) {
         return null;
       }
 
-      return _react2.default.createElement('input', (0, _extends3.default)({
+      return _react2.default.createElement('input', _extends({
         className: 'react-date-picker__button__input__day',
         name: 'day',
         key: 'day',
@@ -268,7 +250,7 @@ var DateInput = function (_Component) {
         return null;
       }
 
-      return _react2.default.createElement('input', (0, _extends3.default)({
+      return _react2.default.createElement('input', _extends({
         className: 'react-date-picker__button__input__month',
         name: 'month',
         key: 'month',
@@ -280,7 +262,7 @@ var DateInput = function (_Component) {
   }, {
     key: 'renderYear',
     value: function renderYear() {
-      return _react2.default.createElement('input', (0, _extends3.default)({
+      return _react2.default.createElement('input', _extends({
         className: 'react-date-picker__button__input__year',
         name: 'year',
         key: 'year',
@@ -523,6 +505,7 @@ var DateInput = function (_Component) {
       };
     }
   }]);
+
   return DateInput;
 }(_react.Component);
 

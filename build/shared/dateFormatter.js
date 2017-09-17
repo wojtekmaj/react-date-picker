@@ -5,13 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.formatMonthYear = exports.formatDate = undefined;
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
 var _locales = require('./locales');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var formatterCache = {};
 
@@ -22,7 +16,7 @@ var formatterCache = {};
 var getFormatter = function getFormatter(options) {
   var locales = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : (0, _locales.getLocale)();
 
-  var stringifiedOptions = (0, _stringify2.default)(options);
+  var stringifiedOptions = JSON.stringify(options);
 
   if (!formatterCache[locales]) {
     formatterCache[locales] = {};
