@@ -2,6 +2,7 @@
   "name": "react-date-picker-test-page",
   "version": "0.6.4-alpha",
   "description": "A test page for React-Date-Picker.",
+  "private": true,
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --config webpack.config.hot.js"

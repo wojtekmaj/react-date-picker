@@ -2,6 +2,7 @@
   "name": "react-date-picker-sample-page",
   "version": "0.6.4-alpha",
   "description": "A sample page for React-Date-Picker.",
+  "private": true,
   "scripts": {
     "build": "webpack"
   },
