@@ -186,7 +186,7 @@ export default class DateInput extends Component {
       case 'day':
         return 'date';
       default:
-        throw new Error('Invalid maxDetail.');
+        throw new Error('Invalid valueType.');
     }
   }
 
@@ -201,7 +201,7 @@ export default class DateInput extends Component {
       case 'day':
         return getISOLocalDate;
       default:
-        throw new Error('Invalid maxDetail.');
+        throw new Error('Invalid valueType.');
     }
   }
 
@@ -283,14 +283,16 @@ export default class DateInput extends Component {
 
     const values = {};
 
-    for (let i = 0; i < form.length; i += 1) {
+    for (let i = 2; i < form.length; i += 1) {
       values[form[i].name] = form[i].value;
     }
 
-    if (form.checkValidity()) {
+    if ([form[2], form[3], form[4]].every(formElement => formElement.checkValidity())) {
       const proposedValue = new Date(values.year, values.month - 1 || 0, values.day || 1);
       const processedValue = this.getProcessedValue(proposedValue);
-      this.props.onChange(processedValue);
+      if (this.props.onChange) {
+        this.props.onChange(processedValue, false);
+      }
     }
   }
 
@@ -319,7 +321,9 @@ export default class DateInput extends Component {
   onChangeNative = (event) => {
     const { value } = event.target;
 
-    this.props.onChange(new Date(value));
+    if (this.props.onChange) {
+      this.props.onChange(new Date(value));
+    }
   }
 
   stopPropagation = event => event.stopPropagation()
@@ -339,7 +343,7 @@ export default class DateInput extends Component {
         key="day"
         max={this.maxDay}
         min={this.minDay}
-        value={this.day}
+        value={this.state.day}
         {...this.commonInputProps}
       />
     );
@@ -360,7 +364,7 @@ export default class DateInput extends Component {
         key="month"
         max={this.maxMonth}
         min={this.minMonth}
-        value={this.month}
+        value={this.state.month}
         {...this.commonInputProps}
       />
     );
@@ -375,19 +379,19 @@ export default class DateInput extends Component {
         max={this.maxYear}
         min={this.minYear}
         step={this.yearStep}
-        value={this.year}
+        value={this.state.year}
         {...this.commonInputProps}
       />
     );
   }
 
   renderCustomInputs() {
-    const { divider } = this;
-    const { placeholder } = this.props;
+    const { divider, placeholder } = this;
 
     return (
       placeholder
         .split('')
+        // Internet Explorer specific
         .filter(a => a.charCodeAt(0) !== 8206)
         .join('')
         .split(divider)
@@ -421,6 +425,7 @@ export default class DateInput extends Component {
         type={this.nativeInputType}
         max={minDate ? nativeValueParser(maxDate) : null}
         min={minDate ? nativeValueParser(minDate) : null}
+        name="date"
         onChange={this.onChangeNative}
         onFocus={this.stopPropagation}
         step={this.yearStep}
@@ -458,7 +463,7 @@ DateInput.propTypes = {
   maxDate: isMaxDate,
   maxDetail: PropTypes.oneOf(allViews).isRequired,
   minDate: isMinDate,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   returnValue: PropTypes.oneOf(['start', 'end']).isRequired,
   value: PropTypes.instanceOf(Date),
 };
