@@ -427,6 +427,11 @@ export default class DateInput extends Component {
   }
 }
 
+DateInput.defaultProps = {
+  maxDetail: 'month',
+  returnValue: 'start',
+};
+
 DateInput.propTypes = {
   locale: PropTypes.string,
   maxDate: isMaxDate,
