@@ -24,7 +24,6 @@ export default class Sample extends Component {
           <main className="Sample__container__content">
             <DatePicker
               onChange={this.onChange}
-              showWeekNumbers
               value={value}
             />
           </main>
