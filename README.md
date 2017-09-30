@@ -5,10 +5,18 @@
 # React-Date-Picker
 An input component for picking dates for your React application.
 
+## Important message for React-Date-Picker ≤5 users
+
+Sadly, the authors of original React-Date-Picker ≤5 have abandoned the package. Because it lacked compatibility with React 16, the package would quickly become dead.
+
+In version 6 I aim to provide a solution that will suit everyone's needs. To make that happen, I need time and your help. Please don't hesitate to file an issues with bugs, suggestions, or simply telling me more about how *you* use react-date-picker. Your help will be invaluable!
+
+[Upgrade guide for React-Date-Picker ≤5 users](https://github.com/wojtekmaj/react-date-picker/wiki/Upgrade-guide-for-React-Date-Picker-≤5-users) is there to help you with the upgrade.
+
 ## tl;dr
-* Install by executing `npm install {PACKAGE_NAME_GOES_HERE}` or `yarn add {PACKAGE_NAME_GOES_HERE}`.
-* Import by adding `import DatePicker from '{PACKAGE_NAME_GOES_HERE}'`.
-* Import styles by adding `import '{PACKAGE_NAME_GOES_HERE}/build/DatePicker.less'` or style the calendar on your own.
+* Install by executing `npm install react-date-picker` or `yarn add react-date-picker`.
+* Import by adding `import DatePicker from 'react-date-picker'`.
+* Import styles by adding `import 'react-date-picker/build/DatePicker.less'` or style the calendar on your own.
 * Use by adding `<DatePicker />`. Use `onChange` prop for getting new values.
 
 ## Demo
@@ -36,11 +44,11 @@ Minimal demo page is included in sample directory.
 
 #### Legacy browsers
 
-If you need to support legacy browsers like Internet Explorer 10, you will need to use [Intl.js](https://github.com/andyearnshaw/Intl.js/) or another Intl polyfill along with React-Calendar.
+If you need to support legacy browsers like Internet Explorer 10, you will need to use [Intl.js](https://github.com/andyearnshaw/Intl.js/) or another Intl polyfill along with React-Date-Picker.
 
 ### Installation
 
-Add React-Date-Picker to your project by executing `npm install {PACKAGE_NAME_GOES_HERE}` or `yarn add {PACKAGE_NAME_GOES_HERE}`.
+Add React-Date-Picker to your project by executing `npm install react-date-picker` or `yarn add react-date-picker`.
 
 ### Usage
 
@@ -48,7 +56,7 @@ Here's an example of basic usage:
 
 ```js
 import React, { Component } from 'react';
-import DatePicker from '{PACKAGE_NAME_GOES_HERE}';
+import DatePicker from 'react-date-picker';
 import 'react-date-picker/build/DatePicker.less';
 
 class MyApp extends Component {
