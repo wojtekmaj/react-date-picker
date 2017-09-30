@@ -12,6 +12,7 @@ import {
   getMonth,
   getYear,
 } from './shared/dates';
+import { setLocale } from './shared/locales';
 import { isMaxDate, isMinDate } from './shared/propTypes';
 
 const allViews = ['century', 'decade', 'year', 'month'];
@@ -97,11 +98,16 @@ export default class DateInput extends Component {
   }
 
   componentDidMount() {
+    setLocale(this.props.locale);
     this.updateValues();
   }
 
   componentWillReceiveProps(nextProps) {
     const { props } = this;
+
+    if (nextProps.locale !== props.locale) {
+      setLocale(nextProps.locale);
+    }
 
     if (
       (!!nextProps.value !== !!props.value) ||

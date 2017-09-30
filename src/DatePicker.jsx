@@ -10,8 +10,6 @@ import './DatePicker.less';
 
 import DateInput from './DateInput';
 
-import { formatDate } from './shared/dateFormatter';
-import { setLocale } from './shared/locales';
 import { isCalendarType, isMaxDate, isMinDate, isValue } from './shared/propTypes';
 
 const allViews = ['century', 'decade', 'year', 'month'];
@@ -19,18 +17,6 @@ const allViews = ['century', 'decade', 'year', 'month'];
 export default class DatePicker extends Component {
   state = {
     isOpen: this.props.isOpen,
-  }
-
-  componentWillMount() {
-    setLocale(this.props.locale);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { props } = this;
-
-    if (nextProps.locale !== props.locale) {
-      setLocale(nextProps.locale);
-    }
   }
 
   openCalendar = () => {
@@ -78,6 +64,7 @@ export default class DatePicker extends Component {
 
   renderInput() {
     const {
+      locale,
       maxDate,
       maxDetail,
       minDate,
@@ -90,6 +77,7 @@ export default class DatePicker extends Component {
     return (
       <div className="react-date-picker__button">
         <DateInput
+          locale={locale}
           maxDate={maxDate}
           maxDetail={maxDetail}
           minDate={minDate}
