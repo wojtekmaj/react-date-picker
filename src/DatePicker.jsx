@@ -17,6 +17,14 @@ export default class DatePicker extends Component {
     isOpen: this.props.isOpen,
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { props } = this;
+
+    if (nextProps.isOpen !== props.isOpen) {
+      this.setState({ isOpen: nextProps.isOpen });
+    }
+  }
+
   openCalendar = () => {
     this.setState({ isOpen: true });
   }
