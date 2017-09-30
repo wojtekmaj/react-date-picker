@@ -260,11 +260,14 @@ export default class DateInput extends Component {
 
     const values = {};
 
-    for (let i = 2; i < form.length; i += 1) {
-      values[form[i].name] = form[i].value;
+    for (let i = 0; i < form.length; i += 1) {
+      const element = form.elements[i];
+      values[element.name] = element.value;
     }
 
-    if ([form[2], form[3], form[4]].every(formElement => formElement.checkValidity())) {
+    const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(a => a);
+
+    if (formElements.every(formElement => formElement.checkValidity())) {
       const proposedValue = new Date(values.year, values.month - 1 || 0, values.day || 1);
       const processedValue = this.getProcessedValue(proposedValue);
       if (this.props.onChange) {
@@ -320,6 +323,7 @@ export default class DateInput extends Component {
         key="day"
         max={this.maxDay}
         min={this.minDay}
+        ref={(ref) => { this.dayInput = ref; }}
         value={this.state.day}
         {...this.commonInputProps}
       />
@@ -341,6 +345,7 @@ export default class DateInput extends Component {
         key="month"
         max={this.maxMonth}
         min={this.minMonth}
+        ref={(ref) => { this.monthInput = ref; }}
         value={this.state.month}
         {...this.commonInputProps}
       />
@@ -355,6 +360,7 @@ export default class DateInput extends Component {
         key="year"
         max={this.maxYear}
         min={this.minYear}
+        ref={(ref) => { this.yearInput = ref; }}
         step={this.yearStep}
         value={this.state.year}
         {...this.commonInputProps}
