@@ -157,6 +157,7 @@ export default class DatePicker extends Component {
 }
 
 DatePicker.defaultProps = {
+  isOpen: null,
   maxDetail: 'month',
   returnValue: 'start',
 };
