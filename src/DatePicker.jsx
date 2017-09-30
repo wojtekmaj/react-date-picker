@@ -56,18 +56,6 @@ export default class DatePicker extends Component {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  get placeholder() {
-    const date = new Date(2017, 11, 11);
-
-    return (
-      formatDate(date)
-        .replace('2017', 'year')
-        .replace('12', 'month')
-        .replace('11', 'day')
-    );
-  }
-
   onFocus = () => {
     this.blurRequested = false;
 

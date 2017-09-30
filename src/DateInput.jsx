@@ -210,11 +210,26 @@ export default class DateInput extends Component {
   get divider() {
     const date = new Date(2017, 11, 11);
 
-    return formatDate(date)
-      .split('')
-      .filter(a => a.charCodeAt(0) !== 8206)
-      .join('')
-      .match(/[^0-9]/)[0];
+    return (
+      formatDate(date)
+        .split('')
+        // Internet Explorer specific
+        .filter(a => a.charCodeAt(0) !== 8206)
+        .join('')
+        .match(/[^0-9]/)[0]
+    );
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  get placeholder() {
+    const date = new Date(2017, 11, 11);
+
+    return (
+      formatDate(date)
+        .replace('2017', 'year')
+        .replace('12', 'month')
+        .replace('11', 'day')
+    );
   }
 
   get currentMonthMaxDays() {
@@ -438,7 +453,6 @@ DateInput.propTypes = {
   maxDetail: PropTypes.oneOf(allViews).isRequired,
   minDate: isMinDate,
   onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string.isRequired,
   returnValue: PropTypes.oneOf(['start', 'end']).isRequired,
   value: PropTypes.instanceOf(Date),
 };
