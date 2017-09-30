@@ -6,8 +6,6 @@ import 'react-calendar/build/Calendar.less';
 
 import detectElementOverflow from 'detect-element-overflow';
 
-import './DatePicker.less';
-
 import DateInput from './DateInput';
 
 import { isCalendarType, isMaxDate, isMinDate, isValue } from './shared/propTypes';
