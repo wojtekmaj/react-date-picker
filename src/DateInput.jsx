@@ -236,6 +236,9 @@ export default class DateInput extends Component {
           return;
         }
 
+        // Save a reference to each input field
+        this[`${ref.name}Input`] = ref;
+
         updateInputWidth(ref);
       },
     };
@@ -323,7 +326,6 @@ export default class DateInput extends Component {
         key="day"
         max={this.maxDay}
         min={this.minDay}
-        ref={(ref) => { this.dayInput = ref; }}
         value={this.state.day}
         {...this.commonInputProps}
       />
@@ -345,7 +347,6 @@ export default class DateInput extends Component {
         key="month"
         max={this.maxMonth}
         min={this.minMonth}
-        ref={(ref) => { this.monthInput = ref; }}
         value={this.state.month}
         {...this.commonInputProps}
       />
@@ -360,7 +361,6 @@ export default class DateInput extends Component {
         key="year"
         max={this.maxYear}
         min={this.minYear}
-        ref={(ref) => { this.yearInput = ref; }}
         step={this.yearStep}
         value={this.state.year}
         {...this.commonInputProps}
