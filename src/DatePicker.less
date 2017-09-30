@@ -2,15 +2,16 @@
   display: inline-flex;
   position: relative;
 
+  &, & *, & *:before, & *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
   &__button {
     min-width: 135px;
     display: flex;
     border: thin solid gray;
-
-    // To help with automatic input resizing
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
 
     &__input {
       flex-grow: 1;
@@ -25,15 +26,14 @@
 
       input {
         min-width: 9px;
-        height: calc(~"100% - 2px");
+        height: 100%;
         padding: 1px;
         border: 0;
-        text-align: right;
 
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+          -webkit-appearance: none;
+          margin: 0;
         }
 
         &:invalid {
