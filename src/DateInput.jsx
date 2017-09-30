@@ -32,19 +32,8 @@ const updateInputWidth = (element) => {
   container.removeChild(span);
 };
 
-const isDefined = value => (typeof value !== 'undefined' && value !== null);
 const min = (...args) => Math.min(...args.filter(a => typeof a === 'number'));
 const max = (...args) => Math.max(...args.filter(a => typeof a === 'number'));
-const between = (value, minValue, maxValue) => {
-  if (isDefined(minValue) && isDefined(maxValue)) {
-    return Math.min(Math.max(value, minValue), maxValue);
-  } else if (isDefined(minValue)) {
-    return Math.max(value, minValue);
-  } else if (isDefined(maxValue)) {
-    return Math.min(value, maxValue);
-  }
-  return value;
-};
 
 export default class DateInput extends Component {
   getValueFrom(value) {
@@ -134,10 +123,6 @@ export default class DateInput extends Component {
     );
   }
 
-  get day() {
-    return between(this.state.day, this.minDay, this.maxDay);
-  }
-
   get maxMonth() {
     const { maxDate } = this.props;
     const { year } = this.state;
@@ -150,10 +135,6 @@ export default class DateInput extends Component {
     return max(1, minDate && year === getYear(minDate) && getMonth(minDate));
   }
 
-  get month() {
-    return between(this.state.month, this.minMonth, this.maxMonth);
-  }
-
   get maxYear() {
     const { maxDate } = this.props;
     return maxDate ? getYear(maxDate) : null;
@@ -162,10 +143,6 @@ export default class DateInput extends Component {
   get minYear() {
     const { minDate } = this.props;
     return max(1000, minDate && getYear(minDate));
-  }
-
-  get year() {
-    return between(this.state.year, this.minYear, this.maxYear);
   }
 
   /**
