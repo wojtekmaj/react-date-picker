@@ -16,7 +16,6 @@ In version 6 I aim to provide a solution that will suit everyone's needs. To mak
 ## tl;dr
 * Install by executing `npm install react-date-picker` or `yarn add react-date-picker`.
 * Import by adding `import DatePicker from 'react-date-picker'`.
-* Import styles by adding `import 'react-date-picker/build/DatePicker.less'` or style the calendar on your own.
 * Use by adding `<DatePicker />`. Use `onChange` prop for getting new values.
 
 ## Demo
@@ -57,7 +56,6 @@ Here's an example of basic usage:
 ```js
 import React, { Component } from 'react';
 import DatePicker from 'react-date-picker';
-import 'react-date-picker/build/DatePicker.less';
 
 class MyApp extends Component {
   state = {
@@ -77,6 +75,10 @@ class MyApp extends Component {
   }
 }
 ```
+
+### Custom styling
+
+If you don't want to use default React-Date-Picker styling to build upon it, you can import React-Date-Picker by using `import DatePicker from 'react-date-picker/build/entry.nostyle';` instead.
 
 ## User guide
 
