@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import DatePicker from 'react-date-picker';
-import 'react-date-picker/build/DatePicker.less';
 
 import './Sample.less';
 

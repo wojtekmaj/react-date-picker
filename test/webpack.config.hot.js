@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3000',
+    'webpack-dev-server/client?http://localhost:3001',
     './index',
   ],
   output: {
@@ -23,6 +23,13 @@ module.exports = {
           'style-loader',
           'css-loader',
           'less-loader',
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
         ],
       },
       {
@@ -45,7 +52,7 @@ module.exports = {
   ],
   devServer: {
     host: 'localhost',
-    port: 3000,
+    port: 3001,
     historyApiFallback: true, // respond to 404s with index.html
     hot: true, // enable HMR on the server
   },

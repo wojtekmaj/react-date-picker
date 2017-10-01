@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Calendar from 'react-calendar';
-import 'react-calendar/build/Calendar.less';
+import Calendar from 'react-calendar/build/entry.nostyle';
 
 import detectElementOverflow from 'detect-element-overflow';
 

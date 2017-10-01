@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-date-picker/src/entry';
-import 'react-date-picker/src/DatePicker.less';
 
 import DateBonduariesOptions from './DateBonduariesOptions';
 import MaxDetailOptions from './MaxDetailOptions';
