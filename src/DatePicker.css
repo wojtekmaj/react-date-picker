@@ -30,6 +30,7 @@
   height: 100%;
   padding: 1px;
   border: 0;
+  -moz-appearance: textfield;
 }
 .react-date-picker__button__input input::-webkit-outer-spin-button,
 .react-date-picker__button__input input::-webkit-inner-spin-button {
