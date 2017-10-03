@@ -406,7 +406,7 @@ export default class DateInput extends Component {
     return (
       <input
         type={this.nativeInputType}
-        max={minDate ? nativeValueParser(maxDate) : null}
+        max={maxDate ? nativeValueParser(maxDate) : null}
         min={minDate ? nativeValueParser(minDate) : null}
         name="date"
         onChange={this.onChangeNative}
