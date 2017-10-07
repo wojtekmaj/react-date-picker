@@ -80,6 +80,8 @@ export default class Test extends Component {
           </aside>
           <main className="Test__container__content">
             <DatePicker
+              className="myCustomDatePickerClassName"
+              calendarClassName="myCustomCalendarClassName"
               locale={locale}
               maxDate={maxDate}
               maxDetail={maxDetail}

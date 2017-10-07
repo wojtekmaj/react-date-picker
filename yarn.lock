@@ -3449,11 +3449,12 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-calendar@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.1.0.tgz#f5a56c008cef52022d21a92771cabe2bb065c15e"
+react-calendar@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.2.0.tgz#7f19151265f86997691bb69efd74a0d30ba80c04"
   dependencies:
     lodash.once "^4.1.1"
+    merge-class-names "^1.1.0"
     prop-types ">=15.5"
     react ">=15.5"
     react-dom ">=15.5"

@@ -117,6 +117,8 @@ export default class DatePicker extends Component {
     }
 
     const {
+      calendarClassName,
+      className: datePickerClassName, // Unused, here to exclude it from calendarProps
       onChange,
       ...calendarProps
     } = this.props;
@@ -125,7 +127,10 @@ export default class DatePicker extends Component {
 
     return (
       <div
-        className={`${className} ${className}--${isOpen ? 'open' : 'closed'}`}
+        className={mergeClassNames(
+          className,
+          `${className}--${isOpen ? 'open' : 'closed'}`,
+        )}
         ref={(ref) => {
           if (!ref) {
             return;
@@ -141,6 +146,7 @@ export default class DatePicker extends Component {
         }}
       >
         <Calendar
+          className={calendarClassName}
           onChange={this.onChange}
           {...calendarProps}
         />
@@ -169,6 +175,10 @@ DatePicker.defaultProps = {
 };
 
 DatePicker.propTypes = {
+  calendarClassName: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
   calendarType: isCalendarType,
   className: PropTypes.oneOfType([
     PropTypes.string,
