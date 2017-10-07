@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import mergeClassNames from 'merge-class-names';
 
 import Calendar from 'react-calendar/build/entry.nostyle';
 
@@ -150,7 +151,7 @@ export default class DatePicker extends Component {
   render() {
     return (
       <div
-        className="react-date-picker"
+        className={mergeClassNames('react-date-picker', this.props.className)}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
       >
@@ -169,6 +170,10 @@ DatePicker.defaultProps = {
 
 DatePicker.propTypes = {
   calendarType: isCalendarType,
+  className: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDate: isMaxDate,
