@@ -92,7 +92,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |----|----|----|
 |calendarType|Defines which type of calendar should be used. Can be "US" or "ISO 8601". Defaults to "US" for "en-US" locale, "ISO 8601" to all the others.|`"ISO 8601"`|
 |isOpen|Defined whether the calendar should be opened. Defaults to false.|`true`|
-|locale|Defines which locale should be used by the calendar. Can be any BCP 47 language tag. Defaults to user's browser settings.|`"hu-HU"`|
+|locale|Defines which locale should be used by the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
 |maxDate|Defines maximum date that the user can select. Periods partially overlapped by maxDate will also be selectable, although react-date-picker will ensure that no later date is selected.|Date: `new Date()`|
 |maxDetail|Defines the most detailed view that the user shall see. View defined here also becomes the one on which clicking an item will select a date and pass it to onChange. Can be "month", "year", "decade" or "century". Defaults to "month".|`"month"`|
 |minDate|Defines minimum date that the user can select. Periods partially overlapped by minDate will also be selectable, although react-date-picker will ensure that no earlier date is selected.|Date: `new Date()`|
