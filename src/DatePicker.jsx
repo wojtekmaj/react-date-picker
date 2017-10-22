@@ -96,6 +96,7 @@ export default class DatePicker extends Component {
           className="react-date-picker__button__icon"
           onClick={this.toggleCalendar}
           onFocus={this.stopPropagation}
+          type="button"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
             <g stroke="black" strokeWidth="2">
