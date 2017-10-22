@@ -9,16 +9,14 @@ configure({ adapter: new Adapter() });
 /* eslint-disable comma-dangle */
 
 describe('DateInput', () => {
-  it('renders a button, native input and custom inputs', () => {
+  it('renders a native input and custom inputs', () => {
     const component = mount(
       <DateInput />
     );
 
-    const button = component.find('button');
     const nativeInput = component.find('input[type="date"]');
     const customInputs = component.find('input[type="number"]');
 
-    expect(button.length).toBe(1);
     expect(nativeInput.length).toBe(1);
     expect(customInputs.length).toBe(3);
   });
@@ -92,7 +90,7 @@ describe('DateInput', () => {
       />
     );
 
-    const separators = component.find('form').text();
+    const separators = component.text();
 
     expect(separators).toHaveLength(2);
     expect(separators[0]).toBe('/');
