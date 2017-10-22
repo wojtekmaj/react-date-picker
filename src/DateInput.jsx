@@ -254,31 +254,6 @@ export default class DateInput extends Component {
     });
   }
 
-  onSubmit = (event) => {
-    if (event.preventDefault) {
-      event.preventDefault();
-    }
-
-    const form = event.target;
-
-    const values = {};
-
-    for (let i = 0; i < form.length; i += 1) {
-      const element = form.elements[i];
-      values[element.name] = element.value;
-    }
-
-    const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(a => a);
-
-    if (formElements.every(formElement => formElement.checkValidity())) {
-      const proposedValue = new Date(values.year, values.month - 1 || 0, values.day || 1);
-      const processedValue = this.getProcessedValue(proposedValue);
-      if (this.props.onChange) {
-        this.props.onChange(processedValue, false);
-      }
-    }
-  }
-
   onKeyDown = (event) => {
     if (event.key === this.divider) {
       event.preventDefault();
@@ -293,19 +268,46 @@ export default class DateInput extends Component {
     }
   }
 
+  /**
+   * Called when non-native date input is changed.
+   */
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
 
     updateInputWidth(event.target);
 
-    this.onSubmit({ target: event.target.form });
+    this.onChangeExternal();
   }
 
+  /**
+   * Called when native date input is changed.
+   */
   onChangeNative = (event) => {
     const { value } = event.target;
 
     if (this.props.onChange) {
       this.props.onChange(new Date(value));
+    }
+  }
+
+  /**
+   * Called after internal onChange. Checks input validity. If all fields are valid,
+   * calls props.onChange.
+   */
+  onChangeExternal = () => {
+    const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(a => a);
+
+    const values = {};
+    formElements.forEach((formElement) => {
+      values[formElement.name] = formElement.value;
+    });
+
+    if (formElements.every(formElement => formElement.checkValidity())) {
+      const proposedValue = new Date(values.year, values.month - 1 || 0, values.day || 1);
+      const processedValue = this.getProcessedValue(proposedValue);
+      if (this.props.onChange) {
+        this.props.onChange(processedValue, false);
+      }
     }
   }
 
@@ -426,11 +428,8 @@ export default class DateInput extends Component {
   render() {
     return (
       <div className="react-date-picker__button__input">
-        <form onSubmit={this.onSubmit}>
-          <button type="submit" style={{ display: 'none' }} />
-          {this.renderNativeInput()}
-          {this.renderCustomInputs()}
-        </form>
+        {this.renderNativeInput()}
+        {this.renderCustomInputs()}
       </div>
     );
   }
