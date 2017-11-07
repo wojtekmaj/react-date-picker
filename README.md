@@ -69,6 +69,7 @@ class MyApp extends Component {
       <div>
         <DatePicker
           onChange={this.onChange}
+          value={this.state.date}
         />
       </div>
     );
