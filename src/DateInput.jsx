@@ -203,6 +203,14 @@ export default class DateInput extends Component {
     );
   }
 
+  get dividerElement() {
+    return (
+      <span className="react-date-picker__button__input__divider">
+        {this.divider}
+      </span>
+    );
+  }
+
   // eslint-disable-next-line class-methods-use-this
   get placeholder() {
     const date = new Date(2017, 11, 11);
@@ -371,7 +379,7 @@ export default class DateInput extends Component {
   }
 
   renderCustomInputs() {
-    const { divider, placeholder } = this;
+    const { divider, dividerElement, placeholder } = this;
 
     return (
       placeholder
@@ -393,7 +401,7 @@ export default class DateInput extends Component {
           result.push(element);
 
           if (index + 1 < array.length) {
-            result.push(divider);
+            result.push(React.cloneElement(dividerElement, { key: `separator_${index}` }));
           }
 
           return result;
@@ -411,6 +419,7 @@ export default class DateInput extends Component {
         max={maxDate ? nativeValueParser(maxDate) : null}
         min={minDate ? nativeValueParser(minDate) : null}
         name="date"
+        key="date"
         onChange={this.onChangeNative}
         onFocus={this.stopPropagation}
         step={this.yearStep}
