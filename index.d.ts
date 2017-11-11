@@ -1,6 +1,6 @@
 /// <reference types="react" />
 
-type TimeDetail = "month" | "year" | "decade" | "century"
+type UnitOfTime = "month" | "year" | "decade" | "century"
 type DateCallback = (date: Date) => void
 
 declare module "react-date-picker" {
@@ -13,9 +13,9 @@ declare module "react-date-picker" {
         isOpen?: boolean;
         locale?: string;
         maxDate?: Date;
-        maxDetail?: TimeDetail;
+        maxDetail?: UnitOfTime;
         minDate?: Date;
-        minDetail?: TimeDetail;
+        minDetail?: UnitOfTime;
         nextLabel?: string | React.ReactElement<any>;
         next2Label?: string | React.ReactElement<any>;
         onChange?: DateCallback;
@@ -30,12 +30,12 @@ declare module "react-date-picker" {
         showNeighboringMonth?: boolean;
         showWeekNumbers?: boolean;
         value?: Date | Date[];
-        view?: "month" | "year" | "decade" | "century";
+        view?: UnitOfTime;
     }
 
     export interface DatePickerRenderChildrenProps {
         date: Date;
-        view: TimeDetail
+        view: UnitOfTime
     }
 
 }
