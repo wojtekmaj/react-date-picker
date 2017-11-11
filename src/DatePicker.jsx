@@ -57,6 +57,11 @@ export default class DatePicker extends Component {
   onBlur = () => {
     this.blurRequested = true;
 
+    /**
+     * We wait 100 milliseconds in case focus event was triggered right
+     * after blur event - this is a situation when the user jumps from
+     * one input field to another.
+     */
     setTimeout(() => {
       if (this.blurRequested) {
         this.closeCalendar();
