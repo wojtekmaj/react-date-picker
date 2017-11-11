@@ -4,7 +4,6 @@
   "description": "An input component for picking dates for your React application.",
   "main": "build/entry.js",
   "es6": "src/entry.js",
-  "types": "./main.d.ts",
   "scripts": {
     "build": "npm run build-js && npm run build-styles && npm run copy-styles",
     "build-js": "babel src -d build --ignore **/__tests__",
@@ -68,7 +67,7 @@
   "files": [
     "LICENSE",
     "README.md",
-    "main.d.ts",
+    "index.d.ts",
     "build/",
     "src/"
   ],
