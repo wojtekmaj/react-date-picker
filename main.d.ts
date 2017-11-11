@@ -1,8 +1,7 @@
 import {ReactElement} from "react"
 
 type TimeDetail = "month" | "year" | "decade" | "century"
-
-type AnyCallback = (value: Date) => any
+type DateCallback = (date: Date) => void
 
 declare module "react-date-picker" {
     export default function DatePicker(props: DatePickerProps): JSX.Element;
@@ -19,19 +18,24 @@ declare module "react-date-picker" {
         minDetail?: TimeDetail;
         nextLabel?: string | ReactElement<any>;
         next2Label?: string | ReactElement<any>;
-        onChange?: AnyCallback;
-        onClickDay?: AnyCallback;
-        onClickDecade?: AnyCallback;
-        onClickMonth?: AnyCallback;
-        onClickYear?: AnyCallback;
+        onChange?: DateCallback;
+        onClickDay?: DateCallback;
+        onClickDecade?: DateCallback;
+        onClickMonth?: DateCallback;
+        onClickYear?: DateCallback;
         prevLabel?: string | ReactElement<any>;
         prev2Label?: string | ReactElement<any>;
-        renderChildren?: any;
+        renderChildren?: (props: DatePickerRenderChildrenProps) => JSX.Element | null;
         returnValue?: "start" | "end" | "range";
         showNeighboringMonth?: boolean;
         showWeekNumbers?: boolean;
         value?: Date | Date[];
         view?: "month" | "year" | "decade" | "century";
+    }
+
+    export interface DatePickerRenderChildrenProps {
+        date: Date;
+        view: TimeDetail
     }
 
 }
