@@ -3,6 +3,7 @@
   "version": "6.2.4",
   "description": "An input component for picking dates for your React application.",
   "main": "build/entry.js",
+  "types": "./index.d.ts",
   "es6": "src/entry.js",
   "scripts": {
     "build": "npm run build-js && npm run build-styles && npm run copy-styles",
