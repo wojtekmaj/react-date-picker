@@ -401,6 +401,7 @@ export default class DateInput extends Component {
           result.push(element);
 
           if (index + 1 < array.length) {
+            // eslint-disable-next-line react/no-array-index-key
             result.push(React.cloneElement(dividerElement, { key: `separator_${index}` }));
           }
 
@@ -452,9 +453,9 @@ DateInput.defaultProps = {
 DateInput.propTypes = {
   locale: PropTypes.string,
   maxDate: isMaxDate,
-  maxDetail: PropTypes.oneOf(allViews).isRequired,
+  maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
   onChange: PropTypes.func,
-  returnValue: PropTypes.oneOf(['start', 'end']).isRequired,
+  returnValue: PropTypes.oneOf(['start', 'end']),
   value: PropTypes.instanceOf(Date),
 };

@@ -205,7 +205,7 @@ DatePicker.propTypes = {
   onClickYear: PropTypes.func,
   prev2Label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   prevLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  returnValue: PropTypes.oneOf(['start', 'end']).isRequired,
+  returnValue: PropTypes.oneOf(['start', 'end']),
   showNeighboringMonth: PropTypes.bool,
   showWeekNumbers: PropTypes.bool,
   value: isValue,
