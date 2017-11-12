@@ -161,9 +161,17 @@ export default class DatePicker extends Component {
   }
 
   render() {
+    const { isOpen } = this.state;
+
+    const className = 'react-date-picker';
+
     return (
       <div
-        className={mergeClassNames('react-date-picker', this.props.className)}
+        className={mergeClassNames(
+          className,
+          `${className}--${isOpen ? 'open' : 'closed'}`,
+          this.props.className,
+        )}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
       >
