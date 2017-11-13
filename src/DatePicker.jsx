@@ -17,12 +17,30 @@ export default class DatePicker extends Component {
     isOpen: this.props.isOpen,
   }
 
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
   componentWillReceiveProps(nextProps) {
     const { props } = this;
 
     if (nextProps.isOpen !== props.isOpen) {
       this.setState({ isOpen: nextProps.isOpen });
     }
+  }
+
+  handleClickOutside = (event) => {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.closeCalendar();
+    }
+  }
+
+  setWrapperRef = (node) => {
+    this.wrapperRef = node;
   }
 
   openCalendar = () => {
@@ -49,26 +67,7 @@ export default class DatePicker extends Component {
   }
 
   onFocus = () => {
-    this.blurRequested = false;
-
     this.openCalendar();
-  }
-
-  onBlur = () => {
-    this.blurRequested = true;
-
-    /**
-     * We wait 100 milliseconds in case focus event was triggered right
-     * after blur event - this is a situation when the user jumps from
-     * one input field to another.
-     */
-    setTimeout(() => {
-      if (this.blurRequested) {
-        this.closeCalendar();
-
-        this.blurRequested = false;
-      }
-    }, 100);
   }
 
   stopPropagation = event => event.stopPropagation()
@@ -173,7 +172,7 @@ export default class DatePicker extends Component {
           this.props.className,
         )}
         onFocus={this.onFocus}
-        onBlur={this.onBlur}
+        ref={this.setWrapperRef}
       >
         {this.renderInput()}
         {this.renderCalendar()}
