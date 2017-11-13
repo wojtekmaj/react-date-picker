@@ -16,21 +16,21 @@ declare module "react-date-picker" {
     maxDetail?: Detail;
     minDate?: Date;
     minDetail?: Detail;
-    nextLabel?: string | React.ReactElement<any>;
     next2Label?: string | React.ReactElement<any>;
+    nextLabel?: string | React.ReactElement<any>;
     onChange?: DateCallback;
     onClickDay?: DateCallback;
     onClickDecade?: DateCallback;
     onClickMonth?: DateCallback;
     onClickYear?: DateCallback;
-    prevLabel?: string | React.ReactElement<any>;
     prev2Label?: string | React.ReactElement<any>;
+    prevLabel?: string | React.ReactElement<any>;
     renderChildren?: (props: DatePickerRenderChildrenProps) => JSX.Element | null;
-    returnValue?: "start" | "end" | "range";
+    returnValue?: "start" | "end";
     showNeighboringMonth?: boolean;
     showWeekNumbers?: boolean;
-    value?: Date | Date[];
-    view?: UnitOfTime;
+    value?: Date;
+    view?: Detail;
   }
 
   export interface DatePickerRenderChildrenProps {
