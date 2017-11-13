@@ -35,6 +35,6 @@ declare module "react-date-picker" {
 
   export interface DatePickerRenderChildrenProps {
     date: Date;
-    view: Detail
+    view: Detail;
   }
 }
