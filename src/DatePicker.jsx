@@ -18,11 +18,11 @@ export default class DatePicker extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('click', this.onClick);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('click', this.onClick);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,14 +33,10 @@ export default class DatePicker extends Component {
     }
   }
 
-  handleClickOutside = (event) => {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+  onClick = (event) => {
+    if (this.wrapper && !this.wrapper.contains(event.target)) {
       this.closeCalendar();
     }
-  }
-
-  setWrapperRef = (node) => {
-    this.wrapperRef = node;
   }
 
   openCalendar = () => {
@@ -172,7 +168,7 @@ export default class DatePicker extends Component {
           this.props.className,
         )}
         onFocus={this.onFocus}
-        ref={this.setWrapperRef}
+        ref={(ref) => { this.wrapper = ref; }}
       >
         {this.renderInput()}
         {this.renderCalendar()}
