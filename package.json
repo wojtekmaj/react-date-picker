@@ -33,6 +33,24 @@
     "name": "Wojciech Maj",
     "email": "kontakt@wojtekmaj.pl"
   },
+  "contributors": [
+    {
+      "name": "Joe Bourne",
+      "email": "josephbourne14@gmail.com"
+    },
+    {
+      "name": "Juan Caicedo",
+      "email": "juan.caicedo@alumni.ubc.ca"
+    },
+    {
+      "name": "Kevin Kipp",
+      "email": "kevin.kipp@gmail.com"
+    },
+    {
+      "name": "Marco Fugaro",
+      "email": "marco.fugaro@gmail.com"
+    }
+  ],
   "license": "MIT",
   "dependencies": {
     "detect-element-overflow": "^1.1.0",
