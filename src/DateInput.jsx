@@ -267,12 +267,20 @@ export default class DateInput extends Component {
       event.preventDefault();
 
       const input = event.target;
-      const nextInput = input.nextElementSibling;
+      const nextElement = input.nextElementSibling; // Divider between inputs
 
-      if (nextInput) {
-        nextInput.focus();
-        nextInput.select();
+      if (!nextElement) {
+        return;
       }
+
+      const nextInput = nextElement.nextElementSibling;
+
+      if (!nextInput) {
+        return;
+      }
+
+      nextInput.focus();
+      nextInput.select();
     }
   }
 
