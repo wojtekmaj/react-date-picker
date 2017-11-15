@@ -18,11 +18,11 @@ export default class DatePicker extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener('click', this.onClick);
+    document.addEventListener('mousedown', this.onClick);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.onClick);
+    document.removeEventListener('mousedown', this.onClick);
   }
 
   componentWillReceiveProps(nextProps) {
