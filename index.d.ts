@@ -25,15 +25,17 @@ declare module "react-date-picker" {
     onClickYear?: DateCallback;
     prev2Label?: string | React.ReactElement<any>;
     prevLabel?: string | React.ReactElement<any>;
-    renderChildren?: (props: DatePickerRenderChildrenProps) => JSX.Element | null;
+    renderChildren?: (props: CalendarTileProperties) => JSX.Element | null;
     returnValue?: "start" | "end";
+    tileClassName?: string | string[] | ((props: CalendarTileProperties) => string | string[] | null);
+    tileContent?: React.ReactElement<any> | ((props: CalendarTileProperties) => JSX.Element | null);
     showNeighboringMonth?: boolean;
     showWeekNumbers?: boolean;
     value?: Date;
     view?: Detail;
   }
 
-  export interface DatePickerRenderChildrenProps {
+  export interface CalendarTileProperties {
     date: Date;
     view: Detail;
   }
