@@ -1,6 +1,7 @@
 ![downloads](https://img.shields.io/npm/dt/react-date-picker.svg) ![build](https://img.shields.io/travis/wojtekmaj/react-date-picker.svg) ![dependencies](https://img.shields.io/david/wojtekmaj/react-date-picker.svg
 ) ![dev dependencies](https://img.shields.io/david/dev/wojtekmaj/react-date-picker.svg
 ) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwojtekmaj%2Freact-date-picker.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwojtekmaj%2Freact-date-picker?ref=badge_shield)
 
 # React-Date-Picker
 An input component for picking dates for your React application.
@@ -120,6 +121,9 @@ Displays an input field complete with custom inputs, native input, and a calenda
 ## License
 
 The MIT License.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwojtekmaj%2Freact-date-picker.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwojtekmaj%2Freact-date-picker?ref=badge_large)
 
 ## Author
 
