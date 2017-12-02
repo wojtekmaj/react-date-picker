@@ -79,20 +79,30 @@ export default class Test extends Component {
             />
           </aside>
           <main className="Test__container__content">
-            <DatePicker
-              className="myCustomDatePickerClassName"
-              calendarClassName="myCustomCalendarClassName"
-              locale={locale}
-              maxDate={maxDate}
-              maxDetail={maxDetail}
-              minDate={minDate}
-              minDetail={minDetail}
-              onChange={this.onChange}
-              returnValue={returnValue}
-              showNeighboringMonth={showNeighboringMonth}
-              showWeekNumbers={showWeekNumbers}
-              value={value}
-            />
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                /* eslint-disable no-console */
+                console.error('Calendar triggered submitting the form.');
+                console.log(event);
+                /* eslint-enable no-console */
+              }}
+            >
+              <DatePicker
+                className="myCustomDatePickerClassName"
+                calendarClassName="myCustomCalendarClassName"
+                locale={locale}
+                maxDate={maxDate}
+                maxDetail={maxDetail}
+                minDate={minDate}
+                minDetail={minDetail}
+                onChange={this.onChange}
+                returnValue={returnValue}
+                showNeighboringMonth={showNeighboringMonth}
+                showWeekNumbers={showWeekNumbers}
+                value={value}
+              />
+            </form>
           </main>
         </div>
       </div>
