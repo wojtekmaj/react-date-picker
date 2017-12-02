@@ -20,7 +20,7 @@ const allValueTypes = [...allViews.slice(1), 'day'];
 
 const updateInputWidth = (element) => {
   const span = document.createElement('span');
-  span.innerHTML = element.value;
+  span.innerHTML = element.value || element.placeholder;
 
   const container = element.parentElement;
 
@@ -387,6 +387,7 @@ export default class DateInput extends Component {
         key="day"
         max={this.maxDay}
         min={this.minDay}
+        placeholder="--"
         value={this.state.day}
         {...this.commonInputProps}
       />
@@ -408,6 +409,7 @@ export default class DateInput extends Component {
         key="month"
         max={this.maxMonth}
         min={this.minMonth}
+        placeholder="--"
         value={this.state.month}
         {...this.commonInputProps}
       />
@@ -422,6 +424,7 @@ export default class DateInput extends Component {
         key="year"
         max={this.maxYear}
         min={this.minYear}
+        placeholder="----"
         step={this.yearStep}
         value={this.state.year}
         {...this.commonInputProps}
