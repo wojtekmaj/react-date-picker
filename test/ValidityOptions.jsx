@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { getISOLocalDate } from '../src/shared/dates';
 
-export default class DateBonduariesOptions extends Component {
+export default class ValidityOptions extends Component {
   onMinChange = (event) => {
     const { value } = event.target;
 
@@ -17,11 +17,13 @@ export default class DateBonduariesOptions extends Component {
   }
 
   render() {
-    const { maxDate, minDate, setState } = this.props;
+    const {
+      maxDate, minDate, required, setState,
+    } = this.props;
 
     return (
-      <fieldset id="datebonduariesoptions">
-        <legend htmlFor="datebonduariesoptions">Minimum and maximum date</legend>
+      <fieldset id="ValidityOptions">
+        <legend htmlFor="ValidityOptions">Minimum and maximum date</legend>
 
         <div>
           <label htmlFor="minDate">Minimum date</label>
@@ -38,6 +40,7 @@ export default class DateBonduariesOptions extends Component {
             Clear
           </button>
         </div>
+
         <div>
           <label htmlFor="maxDate">Maximum date</label>
           <input
@@ -53,13 +56,24 @@ export default class DateBonduariesOptions extends Component {
             Clear
           </button>
         </div>
+
+        <div>
+          <input
+            id="required"
+            type="checkbox"
+            checked={required}
+            onChange={event => setState({ required: event.target.checked })}
+          />
+          <label htmlFor="required">Required</label>
+        </div>
       </fieldset>
     );
   }
 }
 
-DateBonduariesOptions.propTypes = {
+ValidityOptions.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   minDate: PropTypes.instanceOf(Date),
+  required: PropTypes.bool,
   setState: PropTypes.func.isRequired,
 };

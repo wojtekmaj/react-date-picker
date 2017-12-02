@@ -243,7 +243,8 @@ export default class DateInput extends Component {
       type: 'number',
       onChange: this.onChange,
       onKeyDown: this.onKeyDown,
-      required: true,
+      // This is only for showing validity when editing
+      required: this.props.required || this.props.isCalendarOpen,
       ref: (ref) => {
         if (!ref) {
           return;
@@ -323,8 +324,8 @@ export default class DateInput extends Component {
       values[formElement.name] = formElement.value;
     });
 
-    if (formElements.every(formElement => formElement.checkValidity())) {
-      const proposedValue = new Date(values.year, values.month - 1 || 0, values.day || 1);
+    if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
+      const proposedValue = new Date(values.year, (values.month || 1) - 1, values.day || 1);
       const processedValue = this.getProcessedValue(proposedValue);
       if (this.props.onChange) {
         this.props.onChange(processedValue, false);
@@ -421,7 +422,9 @@ export default class DateInput extends Component {
 
   renderNativeInput() {
     const { nativeValueParser } = this;
-    const { maxDate, minDate, value } = this.props;
+    const {
+      maxDate, minDate, required, value,
+    } = this.props;
 
     return (
       <input
@@ -432,6 +435,7 @@ export default class DateInput extends Component {
         key="date"
         onChange={this.onChangeNative}
         onFocus={this.stopPropagation}
+        required={required}
         step={this.yearStep}
         style={{
           visibility: 'hidden',
@@ -467,5 +471,6 @@ DateInput.propTypes = {
   minDate: isMinDate,
   onChange: PropTypes.func,
   returnValue: PropTypes.oneOf(['start', 'end']),
+  required: PropTypes.bool,
   value: PropTypes.instanceOf(Date),
 };

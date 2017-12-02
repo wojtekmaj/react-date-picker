@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-date-picker/src/entry';
 
-import DateBonduariesOptions from './DateBonduariesOptions';
+import ValidityOptions from './ValidityOptions';
 import MaxDetailOptions from './MaxDetailOptions';
 import MinDetailOptions from './MinDetailOptions';
 import LocaleOptions from './LocaleOptions';
@@ -20,6 +20,7 @@ export default class Test extends Component {
     minDate: new Date(1995, now.getUTCMonth() + 1, 15, 12),
     minDetail: 'century',
     returnValue: 'start',
+    required: true,
     showNeighboringMonth: false,
     showWeekNumbers: false,
     value: now,
@@ -35,6 +36,7 @@ export default class Test extends Component {
       minDate,
       minDetail,
       returnValue,
+      required,
       showNeighboringMonth,
       showWeekNumbers,
       value,
@@ -59,9 +61,10 @@ export default class Test extends Component {
               minDetail={minDetail}
               setState={setState}
             />
-            <DateBonduariesOptions
+            <ValidityOptions
               maxDate={maxDate}
               minDate={minDate}
+              required={required}
               setState={setState}
             />
             <LocaleOptions
@@ -98,10 +101,14 @@ export default class Test extends Component {
                 minDetail={minDetail}
                 onChange={this.onChange}
                 returnValue={returnValue}
+                required={required}
                 showNeighboringMonth={showNeighboringMonth}
                 showWeekNumbers={showWeekNumbers}
                 value={value}
               />
+              <br />
+              <br />
+              <button id="submit">Submit</button>
             </form>
           </main>
         </div>

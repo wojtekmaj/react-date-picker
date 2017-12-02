@@ -75,6 +75,7 @@ export default class DatePicker extends Component {
       maxDetail,
       minDate,
       returnValue,
+      required,
       value,
     } = this.props;
     const { isOpen } = this.state;
@@ -92,12 +93,14 @@ export default class DatePicker extends Component {
           onChange={this.onChange}
           placeholder={this.placeholder}
           returnValue={returnValue}
+          required={required}
           value={valueFrom}
         />
         <button
           className="react-date-picker__button__icon"
           onClick={this.toggleCalendar}
           onFocus={this.stopPropagation}
+          onBlur={this.resetValue}
           type="button"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
@@ -211,6 +214,7 @@ DatePicker.propTypes = {
   prev2Label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   prevLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   returnValue: PropTypes.oneOf(['start', 'end']),
+  required: PropTypes.bool,
   showNeighboringMonth: PropTypes.bool,
   showWeekNumbers: PropTypes.bool,
   value: isValue,
