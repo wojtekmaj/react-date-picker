@@ -49,7 +49,7 @@
 }
 .react-date-picker__calendar {
   width: 350px;
-  max-width: 100%;
+  max-width: 100vw;
   position: absolute;
   top: 100%;
   left: 0;
