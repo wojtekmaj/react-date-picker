@@ -1,15 +1,3 @@
-import {
-  getYear,
-  getMonth,
-  getMonthIndex,
-  getDay,
-  getDaysInMonth,
-  getBegin,
-  getEnd,
-  getISOLocalMonth,
-  getISOLocalDate,
-} from 'react-calendar/build/shared/dates';
-
 export {
   getYear,
   getMonth,
@@ -20,4 +8,4 @@ export {
   getEnd,
   getISOLocalMonth,
   getISOLocalDate,
-};
+} from 'react-calendar/build/shared/dates';
