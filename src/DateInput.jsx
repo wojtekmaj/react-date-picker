@@ -107,6 +107,7 @@ export default class DateInput extends Component {
     }
 
     if (
+      (nextProps.isCalendarOpen !== props.isCalendarOpen) ||
       (!!nextProps.value !== !!props.value) ||
       (nextProps.value && props.value && (nextProps.value.getTime() !== props.value.getTime()))
     ) {
@@ -460,6 +461,7 @@ DateInput.defaultProps = {
 
 DateInput.propTypes = {
   locale: PropTypes.string,
+  isCalendarOpen: PropTypes.bool,
   maxDate: isMaxDate,
   maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,

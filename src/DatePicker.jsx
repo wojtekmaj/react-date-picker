@@ -77,6 +77,7 @@ export default class DatePicker extends Component {
       returnValue,
       value,
     } = this.props;
+    const { isOpen } = this.state;
 
     const [valueFrom] = [].concat(value);
 
@@ -84,6 +85,7 @@ export default class DatePicker extends Component {
       <div className="react-date-picker__button">
         <DateInput
           locale={locale}
+          isCalendarOpen={isOpen}
           maxDate={maxDate}
           maxDetail={maxDetail}
           minDate={minDate}
