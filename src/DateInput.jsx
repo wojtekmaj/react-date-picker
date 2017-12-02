@@ -32,6 +32,14 @@ const updateInputWidth = (element) => {
   container.removeChild(span);
 };
 
+const removeUnwantedCharacters = str => str
+  .split('')
+  // We don't want spaces in dates
+  .filter(a => a.charCodeAt(0) !== 32)
+  // Internet Explorer specific
+  .filter(a => a.charCodeAt(0) !== 8206)
+  .join('');
+
 const min = (...args) => Math.min(...args.filter(a => typeof a === 'number'));
 const max = (...args) => Math.max(...args.filter(a => typeof a === 'number'));
 
@@ -194,11 +202,7 @@ export default class DateInput extends Component {
     const date = new Date(2017, 11, 11);
 
     return (
-      formatDate(date)
-        .split('')
-        // Internet Explorer specific
-        .filter(a => a.charCodeAt(0) !== 8206)
-        .join('')
+      removeUnwantedCharacters(formatDate(date))
         .match(/[^0-9]/)[0]
     );
   }
@@ -216,7 +220,7 @@ export default class DateInput extends Component {
     const date = new Date(2017, 11, 11);
 
     return (
-      formatDate(date)
+      removeUnwantedCharacters(formatDate(date))
         .replace('2017', 'year')
         .replace('12', 'month')
         .replace('11', 'day')
@@ -391,10 +395,6 @@ export default class DateInput extends Component {
 
     return (
       placeholder
-        .split('')
-        // Internet Explorer specific
-        .filter(a => a.charCodeAt(0) !== 8206)
-        .join('')
         .split(divider)
         .map((part) => {
           switch (part) {
