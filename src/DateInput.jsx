@@ -229,13 +229,13 @@ export default class DateInput extends Component {
   }
 
   get currentMonthMaxDays() {
-    const { value } = this.props;
+    const { year, month } = this.state;
 
-    if (!value) {
-      return null;
+    if (!month) {
+      return 31;
     }
 
-    return getDaysInMonth(value);
+    return getDaysInMonth(new Date(year, month - 1, 1));
   }
 
   get commonInputProps() {
