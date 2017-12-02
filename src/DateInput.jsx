@@ -269,24 +269,61 @@ export default class DateInput extends Component {
   }
 
   onKeyDown = (event) => {
-    if (event.key === this.divider) {
-      event.preventDefault();
+    const findPreviousInput = (element) => {
+      const previousElement = element.previousElementSibling; // Divider between inputs
 
-      const input = event.target;
-      const nextElement = input.nextElementSibling; // Divider between inputs
+      if (!previousElement) {
+        return null;
+      }
+
+      const previousInput = previousElement.previousElementSibling; // Actual input
+
+      return previousInput;
+    };
+
+    const findNextInput = (element) => {
+      const nextElement = element.nextElementSibling; // Divider between inputs
 
       if (!nextElement) {
-        return;
+        return null;
       }
 
-      const nextInput = nextElement.nextElementSibling;
+      const nextInput = nextElement.nextElementSibling; // Actual input
 
-      if (!nextInput) {
-        return;
+      return nextInput;
+    };
+
+    switch (event.key) {
+      case 'ArrowLeft': {
+        event.preventDefault();
+
+        const input = event.target;
+        const previousInput = findPreviousInput(input);
+
+        if (!previousInput) {
+          return;
+        }
+
+        previousInput.focus();
+        previousInput.select();
+        break;
       }
+      case 'ArrowRight':
+      case this.divider: {
+        event.preventDefault();
 
-      nextInput.focus();
-      nextInput.select();
+        const input = event.target;
+        const nextInput = findNextInput(input);
+
+        if (!nextInput) {
+          return;
+        }
+
+        nextInput.focus();
+        nextInput.select();
+        break;
+      }
+      default:
     }
   }
 
