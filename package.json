@@ -1,6 +1,6 @@
 {
   "name": "react-date-picker",
-  "version": "6.3.3",
+  "version": "6.4.0",
   "description": "An input component for picking dates for your React application.",
   "main": "build/entry.js",
   "types": "./index.d.ts",
