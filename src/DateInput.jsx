@@ -32,6 +32,30 @@ const updateInputWidth = (element) => {
   container.removeChild(span);
 };
 
+const findPreviousInput = (element) => {
+  const previousElement = element.previousElementSibling; // Divider between inputs
+  if (!previousElement) {
+    return null;
+  }
+  return previousElement.previousElementSibling; // Actual input
+};
+
+const findNextInput = (element) => {
+  const nextElement = element.nextElementSibling; // Divider between inputs
+  if (!nextElement) {
+    return null;
+  }
+  return nextElement.nextElementSibling; // Actual input
+};
+
+const selectIfPossible = (element) => {
+  if (!element) {
+    return;
+  }
+  element.focus();
+  element.select();
+};
+
 const removeUnwantedCharacters = str => str
   .split('')
   // We don't want spaces in dates
@@ -269,43 +293,13 @@ export default class DateInput extends Component {
   }
 
   onKeyDown = (event) => {
-    const findPreviousInput = (element) => {
-      const previousElement = element.previousElementSibling; // Divider between inputs
-
-      if (!previousElement) {
-        return null;
-      }
-
-      const previousInput = previousElement.previousElementSibling; // Actual input
-
-      return previousInput;
-    };
-
-    const findNextInput = (element) => {
-      const nextElement = element.nextElementSibling; // Divider between inputs
-
-      if (!nextElement) {
-        return null;
-      }
-
-      const nextInput = nextElement.nextElementSibling; // Actual input
-
-      return nextInput;
-    };
-
     switch (event.key) {
       case 'ArrowLeft': {
         event.preventDefault();
 
         const input = event.target;
         const previousInput = findPreviousInput(input);
-
-        if (!previousInput) {
-          return;
-        }
-
-        previousInput.focus();
-        previousInput.select();
+        selectIfPossible(previousInput);
         break;
       }
       case 'ArrowRight':
@@ -314,13 +308,7 @@ export default class DateInput extends Component {
 
         const input = event.target;
         const nextInput = findNextInput(input);
-
-        if (!nextInput) {
-          return;
-        }
-
-        nextInput.focus();
-        nextInput.select();
+        selectIfPossible(nextInput);
         break;
       }
       default:
