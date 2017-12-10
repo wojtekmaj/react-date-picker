@@ -46,7 +46,7 @@
   cursor: pointer;
 }
 .react-date-picker__button__icon:hover svg g,
-.react-date-picker__button__iconfocus svg g {
+.react-date-picker__button__icon:focus svg g {
   stroke: #0078d7;
 }
 .react-date-picker__button__icon svg {
