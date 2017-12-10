@@ -56,7 +56,7 @@ describe('DatePicker', () => {
     );
 
     const calendar = component.find('Calendar');
-    const button = component.find('button.react-date-picker__button__icon');
+    const button = component.find('button.react-date-picker__calendar-button');
 
     expect(calendar.length).toBe(0);
 

@@ -103,7 +103,7 @@ export default class DatePicker extends Component {
           value={valueFrom}
         />
         <button
-          className="react-date-picker__button__icon"
+          className="react-date-picker__clear-button react-date-picker__button__icon"
           onClick={this.clear}
           onFocus={this.stopPropagation}
           type="button"
@@ -111,7 +111,7 @@ export default class DatePicker extends Component {
           {clearIcon}
         </button>
         <button
-          className="react-date-picker__button__icon"
+          className="react-date-picker__calendar-button react-date-picker__button__icon"
           onClick={this.toggleCalendar}
           onFocus={this.stopPropagation}
           onBlur={this.resetValue}
