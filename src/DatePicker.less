@@ -46,6 +46,15 @@
       border: 0;
       background: transparent;
       padding: 4px 6px;
+      cursor: pointer;
+
+      &:hover, &focus {
+        svg {
+          g {
+            stroke: rgb(0, 120, 215);
+          }
+        }
+      }
 
       svg {
         display: inherit;
