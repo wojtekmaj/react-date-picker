@@ -68,9 +68,12 @@ export default class DatePicker extends Component {
 
   stopPropagation = event => event.stopPropagation()
 
+  clear = () => this.onChange(null);
+
   renderInput() {
     const {
       calendarIcon,
+      clearIcon,
       locale,
       maxDate,
       maxDetail,
@@ -97,6 +100,14 @@ export default class DatePicker extends Component {
           required={required}
           value={valueFrom}
         />
+        <button
+          className="react-date-picker__button__icon"
+          onClick={this.clear}
+          onFocus={this.stopPropagation}
+          type="button"
+        >
+          {clearIcon}
+        </button>
         <button
           className="react-date-picker__button__icon"
           onClick={this.toggleCalendar}
@@ -187,8 +198,18 @@ const CalendarIcon = (
   </svg>
 );
 
+const ClearIcon = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
+    <g stroke="black" strokeWidth="2">
+      <line x1="4" y1="4" x2="15" y2="15" />
+      <line x1="15" y1="4" x2="4" y2="15" />
+    </g>
+  </svg>
+);
+
 DatePicker.defaultProps = {
   calendarIcon: CalendarIcon,
+  clearIcon: ClearIcon,
   isOpen: null,
   maxDetail: 'month',
   returnValue: 'start',
@@ -205,6 +226,7 @@ DatePicker.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
+  clearIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDate: isMaxDate,

@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 .react-date-picker__button {
-  min-width: 135px;
+  min-width: 155px;
   display: flex;
   border: thin solid gray;
 }
@@ -43,6 +43,11 @@
   border: 0;
   background: transparent;
   padding: 4px 6px;
+  cursor: pointer;
+}
+.react-date-picker__button__icon:hover svg g,
+.react-date-picker__button__iconfocus svg g {
+  stroke: #0078d7;
 }
 .react-date-picker__button__icon svg {
   display: inherit;
