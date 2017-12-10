@@ -19,6 +19,7 @@
     "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["canvas", "element"] }],
     "prefer-destructuring": "warn",
     "prefer-spread": "warn",
+    "quotes": "off", // False positive on React Fragments
     "react/no-typos": "off",
     "react/require-default-props": "off",
     "react/sort-comp": "off"

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { formatDate } from './shared/dateFormatter';
@@ -361,46 +361,54 @@ export default class DateInput extends Component {
   stopPropagation = event => event.stopPropagation()
 
   renderDay() {
-    const { maxDetail } = this.props;
+    const { maxDetail, showLeadingZeros } = this.props;
 
     // Do not display if maxDetail is "year" or less
     if (allViews.indexOf(maxDetail) < 3) {
       return null;
     }
 
+    const { day: value } = this.state;
+
     return (
-      <input
-        className="react-date-picker__button__input__day"
-        name="day"
-        key="day"
-        max={this.maxDay}
-        min={this.minDay}
-        placeholder="--"
-        value={this.state.day}
-        {...this.commonInputProps}
-      />
+      <Fragment key="day">
+        {showLeadingZeros && value.toString().length === 1 ? '0' : ''}
+        <input
+          className="react-date-picker__button__input__day"
+          name="day"
+          max={this.maxDay}
+          min={this.minDay}
+          placeholder="--"
+          value={value}
+          {...this.commonInputProps}
+        />
+      </Fragment>
     );
   }
 
   renderMonth() {
-    const { maxDetail } = this.props;
+    const { maxDetail, showLeadingZeros } = this.props;
 
     // Do not display if maxDetail is "decade" or less
     if (allViews.indexOf(maxDetail) < 2) {
       return null;
     }
 
+    const { month: value } = this.state;
+
     return (
-      <input
-        className="react-date-picker__button__input__month"
-        name="month"
-        key="month"
-        max={this.maxMonth}
-        min={this.minMonth}
-        placeholder="--"
-        value={this.state.month}
-        {...this.commonInputProps}
-      />
+      <Fragment key="month">
+        {showLeadingZeros && value.toString().length === 1 ? '0' : ''}
+        <input
+          className="react-date-picker__button__input__month"
+          name="month"
+          max={this.maxMonth}
+          min={this.minMonth}
+          placeholder="--"
+          value={value}
+          {...this.commonInputProps}
+        />
+      </Fragment>
     );
   }
 
@@ -500,5 +508,6 @@ DateInput.propTypes = {
   onChange: PropTypes.func,
   returnValue: PropTypes.oneOf(['start', 'end']),
   required: PropTypes.bool,
+  showLeadingZeros: PropTypes.bool,
   value: PropTypes.instanceOf(Date),
 };

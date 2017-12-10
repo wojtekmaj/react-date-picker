@@ -21,6 +21,7 @@ export default class Test extends Component {
     minDetail: 'century',
     returnValue: 'start',
     required: true,
+    showLeadingZeros: true,
     showNeighboringMonth: false,
     showWeekNumbers: false,
     value: now,
@@ -37,6 +38,7 @@ export default class Test extends Component {
       minDetail,
       returnValue,
       required,
+      showLeadingZeros,
       showNeighboringMonth,
       showWeekNumbers,
       value,
@@ -77,6 +79,7 @@ export default class Test extends Component {
             />
             <ViewOptions
               setState={setState}
+              showLeadingZeros={showLeadingZeros}
               showNeighboringMonth={showNeighboringMonth}
               showWeekNumbers={showWeekNumbers}
             />
@@ -102,6 +105,7 @@ export default class Test extends Component {
                 onChange={this.onChange}
                 returnValue={returnValue}
                 required={required}
+                showLeadingZeros={showLeadingZeros}
                 showNeighboringMonth={showNeighboringMonth}
                 showWeekNumbers={showWeekNumbers}
                 value={value}
