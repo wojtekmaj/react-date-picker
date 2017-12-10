@@ -14,9 +14,16 @@ import {
 } from './shared/dates';
 import { setLocale } from './shared/locales';
 import { isMaxDate, isMinDate } from './shared/propTypes';
+import { between } from './shared/utils';
 
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
+
+const datesAreDifferent = (date1, date2) => (
+  (date1 && !date2) ||
+  (!date1 && date2) ||
+  (date1 && date2 && date1.getTime() !== date2.getTime())
+);
 
 const updateInputWidth = (element) => {
   const span = document.createElement('span');
@@ -70,30 +77,38 @@ const max = (...args) => Math.max(...args.filter(a => typeof a === 'number'));
 export default class DateInput extends Component {
   getValueFrom(value) {
     if (!value) {
-      return value;
+      return null;
     }
-    const { minDate } = this.props;
+
+    const { minDate, maxDate } = this.props;
     const rawValueFrom = value instanceof Array ? value[0] : value;
-    const valueFrom = getBegin(this.valueType, rawValueFrom);
-    return (
-      minDate && minDate > valueFrom ?
-        minDate :
-        valueFrom
-    );
+    const valueFromDate = new Date(rawValueFrom);
+
+    if (Number.isNaN(valueFromDate.getTime())) {
+      throw new Error(`Invalid date: ${value}`);
+    }
+
+    const valueFrom = getBegin(this.valueType, valueFromDate);
+
+    return between(valueFrom, minDate, maxDate);
   }
 
   getValueTo(value) {
     if (!value) {
-      return value;
+      return null;
     }
-    const { maxDate } = this.props;
-    const rawValueFrom = value instanceof Array ? value[1] : value;
-    const valueTo = getEnd(this.valueType, rawValueFrom);
-    return (
-      maxDate && maxDate < valueTo ?
-        maxDate :
-        valueTo
-    );
+
+    const { minDate, maxDate } = this.props;
+    const rawValueTo = value instanceof Array ? value[1] : value;
+    const valueToDate = new Date(rawValueTo);
+
+    if (Number.isNaN(valueToDate.getTime())) {
+      throw new Error(`Invalid date: ${value}`);
+    }
+
+    const valueTo = getEnd(this.valueType, valueToDate);
+
+    return between(valueTo, minDate, maxDate);
   }
 
   /**
@@ -125,15 +140,24 @@ export default class DateInput extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { props } = this;
+    const { value: nextValue } = nextProps;
+    const { value } = this.props;
 
     if (nextProps.locale !== props.locale) {
       setLocale(nextProps.locale);
     }
 
+    const nextValueFrom = this.getValueFrom(nextValue);
+    const valueFrom = this.getValueFrom(value);
+
+    const nextValueTo = this.getValueTo(nextValue);
+    const valueTo = this.getValueTo(value);
+
     if (
+      // Toggling calendar visibility resets values
       (nextProps.isCalendarOpen !== props.isCalendarOpen) ||
-      (!!nextProps.value !== !!props.value) ||
-      (nextProps.value && props.value && (nextProps.value.getTime() !== props.value.getTime()))
+      datesAreDifferent(nextValueFrom, valueFrom) ||
+      datesAreDifferent(nextValueTo, valueTo)
     ) {
       this.updateValues(nextProps);
     }
@@ -283,7 +307,7 @@ export default class DateInput extends Component {
   }
 
   updateValues(props = this.props) {
-    const { value } = props;
+    const value = this.getValueFrom(props.value);
 
     this.setState({
       year: value ? getYear(value) : '',
@@ -500,5 +524,8 @@ DateInput.propTypes = {
   onChange: PropTypes.func,
   returnValue: PropTypes.oneOf(['start', 'end']),
   required: PropTypes.bool,
-  value: PropTypes.instanceOf(Date),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
 };

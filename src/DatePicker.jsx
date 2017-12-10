@@ -246,5 +246,8 @@ DatePicker.propTypes = {
   required: PropTypes.bool,
   showNeighboringMonth: PropTypes.bool,
   showWeekNumbers: PropTypes.bool,
-  value: isValue,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    isValue,
+  ]),
 };
