@@ -21,6 +21,26 @@ describe('DatePicker', () => {
     expect(dateInput.length).toBe(1);
   });
 
+  it('renders clear button', () => {
+    const component = mount(
+      <DatePicker />
+    );
+
+    const dateInput = component.find('button.react-date-picker__clear-button');
+
+    expect(dateInput.length).toBe(1);
+  });
+
+  it('renders calendar button', () => {
+    const component = mount(
+      <DatePicker />
+    );
+
+    const dateInput = component.find('button.react-date-picker__calendar-button');
+
+    expect(dateInput.length).toBe(1);
+  });
+
   it('renders DateInput and Calendar component when given isOpen flag', () => {
     const component = mount(
       <DatePicker isOpen />
