@@ -1,9 +1,9 @@
 /// <reference types="react" />
 
-type Detail = "month" | "year" | "decade" | "century"
-type DateCallback = (date: Date) => void
-
 declare module "react-date-picker" {
+  type Detail = "month" | "year" | "decade" | "century"
+  type DateCallback = (date: Date) => void
+  
   export default function DatePicker(props: DatePickerProps): JSX.Element;
 
   export interface DatePickerProps {
