@@ -70,7 +70,7 @@ export default class DatePicker extends Component {
 
   clear = () => this.onChange(null);
 
-  renderInput() {
+  renderInputs() {
     const {
       calendarIcon,
       clearIcon,
@@ -95,7 +95,6 @@ export default class DatePicker extends Component {
           maxDetail={maxDetail}
           minDate={minDate}
           onChange={this.onChange}
-          placeholder={this.placeholder}
           returnValue={returnValue}
           required={required}
           value={valueFrom}
@@ -167,21 +166,19 @@ export default class DatePicker extends Component {
   }
 
   render() {
-    const { isOpen } = this.state;
-
     const className = 'react-date-picker';
 
     return (
       <div
         className={mergeClassNames(
           className,
-          `${className}--${isOpen ? 'open' : 'closed'}`,
+          `${className}--${this.state.isOpen ? 'open' : 'closed'}`,
           this.props.className,
         )}
         onFocus={this.onFocus}
         ref={(ref) => { this.wrapper = ref; }}
       >
-        {this.renderInput()}
+        {this.renderInputs()}
         {this.renderCalendar()}
       </div>
     );
