@@ -3,7 +3,8 @@
 declare module "react-date-picker" {
   type Detail = "month" | "year" | "decade" | "century"
   type DateCallback = (date: Date) => void
-  
+  type ViewCallback = (props: ViewCallbackProperties) => void
+
   export default function DatePicker(props: DatePickerProps): JSX.Element;
 
   export interface DatePickerProps {
@@ -18,11 +19,14 @@ declare module "react-date-picker" {
     minDetail?: Detail;
     next2Label?: string | React.ReactElement<any>;
     nextLabel?: string | React.ReactElement<any>;
+    onActiveDateChange?: ViewCallback;
     onChange?: DateCallback;
     onClickDay?: DateCallback;
     onClickDecade?: DateCallback;
     onClickMonth?: DateCallback;
     onClickYear?: DateCallback;
+    onDrillDown?: ViewCallback;
+    onDrillUp?: ViewCallback;
     prev2Label?: string | React.ReactElement<any>;
     prevLabel?: string | React.ReactElement<any>;
     renderChildren?: (props: CalendarTileProperties) => JSX.Element | null;
@@ -37,6 +41,11 @@ declare module "react-date-picker" {
 
   export interface CalendarTileProperties {
     date: Date;
+    view: Detail;
+  }
+
+  export interface ViewCallbackProperties {
+    activeStartDate: Date;
     view: Detail;
   }
 }
