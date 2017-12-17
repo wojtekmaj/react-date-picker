@@ -60,7 +60,7 @@
     "detect-element-overflow": "^1.1.0",
     "lodash.once": "^4.1.1",
     "merge-class-names": "^1.1.1",
-    "prop-types": ">=15.5",
+    "prop-types": "^15.6.0",
     "react": ">=15.5",
     "react-calendar": "^2.8.0",
     "react-dom": ">=15.5"
