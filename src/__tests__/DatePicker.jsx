@@ -5,8 +5,6 @@ import DatePicker from '../DatePicker';
 
 /* eslint-disable comma-dangle */
 
-jest.mock('../../node_modules/react-calendar/build/Calendar.less', () => ({}));
-
 describe('DatePicker', () => {
   it('applies className to its wrapper when given a string', () => {
     const className = 'testClassName';
@@ -15,9 +13,9 @@ describe('DatePicker', () => {
       <DatePicker className={className} />
     );
 
-    const firstDayTileClassName = component.prop('className');
+    const wrapperClassName = component.prop('className');
 
-    expect(firstDayTileClassName.includes(className)).toBe(true);
+    expect(wrapperClassName.includes(className)).toBe(true);
   });
 
   it('applies calendarClassName to the calendar when given a string', () => {
@@ -31,9 +29,9 @@ describe('DatePicker', () => {
     );
 
     const calendar = component.find('Calendar');
-    const firstDayTileClassName = calendar.prop('className');
+    const calendarWrapperClassName = calendar.prop('className');
 
-    expect(firstDayTileClassName.includes(calendarClassName)).toBe(true);
+    expect(calendarWrapperClassName.includes(calendarClassName)).toBe(true);
   });
 
   it('renders DateInput component', () => {
@@ -51,9 +49,9 @@ describe('DatePicker', () => {
       <DatePicker />
     );
 
-    const dateInput = component.find('button.react-date-picker__clear-button');
+    const clearButton = component.find('button.react-date-picker__clear-button');
 
-    expect(dateInput).toHaveLength(1);
+    expect(clearButton).toHaveLength(1);
   });
 
   it('renders calendar button', () => {
@@ -61,9 +59,9 @@ describe('DatePicker', () => {
       <DatePicker />
     );
 
-    const dateInput = component.find('button.react-date-picker__calendar-button');
+    const calendarButton = component.find('button.react-date-picker__calendar-button');
 
-    expect(dateInput).toHaveLength(1);
+    expect(calendarButton).toHaveLength(1);
   });
 
   it('renders DateInput and Calendar component when given isOpen flag', () => {
