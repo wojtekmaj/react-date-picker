@@ -9,11 +9,14 @@
   }
 
   &__button {
-    min-width: 155px;
     display: flex;
     border: thin solid gray;
 
     &__input {
+      @digit-width: .54em;
+      @dot-width: .217em;
+      // own padding + inputs padding + digits width + dots width
+      min-width: calc(~"4px + (4px * 3) + " @digit-width * 8 ~" + " @dot-width * 2);
       flex-grow: 1;
       display: flex;
       padding: 0 2px;
@@ -24,7 +27,7 @@
       }
 
       input {
-        min-width: 9px;
+        min-width: calc(~"4px + " @digit-width);
         height: 100%;
         padding: 1px;
         border: 0;

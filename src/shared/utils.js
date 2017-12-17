@@ -13,7 +13,7 @@ export const updateInputWidth = (element) => {
 
   container.appendChild(span);
 
-  const width = span.clientWidth + 4;
+  const width = span.getBoundingClientRect().width + 4;
   element.style.width = `${width}px`;
 
   container.removeChild(span);
