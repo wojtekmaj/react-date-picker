@@ -5,6 +5,22 @@ import DateInput from '../DateInput';
 
 /* eslint-disable comma-dangle */
 
+const keyCodes = {
+  ArrowLeft: 37,
+  ArrowUp: 38,
+  ArrowRight: 39,
+  ArrowDown: 40,
+  '-': 189,
+  '.': 190,
+  '/': 191,
+};
+
+const getKey = key => ({
+  keyCode: keyCodes[key],
+  which: keyCodes[key],
+  key,
+});
+
 describe('DateInput', () => {
   it('renders a native input and custom inputs', () => {
     const component = mount(
@@ -87,9 +103,99 @@ describe('DateInput', () => {
       />
     );
 
-    const separators = component.text();
+    const separators = component.find('.react-date-picker__button__input__divider');
 
     expect(separators).toHaveLength(2);
-    expect(separators[0]).toBe('/');
+    expect(separators.at(0).text()).toBe('/');
+  });
+
+  it('jumps to the next field when right arrow is pressed', () => {
+    const component = mount(
+      <DateInput />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+    const dayInput = customInputs.at(0);
+    const monthInput = customInputs.at(1);
+
+    dayInput.getDOMNode().focus();
+
+    expect(document.activeElement).toBe(dayInput.getDOMNode());
+
+    dayInput.simulate('keydown', getKey('ArrowRight'));
+
+    expect(document.activeElement).toBe(monthInput.getDOMNode());
+  });
+
+  it('jumps to the next field when separator key is pressed', () => {
+    const component = mount(
+      <DateInput />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+    const dayInput = customInputs.at(0);
+    const monthInput = customInputs.at(1);
+
+    dayInput.getDOMNode().focus();
+
+    expect(document.activeElement).toBe(dayInput.getDOMNode());
+
+    const separators = component.find('.react-date-picker__button__input__divider');
+    const separatorKey = separators.at(0).text();
+    dayInput.simulate('keydown', getKey(separatorKey));
+
+    expect(document.activeElement).toBe(monthInput.getDOMNode());
+  });
+
+  it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
+    const component = mount(
+      <DateInput />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+    const yearInput = customInputs.at(2);
+
+    yearInput.getDOMNode().focus();
+
+    expect(document.activeElement).toBe(yearInput.getDOMNode());
+
+    yearInput.simulate('keydown', getKey('ArrowRight'));
+
+    expect(document.activeElement).toBe(yearInput.getDOMNode());
+  });
+
+  it('jumps to the previous field when left arrow is pressed', () => {
+    const component = mount(
+      <DateInput />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+    const dayInput = customInputs.at(0);
+    const monthInput = customInputs.at(1);
+
+    monthInput.getDOMNode().focus();
+
+    expect(document.activeElement).toBe(monthInput.getDOMNode());
+
+    monthInput.simulate('keydown', getKey('ArrowLeft'));
+
+    expect(document.activeElement).toBe(dayInput.getDOMNode());
+  });
+
+  it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
+    const component = mount(
+      <DateInput />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+    const dayInput = customInputs.at(0);
+
+    dayInput.getDOMNode().focus();
+
+    expect(document.activeElement).toBe(dayInput.getDOMNode());
+
+    dayInput.simulate('keydown', getKey('ArrowLeft'));
+
+    expect(document.activeElement).toBe(dayInput.getDOMNode());
   });
 });
