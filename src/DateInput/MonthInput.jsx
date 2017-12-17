@@ -5,10 +5,8 @@ import {
   getMonth,
   getYear,
 } from '../shared/dates';
-import { isDetail, isMaxDate, isMinDate } from '../shared/propTypes';
+import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max, updateInputWidth } from '../shared/utils';
-
-const allViews = ['century', 'decade', 'year', 'month'];
 
 export default class MonthInput extends PureComponent {
   get maxMonth() {
@@ -22,13 +20,6 @@ export default class MonthInput extends PureComponent {
   }
 
   render() {
-    const { maxDetail } = this.props;
-
-    // Do not display if maxDetail is "decade" or less
-    if (allViews.indexOf(maxDetail) < 2) {
-      return null;
-    }
-
     const { maxMonth, minMonth } = this;
     const {
       itemRef, value, onChange, onKeyDown, required,
@@ -63,7 +54,6 @@ export default class MonthInput extends PureComponent {
 MonthInput.propTypes = {
   itemRef: PropTypes.func,
   maxDate: isMaxDate,
-  maxDetail: isDetail.isRequired,
   minDate: isMinDate,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,

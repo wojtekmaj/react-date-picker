@@ -7,10 +7,8 @@ import {
   getMonth,
   getYear,
 } from '../shared/dates';
-import { isDetail, isMaxDate, isMinDate } from '../shared/propTypes';
+import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max, updateInputWidth } from '../shared/utils';
-
-const allViews = ['century', 'decade', 'year', 'month'];
 
 export default class DayInput extends PureComponent {
   get currentMonthMaxDays() {
@@ -39,13 +37,6 @@ export default class DayInput extends PureComponent {
   }
 
   render() {
-    const { maxDetail } = this.props;
-
-    // Do not display if maxDetail is "year" or less
-    if (allViews.indexOf(maxDetail) < 3) {
-      return null;
-    }
-
     const { maxDay, minDay } = this;
     const {
       itemRef, value, onChange, onKeyDown, required,
@@ -80,7 +71,6 @@ export default class DayInput extends PureComponent {
 DayInput.propTypes = {
   itemRef: PropTypes.func,
   maxDate: isMaxDate,
-  maxDetail: isDetail.isRequired,
   minDate: isMinDate,
   month: PropTypes.number,
   onChange: PropTypes.func,

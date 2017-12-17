@@ -109,6 +109,17 @@ describe('DateInput', () => {
     expect(separators.at(0).text()).toBe('/');
   });
 
+  it('renders proper amount of separators', () => {
+    const component = mount(
+      <DateInput maxDetail="year" />
+    );
+
+    const separators = component.find('.react-date-picker__button__input__divider');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(separators).toHaveLength(customInputs.length - 1);
+  });
+
   it('jumps to the next field when right arrow is pressed', () => {
     const component = mount(
       <DateInput />

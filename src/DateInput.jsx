@@ -278,6 +278,13 @@ export default class DateInput extends Component {
   }
 
   renderDay() {
+    const { maxDetail } = this.props;
+
+    // Do not display if maxDetail is "year" or less
+    if (allViews.indexOf(maxDetail) < 3) {
+      return null;
+    }
+
     return (
       <DayInput
         key="day"
@@ -291,6 +298,13 @@ export default class DateInput extends Component {
   }
 
   renderMonth() {
+    const { maxDetail } = this.props;
+
+    // Do not display if maxDetail is "decade" or less
+    if (allViews.indexOf(maxDetail) < 2) {
+      return null;
+    }
+
     return (
       <MonthInput
         key="month"
