@@ -1,2 +1,13 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=9c2ed6f99d2fa4eb483ebf90ef41c9f0bedd8395e77c1b715bbd17c6a643780b
 language: node_js
 node_js: "node"
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - npm run test-jest-coverage
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
