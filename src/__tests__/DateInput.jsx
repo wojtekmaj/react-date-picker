@@ -75,9 +75,9 @@ describe('DateInput', () => {
 
     const customInputs = component.find('input[type="number"]');
 
-    expect(customInputs.at(0).props().name).toBe('month');
-    expect(customInputs.at(1).props().name).toBe('day');
-    expect(customInputs.at(2).props().name).toBe('year');
+    expect(customInputs.at(0).prop('name')).toBe('month');
+    expect(customInputs.at(1).prop('name')).toBe('day');
+    expect(customInputs.at(2).prop('name')).toBe('year');
   });
 
   it('renders proper input separators (en-US)', () => {
