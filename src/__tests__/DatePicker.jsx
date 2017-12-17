@@ -8,6 +8,34 @@ import DatePicker from '../DatePicker';
 jest.mock('../../node_modules/react-calendar/build/Calendar.less', () => ({}));
 
 describe('DatePicker', () => {
+  it('applies className to its wrapper when given a string', () => {
+    const className = 'testClassName';
+
+    const component = mount(
+      <DatePicker className={className} />
+    );
+
+    const firstDayTileClassName = component.prop('className');
+
+    expect(firstDayTileClassName.includes(className)).toBe(true);
+  });
+
+  it('applies calendarClassName to the calendar when given a string', () => {
+    const calendarClassName = 'testClassName';
+
+    const component = mount(
+      <DatePicker
+        calendarClassName={calendarClassName}
+        isOpen
+      />
+    );
+
+    const calendar = component.find('Calendar');
+    const firstDayTileClassName = calendar.prop('className');
+
+    expect(firstDayTileClassName.includes(calendarClassName)).toBe(true);
+  });
+
   it('renders DateInput component', () => {
     const component = mount(
       <DatePicker />
