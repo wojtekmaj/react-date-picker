@@ -15,7 +15,7 @@ describe('DatePicker', () => {
 
     const dateInput = component.find('DateInput');
 
-    expect(dateInput.length).toBe(1);
+    expect(dateInput).toHaveLength(1);
   });
 
   it('renders clear button', () => {
@@ -25,7 +25,7 @@ describe('DatePicker', () => {
 
     const dateInput = component.find('button.react-date-picker__clear-button');
 
-    expect(dateInput.length).toBe(1);
+    expect(dateInput).toHaveLength(1);
   });
 
   it('renders calendar button', () => {
@@ -35,7 +35,7 @@ describe('DatePicker', () => {
 
     const dateInput = component.find('button.react-date-picker__calendar-button');
 
-    expect(dateInput.length).toBe(1);
+    expect(dateInput).toHaveLength(1);
   });
 
   it('renders DateInput and Calendar component when given isOpen flag', () => {
@@ -46,8 +46,8 @@ describe('DatePicker', () => {
     const dateInput = component.find('DateInput');
     const calendar = component.find('Calendar');
 
-    expect(dateInput.length).toBe(1);
-    expect(calendar.length).toBe(1);
+    expect(dateInput).toHaveLength(1);
+    expect(calendar).toHaveLength(1);
   });
 
   it('opens Calendar component when given isOpen flag by changing props', () => {
@@ -57,14 +57,14 @@ describe('DatePicker', () => {
 
     const calendar = component.find('Calendar');
 
-    expect(calendar.length).toBe(0);
+    expect(calendar).toHaveLength(0);
 
     component.setProps({ isOpen: true });
     component.update();
 
     const calendar2 = component.find('Calendar');
 
-    expect(calendar2.length).toBe(1);
+    expect(calendar2).toHaveLength(1);
   });
 
   it('opens Calendar component when clicking on a button', () => {
@@ -75,14 +75,14 @@ describe('DatePicker', () => {
     const calendar = component.find('Calendar');
     const button = component.find('button.react-date-picker__calendar-button');
 
-    expect(calendar.length).toBe(0);
+    expect(calendar).toHaveLength(0);
 
     button.simulate('click');
     component.update();
 
     const calendar2 = component.find('Calendar');
 
-    expect(calendar2.length).toBe(1);
+    expect(calendar2).toHaveLength(1);
   });
 
   it('opens Calendar component when focusing on an input inside', () => {
@@ -93,13 +93,13 @@ describe('DatePicker', () => {
     const calendar = component.find('Calendar');
     const input = component.find('input[name="day"]');
 
-    expect(calendar.length).toBe(0);
+    expect(calendar).toHaveLength(0);
 
     input.simulate('focus');
     component.update();
 
     const calendar2 = component.find('Calendar');
 
-    expect(calendar2.length).toBe(1);
+    expect(calendar2).toHaveLength(1);
   });
 });

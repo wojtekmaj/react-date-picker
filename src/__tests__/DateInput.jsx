@@ -14,8 +14,8 @@ describe('DateInput', () => {
     const nativeInput = component.find('input[type="date"]');
     const customInputs = component.find('input[type="number"]');
 
-    expect(nativeInput.length).toBe(1);
-    expect(customInputs.length).toBe(3);
+    expect(nativeInput).toHaveLength(1);
+    expect(customInputs).toHaveLength(3);
   });
 
   it('does not render day input when maxDetail is "year" or less', () => {
@@ -28,10 +28,10 @@ describe('DateInput', () => {
     const monthInput = customInputs.find('input[name="month"]');
     const yearInput = customInputs.find('input[name="year"]');
 
-    expect(customInputs.length).toBe(2);
-    expect(dayInput.length).toBe(0);
-    expect(monthInput.length).toBe(1);
-    expect(yearInput.length).toBe(1);
+    expect(customInputs).toHaveLength(2);
+    expect(dayInput).toHaveLength(0);
+    expect(monthInput).toHaveLength(1);
+    expect(yearInput).toHaveLength(1);
   });
 
   it('does not render day and month inputs when maxDetail is "decade" or less', () => {
@@ -44,10 +44,10 @@ describe('DateInput', () => {
     const monthInput = customInputs.find('input[name="month"]');
     const yearInput = customInputs.find('input[name="year"]');
 
-    expect(customInputs.length).toBe(2);
-    expect(dayInput.length).toBe(0);
-    expect(monthInput.length).toBe(0);
-    expect(yearInput.length).toBe(1);
+    expect(customInputs).toHaveLength(2);
+    expect(dayInput).toHaveLength(0);
+    expect(monthInput).toHaveLength(0);
+    expect(yearInput).toHaveLength(1);
   });
 
   it('shows a given date in all inputs correctly', () => {
