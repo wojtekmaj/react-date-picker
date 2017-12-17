@@ -488,7 +488,6 @@ export default class DateInput extends Component {
         onChange={this.onChangeNative}
         onFocus={this.stopPropagation}
         required={required}
-        step={this.yearStep}
         style={{
           visibility: 'hidden',
           position: 'absolute',
