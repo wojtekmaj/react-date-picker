@@ -53,10 +53,12 @@ const selectIfPossible = (element) => {
 
 const removeUnwantedCharacters = str => str
   .split('')
-  // We don't want spaces in dates
-  .filter(a => a.charCodeAt(0) !== 32)
-  // Internet Explorer specific
-  .filter(a => a.charCodeAt(0) !== 8206)
+  .filter(a => (
+    // We don't want spaces in dates
+    a.charCodeAt(0) !== 32 &&
+    // Internet Explorer specific
+    a.charCodeAt(0) !== 8206
+  ))
   .join('');
 
 export default class DateInput extends Component {
