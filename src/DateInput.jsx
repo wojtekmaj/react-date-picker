@@ -263,7 +263,7 @@ export default class DateInput extends Component {
    */
   onChangeExternal = () => {
     if (this.props.onChange) {
-      const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(a => a);
+      const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(Boolean);
 
       const values = {};
       formElements.forEach((formElement) => {
@@ -342,7 +342,7 @@ export default class DateInput extends Component {
             default: return null;
           }
         })
-        .filter(part => part)
+        .filter(Boolean)
         .reduce((result, element, index, array) => {
           result.push(element);
 
