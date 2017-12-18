@@ -2,12 +2,12 @@
   "name": "react-date-picker",
   "version": "6.5.2",
   "description": "An input component for picking dates for your React application.",
-  "main": "build/entry.js",
+  "main": "dist/entry.js",
   "types": "./index.d.ts",
   "es6": "src/entry.js",
   "scripts": {
     "build": "npm run build-js && npm run build-styles && npm run copy-styles",
-    "build-js": "babel src -d build --ignore **/__tests__",
+    "build-js": "babel src -d dist --ignore **/__tests__",
     "build-styles": "lessc ./src/DatePicker.less ./src/DatePicker.css",
     "copy-styles": "node ./copy-styles.js",
     "prepublishOnly": "npm run build",
@@ -91,7 +91,7 @@
     "LICENSE",
     "README.md",
     "index.d.ts",
-    "build/",
+    "dist/",
     "src/"
   ],
   "repository": {
