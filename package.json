@@ -2,12 +2,12 @@
   "name": "react-date-picker",
   "version": "6.5.2",
   "description": "An input component for picking dates for your React application.",
-  "main": "build/entry.js",
+  "main": "dist/entry.js",
   "types": "./index.d.ts",
   "es6": "src/entry.js",
   "scripts": {
     "build": "npm run build-js && npm run build-styles && npm run copy-styles",
-    "build-js": "babel src -d build --ignore **/__tests__",
+    "build-js": "babel src -d dist --ignore **/__tests__",
     "build-styles": "lessc ./src/DatePicker.less ./src/DatePicker.css",
     "copy-styles": "node ./copy-styles.js",
     "prepublishOnly": "npm run build",
@@ -57,7 +57,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "detect-element-overflow": "^1.1.0",
+    "detect-element-overflow": "^1.1.1",
     "lodash.once": "^4.1.1",
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
@@ -72,7 +72,7 @@
     "babel-eslint": "^8.0.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "enzyme": "^3.2.0",
@@ -91,7 +91,7 @@
     "LICENSE",
     "README.md",
     "index.d.ts",
-    "build/",
+    "dist/",
     "src/"
   ],
   "repository": {
