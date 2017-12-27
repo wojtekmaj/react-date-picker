@@ -8,4 +8,4 @@ export {
   getEnd,
   getISOLocalMonth,
   getISOLocalDate,
-} from 'react-calendar/build/shared/dates';
+} from 'react-calendar/dist/shared/dates';

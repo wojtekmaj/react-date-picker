@@ -1,4 +1,4 @@
 export {
   getLocale,
   setLocale,
-} from 'react-calendar/build/shared/locales';
+} from 'react-calendar/dist/shared/locales';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 import detectElementOverflow from 'detect-element-overflow';
 
-import Calendar from 'react-calendar/build/entry.nostyle';
+import Calendar from 'react-calendar/dist/entry.nostyle';
 
 import DateInput from './DateInput';
 
