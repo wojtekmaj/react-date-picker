@@ -83,7 +83,7 @@ class MyApp extends Component {
 
 ### Custom styling
 
-If you don't want to use default React-Date-Picker styling to build upon it, you can import React-Date-Picker by using `import DatePicker from 'react-date-picker/dist/entry.nostyle';` instead.
+If you don't want to use default React-Date-Picker styling to build upon it, you can import React-Date-Picker by using `import DatePicker from 'react-date-picker/build/entry.nostyle';` instead.
 
 ## User guide
 
