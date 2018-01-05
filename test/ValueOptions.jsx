@@ -24,8 +24,8 @@ export default class ValueOptions extends Component {
 
   render() {
     return (
-      <fieldset id="detailoptions">
-        <legend htmlFor="viewoptions">Set date externally</legend>
+      <fieldset id="valueOptions">
+        <legend htmlFor="valueOptions">Set date externally</legend>
 
         <div>
           <label htmlFor="startDate">Start date</label>
