@@ -9,8 +9,10 @@ declare module "react-date-picker" {
 
   export interface DatePickerProps {
     calendarClassName?: string | string[];
+    calendarIcon?: React.ReactElement<any>;
     calendarType?: "US" | "ISO 8601";
     className?: string | string[];
+    clearIcon?: React.ReactElement<any>;
     isOpen?: boolean;
     locale?: string;
     maxDate?: Date;
