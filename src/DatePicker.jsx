@@ -77,6 +77,7 @@ export default class DatePicker extends Component {
       maxDate,
       maxDetail,
       minDate,
+      name,
       returnValue,
       required,
       value,
@@ -93,6 +94,7 @@ export default class DatePicker extends Component {
           maxDate={maxDate}
           maxDetail={maxDetail}
           minDate={minDate}
+          name={name}
           onChange={this.onChange}
           returnValue={returnValue}
           required={required}
@@ -229,6 +231,7 @@ DatePicker.propTypes = {
   maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
   minDetail: PropTypes.oneOf(allViews),
+  name: PropTypes.string,
   next2Label: PropTypes.node,
   nextLabel: PropTypes.node,
   onChange: PropTypes.func,

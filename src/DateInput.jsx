@@ -364,6 +364,7 @@ export default class DateInput extends Component {
         key="date"
         maxDate={this.props.maxDate}
         minDate={this.props.minDate}
+        name={this.props.name}
         onChange={this.onChangeNative}
         required={this.props.required}
         value={this.props.value}
@@ -384,6 +385,7 @@ export default class DateInput extends Component {
 
 DateInput.defaultProps = {
   maxDetail: 'month',
+  name: 'date',
   returnValue: 'start',
 };
 
@@ -393,6 +395,7 @@ DateInput.propTypes = {
   maxDate: isMaxDate,
   maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   returnValue: PropTypes.oneOf(['start', 'end']),
   required: PropTypes.bool,

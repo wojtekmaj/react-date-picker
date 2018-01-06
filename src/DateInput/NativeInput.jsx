@@ -44,7 +44,7 @@ export default class NativeInput extends PureComponent {
     const { nativeValueParser } = this;
 
     const {
-      maxDate, minDate, onChange, required, value,
+      maxDate, minDate, name, onChange, required, value,
     } = this.props;
 
     return (
@@ -52,7 +52,7 @@ export default class NativeInput extends PureComponent {
         type={this.nativeInputType}
         max={maxDate ? nativeValueParser(maxDate) : null}
         min={minDate ? nativeValueParser(minDate) : null}
-        name="date"
+        name={name}
         onChange={onChange}
         onFocus={this.stopPropagation}
         required={required}
@@ -71,6 +71,7 @@ export default class NativeInput extends PureComponent {
 NativeInput.propTypes = {
   maxDate: isMaxDate,
   minDate: isMinDate,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   value: PropTypes.oneOfType([
