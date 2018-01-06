@@ -64,7 +64,7 @@ describe('DatePicker', () => {
     expect(calendarButton).toHaveLength(1);
   });
 
-  it('renders DateInput and Calendar component when given isOpen flag', () => {
+  it('renders DateInput and Calendar components when given isOpen flag', () => {
     const component = mount(
       <DatePicker isOpen />
     );
