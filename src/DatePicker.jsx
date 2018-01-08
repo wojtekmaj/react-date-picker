@@ -152,7 +152,7 @@ export default class DatePicker extends Component {
 
           const collisions = detectElementOverflow(ref, document.body);
 
-          if (collisions.collidedBottom) {
+          if (collisions.collidedBottom()) {
             ref.classList.add(`${className}--above-label`);
           }
         }}
