@@ -47,6 +47,7 @@ export default class DayInput extends PureComponent {
       <input
         className="react-date-picker__button__input__day"
         name="day"
+        key="input"
         max={maxDay}
         min={minDay}
         onChange={onChange}

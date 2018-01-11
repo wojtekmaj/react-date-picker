@@ -30,6 +30,7 @@ export default class MonthInput extends PureComponent {
       <input
         className="react-date-picker__button__input__month"
         name="month"
+        key="input"
         max={maxMonth}
         min={minMonth}
         onChange={onChange}
