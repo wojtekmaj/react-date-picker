@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import DayInput from './DateInput/DayInput';
@@ -291,29 +291,15 @@ export default class DateInput extends Component {
     const { day: value } = this.state;
 
     return (
-<<<<<<< HEAD
-      <Fragment key="day">
-        {showLeadingZeros && value.toString().length === 1 ? '0' : ''}
-        <input
-          className="react-date-picker__button__input__day"
-          name="day"
-          max={this.maxDay}
-          min={this.minDay}
-          placeholder="--"
-          value={value}
-          {...this.commonInputProps}
-        />
-      </Fragment>
-=======
       <DayInput
         key="day"
         maxDetail={this.props.maxDetail}
         month={this.state.month}
+        showLeadingZeros={showLeadingZeros}
         year={this.state.year}
-        value={this.state.day}
+        value={value}
         {...this.commonInputProps}
       />
->>>>>>> master
     );
   }
 
@@ -332,7 +318,8 @@ export default class DateInput extends Component {
         key="month"
         maxDetail={this.props.maxDetail}
         minDate={this.props.minDate}
-        value={this.state.month}
+        showLeadingZeros={showLeadingZeros}
+        value={value}
         {...this.commonInputProps}
       />
     );
@@ -418,13 +405,9 @@ DateInput.propTypes = {
   onChange: PropTypes.func,
   returnValue: PropTypes.oneOf(['start', 'end']),
   required: PropTypes.bool,
-<<<<<<< HEAD
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.instanceOf(Date),
-=======
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
->>>>>>> master
 };
