@@ -1,36 +1,31 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import DayInput from './DateInput/DayInput';
+import MonthInput from './DateInput/MonthInput';
+import YearInput from './DateInput/YearInput';
+import NativeInput from './DateInput/NativeInput';
+
 import { formatDate } from './shared/dateFormatter';
 import {
   getBegin,
   getDay,
-  getDaysInMonth,
   getEnd,
-  getISOLocalDate,
-  getISOLocalMonth,
   getMonth,
   getYear,
 } from './shared/dates';
 import { setLocale } from './shared/locales';
 import { isMaxDate, isMinDate } from './shared/propTypes';
+import { between } from './shared/utils';
 
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
 
-const updateInputWidth = (element) => {
-  const span = document.createElement('span');
-  span.innerHTML = element.value || element.placeholder;
-
-  const container = element.parentElement;
-
-  container.appendChild(span);
-
-  const width = span.clientWidth + 4;
-  element.style.width = `${width}px`;
-
-  container.removeChild(span);
-};
+const datesAreDifferent = (date1, date2) => (
+  (date1 && !date2) ||
+  (!date1 && date2) ||
+  (date1 && date2 && date1.getTime() !== date2.getTime())
+);
 
 const findPreviousInput = (element) => {
   const previousElement = element.previousElementSibling; // Divider between inputs
@@ -58,42 +53,49 @@ const selectIfPossible = (element) => {
 
 const removeUnwantedCharacters = str => str
   .split('')
-  // We don't want spaces in dates
-  .filter(a => a.charCodeAt(0) !== 32)
-  // Internet Explorer specific
-  .filter(a => a.charCodeAt(0) !== 8206)
+  .filter(a => (
+    // We don't want spaces in dates
+    a.charCodeAt(0) !== 32 &&
+    // Internet Explorer specific
+    a.charCodeAt(0) !== 8206
+  ))
   .join('');
-
-const min = (...args) => Math.min(...args.filter(a => typeof a === 'number'));
-const max = (...args) => Math.max(...args.filter(a => typeof a === 'number'));
 
 export default class DateInput extends Component {
   getValueFrom(value) {
     if (!value) {
-      return value;
+      return null;
     }
-    const { minDate } = this.props;
+
+    const { minDate, maxDate } = this.props;
     const rawValueFrom = value instanceof Array ? value[0] : value;
-    const valueFrom = getBegin(this.valueType, rawValueFrom);
-    return (
-      minDate && minDate > valueFrom ?
-        minDate :
-        valueFrom
-    );
+    const valueFromDate = new Date(rawValueFrom);
+
+    if (Number.isNaN(valueFromDate.getTime())) {
+      throw new Error(`Invalid date: ${value}`);
+    }
+
+    const valueFrom = getBegin(this.valueType, valueFromDate);
+
+    return between(valueFrom, minDate, maxDate);
   }
 
   getValueTo(value) {
     if (!value) {
-      return value;
+      return null;
     }
-    const { maxDate } = this.props;
-    const rawValueFrom = value instanceof Array ? value[1] : value;
-    const valueTo = getEnd(this.valueType, rawValueFrom);
-    return (
-      maxDate && maxDate < valueTo ?
-        maxDate :
-        valueTo
-    );
+
+    const { minDate, maxDate } = this.props;
+    const rawValueTo = value instanceof Array ? value[1] : value;
+    const valueToDate = new Date(rawValueTo);
+
+    if (Number.isNaN(valueToDate.getTime())) {
+      throw new Error(`Invalid date: ${value}`);
+    }
+
+    const valueTo = getEnd(this.valueType, valueToDate);
+
+    return between(valueTo, minDate, maxDate);
   }
 
   /**
@@ -113,69 +115,39 @@ export default class DateInput extends Component {
   }
 
   state = {
-    year: '',
-    month: '',
-    day: '',
+    year: null,
+    month: null,
+    day: null,
   }
 
-  componentDidMount() {
+  componentWillMount() {
     setLocale(this.props.locale);
     this.updateValues();
   }
 
   componentWillReceiveProps(nextProps) {
     const { props } = this;
+    const { value: nextValue } = nextProps;
+    const { value } = this.props;
 
     if (nextProps.locale !== props.locale) {
       setLocale(nextProps.locale);
     }
 
+    const nextValueFrom = this.getValueFrom(nextValue);
+    const valueFrom = this.getValueFrom(value);
+
+    const nextValueTo = this.getValueTo(nextValue);
+    const valueTo = this.getValueTo(value);
+
     if (
+      // Toggling calendar visibility resets values
       (nextProps.isCalendarOpen !== props.isCalendarOpen) ||
-      (!!nextProps.value !== !!props.value) ||
-      (nextProps.value && props.value && (nextProps.value.getTime() !== props.value.getTime()))
+      datesAreDifferent(nextValueFrom, valueFrom) ||
+      datesAreDifferent(nextValueTo, valueTo)
     ) {
       this.updateValues(nextProps);
     }
-  }
-
-  get maxDay() {
-    const { maxDate } = this.props;
-    const { month, year } = this.state;
-    return min(
-      this.currentMonthMaxDays,
-      maxDate && year === getYear(maxDate) && month === getMonth(maxDate) && getDay(maxDate),
-    );
-  }
-
-  get minDay() {
-    const { minDate } = this.props;
-    const { month, year } = this.state;
-    return max(
-      1, minDate && year === getYear(minDate) && month === getMonth(minDate) && getDay(minDate),
-    );
-  }
-
-  get maxMonth() {
-    const { maxDate } = this.props;
-    const { year } = this.state;
-    return min(12, maxDate && year === getYear(maxDate) && getMonth(maxDate));
-  }
-
-  get minMonth() {
-    const { minDate } = this.props;
-    const { year } = this.state;
-    return max(1, minDate && year === getYear(minDate) && getMonth(minDate));
-  }
-
-  get maxYear() {
-    const { maxDate } = this.props;
-    return maxDate ? getYear(maxDate) : null;
-  }
-
-  get minYear() {
-    const { minDate } = this.props;
-    return max(1000, minDate && getYear(minDate));
   }
 
   /**
@@ -184,42 +156,6 @@ export default class DateInput extends Component {
   get valueType() {
     const { maxDetail } = this.props;
     return allValueTypes[allViews.indexOf(maxDetail)];
-  }
-
-  get nativeInputType() {
-    switch (this.valueType) {
-      case 'decade':
-      case 'year':
-        return 'number';
-      case 'month':
-        return 'month';
-      case 'day':
-        return 'date';
-      default:
-        throw new Error('Invalid valueType.');
-    }
-  }
-
-  get nativeValueParser() {
-    switch (this.valueType) {
-      case 'century':
-      case 'decade':
-      case 'year':
-        return getYear;
-      case 'month':
-        return getISOLocalMonth;
-      case 'day':
-        return getISOLocalDate;
-      default:
-        throw new Error('Invalid valueType.');
-    }
-  }
-
-  get yearStep() {
-    if (this.valueType === 'century') {
-      return 10;
-    }
-    return 1;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -252,43 +188,30 @@ export default class DateInput extends Component {
     );
   }
 
-  get currentMonthMaxDays() {
-    const { year, month } = this.state;
-
-    if (!month) {
-      return 31;
-    }
-
-    return getDaysInMonth(new Date(year, month - 1, 1));
-  }
-
   get commonInputProps() {
     return {
-      type: 'number',
+      maxDate: this.props.maxDate,
+      minDate: this.props.minDate,
       onChange: this.onChange,
       onKeyDown: this.onKeyDown,
       // This is only for showing validity when editing
       required: this.props.required || this.props.isCalendarOpen,
-      ref: (ref) => {
-        if (!ref) {
-          return;
-        }
+      itemRef: (ref) => {
+        if (!ref) return;
 
         // Save a reference to each input field
         this[`${ref.name}Input`] = ref;
-
-        updateInputWidth(ref);
       },
     };
   }
 
   updateValues(props = this.props) {
-    const { value } = props;
+    const value = this.getValueFrom(props.value);
 
     this.setState({
-      year: value ? getYear(value) : '',
-      month: value ? getMonth(value) : '',
-      day: value ? getDay(value) : '',
+      year: value ? getYear(value) : null,
+      month: value ? getMonth(value) : null,
+      day: value ? getDay(value) : null,
     });
   }
 
@@ -319,11 +242,10 @@ export default class DateInput extends Component {
    * Called when non-native date input is changed.
    */
   onChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-
-    updateInputWidth(event.target);
-
-    this.onChangeExternal();
+    this.setState(
+      { [event.target.name]: parseInt(event.target.value, 10) },
+      this.onChangeExternal,
+    );
   }
 
   /**
@@ -342,23 +264,21 @@ export default class DateInput extends Component {
    * calls props.onChange.
    */
   onChangeExternal = () => {
-    const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(a => a);
+    if (this.props.onChange) {
+      const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(Boolean);
 
-    const values = {};
-    formElements.forEach((formElement) => {
-      values[formElement.name] = formElement.value;
-    });
+      const values = {};
+      formElements.forEach((formElement) => {
+        values[formElement.name] = formElement.value;
+      });
 
-    if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
-      const proposedValue = new Date(values.year, (values.month || 1) - 1, values.day || 1);
-      const processedValue = this.getProcessedValue(proposedValue);
-      if (this.props.onChange) {
+      if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
+        const proposedValue = new Date(values.year, (values.month || 1) - 1, values.day || 1);
+        const processedValue = this.getProcessedValue(proposedValue);
         this.props.onChange(processedValue, false);
       }
     }
   }
-
-  stopPropagation = event => event.stopPropagation()
 
   renderDay() {
     const { maxDetail, showLeadingZeros } = this.props;
@@ -371,6 +291,7 @@ export default class DateInput extends Component {
     const { day: value } = this.state;
 
     return (
+<<<<<<< HEAD
       <Fragment key="day">
         {showLeadingZeros && value.toString().length === 1 ? '0' : ''}
         <input
@@ -383,6 +304,16 @@ export default class DateInput extends Component {
           {...this.commonInputProps}
         />
       </Fragment>
+=======
+      <DayInput
+        key="day"
+        maxDetail={this.props.maxDetail}
+        month={this.state.month}
+        year={this.state.year}
+        value={this.state.day}
+        {...this.commonInputProps}
+      />
+>>>>>>> master
     );
   }
 
@@ -397,32 +328,22 @@ export default class DateInput extends Component {
     const { month: value } = this.state;
 
     return (
-      <Fragment key="month">
-        {showLeadingZeros && value.toString().length === 1 ? '0' : ''}
-        <input
-          className="react-date-picker__button__input__month"
-          name="month"
-          max={this.maxMonth}
-          min={this.minMonth}
-          placeholder="--"
-          value={value}
-          {...this.commonInputProps}
-        />
-      </Fragment>
+      <MonthInput
+        key="month"
+        maxDetail={this.props.maxDetail}
+        minDate={this.props.minDate}
+        value={this.state.month}
+        {...this.commonInputProps}
+      />
     );
   }
 
   renderYear() {
     return (
-      <input
-        className="react-date-picker__button__input__year"
-        name="year"
+      <YearInput
         key="year"
-        max={this.maxYear}
-        min={this.minYear}
-        placeholder="----"
-        step={this.yearStep}
         value={this.state.year}
+        valueType={this.valueType}
         {...this.commonInputProps}
       />
     );
@@ -442,7 +363,7 @@ export default class DateInput extends Component {
             default: return null;
           }
         })
-        .filter(part => part)
+        .filter(Boolean)
         .reduce((result, element, index, array) => {
           result.push(element);
 
@@ -457,29 +378,16 @@ export default class DateInput extends Component {
   }
 
   renderNativeInput() {
-    const { nativeValueParser } = this;
-    const {
-      maxDate, minDate, required, value,
-    } = this.props;
-
     return (
-      <input
-        type={this.nativeInputType}
-        max={maxDate ? nativeValueParser(maxDate) : null}
-        min={minDate ? nativeValueParser(minDate) : null}
-        name="date"
+      <NativeInput
         key="date"
+        maxDate={this.props.maxDate}
+        minDate={this.props.minDate}
+        name={this.props.name}
         onChange={this.onChangeNative}
-        onFocus={this.stopPropagation}
-        required={required}
-        step={this.yearStep}
-        style={{
-          visibility: 'hidden',
-          position: 'absolute',
-          top: '-9999px',
-          left: '-9999px',
-        }}
-        value={value ? nativeValueParser(value) : ''}
+        required={this.props.required}
+        value={this.props.value}
+        valueType={this.valueType}
       />
     );
   }
@@ -496,6 +404,7 @@ export default class DateInput extends Component {
 
 DateInput.defaultProps = {
   maxDetail: 'month',
+  name: 'date',
   returnValue: 'start',
 };
 
@@ -505,9 +414,17 @@ DateInput.propTypes = {
   maxDate: isMaxDate,
   maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   returnValue: PropTypes.oneOf(['start', 'end']),
   required: PropTypes.bool,
+<<<<<<< HEAD
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.instanceOf(Date),
+=======
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
+>>>>>>> master
 };

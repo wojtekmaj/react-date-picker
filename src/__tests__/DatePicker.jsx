@@ -1,16 +1,39 @@
 import React from 'react';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { mount } from 'enzyme';
 
 import DatePicker from '../DatePicker';
 
-configure({ adapter: new Adapter() });
-
 /* eslint-disable comma-dangle */
 
-jest.mock('../../node_modules/react-calendar/build/Calendar.less', () => ({}));
-
 describe('DatePicker', () => {
+  it('applies className to its wrapper when given a string', () => {
+    const className = 'testClassName';
+
+    const component = mount(
+      <DatePicker className={className} />
+    );
+
+    const wrapperClassName = component.prop('className');
+
+    expect(wrapperClassName.includes(className)).toBe(true);
+  });
+
+  it('applies calendarClassName to the calendar when given a string', () => {
+    const calendarClassName = 'testClassName';
+
+    const component = mount(
+      <DatePicker
+        calendarClassName={calendarClassName}
+        isOpen
+      />
+    );
+
+    const calendar = component.find('Calendar');
+    const calendarWrapperClassName = calendar.prop('className');
+
+    expect(calendarWrapperClassName.includes(calendarClassName)).toBe(true);
+  });
+
   it('renders DateInput component', () => {
     const component = mount(
       <DatePicker />
@@ -18,10 +41,30 @@ describe('DatePicker', () => {
 
     const dateInput = component.find('DateInput');
 
-    expect(dateInput.length).toBe(1);
+    expect(dateInput).toHaveLength(1);
   });
 
-  it('renders DateInput and Calendar component when given isOpen flag', () => {
+  it('renders clear button', () => {
+    const component = mount(
+      <DatePicker />
+    );
+
+    const clearButton = component.find('button.react-date-picker__clear-button');
+
+    expect(clearButton).toHaveLength(1);
+  });
+
+  it('renders calendar button', () => {
+    const component = mount(
+      <DatePicker />
+    );
+
+    const calendarButton = component.find('button.react-date-picker__calendar-button');
+
+    expect(calendarButton).toHaveLength(1);
+  });
+
+  it('renders DateInput and Calendar components when given isOpen flag', () => {
     const component = mount(
       <DatePicker isOpen />
     );
@@ -29,8 +72,8 @@ describe('DatePicker', () => {
     const dateInput = component.find('DateInput');
     const calendar = component.find('Calendar');
 
-    expect(dateInput.length).toBe(1);
-    expect(calendar.length).toBe(1);
+    expect(dateInput).toHaveLength(1);
+    expect(calendar).toHaveLength(1);
   });
 
   it('opens Calendar component when given isOpen flag by changing props', () => {
@@ -40,14 +83,14 @@ describe('DatePicker', () => {
 
     const calendar = component.find('Calendar');
 
-    expect(calendar.length).toBe(0);
+    expect(calendar).toHaveLength(0);
 
     component.setProps({ isOpen: true });
     component.update();
 
     const calendar2 = component.find('Calendar');
 
-    expect(calendar2.length).toBe(1);
+    expect(calendar2).toHaveLength(1);
   });
 
   it('opens Calendar component when clicking on a button', () => {
@@ -58,14 +101,14 @@ describe('DatePicker', () => {
     const calendar = component.find('Calendar');
     const button = component.find('button.react-date-picker__calendar-button');
 
-    expect(calendar.length).toBe(0);
+    expect(calendar).toHaveLength(0);
 
     button.simulate('click');
     component.update();
 
     const calendar2 = component.find('Calendar');
 
-    expect(calendar2.length).toBe(1);
+    expect(calendar2).toHaveLength(1);
   });
 
   it('opens Calendar component when focusing on an input inside', () => {
@@ -76,13 +119,13 @@ describe('DatePicker', () => {
     const calendar = component.find('Calendar');
     const input = component.find('input[name="day"]');
 
-    expect(calendar.length).toBe(0);
+    expect(calendar).toHaveLength(0);
 
     input.simulate('focus');
     component.update();
 
     const calendar2 = component.find('Calendar');
 
-    expect(calendar2.length).toBe(1);
+    expect(calendar2).toHaveLength(1);
   });
 });

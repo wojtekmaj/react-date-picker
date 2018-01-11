@@ -1,11 +1,11 @@
 {
   "name": "react-date-picker-test-page",
-  "version": "6.4.0",
+  "version": "6.6.2",
   "description": "A test page for React-Date-Picker.",
   "private": true,
   "scripts": {
-    "build": "webpack",
-    "start": "webpack-dev-server --config webpack.config.hot.js"
+    "build": "parcel build index.html --public-url ./",
+    "start": "parcel index.html"
   },
   "author": {
     "name": "Wojciech Maj",
@@ -19,25 +19,18 @@
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.34",
-    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.34",
-    "@babel/preset-env": "^7.0.0-beta.34",
-    "@babel/preset-react": "^7.0.0-beta.34",
-    "babel-eslint": "^8.0.2",
-    "babel-loader": "^8.0.0-beta.0",
-    "copy-webpack-plugin": "^4.2.0",
-    "css-loader": "latest",
-    "eslint": "^4.10.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^4.14.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-class-property": "^1.0.6",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.4.0",
-    "less": "^2.7.3",
-    "less-loader": "latest",
-    "react-hot-loader": "^3.1.2",
-    "style-loader": "latest",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
+    "parcel-bundler": "^1.3.1"
   }
 }

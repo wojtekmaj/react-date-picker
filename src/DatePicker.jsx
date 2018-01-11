@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
-
-import Calendar from 'react-calendar/build/entry.nostyle';
-
 import detectElementOverflow from 'detect-element-overflow';
+
+import Calendar from 'react-calendar/dist/entry.nostyle';
 
 import DateInput from './DateInput';
 
@@ -70,7 +69,7 @@ export default class DatePicker extends Component {
 
   clear = () => this.onChange(null);
 
-  renderInput() {
+  renderInputs() {
     const {
       calendarIcon,
       clearIcon,
@@ -78,6 +77,7 @@ export default class DatePicker extends Component {
       maxDate,
       maxDetail,
       minDate,
+      name,
       returnValue,
       required,
       showLeadingZeros,
@@ -95,8 +95,8 @@ export default class DatePicker extends Component {
           maxDate={maxDate}
           maxDetail={maxDetail}
           minDate={minDate}
+          name={name}
           onChange={this.onChange}
-          placeholder={this.placeholder}
           returnValue={returnValue}
           required={required}
           showLeadingZeros={showLeadingZeros}
@@ -169,21 +169,19 @@ export default class DatePicker extends Component {
   }
 
   render() {
-    const { isOpen } = this.state;
-
     const className = 'react-date-picker';
 
     return (
       <div
         className={mergeClassNames(
           className,
-          `${className}--${isOpen ? 'open' : 'closed'}`,
+          `${className}--${this.state.isOpen ? 'open' : 'closed'}`,
           this.props.className,
         )}
         onFocus={this.onFocus}
         ref={(ref) => { this.wrapper = ref; }}
       >
-        {this.renderInput()}
+        {this.renderInputs()}
         {this.renderCalendar()}
       </div>
     );
@@ -222,32 +220,36 @@ DatePicker.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
-  calendarIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  calendarIcon: PropTypes.node,
   calendarType: isCalendarType,
   className: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
-  clearIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  clearIcon: PropTypes.node,
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDate: isMaxDate,
   maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
   minDetail: PropTypes.oneOf(allViews),
-  next2Label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  nextLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  name: PropTypes.string,
+  next2Label: PropTypes.node,
+  nextLabel: PropTypes.node,
   onChange: PropTypes.func,
   onClickDay: PropTypes.func,
   onClickDecade: PropTypes.func,
   onClickMonth: PropTypes.func,
   onClickYear: PropTypes.func,
-  prev2Label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  prevLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  prev2Label: PropTypes.node,
+  prevLabel: PropTypes.node,
   returnValue: PropTypes.oneOf(['start', 'end']),
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   showNeighboringMonth: PropTypes.bool,
   showWeekNumbers: PropTypes.bool,
-  value: isValue,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    isValue,
+  ]),
 };
