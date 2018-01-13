@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import DatePicker from 'react-date-picker';
 
 import './Sample.less';
 
-export default class Sample extends Component {
-  state = {
+export default class Sample extends React.Component<{}, {value: Date}> {
+  public state = {
     value: new Date(),
-  }
+  };
 
-  onChange = value => this.setState({ value })
+  public onChange = (value: Date) => this.setState({ value });
 
-  render() {
+  public render() {
     const { value } = this.state;
 
     return (

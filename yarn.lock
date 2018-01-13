@@ -71,10 +71,6 @@
   version "6.0.88"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.88.tgz#f618f11a944f6a18d92b5c472028728a3e3d4b66"
 
-"@types/react@^16.0.31":
-  version "16.0.31"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.31.tgz#5285da62f3ac62b797f6d0729a1d6181f3180c3e"
-
 abab@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -3763,9 +3759,9 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-calendar@^2.9.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.9.0.tgz#d85271681c221e241a39f967a5f85b4d0c584ca5"
+react-calendar@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.11.0.tgz#396db8ee75ab20e05df69a00ee5e8fb5314cccb8"
   dependencies:
     lodash.once "^4.1.1"
     merge-class-names "^1.1.1"

@@ -1,6 +1,6 @@
 {
   "name": "react-date-picker",
-  "version": "6.6.2",
+  "version": "6.7.0",
   "description": "An input component for picking dates for your React application.",
   "main": "dist/entry.js",
   "types": "./index.d.ts",
@@ -11,14 +11,10 @@
     "build-styles": "lessc ./src/DatePicker.less ./src/DatePicker.css",
     "copy-styles": "node ./copy-styles.js",
     "prepublishOnly": "npm run build",
-    "preversion": "npm run version-sample && npm run version-test",
     "test": "npm run test-eslint && npm run test-jest",
     "test-eslint": "eslint ./src",
     "test-jest": "jest",
-    "test-jest-coverage": "jest --coverage",
-    "version": "npm run build && git add .",
-    "version-sample": "cd sample && npm version patch",
-    "version-test": "cd test && npm version patch"
+    "test-jest-coverage": "jest --coverage"
   },
   "jest": {
     "setupFiles": [
@@ -70,11 +66,10 @@
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
     "react": ">=15.5",
-    "react-calendar": "^2.9.0",
+    "react-calendar": "^2.11.0",
     "react-dom": ">=15.5"
   },
   "devDependencies": {
-    "@types/react": "^16.0.31",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.3",

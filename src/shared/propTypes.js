@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 
 export {
-  isCalendarType,
   isMaxDate,
   isMinDate,
-  isValue,
 } from 'react-calendar/dist/shared/propTypes';
 
 const allViews = ['century', 'decade', 'year', 'month'];
