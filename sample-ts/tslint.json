@@ -1,3 +1,6 @@
 {
-  "extends": "tslint:recommended"
+  "extends": "tslint-config-airbnb",
+  "rules": {
+    "import-name": false
+  }
 }

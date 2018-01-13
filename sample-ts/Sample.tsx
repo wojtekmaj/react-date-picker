@@ -1,7 +1,7 @@
-import * as React from "react";
-import DatePicker from "react-date-picker";
+import * as React from 'react';
+import DatePicker from 'react-date-picker';
 
-import "./Sample.less";
+import './Sample.less';
 
 export default class Sample extends React.Component<{}, {value: Date}> {
   public state = {
@@ -23,7 +23,6 @@ export default class Sample extends React.Component<{}, {value: Date}> {
             <DatePicker
               onChange={this.onChange}
               value={value}
-              clearIcon={<span>X</span>}
             />
           </main>
         </div>
@@ -31,4 +30,3 @@ export default class Sample extends React.Component<{}, {value: Date}> {
     );
   }
 }
-

@@ -1,9 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "strict": true,
+    "jsx": "react",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "jsx": "react"
-  }
+    "strict": true
+  },
 }
