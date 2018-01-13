@@ -296,8 +296,8 @@ export default class DateInput extends Component {
         maxDetail={this.props.maxDetail}
         month={this.state.month}
         showLeadingZeros={showLeadingZeros}
-        year={this.state.year}
         value={value}
+        year={this.state.year}
         {...this.commonInputProps}
       />
     );
@@ -320,6 +320,7 @@ export default class DateInput extends Component {
         minDate={this.props.minDate}
         showLeadingZeros={showLeadingZeros}
         value={value}
+        year={this.state.year}
         {...this.commonInputProps}
       />
     );
