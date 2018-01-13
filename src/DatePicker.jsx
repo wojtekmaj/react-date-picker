@@ -205,11 +205,11 @@ DatePicker.defaultProps = {
   calendarIcon: CalendarIcon,
   clearIcon: ClearIcon,
   isOpen: null,
-  maxDetail: 'month',
   returnValue: 'start',
 };
 
-DatePicker.propTypes = Object.assign({}, Calendar.propTypes, {
+DatePicker.propTypes = {
+  ...Calendar.propTypes,
   calendarClassName: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
@@ -221,4 +221,5 @@ DatePicker.propTypes = Object.assign({}, Calendar.propTypes, {
   ]),
   clearIcon: PropTypes.node,
   isOpen: PropTypes.bool,
-});
+  returnValue: PropTypes.oneOf(['start', 'end']),
+};
