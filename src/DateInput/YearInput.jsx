@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import mergeClassNames from 'merge-class-names';
 
 import {
   getYear,
@@ -31,9 +32,14 @@ export default class YearInput extends PureComponent {
       itemRef, value, onChange, onKeyDown, required,
     } = this.props;
 
+    const className = 'react-date-picker__button__input';
+
     return (
       <input
-        className="react-date-picker__button__input__year"
+        className={mergeClassNames(
+          `${className}__input`,
+          `${className}__year`,
+        )}
         name="year"
         max={maxYear}
         min={minYear}

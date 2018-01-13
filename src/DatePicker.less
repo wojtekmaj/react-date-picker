@@ -26,11 +26,13 @@
         padding: 1px 0;
       }
 
-      input {
+      &__input {
         min-width: calc(~"4px + " @digit-width);
         height: 100%;
+        position: relative;
         padding: 1px;
         border: 0;
+        background: none;
         -moz-appearance: textfield;
 
         &::-webkit-outer-spin-button,
@@ -41,6 +43,12 @@
 
         &:invalid {
           background: fade(red, 10%);
+        }
+
+        &--hasLeadingZero {
+          min-width: calc(~"4px + " 2 * @digit-width);
+          margin-left: -@digit-width;
+          padding-left: calc(~"1px + " @digit-width);
         }
       }
     }

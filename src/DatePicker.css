@@ -24,20 +24,27 @@
 .react-date-picker__button__input__divider {
   padding: 1px 0;
 }
-.react-date-picker__button__input input {
+.react-date-picker__button__input__input {
   min-width: calc(4px +  0.54em);
   height: 100%;
+  position: relative;
   padding: 1px;
   border: 0;
+  background: none;
   -moz-appearance: textfield;
 }
-.react-date-picker__button__input input::-webkit-outer-spin-button,
-.react-date-picker__button__input input::-webkit-inner-spin-button {
+.react-date-picker__button__input__input::-webkit-outer-spin-button,
+.react-date-picker__button__input__input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.react-date-picker__button__input input:invalid {
+.react-date-picker__button__input__input:invalid {
   background: rgba(255, 0, 0, 0.1);
+}
+.react-date-picker__button__input__input--hasLeadingZero {
+  min-width: calc(4px +  1.08em);
+  margin-left: -0.54em;
+  padding-left: calc(1px +  0.54em);
 }
 .react-date-picker__button__icon {
   border: 0;

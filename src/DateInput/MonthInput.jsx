@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import mergeClassNames from 'merge-class-names';
 
 import {
   getMonth,
@@ -26,12 +27,17 @@ export default class MonthInput extends PureComponent {
     } = this.props;
 
     const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
+    const className = 'react-date-picker__button__input';
 
     return [
       (hasLeadingZero ? '0' : null),
       <input
         key="month"
-        className="react-date-picker__button__input__month"
+        className={mergeClassNames(
+          `${className}__input`,
+          `${className}__month`,
+          hasLeadingZero && `${className}__input--hasLeadingZero`,
+        )}
         name="month"
         max={maxMonth}
         min={minMonth}

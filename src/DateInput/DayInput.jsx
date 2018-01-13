@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import mergeClassNames from 'merge-class-names';
 
 import {
   getDay,
@@ -43,12 +44,17 @@ export default class DayInput extends PureComponent {
     } = this.props;
 
     const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
+    const className = 'react-date-picker__button__input';
 
     return [
       (hasLeadingZero ? '0' : null),
       <input
         key="day"
-        className="react-date-picker__button__input__day"
+        className={mergeClassNames(
+          `${className}__input`,
+          `${className}__day`,
+          hasLeadingZero && `${className}__input--hasLeadingZero`,
+        )}
         name="day"
         max={maxDay}
         min={minDay}
