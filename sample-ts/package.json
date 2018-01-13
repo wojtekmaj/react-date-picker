@@ -13,6 +13,12 @@
     "name": "Wojciech Maj",
     "email": "kontakt@wojtekmaj.pl"
   },
+  "contributors": [
+    {
+      "name": "Andrzej Kopeć",
+      "email": "andrzej.kopec@outlook.com"
+    }
+  ],
   "license": "MIT",
   "dependencies": {
     "prop-types": "^15.6.0",
