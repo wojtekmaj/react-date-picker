@@ -242,8 +242,10 @@ export default class DateInput extends Component {
    * Called when non-native date input is changed.
    */
   onChange = (event) => {
+    const { name, value } = event.target;
+
     this.setState(
-      { [event.target.name]: parseInt(event.target.value, 10) },
+      { [name]: value ? parseInt(value, 10) : null },
       this.onChangeExternal,
     );
   }
