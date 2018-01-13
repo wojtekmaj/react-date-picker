@@ -76,6 +76,7 @@ export default class DatePicker extends Component {
       name,
       returnValue,
       required,
+      showLeadingZeros,
       value,
     } = this.props;
     const { isOpen } = this.state;
@@ -94,6 +95,7 @@ export default class DatePicker extends Component {
           onChange={this.onChange}
           returnValue={returnValue}
           required={required}
+          showLeadingZeros={showLeadingZeros}
           value={valueFrom}
         />
         <button
@@ -222,4 +224,5 @@ DatePicker.propTypes = {
   clearIcon: PropTypes.node,
   isOpen: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end']),
+  showLeadingZeros: PropTypes.bool,
 };

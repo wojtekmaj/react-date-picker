@@ -22,11 +22,15 @@ export default class MonthInput extends PureComponent {
   render() {
     const { maxMonth, minMonth } = this;
     const {
-      itemRef, value, onChange, onKeyDown, required,
+      itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
     } = this.props;
 
-    return (
+    const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
+
+    return [
+      (hasLeadingZero ? '0' : null),
       <input
+        key="month"
         className="react-date-picker__button__input__month"
         name="month"
         max={maxMonth}
@@ -46,8 +50,8 @@ export default class MonthInput extends PureComponent {
         type="number"
         required={required}
         value={value !== null ? value : ''}
-      />
-    );
+      />,
+    ];
   }
 }
 
@@ -58,6 +62,7 @@ MonthInput.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   required: PropTypes.bool,
+  showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
   year: PropTypes.number,
 };

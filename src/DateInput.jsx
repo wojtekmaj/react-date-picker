@@ -281,39 +281,45 @@ export default class DateInput extends Component {
   }
 
   renderDay() {
-    const { maxDetail } = this.props;
+    const { maxDetail, showLeadingZeros } = this.props;
 
     // Do not display if maxDetail is "year" or less
     if (allViews.indexOf(maxDetail) < 3) {
       return null;
     }
 
+    const { day: value } = this.state;
+
     return (
       <DayInput
         key="day"
         maxDetail={this.props.maxDetail}
         month={this.state.month}
+        showLeadingZeros={showLeadingZeros}
         year={this.state.year}
-        value={this.state.day}
+        value={value}
         {...this.commonInputProps}
       />
     );
   }
 
   renderMonth() {
-    const { maxDetail } = this.props;
+    const { maxDetail, showLeadingZeros } = this.props;
 
     // Do not display if maxDetail is "decade" or less
     if (allViews.indexOf(maxDetail) < 2) {
       return null;
     }
 
+    const { month: value } = this.state;
+
     return (
       <MonthInput
         key="month"
         maxDetail={this.props.maxDetail}
         minDate={this.props.minDate}
-        value={this.state.month}
+        showLeadingZeros={showLeadingZeros}
+        value={value}
         {...this.commonInputProps}
       />
     );
@@ -399,6 +405,7 @@ DateInput.propTypes = {
   onChange: PropTypes.func,
   returnValue: PropTypes.oneOf(['start', 'end']),
   required: PropTypes.bool,
+  showLeadingZeros: PropTypes.bool,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(Date),

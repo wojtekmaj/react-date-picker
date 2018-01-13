@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class ViewOptions extends Component {
+  onShowLeadingZerosChange = (event) => {
+    const { checked } = event.target;
+
+    this.props.setState({ showLeadingZeros: checked });
+  }
+
   onShowWeekNumbersChange = (event) => {
     const { checked } = event.target;
 
@@ -15,11 +21,21 @@ export default class ViewOptions extends Component {
   }
 
   render() {
-    const { showWeekNumbers, showNeighboringMonth } = this.props;
+    const { showLeadingZeros, showWeekNumbers, showNeighboringMonth } = this.props;
 
     return (
       <fieldset id="viewoptions">
         <legend htmlFor="viewoptions">View options</legend>
+
+        <div>
+          <input
+            id="showWeekNumbers"
+            type="checkbox"
+            checked={showLeadingZeros}
+            onChange={this.onShowLeadingZerosChange}
+          />
+          <label htmlFor="renderTextLayer">Show leading zeros</label>
+        </div>
 
         <div>
           <input
@@ -47,6 +63,7 @@ export default class ViewOptions extends Component {
 
 ViewOptions.propTypes = {
   setState: PropTypes.func.isRequired,
+  showLeadingZeros: PropTypes.bool.isRequired,
   showNeighboringMonth: PropTypes.bool.isRequired,
   showWeekNumbers: PropTypes.bool.isRequired,
 };
