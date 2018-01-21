@@ -2,8 +2,9 @@ export {
   between,
 } from 'react-calendar/dist/shared/utils';
 
-export const min = (...args) => Math.min(...args.filter(a => typeof a === 'number' && !Number.isNaN(a)));
-export const max = (...args) => Math.max(...args.filter(a => typeof a === 'number' && !Number.isNaN(a)));
+const isValidNumber = a => typeof a === 'number' && !Number.isNaN(a);
+export const min = (...args) => Math.min(...args.filter(isValidNumber));
+export const max = (...args) => Math.max(...args.filter(isValidNumber));
 
 export const updateInputWidth = (element) => {
   const span = document.createElement('span');
