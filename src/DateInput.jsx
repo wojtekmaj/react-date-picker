@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Divider from './Divider';
 import DayInput from './DateInput/DayInput';
 import MonthInput from './DateInput/MonthInput';
 import YearInput from './DateInput/YearInput';
@@ -168,14 +169,6 @@ export default class DateInput extends Component {
     );
   }
 
-  get dividerElement() {
-    return (
-      <span className="react-date-picker__button__input__divider">
-        {this.divider}
-      </span>
-    );
-  }
-
   // eslint-disable-next-line class-methods-use-this
   get placeholder() {
     const date = new Date(2017, 11, 11);
@@ -340,7 +333,7 @@ export default class DateInput extends Component {
   }
 
   renderCustomInputs() {
-    const { divider, dividerElement, placeholder } = this;
+    const { divider, placeholder } = this;
 
     return (
       placeholder
@@ -358,8 +351,12 @@ export default class DateInput extends Component {
           result.push(element);
 
           if (index + 1 < array.length) {
-            // eslint-disable-next-line react/no-array-index-key
-            result.push(React.cloneElement(dividerElement, { key: `separator_${index}` }));
+            result.push(
+              // eslint-disable-next-line react/no-array-index-key
+              <Divider key={`separator_${index}`}>
+                {divider}
+              </Divider>,
+            );
           }
 
           return result;
