@@ -5,6 +5,22 @@ import DatePicker from '../DatePicker';
 
 /* eslint-disable comma-dangle */
 
+const mockDocumentListeners = () => {
+  const eventMap = {};
+  document.addEventListener = jest.fn((method, cb) => {
+    if (!eventMap[method]) {
+      eventMap[method] = [];
+    }
+    eventMap[method].push(cb);
+  });
+
+  return {
+    simulate: (method, args) => {
+      eventMap[method].forEach(cb => cb(args));
+    },
+  };
+};
+
 describe('DatePicker', () => {
   it('applies className to its wrapper when given a string', () => {
     const className = 'testClassName';
@@ -127,5 +143,35 @@ describe('DatePicker', () => {
     const calendar2 = component.find('Calendar');
 
     expect(calendar2).toHaveLength(1);
+  });
+
+  it('closes Calendar component when clicked outside', () => {
+    const { simulate } = mockDocumentListeners();
+
+    const component = mount(
+      <DatePicker isOpen />
+    );
+
+    simulate('mousedown', {
+      target: document,
+    });
+    component.update();
+
+    expect(component.state('isOpen')).toBe(false);
+  });
+
+  it('does not close Calendar component when clicked inside', () => {
+    const { simulate } = mockDocumentListeners();
+
+    const component = mount(
+      <DatePicker isOpen />
+    );
+
+    simulate('mousedown', {
+      target: component.getDOMNode(),
+    });
+    component.update();
+
+    expect(component.state('isOpen')).toBe(true);
   });
 });
