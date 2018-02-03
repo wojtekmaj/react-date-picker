@@ -3,7 +3,12 @@
 ) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
 # React-Date-Picker
-An input component for picking dates for your React application.
+
+A date picker for your React app.
+
+* Pick days, months, years, or even decades
+* Supports virtually any language
+* No moment.js needed
 
 ## Important message for React-Date-Picker ≤5 users
 
