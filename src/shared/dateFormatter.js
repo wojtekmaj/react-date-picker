@@ -1,4 +1,4 @@
-import { getLocale } from './locales';
+import { getDefaultLocale } from './locales';
 
 const formatterCache = {};
 
@@ -6,24 +6,32 @@ const formatterCache = {};
  * Gets Intl-based date formatter from formatter cache. If it doesn't exist in cache
  * just yet, it will be created on the fly.
  */
-const getFormatter = (options, locales = getLocale()) => {
+const getFormatter = (options, locale) => {
+  if (!locale) {
+    // Default parameter is not enough as it does not protect us from null values
+    // eslint-disable-next-line no-param-reassign
+    locale = getDefaultLocale();
+  }
+
   const stringifiedOptions = JSON.stringify(options);
 
-  if (!formatterCache[locales]) {
-    formatterCache[locales] = {};
+  if (!formatterCache[locale]) {
+    formatterCache[locale] = {};
   }
 
-  if (!formatterCache[locales][stringifiedOptions]) {
-    formatterCache[locales][stringifiedOptions] = new Intl.DateTimeFormat(locales, options).format;
+  if (!formatterCache[locale][stringifiedOptions]) {
+    formatterCache[locale][stringifiedOptions] = new Intl.DateTimeFormat(locale, options).format;
   }
 
-  return formatterCache[locales][stringifiedOptions];
+  return formatterCache[locale][stringifiedOptions];
 };
 
-export const formatDate = date => getFormatter(
+export const formatDate = (date, locale) => getFormatter(
   { day: 'numeric', month: 'numeric', year: 'numeric' },
+  locale,
 )(date);
 
-export const formatMonthYear = date => getFormatter(
+export const formatMonthYear = (date, locale) => getFormatter(
   { month: 'long', year: 'numeric' },
+  locale,
 )(date);

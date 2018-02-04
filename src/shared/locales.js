@@ -1,4 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 export {
-  getLocale,
-  setLocale,
+  getDefaultLocale,
 } from 'react-calendar/dist/shared/locales';

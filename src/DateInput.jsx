@@ -15,7 +15,6 @@ import {
   getMonth,
   getYear,
 } from './shared/dates';
-import { setLocale } from './shared/locales';
 import { isMaxDate, isMinDate } from './shared/propTypes';
 import { between } from './shared/utils';
 
@@ -122,18 +121,12 @@ export default class DateInput extends Component {
   }
 
   componentWillMount() {
-    setLocale(this.props.locale);
     this.updateValues();
   }
 
   componentWillReceiveProps(nextProps) {
-    const { props } = this;
     const { value: nextValue } = nextProps;
     const { value } = this.props;
-
-    if (nextProps.locale !== props.locale) {
-      setLocale(nextProps.locale);
-    }
 
     const nextValueFrom = this.getValueFrom(nextValue);
     const valueFrom = this.getValueFrom(value);
@@ -143,7 +136,7 @@ export default class DateInput extends Component {
 
     if (
       // Toggling calendar visibility resets values
-      (nextProps.isCalendarOpen !== props.isCalendarOpen) ||
+      (nextProps.isCalendarOpen !== this.props.isCalendarOpen) ||
       datesAreDifferent(nextValueFrom, valueFrom) ||
       datesAreDifferent(nextValueTo, valueTo)
     ) {
@@ -161,20 +154,22 @@ export default class DateInput extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   get divider() {
+    const { locale } = this.props;
     const date = new Date(2017, 11, 11);
 
     return (
-      removeUnwantedCharacters(formatDate(date))
+      removeUnwantedCharacters(formatDate(date, locale))
         .match(/[^0-9]/)[0]
     );
   }
 
   // eslint-disable-next-line class-methods-use-this
   get placeholder() {
+    const { locale } = this.props;
     const date = new Date(2017, 11, 11);
 
     return (
-      removeUnwantedCharacters(formatDate(date))
+      removeUnwantedCharacters(formatDate(date, locale))
         .replace('2017', 'year')
         .replace('12', 'month')
         .replace('11', 'day')
@@ -396,8 +391,8 @@ DateInput.defaultProps = {
 };
 
 DateInput.propTypes = {
-  locale: PropTypes.string,
   isCalendarOpen: PropTypes.bool,
+  locale: PropTypes.string,
   maxDate: isMaxDate,
   maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
