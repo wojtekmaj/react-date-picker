@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 import detectElementOverflow from 'detect-element-overflow';
@@ -7,7 +7,7 @@ import Calendar from 'react-calendar/dist/entry.nostyle';
 
 import DateInput from './DateInput';
 
-export default class DatePicker extends Component {
+export default class DatePicker extends PureComponent {
   state = {
     isOpen: this.props.isOpen,
   }
