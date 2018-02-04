@@ -29,10 +29,8 @@ export default class YearInput extends PureComponent {
   render() {
     const { maxYear, minYear, yearStep } = this;
     const {
-      itemRef, value, onChange, onKeyDown, required,
+      className, itemRef, value, onChange, onKeyDown, required,
     } = this.props;
-
-    const className = 'react-date-picker__button__input';
 
     return (
       <input
@@ -65,6 +63,7 @@ export default class YearInput extends PureComponent {
 }
 
 YearInput.propTypes = {
+  className: PropTypes.string.isRequired,
   itemRef: PropTypes.func,
   maxDate: isMaxDate,
   minDate: isMinDate,

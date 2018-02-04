@@ -20,6 +20,7 @@ import { between } from './shared/utils';
 
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
+const className = 'react-date-picker__button__input';
 
 const datesAreDifferent = (date1, date2) => (
   (date1 && !date2) ||
@@ -277,6 +278,7 @@ export default class DateInput extends Component {
     return (
       <DayInput
         key="day"
+        className={className}
         maxDetail={this.props.maxDetail}
         month={this.state.month}
         showLeadingZeros={showLeadingZeros}
@@ -300,6 +302,7 @@ export default class DateInput extends Component {
     return (
       <MonthInput
         key="month"
+        className={className}
         maxDetail={this.props.maxDetail}
         minDate={this.props.minDate}
         showLeadingZeros={showLeadingZeros}
@@ -314,6 +317,7 @@ export default class DateInput extends Component {
     return (
       <YearInput
         key="year"
+        className={className}
         value={this.state.year}
         valueType={this.valueType}
         {...this.commonInputProps}
@@ -370,7 +374,7 @@ export default class DateInput extends Component {
 
   render() {
     return (
-      <div className="react-date-picker__button__input">
+      <div className={className}>
         {this.renderNativeInput()}
         {this.renderCustomInputs()}
       </div>

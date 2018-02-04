@@ -40,11 +40,10 @@ export default class DayInput extends PureComponent {
   render() {
     const { maxDay, minDay } = this;
     const {
-      itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
+      className, itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
     } = this.props;
 
     const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
-    const className = 'react-date-picker__button__input';
 
     return [
       (hasLeadingZero ? '0' : null),
@@ -79,6 +78,7 @@ export default class DayInput extends PureComponent {
 }
 
 DayInput.propTypes = {
+  className: PropTypes.string.isRequired,
   itemRef: PropTypes.func,
   maxDate: isMaxDate,
   minDate: isMinDate,
