@@ -128,17 +128,11 @@ export default class DateInput extends Component {
     const { value: nextValue } = nextProps;
     const { value } = this.props;
 
-    const nextValueFrom = this.getValueFrom(nextValue);
-    const valueFrom = this.getValueFrom(value);
-
-    const nextValueTo = this.getValueTo(nextValue);
-    const valueTo = this.getValueTo(value);
-
     if (
       // Toggling calendar visibility resets values
       (nextProps.isCalendarOpen !== this.props.isCalendarOpen) ||
-      datesAreDifferent(nextValueFrom, valueFrom) ||
-      datesAreDifferent(nextValueTo, valueTo)
+      datesAreDifferent(...[nextValue, value].map(this.getValueFrom)) ||
+      datesAreDifferent(...[nextValue, value].map(this.getValueTo))
     ) {
       this.updateValues(nextProps);
     }
