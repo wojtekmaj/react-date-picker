@@ -4,14 +4,9 @@ import PropTypes from 'prop-types';
 import { getISOLocalDate } from '../src/shared/dates';
 
 export default class ValueOptions extends Component {
-  get startDate() {
+  get date() {
     const { value } = this.props;
     return [].concat(value)[0];
-  }
-
-  get endDate() {
-    const { value } = this.props;
-    return [].concat(value)[1];
   }
 
   setValue = value => this.props.setState({ value });
@@ -19,7 +14,7 @@ export default class ValueOptions extends Component {
   onChange = (event) => {
     const { value } = event.target;
 
-    this.setValue(new Date(value));
+    this.setValue(value ? new Date(value) : value);
   }
 
   render() {
@@ -28,12 +23,12 @@ export default class ValueOptions extends Component {
         <legend htmlFor="valueOptions">Set date externally</legend>
 
         <div>
-          <label htmlFor="startDate">Start date</label>
+          <label htmlFor="date">Date</label>
           <input
-            id="startDate"
+            id="date"
             onChange={this.onChange}
             type="date"
-            value={this.startDate ? getISOLocalDate(this.startDate) : ''}
+            value={this.date ? getISOLocalDate(this.date) : ''}
           />&nbsp;
           <button onClick={() => this.setValue(null)}>Clear to null</button>
           <button onClick={() => this.setValue('')}>Clear to empty string</button>
