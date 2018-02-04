@@ -62,7 +62,7 @@ const removeUnwantedCharacters = str => str
   .join('');
 
 export default class DateInput extends Component {
-  getValueFrom(value) {
+  getValueFrom = (value) => {
     if (!value) {
       return null;
     }
@@ -80,7 +80,7 @@ export default class DateInput extends Component {
     return between(valueFrom, minDate, maxDate);
   }
 
-  getValueTo(value) {
+  getValueTo = (value) => {
     if (!value) {
       return null;
     }
