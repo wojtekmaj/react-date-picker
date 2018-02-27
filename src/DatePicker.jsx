@@ -151,7 +151,9 @@ export default class DatePicker extends PureComponent {
 
           const collisions = detectElementOverflow(ref, document.body);
 
-          if (collisions.collidedBottom) {
+          const wouldBeOffscreen = document.body.getBoundingClientRect().top < ref.getBoundingClientRect().height
+
+          if (collisions.collidedBottom && !wouldBeOffscreen) {
             ref.classList.add(`${className}--above-label`);
           }
         }}
