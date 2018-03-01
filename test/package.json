@@ -1,6 +1,6 @@
 {
   "name": "react-date-picker-test-page",
-  "version": "6.8.1",
+  "version": "6.8.2",
   "description": "A test page for React-Date-Picker.",
   "private": true,
   "scripts": {
