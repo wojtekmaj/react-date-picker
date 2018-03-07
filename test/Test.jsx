@@ -97,6 +97,7 @@ export default class Test extends Component {
               <DatePicker
                 className="myCustomDatePickerClassName"
                 calendarClassName="myCustomCalendarClassName"
+                disabled={false}
                 locale={locale}
                 maxDate={maxDate}
                 maxDetail={maxDetail}

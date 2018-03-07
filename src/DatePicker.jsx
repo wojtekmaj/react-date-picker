@@ -66,54 +66,43 @@ export default class DatePicker extends PureComponent {
   clear = () => this.onChange(null);
 
   renderInputs() {
-    const {
-      calendarIcon,
-      clearIcon,
-      locale,
-      maxDate,
-      maxDetail,
-      minDate,
-      name,
-      returnValue,
-      required,
-      showLeadingZeros,
-      value,
-    } = this.props;
-    const { isOpen } = this.state;
-
-    const [valueFrom] = [].concat(value);
+    const { disabled } = this.props;
+    const [valueFrom] = [].concat(this.props.value);
 
     return (
       <div className="react-date-picker__button">
         <DateInput
-          locale={locale}
-          isCalendarOpen={isOpen}
-          maxDate={maxDate}
-          maxDetail={maxDetail}
-          minDate={minDate}
-          name={name}
+          disabled={disabled}
+          locale={this.props.locale}
+          isCalendarOpen={this.state.isOpen}
+          maxDate={this.props.maxDate}
+          maxDetail={this.props.maxDetail}
+          minDate={this.props.minDate}
+          name={this.props.name}
           onChange={this.onChange}
-          returnValue={returnValue}
-          required={required}
-          showLeadingZeros={showLeadingZeros}
+          returnValue={this.props.returnValue}
+          required={this.props.required}
+          showLeadingZeros={this.props.showLeadingZeros}
           value={valueFrom}
         />
         <button
           className="react-date-picker__clear-button react-date-picker__button__icon"
+          disabled={disabled}
           onClick={this.clear}
           onFocus={this.stopPropagation}
           type="button"
         >
-          {clearIcon}
+          {this.props.clearIcon}
         </button>
         <button
           className="react-date-picker__calendar-button react-date-picker__button__icon"
+          disabled={disabled}
           onClick={this.toggleCalendar}
           onFocus={this.stopPropagation}
           onBlur={this.resetValue}
           type="button"
         >
-          {calendarIcon}
+          {this.props.calendarIcon}
         </button>
       </div>
     );
@@ -180,6 +169,7 @@ export default class DatePicker extends PureComponent {
         className={mergeClassNames(
           className,
           `${className}--${this.state.isOpen ? 'open' : 'closed'}`,
+          `${className}--${this.props.disabled ? 'disabled' : 'enabled'}`,
           this.props.className,
         )}
         onFocus={this.onFocus}
@@ -236,6 +226,7 @@ DatePicker.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
   ]),
   clearIcon: PropTypes.node,
+  disabled: PropTypes.bool,
   isOpen: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end']),
   showLeadingZeros: PropTypes.bool,

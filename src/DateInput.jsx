@@ -173,6 +173,7 @@ export default class DateInput extends Component {
 
   get commonInputProps() {
     return {
+      disabled: this.props.disabled,
       maxDate: this.props.maxDate,
       minDate: this.props.minDate,
       onChange: this.onChange,
@@ -361,6 +362,7 @@ export default class DateInput extends Component {
     return (
       <NativeInput
         key="date"
+        disabled={this.props.disabled}
         maxDate={this.props.maxDate}
         minDate={this.props.minDate}
         name={this.props.name}
@@ -389,6 +391,7 @@ DateInput.defaultProps = {
 };
 
 DateInput.propTypes = {
+  disabled: PropTypes.bool,
   isCalendarOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDate: isMaxDate,

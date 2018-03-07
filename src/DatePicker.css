@@ -10,6 +10,10 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.react-date-picker--disabled {
+  background-color: #f0f0f0;
+  color: #6d6d6d;
+}
 .react-date-picker__button {
   display: flex;
   border: thin solid gray;
@@ -50,11 +54,16 @@
   border: 0;
   background: transparent;
   padding: 4px 6px;
+}
+.react-date-picker__button__icon:enabled {
   cursor: pointer;
 }
-.react-date-picker__button__icon:hover svg g,
-.react-date-picker__button__icon:focus svg g {
+.react-date-picker__button__icon:enabled:hover svg g,
+.react-date-picker__button__icon:enabled:focus svg g {
   stroke: #0078d7;
+}
+.react-date-picker__button__icon:disabled svg g {
+  stroke: #6d6d6d;
 }
 .react-date-picker__button__icon svg {
   display: inherit;

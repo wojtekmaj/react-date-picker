@@ -8,6 +8,11 @@
     box-sizing: border-box;
   }
 
+  &--disabled {
+    background-color: rgb(240, 240, 240);
+    color: rgb(109, 109, 109);
+  }
+
   &__button {
     display: flex;
     border: thin solid gray;
@@ -57,12 +62,23 @@
       border: 0;
       background: transparent;
       padding: 4px 6px;
-      cursor: pointer;
 
-      &:hover, &:focus {
+      &:enabled {
+        cursor: pointer;
+
+        &:hover, &:focus {
+          svg {
+            g {
+              stroke: rgb(0, 120, 215);
+            }
+          }
+        }
+      }
+
+      &:disabled {
         svg {
           g {
-            stroke: rgb(0, 120, 215);
+            stroke: rgb(109, 109, 109);
           }
         }
       }
