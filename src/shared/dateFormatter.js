@@ -26,12 +26,8 @@ const getFormatter = (options, locale) => {
   return formatterCache[locale][stringifiedOptions];
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export const formatDate = (date, locale) => getFormatter(
   { day: 'numeric', month: 'numeric', year: 'numeric' },
-  locale,
-)(date);
-
-export const formatMonthYear = (date, locale) => getFormatter(
-  { month: 'long', year: 'numeric' },
   locale,
 )(date);
