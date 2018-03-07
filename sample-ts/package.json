@@ -29,7 +29,7 @@
   "devDependencies": {
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
-    "parcel-bundler": "^1.5.0",
+    "parcel-bundler": "1.5.0",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.4.2",
     "typescript": "^2.6.2"
