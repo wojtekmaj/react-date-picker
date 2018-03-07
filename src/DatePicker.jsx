@@ -67,6 +67,7 @@ export default class DatePicker extends PureComponent {
 
   renderInputs() {
     const { disabled } = this.props;
+
     const [valueFrom] = [].concat(this.props.value);
 
     return (
@@ -228,6 +229,8 @@ DatePicker.propTypes = {
   clearIcon: PropTypes.node,
   disabled: PropTypes.bool,
   isOpen: PropTypes.bool,
+  name: PropTypes.string,
   returnValue: PropTypes.oneOf(['start', 'end']),
+  required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
 };
