@@ -143,7 +143,7 @@ export default class DatePicker extends PureComponent {
           `${className}--${isOpen ? 'open' : 'closed'}`,
         )}
         ref={(ref) => {
-          if (!ref) {
+          if (!ref || !isOpen) {
             return;
           }
 
