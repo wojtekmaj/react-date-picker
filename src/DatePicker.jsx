@@ -152,7 +152,13 @@ export default class DatePicker extends PureComponent {
           const collisions = detectElementOverflow(ref, document.body);
 
           if (collisions.collidedBottom) {
-            ref.classList.add(`${className}--above-label`);
+            const overflowTopAfterChange =
+              collisions.overflowTop + ref.clientHeight + this.wrapper.clientHeight;
+
+            // If it's going to make situation any better, display the calendar above the input
+            if (overflowTopAfterChange < collisions.overflowBottom) {
+              ref.classList.add(`${className}--above-label`);
+            }
           }
         }}
       >
@@ -177,7 +183,13 @@ export default class DatePicker extends PureComponent {
           this.props.className,
         )}
         onFocus={this.onFocus}
-        ref={(ref) => { this.wrapper = ref; }}
+        ref={(ref) => {
+          if (!ref) {
+            return;
+          }
+
+          this.wrapper = ref;
+        }}
       >
         {this.renderInputs()}
         {this.renderCalendar()}
