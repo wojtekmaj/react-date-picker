@@ -341,10 +341,8 @@ export default class DateInput extends Component {
           }
         })
         .filter(Boolean)
-        .reduce((result, element, index, array) => {
-          result.push(element);
-
-          if (index + 1 < array.length) {
+        .reduce((result, element, index) => {
+          if (index) {
             result.push(
               // eslint-disable-next-line react/no-array-index-key
               <Divider key={`separator_${index}`}>
@@ -352,6 +350,8 @@ export default class DateInput extends Component {
               </Divider>,
             );
           }
+
+          result.push(element);
 
           return result;
         }, [])
