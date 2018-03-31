@@ -82,6 +82,24 @@ describe('DateInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('2017');
   });
 
+  it('clears the value correctly', () => {
+    const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput value={date} />
+    );
+
+    component.setProps({ value: null });
+
+    const nativeInput = component.find('input[type="date"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.getDOMNode().value).toBe('');
+    expect(customInputs.at(0).getDOMNode().value).toBe('');
+    expect(customInputs.at(1).getDOMNode().value).toBe('');
+    expect(customInputs.at(2).getDOMNode().value).toBe('');
+  });
+
   it('renders custom inputs in a proper order (en-US)', () => {
     const component = mount(
       <DateInput
