@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import polyfill from 'react-lifecycles-compat';
 
 import Divider from './Divider';
 import DayInput from './DateInput/DayInput';
@@ -27,6 +28,46 @@ const datesAreDifferent = (date1, date2) => (
   (!date1 && date2) ||
   (date1 && date2 && date1.getTime() !== date2.getTime())
 );
+
+/**
+ * Returns value type that can be returned with currently applied settings.
+ */
+const getValueType = maxDetail =>
+  allValueTypes[allViews.indexOf(maxDetail)];
+
+const getValueFrom = (value, minDate, maxDate, maxDetail) => {
+  if (!value) {
+    return null;
+  }
+
+  const rawValueFrom = value instanceof Array ? value[0] : value;
+  const valueFromDate = new Date(rawValueFrom);
+
+  if (isNaN(valueFromDate.getTime())) {
+    throw new Error(`Invalid date: ${value}`);
+  }
+
+  const valueFrom = getBegin(getValueType(maxDetail), valueFromDate);
+
+  return between(valueFrom, minDate, maxDate);
+};
+
+const getValueTo = (value, minDate, maxDate, maxDetail) => {
+  if (!value) {
+    return null;
+  }
+
+  const rawValueTo = value instanceof Array ? value[1] : value;
+  const valueToDate = new Date(rawValueTo);
+
+  if (isNaN(valueToDate.getTime())) {
+    throw new Error(`Invalid date: ${value}`);
+  }
+
+  const valueTo = getEnd(getValueType(maxDetail), valueToDate);
+
+  return between(valueTo, minDate, maxDate);
+};
 
 const findPreviousInput = (element) => {
   const previousElement = element.previousElementSibling; // Divider between inputs
@@ -62,90 +103,73 @@ const removeUnwantedCharacters = str => str
   ))
   .join('');
 
-export default class DateInput extends Component {
-  getValueFrom = (value) => {
-    if (!value) {
-      return null;
-    }
-
-    const { minDate, maxDate } = this.props;
-    const rawValueFrom = value instanceof Array ? value[0] : value;
-    const valueFromDate = new Date(rawValueFrom);
-
-    if (isNaN(valueFromDate.getTime())) {
-      throw new Error(`Invalid date: ${value}`);
-    }
-
-    const valueFrom = getBegin(this.valueType, valueFromDate);
-
-    return between(valueFrom, minDate, maxDate);
-  }
-
-  getValueTo = (value) => {
-    if (!value) {
-      return null;
-    }
-
-    const { minDate, maxDate } = this.props;
-    const rawValueTo = value instanceof Array ? value[1] : value;
-    const valueToDate = new Date(rawValueTo);
-
-    if (isNaN(valueToDate.getTime())) {
-      throw new Error(`Invalid date: ${value}`);
-    }
-
-    const valueTo = getEnd(this.valueType, valueToDate);
-
-    return between(valueTo, minDate, maxDate);
+export default class DateInput extends PureComponent {
+  get valueType() {
+    return getValueType(this.props.maxDetail);
   }
 
   /**
    * Gets current value in a desired format.
    */
   getProcessedValue(value) {
-    const { returnValue } = this.props;
+    const {
+      minDate, maxDate, maxDetail, returnValue,
+    } = this.props;
 
     switch (returnValue) {
       case 'start':
-        return this.getValueFrom(value);
+        return getValueFrom(value, minDate, maxDate, maxDetail);
       case 'end':
-        return this.getValueTo(value);
+        return getValueTo(value, minDate, maxDate, maxDetail);
       default:
         throw new Error('Invalid returnValue.');
     }
   }
 
-  state = {
-    year: null,
-    month: null,
-    day: null,
-  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {
+      minDate, maxDate, maxDetail,
+    } = nextProps;
 
-  componentWillMount() {
-    this.updateValues();
-  }
+    const nextState = {};
 
-  componentWillReceiveProps(nextProps) {
-    const { value: nextValue } = nextProps;
-    const { value } = this.props;
+    /**
+     * If isCalendarOpen flag has changed, we have to update it.
+     * It's saved in state purely for use in getDerivedStateFromProps.
+     */
+    if (nextProps.isCalendarOpen !== prevState.isCalendarOpen) {
+      nextState.isCalendarOpen = nextProps.isCalendarOpen;
+    }
 
+    /**
+     * If the next value is different from the current one  (with an exception of situation in
+     * which values provided are limited by minDate and maxDate so that the dates are the same),
+     * get a new one.
+     */
+    const nextValue = getValueFrom(nextProps.value, minDate, maxDate, maxDetail);
+    const values = [nextValue, prevState.value];
     if (
       // Toggling calendar visibility resets values
-      (nextProps.isCalendarOpen !== this.props.isCalendarOpen) ||
-      datesAreDifferent(...[nextValue, value].map(this.getValueFrom)) ||
-      datesAreDifferent(...[nextValue, value].map(this.getValueTo))
+      nextState.isCalendarOpen || // Flag was toggled
+      datesAreDifferent(...values.map(value => getValueFrom(value, minDate, maxDate, maxDetail))) ||
+      datesAreDifferent(...values.map(value => getValueTo(value, minDate, maxDate, maxDetail)))
     ) {
-      this.updateValues(nextProps);
+      if (nextValue) {
+        nextState.year = getYear(nextValue);
+        nextState.month = getMonth(nextValue);
+        nextState.day = getDay(nextValue);
+      } else {
+        nextState.year = null;
+        nextState.month = null;
+        nextState.day = null;
+      }
+      nextState.value = nextValue;
     }
+
+    return nextState;
   }
 
-  /**
-   * Returns value type that can be returned with currently applied settings.
-   */
-  get valueType() {
-    const { maxDetail } = this.props;
-    return allValueTypes[allViews.indexOf(maxDetail)];
-  }
+  state = {};
 
   // eslint-disable-next-line class-methods-use-this
   get divider() {
@@ -187,16 +211,6 @@ export default class DateInput extends Component {
         this[`${ref.name}Input`] = ref;
       },
     };
-  }
-
-  updateValues(props = this.props) {
-    const value = this.getValueFrom(props.value);
-
-    this.setState({
-      year: value ? getYear(value) : null,
-      month: value ? getMonth(value) : null,
-      day: value ? getDay(value) : null,
-    });
   }
 
   onKeyDown = (event) => {
@@ -407,3 +421,5 @@ DateInput.propTypes = {
     PropTypes.instanceOf(Date),
   ]),
 };
+
+polyfill(DateInput);
