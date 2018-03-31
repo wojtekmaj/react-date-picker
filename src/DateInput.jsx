@@ -157,7 +157,11 @@ export default class DateInput extends PureComponent {
     return nextState;
   }
 
-  state = {};
+  state = {
+    year: null,
+    month: null,
+    day: null,
+  };
 
   /**
    * Gets current value in a desired format.
