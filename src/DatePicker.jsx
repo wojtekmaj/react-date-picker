@@ -63,7 +63,7 @@ export default class DatePicker extends PureComponent {
     this.openCalendar();
   }
 
-  stopPropagation = event => event.stopPropagation()
+  stopPropagation = event => event.stopPropagation();
 
   clear = () => this.onChange(null);
 
