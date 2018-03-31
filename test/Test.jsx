@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react';
-import DatePicker from 'react-date-picker/src/entry';
+import DatePicker from 'react-date-picker/src/entry.nostyle';
+import 'react-date-picker/src/DatePicker.less';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'react-calendar/src/Calendar.less';
 
 import ValidityOptions from './ValidityOptions';
 import MaxDetailOptions from './MaxDetailOptions';
