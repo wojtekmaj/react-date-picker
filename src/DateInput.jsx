@@ -104,28 +104,6 @@ const removeUnwantedCharacters = str => str
   .join('');
 
 export default class DateInput extends PureComponent {
-  get valueType() {
-    return getValueType(this.props.maxDetail);
-  }
-
-  /**
-   * Gets current value in a desired format.
-   */
-  getProcessedValue(value) {
-    const {
-      minDate, maxDate, maxDetail, returnValue,
-    } = this.props;
-
-    switch (returnValue) {
-      case 'start':
-        return getValueFrom(value, minDate, maxDate, maxDetail);
-      case 'end':
-        return getValueTo(value, minDate, maxDate, maxDetail);
-      default:
-        throw new Error('Invalid returnValue.');
-    }
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       minDate, maxDate, maxDetail,
@@ -171,6 +149,24 @@ export default class DateInput extends PureComponent {
 
   state = {};
 
+  /**
+   * Gets current value in a desired format.
+   */
+  getProcessedValue(value) {
+    const {
+      minDate, maxDate, maxDetail, returnValue,
+    } = this.props;
+
+    switch (returnValue) {
+      case 'start':
+        return getValueFrom(value, minDate, maxDate, maxDetail);
+      case 'end':
+        return getValueTo(value, minDate, maxDate, maxDetail);
+      default:
+        throw new Error('Invalid returnValue.');
+    }
+  }
+
   // eslint-disable-next-line class-methods-use-this
   get divider() {
     const { locale } = this.props;
@@ -211,6 +207,10 @@ export default class DateInput extends PureComponent {
         this[`${ref.name}Input`] = ref;
       },
     };
+  }
+
+  get valueType() {
+    return getValueType(this.props.maxDetail);
   }
 
   onKeyDown = (event) => {
