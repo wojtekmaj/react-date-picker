@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import DatePicker from 'react-date-picker/src/entry';
 
 import ValidityOptions from './ValidityOptions';
@@ -12,7 +12,7 @@ import './Test.less';
 
 const now = new Date();
 
-export default class Test extends Component {
+export default class Test extends PureComponent {
   state = {
     locale: null,
     maxDate: new Date(now.getUTCFullYear(), now.getUTCMonth() + 1, 15, 12),

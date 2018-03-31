@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { getISOLocalDate } from '../src/shared/dates';
 
-export default class ValueOptions extends Component {
+export default class ValueOptions extends PureComponent {
   get date() {
     const { value } = this.props;
     return [].concat(value)[0];

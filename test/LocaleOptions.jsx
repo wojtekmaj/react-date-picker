@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export default class LocaleOptions extends Component {
+export default class LocaleOptions extends PureComponent {
   onChange = (event) => {
     let { value: locale } = event.target;
 
