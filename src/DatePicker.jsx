@@ -92,15 +92,17 @@ export default class DatePicker extends PureComponent {
           showLeadingZeros={this.props.showLeadingZeros}
           value={valueFrom}
         />
-        <button
-          className="react-date-picker__clear-button react-date-picker__button__icon"
-          disabled={disabled}
-          onClick={this.clear}
-          onFocus={this.stopPropagation}
-          type="button"
-        >
-          {this.props.clearIcon}
-        </button>
+        {this.props.clearIcon !== null && (
+          <button
+            className="react-date-picker__clear-button react-date-picker__button__icon"
+            disabled={disabled}
+            onClick={this.clear}
+            onFocus={this.stopPropagation}
+            type="button"
+          >
+            {this.props.clearIcon}
+          </button>
+        )}
         <button
           className="react-date-picker__calendar-button react-date-picker__button__icon"
           disabled={disabled}
