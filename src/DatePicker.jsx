@@ -240,7 +240,7 @@ DatePicker.propTypes = {
   disabled: PropTypes.bool,
   isOpen: PropTypes.bool,
   name: PropTypes.string,
-  returnValue: PropTypes.oneOf(['start', 'end']),
+  returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
 };
