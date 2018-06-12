@@ -68,7 +68,7 @@
     "lodash.once": "^4.1.1",
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
-    "react-calendar": "^2.15.1",
+    "react-calendar": "2.15.2",
     "react-lifecycles-compat": "^3.0.4"
   },
   "devDependencies": {
