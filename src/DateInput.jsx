@@ -19,6 +19,8 @@ import {
 import { isMaxDate, isMinDate } from './shared/propTypes';
 import { between } from './shared/utils';
 
+const defaultMinDate = new Date(-8.64e15);
+const defaultMaxDate = new Date(8.64e15);
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
 const className = 'react-date-picker__button__input';
@@ -208,8 +210,8 @@ export default class DateInput extends PureComponent {
   get commonInputProps() {
     return {
       disabled: this.props.disabled,
-      maxDate: this.props.maxDate,
-      minDate: this.props.minDate,
+      maxDate: this.props.maxDate || defaultMaxDate,
+      minDate: this.props.minDate || defaultMinDate,
       onChange: this.onChange,
       onKeyDown: this.onKeyDown,
       // This is only for showing validity when editing
@@ -390,8 +392,8 @@ export default class DateInput extends PureComponent {
       <NativeInput
         key="date"
         disabled={this.props.disabled}
-        maxDate={this.props.maxDate}
-        minDate={this.props.minDate}
+        maxDate={this.props.maxDate || defaultMaxDate}
+        minDate={this.props.minDate || defaultMinDate}
         name={this.props.name}
         onChange={this.onChangeNative}
         required={this.props.required}
