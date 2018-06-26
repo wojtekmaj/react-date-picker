@@ -42,7 +42,7 @@ Your project needs to use React 16 or later. If you use older version of React, 
 |React version|Newest supported React-Date-Picker|
 |----|----|
 |>16.0|latest|
-|>15.0|6.7.0|
+|>15.5|6.7.0|
 
 [React-Calendar](https://github.com/wojtekmaj/react-calendar), on which React-Date-Picker relies heavily, uses modern web technologies. That's why it's so fast, lightweight and easy to style. This, however, comes at a cost of [supporting only modern browsers](https://caniuse.com/#feat=internationalization).
 
