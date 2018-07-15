@@ -122,6 +122,8 @@ const removeUnwantedCharacters = str => str
     a.charCodeAt(0) !== 32
     // Internet Explorer specific
     && a.charCodeAt(0) !== 8206
+    // Remove non-ASCII characters
+    && /^[\x20-\x7F]*$/.test(a)
   ))
   .join('');
 
