@@ -60,10 +60,13 @@ export default class DatePicker extends PureComponent {
   }
 
   onFocus = () => {
+    const { disabled } = this.props;
+
     // Internet Explorer still fires onFocus on disabled elements
-    if (this.props.disabled) {
+    if (disabled) {
       return;
     }
+
     this.openCalendar();
   }
 
@@ -72,27 +75,40 @@ export default class DatePicker extends PureComponent {
   clear = () => this.onChange(null);
 
   renderInputs() {
-    const { disabled } = this.props;
+    const {
+      calendarIcon,
+      clearIcon,
+      disabled,
+      locale,
+      maxDate,
+      maxDetail,
+      minDate,
+      returnValue,
+      required,
+      showLeadingZeros,
+      value,
+    } = this.props;
+    const { isOpen } = this.state;
 
-    const [valueFrom] = [].concat(this.props.value);
+    const [valueFrom] = [].concat(value);
 
     return (
       <div className="react-date-picker__button">
         <DateInput
           disabled={disabled}
-          locale={this.props.locale}
-          isCalendarOpen={this.state.isOpen}
-          maxDate={this.props.maxDate}
-          maxDetail={this.props.maxDetail}
-          minDate={this.props.minDate}
-          name={this.props.name}
+          locale={locale}
+          isCalendarOpen={isOpen}
+          maxDate={maxDate}
+          maxDetail={maxDetail}
+          minDate={minDate}
+          name={name}
           onChange={this.onChange}
-          returnValue={this.props.returnValue}
-          required={this.props.required}
-          showLeadingZeros={this.props.showLeadingZeros}
+          returnValue={returnValue}
+          required={required}
+          showLeadingZeros={showLeadingZeros}
           value={valueFrom}
         />
-        {this.props.clearIcon !== null && (
+        {clearIcon !== null && (
           <button
             className="react-date-picker__clear-button react-date-picker__button__icon"
             disabled={disabled}
@@ -100,10 +116,10 @@ export default class DatePicker extends PureComponent {
             onFocus={this.stopPropagation}
             type="button"
           >
-            {this.props.clearIcon}
+            {clearIcon}
           </button>
         )}
-        {this.props.calendarIcon !== null && (
+        {calendarIcon !== null && (
           <button
             className="react-date-picker__calendar-button react-date-picker__button__icon"
             disabled={disabled}
@@ -112,7 +128,7 @@ export default class DatePicker extends PureComponent {
             onBlur={this.resetValue}
             type="button"
           >
-            {this.props.calendarIcon}
+            {calendarIcon}
           </button>
         )}
       </div>
@@ -152,8 +168,9 @@ export default class DatePicker extends PureComponent {
           const collisions = detectElementOverflow(ref, document.body);
 
           if (collisions.collidedBottom) {
-            const overflowTopAfterChange =
-              collisions.overflowTop + ref.clientHeight + this.wrapper.clientHeight;
+            const overflowTopAfterChange = (
+              collisions.overflowTop + ref.clientHeight + this.wrapper.clientHeight
+            );
 
             // If it's going to make situation any better, display the calendar above the input
             if (overflowTopAfterChange < collisions.overflowBottom) {
@@ -173,15 +190,18 @@ export default class DatePicker extends PureComponent {
   }
 
   render() {
-    const className = 'react-date-picker';
+    const { className, disabled } = this.props;
+    const { isOpen } = this.state;
+
+    const baseClassName = 'react-date-picker';
 
     return (
       <div
         className={mergeClassNames(
+          baseClassName,
+          `${baseClassName}--${isOpen ? 'open' : 'closed'}`,
+          `${baseClassName}--${disabled ? 'disabled' : 'enabled'}`,
           className,
-          `${className}--${this.state.isOpen ? 'open' : 'closed'}`,
-          `${className}--${this.props.disabled ? 'disabled' : 'enabled'}`,
-          this.props.className,
         )}
         onFocus={this.onFocus}
         ref={(ref) => {

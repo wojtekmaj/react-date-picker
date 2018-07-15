@@ -26,16 +26,15 @@ const allValueTypes = [...allViews.slice(1), 'day'];
 const className = 'react-date-picker__button__input';
 
 const datesAreDifferent = (date1, date2) => (
-  (date1 && !date2) ||
-  (!date1 && date2) ||
-  (date1 && date2 && date1.getTime() !== date2.getTime())
+  (date1 && !date2)
+  || (!date1 && date2)
+  || (date1 && date2 && date1.getTime() !== date2.getTime())
 );
 
 /**
  * Returns value type that can be returned with currently applied settings.
  */
-const getValueType = maxDetail =>
-  allValueTypes[allViews.indexOf(maxDetail)];
+const getValueType = maxDetail => allValueTypes[allViews.indexOf(maxDetail)];
 
 const getValueFrom = (value, minDate, maxDate, maxDetail) => {
   if (!value) {
@@ -120,9 +119,9 @@ const removeUnwantedCharacters = str => str
   .split('')
   .filter(a => (
     // We don't want spaces in dates
-    a.charCodeAt(0) !== 32 &&
+    a.charCodeAt(0) !== 32
     // Internet Explorer specific
-    a.charCodeAt(0) !== 8206
+    && a.charCodeAt(0) !== 8206
   ))
   .join('');
 
@@ -151,9 +150,9 @@ export default class DateInput extends PureComponent {
     const values = [nextValue, prevState.value];
     if (
       // Toggling calendar visibility resets values
-      nextState.isCalendarOpen || // Flag was toggled
-      datesAreDifferent(...values.map(value => getValueFrom(value, minDate, maxDate, maxDetail))) ||
-      datesAreDifferent(...values.map(value => getValueTo(value, minDate, maxDate, maxDetail)))
+      nextState.isCalendarOpen // Flag was toggled
+      || datesAreDifferent(...values.map(value => getValueFrom(value, minDate, maxDate, maxDetail)))
+      || datesAreDifferent(...values.map(value => getValueTo(value, minDate, maxDate, maxDetail)))
     ) {
       if (nextValue) {
         nextState.year = getYear(nextValue);
@@ -221,14 +220,22 @@ export default class DateInput extends PureComponent {
   }
 
   get commonInputProps() {
+    const {
+      disabled,
+      isCalendarOpen,
+      maxDate,
+      minDate,
+      required,
+    } = this.props;
+
     return {
-      disabled: this.props.disabled,
-      maxDate: this.props.maxDate || defaultMaxDate,
-      minDate: this.props.minDate || defaultMinDate,
+      disabled,
+      maxDate: maxDate || defaultMaxDate,
+      minDate: minDate || defaultMinDate,
       onChange: this.onChange,
       onKeyDown: this.onKeyDown,
       // This is only for showing validity when editing
-      required: this.props.required || this.props.isCalendarOpen,
+      required: required || isCalendarOpen,
       itemRef: (ref) => {
         if (!ref) return;
 
@@ -239,7 +246,9 @@ export default class DateInput extends PureComponent {
   }
 
   get valueType() {
-    return getValueType(this.props.maxDetail);
+    const { maxDetail } = this.props;
+
+    return getValueType(maxDetail);
   }
 
   onKeyDown = (event) => {
@@ -281,10 +290,11 @@ export default class DateInput extends PureComponent {
    * Called when native date input is changed.
    */
   onChangeNative = (event) => {
+    const { onChange } = this.props;
     const { value } = event.target;
 
-    if (this.props.onChange) {
-      this.props.onChange(new Date(value));
+    if (onChange) {
+      onChange(new Date(value));
     }
   }
 
@@ -293,7 +303,9 @@ export default class DateInput extends PureComponent {
    * calls props.onChange.
    */
   onChangeExternal = () => {
-    if (this.props.onChange) {
+    const { onChange } = this.props;
+
+    if (onChange) {
       const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(Boolean);
 
       const values = {};
@@ -304,7 +316,7 @@ export default class DateInput extends PureComponent {
       if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
         const proposedValue = new Date(values.year, (values.month || 1) - 1, values.day || 1);
         const processedValue = this.getProcessedValue(proposedValue);
-        this.props.onChange(processedValue, false);
+        onChange(processedValue, false);
       }
     }
   }
@@ -317,17 +329,17 @@ export default class DateInput extends PureComponent {
       return null;
     }
 
-    const { day: value } = this.state;
+    const { day: value, month, year } = this.state;
 
     return (
       <DayInput
         key="day"
         className={className}
-        maxDetail={this.props.maxDetail}
-        month={this.state.month}
+        maxDetail={maxDetail}
+        month={month}
         showLeadingZeros={showLeadingZeros}
         value={value}
-        year={this.state.year}
+        year={year}
         {...this.commonInputProps}
       />
     );
@@ -341,27 +353,29 @@ export default class DateInput extends PureComponent {
       return null;
     }
 
-    const { month: value } = this.state;
+    const { month: value, year } = this.state;
 
     return (
       <MonthInput
         key="month"
         className={className}
-        maxDetail={this.props.maxDetail}
+        maxDetail={maxDetail}
         showLeadingZeros={showLeadingZeros}
         value={value}
-        year={this.state.year}
+        year={year}
         {...this.commonInputProps}
       />
     );
   }
 
   renderYear() {
+    const { year } = this.state;
+
     return (
       <YearInput
         key="year"
         className={className}
-        value={this.state.year}
+        value={year}
         valueType={this.valueType}
         {...this.commonInputProps}
       />
@@ -401,16 +415,25 @@ export default class DateInput extends PureComponent {
   }
 
   renderNativeInput() {
+    const {
+      disabled,
+      maxDate,
+      minDate,
+      name,
+      required,
+      value,
+    } = this.props;
+
     return (
       <NativeInput
         key="date"
-        disabled={this.props.disabled}
-        maxDate={this.props.maxDate || defaultMaxDate}
-        minDate={this.props.minDate || defaultMinDate}
-        name={this.props.name}
+        disabled={disabled}
+        maxDate={maxDate || defaultMaxDate}
+        minDate={minDate || defaultMinDate}
+        name={name}
         onChange={this.onChangeNative}
-        required={this.props.required}
-        value={this.props.value}
+        required={required}
+        value={value}
         valueType={this.valueType}
       />
     );
