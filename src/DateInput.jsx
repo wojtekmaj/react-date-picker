@@ -81,6 +81,17 @@ const getValueTo = (value, minDate, maxDate, maxDetail) => {
   return between(valueTo, minDate, maxDate);
 };
 
+const getValueArray = (value, minDate, maxDate, maxDetail) => {
+  if (value instanceof Array) {
+    return value;
+  }
+
+  return [
+    getValueFrom(value, minDate, maxDate, maxDetail),
+    getValueTo(value, minDate, maxDate, maxDetail),
+  ];
+};
+
 const findPreviousInput = (element) => {
   const previousElement = element.previousElementSibling; // Divider between inputs
   if (!previousElement) {
@@ -178,6 +189,8 @@ export default class DateInput extends PureComponent {
         return getValueFrom(value, minDate, maxDate, maxDetail);
       case 'end':
         return getValueTo(value, minDate, maxDate, maxDetail);
+      case 'range':
+        return getValueArray(value, minDate, maxDate, maxDetail);
       default:
         throw new Error('Invalid returnValue.');
     }
@@ -428,7 +441,7 @@ DateInput.propTypes = {
   minDate: isMinDate,
   name: PropTypes.string,
   onChange: PropTypes.func,
-  returnValue: PropTypes.oneOf(['start', 'end']),
+  returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.oneOfType([
