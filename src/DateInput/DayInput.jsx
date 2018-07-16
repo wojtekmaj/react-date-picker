@@ -62,12 +62,12 @@ export default class DayInput extends PureComponent {
         onKeyDown={onKeyDown}
         placeholder="--"
         ref={(ref) => {
-          if (!ref) return;
-
-          updateInputWidth(ref);
+          if (ref) {
+            updateInputWidth(ref);
+          }
 
           if (itemRef) {
-            itemRef(ref);
+            itemRef(ref, name);
           }
         }}
         required={required}

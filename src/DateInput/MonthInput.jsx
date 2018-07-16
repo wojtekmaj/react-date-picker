@@ -45,12 +45,12 @@ export default class MonthInput extends PureComponent {
         onKeyDown={onKeyDown}
         placeholder="--"
         ref={(ref) => {
-          if (!ref) return;
-
-          updateInputWidth(ref);
+          if (ref) {
+            updateInputWidth(ref);
+          }
 
           if (itemRef) {
-            itemRef(ref);
+            itemRef(ref, name);
           }
         }}
         type="number"

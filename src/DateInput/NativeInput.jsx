@@ -10,7 +10,9 @@ import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 
 export default class NativeInput extends PureComponent {
   get nativeInputType() {
-    switch (this.props.valueType) {
+    const { valueType } = this.props;
+
+    switch (valueType) {
       case 'decade':
       case 'year':
         return 'number';
@@ -24,7 +26,9 @@ export default class NativeInput extends PureComponent {
   }
 
   get nativeValueParser() {
-    switch (this.props.valueType) {
+    const { valueType } = this.props;
+
+    switch (valueType) {
       case 'century':
       case 'decade':
       case 'year':

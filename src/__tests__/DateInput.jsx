@@ -100,11 +100,9 @@ describe('DateInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('');
   });
 
-  it('renders custom inputs in a proper order (en-US)', () => {
+  it('renders custom inputs in a proper order', () => {
     const component = mount(
-      <DateInput
-        locale="en-US"
-      />
+      <DateInput />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -114,11 +112,9 @@ describe('DateInput', () => {
     expect(customInputs.at(2).prop('name')).toBe('year');
   });
 
-  it('renders proper input separators (en-US)', () => {
+  it('renders proper input separators', () => {
     const component = mount(
-      <DateInput
-        locale="en-US"
-      />
+      <DateInput />
     );
 
     const separators = component.find('.react-date-picker__button__input__divider');

@@ -20,7 +20,9 @@ export default class YearInput extends PureComponent {
   }
 
   get yearStep() {
-    if (this.props.valueType === 'century') {
+    const { valueType } = this.props;
+
+    if (valueType === 'century') {
       return 10;
     }
     return 1;
@@ -46,12 +48,12 @@ export default class YearInput extends PureComponent {
         onKeyDown={onKeyDown}
         placeholder="--"
         ref={(ref) => {
-          if (!ref) return;
-
-          updateInputWidth(ref);
+          if (ref) {
+            updateInputWidth(ref);
+          }
 
           if (itemRef) {
-            itemRef(ref);
+            itemRef(ref, name);
           }
         }}
         required={required}
