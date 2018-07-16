@@ -22,6 +22,18 @@ const mockDocumentListeners = () => {
 };
 
 describe('DatePicker', () => {
+  it('passes name to DateInput', () => {
+    const name = 'testName';
+
+    const component = mount(
+      <DatePicker name={name} />
+    );
+
+    const dateInput = component.find('DateInput');
+
+    expect(dateInput.prop('name')).toBe(name);
+  });
+
   it('applies className to its wrapper when given a string', () => {
     const className = 'testClassName';
 

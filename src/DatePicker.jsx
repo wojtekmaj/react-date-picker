@@ -83,6 +83,7 @@ export default class DatePicker extends PureComponent {
       maxDate,
       maxDetail,
       minDate,
+      name,
       returnValue,
       required,
       showLeadingZeros,
