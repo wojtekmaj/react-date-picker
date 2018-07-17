@@ -6,12 +6,12 @@ import {
   getYear,
 } from '../shared/dates';
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
-import { max, updateInputWidth } from '../shared/utils';
+import { max, min, updateInputWidth } from '../shared/utils';
 
 export default class YearInput extends PureComponent {
   get maxYear() {
     const { maxDate } = this.props;
-    return maxDate ? getYear(maxDate) : null;
+    return min(275760, maxDate && getYear(maxDate));
   }
 
   get minYear() {
