@@ -34,6 +34,8 @@ export default class YearInput extends PureComponent {
       className, disabled, itemRef, value, onChange, onKeyDown, required,
     } = this.props;
 
+    const name = 'year';
+
     return (
       <input
         className={mergeClassNames(
@@ -41,7 +43,7 @@ export default class YearInput extends PureComponent {
           `${className}__year`,
         )}
         disabled={disabled}
-        name="year"
+        name={name}
         max={maxYear}
         min={minYear}
         onChange={onChange}

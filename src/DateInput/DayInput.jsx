@@ -43,6 +43,7 @@ export default class DayInput extends PureComponent {
       className, disabled, itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
     } = this.props;
 
+    const name = 'day';
     const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
 
     return [
@@ -55,7 +56,7 @@ export default class DayInput extends PureComponent {
           hasLeadingZero && `${className}__input--hasLeadingZero`,
         )}
         disabled={disabled}
-        name="day"
+        name={name}
         max={maxDay}
         min={minDay}
         onChange={onChange}

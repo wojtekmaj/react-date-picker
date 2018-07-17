@@ -238,11 +238,9 @@ export default class DateInput extends PureComponent {
       onKeyDown: this.onKeyDown,
       // This is only for showing validity when editing
       required: required || isCalendarOpen,
-      itemRef: (ref) => {
-        if (!ref) return;
-
+      itemRef: (ref, name) => {
         // Save a reference to each input field
-        this[`${ref.name}Input`] = ref;
+        this[`${name}Input`] = ref;
       },
     };
   }

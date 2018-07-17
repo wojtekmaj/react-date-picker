@@ -26,6 +26,7 @@ export default class MonthInput extends PureComponent {
       className, disabled, itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
     } = this.props;
 
+    const name = 'month';
     const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
 
     return [
@@ -38,7 +39,7 @@ export default class MonthInput extends PureComponent {
           hasLeadingZero && `${className}__input--hasLeadingZero`,
         )}
         disabled={disabled}
-        name="month"
+        name={name}
         max={maxMonth}
         min={minMonth}
         onChange={onChange}
