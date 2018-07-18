@@ -16,7 +16,7 @@ describe('YearInput', () => {
       <YearInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input).toHaveLength(1);
   });
@@ -26,9 +26,24 @@ describe('YearInput', () => {
       <YearInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('name')).toBe('year');
+  });
+
+  it('displays given value properly', () => {
+    const value = 2018;
+
+    const component = mount(
+      <YearInput
+        {...defaultProps}
+        value={value}
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('value')).toBe(value);
   });
 
   it('does not disable input by default', () => {
@@ -36,7 +51,7 @@ describe('YearInput', () => {
       <YearInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('disabled')).toBeFalsy();
   });
@@ -49,7 +64,7 @@ describe('YearInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('disabled')).toBeTruthy();
   });
@@ -59,7 +74,7 @@ describe('YearInput', () => {
       <YearInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('required')).toBeFalsy();
   });
@@ -72,7 +87,7 @@ describe('YearInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('required')).toBeTruthy();
   });
@@ -96,7 +111,7 @@ describe('YearInput', () => {
       <YearInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('min')).toBe(1000);
   });
@@ -109,7 +124,7 @@ describe('YearInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('min')).toBe(2018);
   });
@@ -119,7 +134,7 @@ describe('YearInput', () => {
       <YearInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('max')).toBe(275760);
   });
@@ -132,7 +147,7 @@ describe('YearInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('max')).toBe(2018);
   });

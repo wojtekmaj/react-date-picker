@@ -16,7 +16,7 @@ describe('MonthInput', () => {
       <MonthInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input).toHaveLength(1);
   });
@@ -30,7 +30,7 @@ describe('MonthInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(component.text()).toContain('0');
     expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
@@ -45,7 +45,7 @@ describe('MonthInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(component.text()).not.toContain('0');
     expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
@@ -59,7 +59,7 @@ describe('MonthInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(component.text()).not.toContain('0');
     expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
@@ -70,9 +70,24 @@ describe('MonthInput', () => {
       <MonthInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('name')).toBe('month');
+  });
+
+  it('displays given value properly', () => {
+    const value = 11;
+
+    const component = mount(
+      <MonthInput
+        {...defaultProps}
+        value={value}
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('value')).toBe(value);
   });
 
   it('does not disable input by default', () => {
@@ -80,7 +95,7 @@ describe('MonthInput', () => {
       <MonthInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('disabled')).toBeFalsy();
   });
@@ -93,7 +108,7 @@ describe('MonthInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('disabled')).toBeTruthy();
   });
@@ -103,7 +118,7 @@ describe('MonthInput', () => {
       <MonthInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('required')).toBeFalsy();
   });
@@ -116,7 +131,7 @@ describe('MonthInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('required')).toBeTruthy();
   });
@@ -140,7 +155,7 @@ describe('MonthInput', () => {
       <MonthInput {...defaultProps} />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('min')).toBe(1);
   });
@@ -154,7 +169,7 @@ describe('MonthInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('min')).toBe(1);
   });
@@ -168,7 +183,7 @@ describe('MonthInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('min')).toBe(7);
   });
@@ -181,7 +196,7 @@ describe('MonthInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('max')).toBe(12);
   });
@@ -195,7 +210,7 @@ describe('MonthInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('max')).toBe(12);
   });
@@ -209,7 +224,7 @@ describe('MonthInput', () => {
       />
     );
 
-    const input = component.find('input[type="number"]');
+    const input = component.find('input');
 
     expect(input.prop('max')).toBe(7);
   });
