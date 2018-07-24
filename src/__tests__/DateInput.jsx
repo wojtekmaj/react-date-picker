@@ -82,6 +82,20 @@ describe('DateInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('2017');
   });
 
+  it('shows empty value in all inputs correctly', () => {
+    const component = mount(
+      <DateInput value={null} />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.getDOMNode().value).toBe('');
+    expect(customInputs.at(0).getDOMNode().value).toBe('');
+    expect(customInputs.at(1).getDOMNode().value).toBe('');
+    expect(customInputs.at(2).getDOMNode().value).toBe('');
+  });
+
   it('clears the value correctly', () => {
     const date = new Date(2017, 8, 30);
 
