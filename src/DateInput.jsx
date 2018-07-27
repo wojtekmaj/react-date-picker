@@ -298,6 +298,10 @@ export default class DateInput extends PureComponent {
     }
 
     const processedValue = (() => {
+      if (!value) {
+        return null;
+      }
+
       const [yearString, monthString, dayString] = value.split('-');
       const year = parseInt(yearString, 10);
       const monthIndex = parseInt(monthString, 10) - 1;
