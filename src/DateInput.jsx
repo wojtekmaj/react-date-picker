@@ -293,9 +293,20 @@ export default class DateInput extends PureComponent {
     const { onChange } = this.props;
     const { value } = event.target;
 
-    if (onChange) {
-      onChange(new Date(value));
+    if (!onChange) {
+      return;
     }
+
+    const processedValue = (() => {
+      const [yearString, monthString, dayString] = value.split('-');
+      const year = parseInt(yearString, 10);
+      const monthIndex = parseInt(monthString, 10) - 1;
+      const date = parseInt(dayString, 10);
+
+      return new Date(year, monthIndex, date);
+    })();
+
+    onChange(processedValue);
   }
 
   /**
