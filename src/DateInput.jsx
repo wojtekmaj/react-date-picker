@@ -320,19 +320,23 @@ export default class DateInput extends PureComponent {
   onChangeExternal = () => {
     const { onChange } = this.props;
 
-    if (onChange) {
-      const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(Boolean);
+    if (!onChange) {
+      return;
+    }
 
-      const values = {};
-      formElements.forEach((formElement) => {
-        values[formElement.name] = formElement.value;
-      });
+    const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(Boolean);
 
-      if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
-        const proposedValue = new Date(values.year, (values.month || 1) - 1, values.day || 1);
-        const processedValue = this.getProcessedValue(proposedValue);
-        onChange(processedValue, false);
-      }
+    const values = {};
+    formElements.forEach((formElement) => {
+      values[formElement.name] = formElement.value;
+    });
+
+    if (formElements.every(formElement => !formElement.value)) {
+      onChange(null);
+    } else if (formElements.every(formElement => formElement.checkValidity())) {
+      const proposedValue = new Date(values.year, (values.month || 1) - 1, values.day || 1);
+      const processedValue = this.getProcessedValue(proposedValue);
+      onChange(processedValue);
     }
   }
 
