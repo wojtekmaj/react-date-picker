@@ -278,7 +278,7 @@ describe('DateInput', () => {
     customInputs.at(2).getDOMNode().value = '';
     customInputs.at(2).simulate('change');
 
-    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith(null);
   });
 

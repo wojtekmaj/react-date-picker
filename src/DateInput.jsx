@@ -333,7 +333,9 @@ export default class DateInput extends PureComponent {
 
     if (formElements.every(formElement => !formElement.value)) {
       onChange(null);
-    } else if (formElements.every(formElement => formElement.checkValidity())) {
+    } else if (
+      formElements.every(formElement => formElement.value && formElement.checkValidity())
+    ) {
       const proposedValue = new Date(values.year, (values.month || 1) - 1, values.day || 1);
       const processedValue = this.getProcessedValue(proposedValue);
       onChange(processedValue);
