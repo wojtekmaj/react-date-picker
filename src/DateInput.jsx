@@ -304,8 +304,8 @@ export default class DateInput extends PureComponent {
 
       const [yearString, monthString, dayString] = value.split('-');
       const year = parseInt(yearString, 10);
-      const monthIndex = parseInt(monthString, 10) - 1;
-      const date = parseInt(dayString, 10);
+      const monthIndex = parseInt(monthString, 10) - 1 || 0;
+      const date = parseInt(dayString, 10) || 1;
 
       return new Date(year, monthIndex, date);
     })();
