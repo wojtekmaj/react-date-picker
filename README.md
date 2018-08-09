@@ -136,3 +136,17 @@ The MIT License.
     </td>
   </tr>
 </table>
+
+## Thank you
+
+### Sponsors
+
+Thank you to all our sponsors! [Become a sponsor](https://opencollective.com/react-date-picker#sponsor) and get your image on our README on GitHub.
+
+<a href="https://opencollective.com/react-date-picker#sponsors" target="_blank"><img src="https://opencollective.com/react-date-picker/sponsors.svg?width=890"></a>
+
+### Backers
+
+Thank you to all our backers! [Become a backer](https://opencollective.com/react-date-picker#backer) and get your image on our README on GitHub.
+
+<a href="https://opencollective.com/react-date-picker#backers" target="_blank"><img src="https://opencollective.com/react-date-picker/backers.svg?width=890"></a>
