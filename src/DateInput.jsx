@@ -280,8 +280,15 @@ export default class DateInput extends PureComponent {
   onChange = (event) => {
     const { name, value } = event.target;
 
+    const saneValue = value !== null ? parseInt(value, 10) : null;
+    // Display number without leading zeros
+    if (saneValue && saneValue < 10) {
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = saneValue;
+    }
+
     this.setState(
-      { [name]: value ? parseInt(value, 10) : null },
+      { [name]: saneValue },
       this.onChangeExternal,
     );
   }

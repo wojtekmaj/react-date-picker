@@ -59,15 +59,7 @@ export default class DayInput extends PureComponent {
         name={name}
         max={maxDay}
         min={minDay}
-        onChange={(e) => {
-          const inputValue = parseInt(e.target.value, 10);
-
-          if (inputValue && inputValue < 10) {
-            e.target.value = String(inputValue);
-          }
-
-          onChange(e);
-        }}
+        onChange={onChange}
         onKeyDown={onKeyDown}
         placeholder="--"
         ref={(ref) => {
