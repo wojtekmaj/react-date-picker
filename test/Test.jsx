@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
+// eslint-disable-next-line import/no-unresolved
 import DatePicker from 'react-date-picker/src/entry.nostyle';
+// eslint-disable-next-line import/no-unresolved
 import 'react-date-picker/src/DatePicker.less';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-calendar/src/Calendar.less';
