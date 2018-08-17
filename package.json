@@ -65,7 +65,7 @@
   "license": "MIT",
   "dependencies": {
     "detect-element-overflow": "^1.1.1",
-    "lodash.once": "^4.1.1",
+    "get-user-locale": "1.1.0",
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
     "react-calendar": "^2.16.1",
