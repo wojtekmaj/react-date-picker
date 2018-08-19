@@ -28,12 +28,12 @@ export default class ValidityOptions extends PureComponent {
     return (
       <fieldset id="ValidityOptions">
         <legend htmlFor="ValidityOptions">
-Minimum and maximum date
+          Minimum and maximum date
         </legend>
 
         <div>
           <label htmlFor="minDate">
-Minimum date
+            Minimum date
           </label>
           <input
             id="minDate"
@@ -41,7 +41,7 @@ Minimum date
             type="date"
             value={minDate ? getISOLocalDate(minDate) : ''}
           />
-&nbsp;
+          &nbsp;
           <button
             onClick={() => setState({ minDate: null })}
             type="button"
@@ -52,7 +52,7 @@ Minimum date
 
         <div>
           <label htmlFor="maxDate">
-Maximum date
+            Maximum date
           </label>
           <input
             id="maxDate"
@@ -60,7 +60,7 @@ Maximum date
             type="date"
             value={maxDate ? getISOLocalDate(maxDate) : ''}
           />
-&nbsp;
+          &nbsp;
           <button
             onClick={() => setState({ maxDate: null })}
             type="button"
@@ -77,7 +77,7 @@ Maximum date
             onChange={event => setState({ required: event.target.checked })}
           />
           <label htmlFor="required">
-Required
+            Required
           </label>
         </div>
       </fieldset>
