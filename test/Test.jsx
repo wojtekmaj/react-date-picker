@@ -95,8 +95,9 @@ react-date-picker test page
             <form
               onSubmit={(event) => {
                 event.preventDefault();
+
                 /* eslint-disable no-console */
-                console.error('Calendar triggered submitting the form.');
+                console.warn('Calendar triggered submitting the form.');
                 console.log(event);
                 /* eslint-enable no-console */
               }}
