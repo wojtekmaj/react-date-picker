@@ -55,7 +55,7 @@ export default class Test extends PureComponent {
       <div className="Test">
         <header>
           <h1>
-react-date-picker test page
+            react-date-picker test page
           </h1>
         </header>
         <div className="Test__container">
