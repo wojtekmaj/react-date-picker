@@ -22,9 +22,9 @@
   "license": "MIT",
   "dependencies": {
     "prop-types": "^15.6.0",
-    "react": "^16.4.0",
+    "react": "^16.5.0",
     "react-date-picker": "latest",
-    "react-dom": "^16.4.0"
+    "react-dom": "^16.5.0"
   },
   "devDependencies": {
     "@types/react": "^16.0.34",
