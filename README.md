@@ -97,9 +97,9 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |Prop name|Description|Example values|
 |----|----|----|
 |calendarClassName|Defines class name(s) that will be added along with "react-calendar" to the main React-Calendar `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
-|calendarIcon|Defines the content of the calendar button.|<ul><li>String: `"Calendar"`</li><li>React element: `<CalendarIcon />`</li></ul>|
+|calendarIcon|Defines the content of the calendar button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Calendar"`</li><li>React element: `<CalendarIcon />`</li></ul>|
 |className|Defines class name(s) that will be added along with "react-date-picker" to the main React-Date-Picker `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
-|clearIcon|Defines the content of the clear button.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
+|clearIcon|Defines the content of the clear button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
 |disabled|Defines whether the date picker should be disabled. Defaults to false.|`true`|
 |isOpen|Defines whether the calendar should be opened. Defaults to false.|`true`|
 |locale|Defines which locale should be used by the date picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
