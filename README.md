@@ -150,3 +150,16 @@ Thank you to all our sponsors! [Become a sponsor](https://opencollective.com/rea
 Thank you to all our backers! [Become a backer](https://opencollective.com/react-date-picker#backer) and get your image on our README on GitHub.
 
 <a href="https://opencollective.com/react-date-picker#backers" target="_blank"><img src="https://opencollective.com/react-date-picker/backers.svg?width=890"></a>
+
+### Top Contributors
+
+Thank you to all our contributors that helped on this project!
+
+[![0](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/images/0)](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/links/0)                            
+[![1](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/images/1)](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/links/1)                            
+[![2](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/images/2)](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/links/2)                            
+[![3](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/images/3)](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/links/3)                            
+[![4](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/images/4)](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/links/4)                            
+[![5](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/images/5)](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/links/5)                            
+[![6](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/images/6)](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/links/6)                            
+[![7](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/images/7)](https://sourcerer.io/fame/wojtekmaj/wojtekmaj/react-date-picker/links/7)
