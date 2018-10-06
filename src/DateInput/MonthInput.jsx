@@ -44,6 +44,7 @@ export default class MonthInput extends PureComponent {
         min={minMonth}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        onKeyUp={event => updateInputWidth(event.target)}
         placeholder="--"
         ref={(ref) => {
           if (ref) {

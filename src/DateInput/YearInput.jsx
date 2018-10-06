@@ -48,6 +48,7 @@ export default class YearInput extends PureComponent {
         min={minYear}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        onKeyUp={event => updateInputWidth(event.target)}
         placeholder="--"
         ref={(ref) => {
           if (ref) {

@@ -32,13 +32,14 @@
       }
 
       &__input {
-        min-width: calc(~"4px + " @digit-width);
+        min-width: @digit-width;
         height: 100%;
         position: relative;
         padding: 1px;
         border: 0;
         background: none;
         font: inherit;
+        box-sizing: content-box;
         -moz-appearance: textfield;
 
         &::-webkit-outer-spin-button,
@@ -52,7 +53,6 @@
         }
 
         &--hasLeadingZero {
-          min-width: calc(~"4px + " 2 * @digit-width);
           margin-left: -@digit-width;
           padding-left: calc(~"1px + " @digit-width);
         }
