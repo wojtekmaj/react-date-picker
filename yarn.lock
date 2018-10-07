@@ -4463,10 +4463,10 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-calendar@^2.17.3:
-  version "2.17.3"
-  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.17.3.tgz#515bccb7cb52b8d699d3498cf3e30ca31a3ba540"
-  integrity sha512-qqatCCfTQ9qwR47Tyt33gi678sUPnFsyiF342bE+Gs7yPI7qXnH8vyag4g/OVApULIhpK+ryo5Fd8h411sDb1Q==
+react-calendar@^2.17.4:
+  version "2.17.4"
+  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.17.4.tgz#95aeb1545159b97727f152f091ef563624dfd70c"
+  integrity sha512-rNpq5R6awa3Krb8rcgBsD6/KkGKvAUGL/jcBvO9f3ikzrRAsBPwQrsu7stiahup0khFfAPRNT5DKaMMNS2bAgQ==
   dependencies:
     get-user-locale "^1.1.1"
     merge-class-names "^1.1.1"
