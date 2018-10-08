@@ -11,6 +11,8 @@ import {
 import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max, updateInputWidth } from '../shared/utils';
 
+const select = element => element && element.select();
+
 export default class DayInput extends PureComponent {
   get currentMonthMaxDays() {
     const { year, month } = this.props;
@@ -60,6 +62,7 @@ export default class DayInput extends PureComponent {
         max={maxDay}
         min={minDay}
         onChange={onChange}
+        onFocus={event => select(event.target)}
         onKeyDown={onKeyDown}
         onKeyUp={event => updateInputWidth(event.target)}
         placeholder="--"
