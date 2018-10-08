@@ -9,6 +9,8 @@ import Calendar from 'react-calendar/dist/entry.nostyle';
 
 import DateInput from './DateInput';
 
+const baseClassName = 'react-date-picker';
+
 export default class DatePicker extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.isOpen !== prevState.isOpenProps) {
@@ -109,8 +111,9 @@ export default class DatePicker extends PureComponent {
     const [valueFrom] = [].concat(value);
 
     return (
-      <div className="react-date-picker__button">
+      <div className={`${baseClassName}__button`}>
         <DateInput
+          className={`${baseClassName}__button__input`}
           disabled={disabled}
           locale={locale}
           isCalendarOpen={isOpen}
@@ -126,7 +129,7 @@ export default class DatePicker extends PureComponent {
         />
         {clearIcon !== null && (
           <button
-            className="react-date-picker__clear-button react-date-picker__button__icon"
+            className={`${baseClassName}__clear-button ${baseClassName}__button__icon`}
             disabled={disabled}
             onClick={this.clear}
             onFocus={this.stopPropagation}
@@ -137,7 +140,7 @@ export default class DatePicker extends PureComponent {
         )}
         {calendarIcon !== null && (
           <button
-            className="react-date-picker__calendar-button react-date-picker__button__icon"
+            className={`${baseClassName}__calendar-button ${baseClassName}__button__icon`}
             disabled={disabled}
             onClick={this.toggleCalendar}
             onFocus={this.stopPropagation}
@@ -166,7 +169,7 @@ export default class DatePicker extends PureComponent {
       ...calendarProps
     } = this.props;
 
-    const className = 'react-date-picker__calendar';
+    const className = `${baseClassName}__calendar`;
 
     return (
       <div
@@ -208,8 +211,6 @@ export default class DatePicker extends PureComponent {
   render() {
     const { className, disabled } = this.props;
     const { isOpen } = this.state;
-
-    const baseClassName = 'react-date-picker';
 
     return (
       <div

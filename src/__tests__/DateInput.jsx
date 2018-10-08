@@ -22,9 +22,13 @@ const getKey = key => ({
 });
 
 describe('DateInput', () => {
+  const defaultProps = {
+    className: 'react-date-picker__button__input',
+  };
+
   it('renders a native input and custom inputs', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const nativeInput = component.find('input[type="date"]');
@@ -36,7 +40,10 @@ describe('DateInput', () => {
 
   it('does not render day input when maxDetail is "year" or less', () => {
     const component = mount(
-      <DateInput maxDetail="year" />
+      <DateInput
+        {...defaultProps}
+        maxDetail="year"
+      />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -52,7 +59,10 @@ describe('DateInput', () => {
 
   it('does not render day and month inputs when maxDetail is "decade" or less', () => {
     const component = mount(
-      <DateInput maxDetail="decade" />
+      <DateInput
+        {...defaultProps}
+        maxDetail="decade"
+      />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -70,7 +80,10 @@ describe('DateInput', () => {
     const date = new Date(2017, 8, 30);
 
     const component = mount(
-      <DateInput value={date} />
+      <DateInput
+        {...defaultProps}
+        value={date}
+      />
     );
 
     const nativeInput = component.find('input[type="date"]');
@@ -84,7 +97,10 @@ describe('DateInput', () => {
 
   it('shows empty value in all inputs correctly', () => {
     const component = mount(
-      <DateInput value={null} />
+      <DateInput
+        {...defaultProps}
+        value={null}
+      />
     );
 
     const nativeInput = component.find('input[type="date"]');
@@ -100,7 +116,10 @@ describe('DateInput', () => {
     const date = new Date(2017, 8, 30);
 
     const component = mount(
-      <DateInput value={date} />
+      <DateInput
+        {...defaultProps}
+        value={date}
+      />
     );
 
     component.setProps({ value: null });
@@ -116,7 +135,7 @@ describe('DateInput', () => {
 
   it('renders custom inputs in a proper order', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -128,7 +147,7 @@ describe('DateInput', () => {
 
   it('renders proper input separators', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const separators = component.find('.react-date-picker__button__input__divider');
@@ -139,7 +158,10 @@ describe('DateInput', () => {
 
   it('renders proper amount of separators', () => {
     const component = mount(
-      <DateInput maxDetail="year" />
+      <DateInput
+        {...defaultProps}
+        maxDetail="year"
+      />
     );
 
     const separators = component.find('.react-date-picker__button__input__divider');
@@ -150,7 +172,7 @@ describe('DateInput', () => {
 
   it('jumps to the next field when right arrow is pressed', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -168,7 +190,7 @@ describe('DateInput', () => {
 
   it('jumps to the next field when separator key is pressed', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -188,7 +210,7 @@ describe('DateInput', () => {
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -205,7 +227,7 @@ describe('DateInput', () => {
 
   it('jumps to the previous field when left arrow is pressed', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -223,7 +245,7 @@ describe('DateInput', () => {
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -244,6 +266,7 @@ describe('DateInput', () => {
 
     const component = mount(
       <DateInput
+        {...defaultProps}
         onChange={onChange}
         value={date}
       />
@@ -264,6 +287,7 @@ describe('DateInput', () => {
 
     const component = mount(
       <DateInput
+        {...defaultProps}
         onChange={onChange}
         value={date}
       />
@@ -286,6 +310,7 @@ describe('DateInput', () => {
 
     const component = mount(
       <DateInput
+        {...defaultProps}
         onChange={onChange}
         value={date}
       />
@@ -306,6 +331,7 @@ describe('DateInput', () => {
 
     const component = mount(
       <DateInput
+        {...defaultProps}
         onChange={onChange}
         value={date}
       />

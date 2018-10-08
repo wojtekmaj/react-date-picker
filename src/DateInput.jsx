@@ -23,7 +23,6 @@ const defaultMinDate = new Date(-8.64e15);
 const defaultMaxDate = new Date(8.64e15);
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
-const className = 'react-date-picker__button__input';
 
 const datesAreDifferent = (date1, date2) => (
   (date1 && !date2)
@@ -248,6 +247,7 @@ export default class DateInput extends PureComponent {
 
   get commonInputProps() {
     const {
+      className,
       disabled,
       isCalendarOpen,
       maxDate,
@@ -256,6 +256,7 @@ export default class DateInput extends PureComponent {
     } = this.props;
 
     return {
+      className,
       disabled,
       maxDate: maxDate || defaultMaxDate,
       minDate: minDate || defaultMinDate,
@@ -380,13 +381,12 @@ export default class DateInput extends PureComponent {
     return (
       <DayInput
         key="day"
-        className={className}
+        {...this.commonInputProps}
         maxDetail={maxDetail}
         month={month}
         showLeadingZeros={showLeadingZeros}
         value={value}
         year={year}
-        {...this.commonInputProps}
       />
     );
   }
@@ -404,12 +404,11 @@ export default class DateInput extends PureComponent {
     return (
       <MonthInput
         key="month"
-        className={className}
+        {...this.commonInputProps}
         maxDetail={maxDetail}
         showLeadingZeros={showLeadingZeros}
         value={value}
         year={year}
-        {...this.commonInputProps}
       />
     );
   }
@@ -420,10 +419,9 @@ export default class DateInput extends PureComponent {
     return (
       <YearInput
         key="year"
-        className={className}
+        {...this.commonInputProps}
         value={year}
         valueType={this.valueType}
-        {...this.commonInputProps}
       />
     );
   }
@@ -486,6 +484,8 @@ export default class DateInput extends PureComponent {
   }
 
   render() {
+    const { className } = this.props;
+
     return (
       <div className={className}>
         {this.renderNativeInput()}
@@ -502,6 +502,7 @@ DateInput.defaultProps = {
 };
 
 DateInput.propTypes = {
+  className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   isCalendarOpen: PropTypes.bool,
   locale: PropTypes.string,
