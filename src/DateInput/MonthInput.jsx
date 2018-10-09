@@ -30,9 +30,9 @@ export default class MonthInput extends PureComponent {
 
     const name = 'month';
     const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
-
+    const setValue = (value !== null && value < 10) ? `0${value}` : value // Add 0 inside input type
     return [
-      (hasLeadingZero ? '0' : null),
+      (hasLeadingZero ? '' : null), // Remove 0 from outside of input type
       <input
         key="month"
         className={mergeClassNames(
@@ -60,7 +60,7 @@ export default class MonthInput extends PureComponent {
         }}
         type="number"
         required={required}
-        value={value !== null ? value : ''}
+        value={setValue !== null ? setValue : ''} // Set final value with or without adding 0
       />,
     ];
   }
