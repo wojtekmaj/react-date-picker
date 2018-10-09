@@ -47,9 +47,9 @@ export default class DayInput extends PureComponent {
 
     const name = 'day';
     const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
-
+    const setValue = (value !== null && value < 10) ? `0${value}` : value; // Add 0 inside input if value is less than 10
     return [
-      (hasLeadingZero ? '0' : null),
+      (hasLeadingZero ? '' : null), // Don't add 0 out of input type
       <input
         key="day"
         className={mergeClassNames(
@@ -77,7 +77,7 @@ export default class DayInput extends PureComponent {
         }}
         required={required}
         type="number"
-        value={value !== null ? value : ''}
+        value={setValue !== null ? setValue : ''} // Set Final value with or without 0
       />,
     ];
   }
