@@ -52,7 +52,7 @@ export default class YearInput extends PureComponent {
         onFocus={event => select(event.target)}
         onKeyDown={onKeyDown}
         onKeyUp={event => updateInputWidth(event.target)}
-        placeholder="--"
+        placeholder="----"
         ref={(ref) => {
           if (ref) {
             updateInputWidth(ref);
