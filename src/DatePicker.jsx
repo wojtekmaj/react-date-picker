@@ -111,9 +111,9 @@ export default class DatePicker extends PureComponent {
     const [valueFrom] = [].concat(value);
 
     return (
-      <div className={`${baseClassName}__button`}>
+      <div className={`${baseClassName}__wrapper`}>
         <DateInput
-          className={`${baseClassName}__button__input`}
+          className={`${baseClassName}__inputGroup`}
           disabled={disabled}
           locale={locale}
           isCalendarOpen={isOpen}
@@ -129,7 +129,7 @@ export default class DatePicker extends PureComponent {
         />
         {clearIcon !== null && (
           <button
-            className={`${baseClassName}__clear-button ${baseClassName}__button__icon`}
+            className={`${baseClassName}__clear-button ${baseClassName}__button`}
             disabled={disabled}
             onClick={this.clear}
             onFocus={this.stopPropagation}
@@ -140,7 +140,7 @@ export default class DatePicker extends PureComponent {
         )}
         {calendarIcon !== null && (
           <button
-            className={`${baseClassName}__calendar-button ${baseClassName}__button__icon`}
+            className={`${baseClassName}__calendar-button ${baseClassName}__button`}
             disabled={disabled}
             onClick={this.toggleCalendar}
             onFocus={this.stopPropagation}

@@ -13,80 +13,81 @@
     color: rgb(109, 109, 109);
   }
 
-  &__button {
+  &__wrapper {
     display: flex;
     border: thin solid gray;
+  }
+
+  &__inputGroup {
+    @digit-width: .54em;
+    @dot-width: .217em;
+    // own padding + inputs padding + digits width + dots width
+    min-width: calc(~"(4px * 3) + " @digit-width * 8 ~" + " @dot-width * 2);
+    flex-grow: 1;
+    display: flex;
+    padding: 0 2px;
+    align-items: baseline;
+    box-sizing: content-box;
+
+    &__divider {
+      padding: 1px 0;
+    }
 
     &__input {
-      @digit-width: .54em;
-      @dot-width: .217em;
-      // own padding + inputs padding + digits width + dots width
-      min-width: calc(~"4px + (4px * 3) + " @digit-width * 8 ~" + " @dot-width * 2);
-      flex-grow: 1;
-      display: flex;
-      padding: 0 2px;
-      align-items: baseline;
+      min-width: @digit-width;
+      height: 100%;
+      position: relative;
+      padding: 0 1px;
+      border: 0;
+      background: none;
+      font: inherit;
+      box-sizing: content-box;
+      -moz-appearance: textfield;
 
-      &__divider {
-        padding: 1px 0;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
 
-      &__input {
-        min-width: @digit-width;
-        height: calc(100% - 2px);
-        position: relative;
-        padding: 1px;
-        border: 0;
-        background: none;
-        font: inherit;
-        box-sizing: content-box;
-        -moz-appearance: textfield;
+      &:invalid {
+        background: fade(red, 10%);
+      }
 
-        &::-webkit-outer-spin-button,
-        &::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-        }
+      &--hasLeadingZero {
+        margin-left: -@digit-width;
+        padding-left: calc(~"1px + " @digit-width);
+      }
+    }
+  }
 
-        &:invalid {
-          background: fade(red, 10%);
-        }
+  &__button {
+    border: 0;
+    background: transparent;
+    padding: 4px 6px;
 
-        &--hasLeadingZero {
-          margin-left: -@digit-width;
-          padding-left: calc(~"1px + " @digit-width);
+    &:enabled {
+      cursor: pointer;
+
+      &:hover, &:focus {
+        svg {
+          g {
+            stroke: rgb(0, 120, 215);
+          }
         }
       }
     }
 
-    &__icon {
-      border: 0;
-      background: transparent;
-      padding: 4px 6px;
-
-      &:enabled {
-        cursor: pointer;
-
-        &:hover, &:focus {
-          svg {
-            g {
-              stroke: rgb(0, 120, 215);
-            }
-          }
-        }
-      }
-
-      &:disabled {
-        svg {
-          g {
-            stroke: rgb(109, 109, 109);
-          }
-        }
-      }
-
+    &:disabled {
       svg {
-        display: inherit;
+        g {
+          stroke: rgb(109, 109, 109);
+        }
       }
+    }
+
+    svg {
+      display: inherit;
     }
   }
 

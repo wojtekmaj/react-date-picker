@@ -23,7 +23,7 @@ const getKey = key => ({
 
 describe('DateInput', () => {
   const defaultProps = {
-    className: 'react-date-picker__button__input',
+    className: 'react-date-picker__inputGroup',
   };
 
   it('renders a native input and custom inputs', () => {
@@ -150,7 +150,7 @@ describe('DateInput', () => {
       <DateInput {...defaultProps} />
     );
 
-    const separators = component.find('.react-date-picker__button__input__divider');
+    const separators = component.find('.react-date-picker__inputGroup__divider');
 
     expect(separators).toHaveLength(2);
     expect(separators.at(0).text()).toBe('/');
@@ -164,7 +164,7 @@ describe('DateInput', () => {
       />
     );
 
-    const separators = component.find('.react-date-picker__button__input__divider');
+    const separators = component.find('.react-date-picker__inputGroup__divider');
     const customInputs = component.find('input[type="number"]');
 
     expect(separators).toHaveLength(customInputs.length - 1);
@@ -201,7 +201,7 @@ describe('DateInput', () => {
 
     expect(document.activeElement).toBe(dayInput.getDOMNode());
 
-    const separators = component.find('.react-date-picker__button__input__divider');
+    const separators = component.find('.react-date-picker__inputGroup__divider');
     const separatorKey = separators.at(0).text();
     dayInput.simulate('keydown', getKey(separatorKey));
 
