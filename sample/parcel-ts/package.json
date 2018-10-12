@@ -1,6 +1,6 @@
 {
   "name": "react-date-picker-sample-page-ts",
-  "version": "6.13.0",
+  "version": "7.0.0",
   "description": "A sample TypeScript page for React-Date-Picker.",
   "private": true,
   "scripts": {
