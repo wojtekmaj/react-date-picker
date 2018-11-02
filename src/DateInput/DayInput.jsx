@@ -44,8 +44,8 @@ export default class DayInput extends PureComponent {
     const {
       className, disabled, itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
     } = this.props;
-    let v = parseInt(value, 10) ? parseInt(value, 10).toString().slice(-2) : "";
-    if (showLeadingZeros && v.length === 1) v = "0" + v;
+    let v = parseInt(value, 10) ? parseInt(value, 10).toString().slice(-2) : '';
+    if (showLeadingZeros && v.length === 1) v = '0' + v;
     const name = 'day';
     
     return [
@@ -54,7 +54,6 @@ export default class DayInput extends PureComponent {
         className={mergeClassNames(
           `${className}__input`,
           `${className}__day`,
-          hasLeadingZero && `${className}__input--hasLeadingZero`,
         )}
         disabled={disabled}
         name={name}
