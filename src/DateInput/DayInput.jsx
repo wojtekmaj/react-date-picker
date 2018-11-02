@@ -76,7 +76,7 @@ export default class DayInput extends PureComponent {
         }}
         required={required}
         type="number"
-        value={value !== null ? value : ''}
+        value={value}
       />,
     ];
   }
