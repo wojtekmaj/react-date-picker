@@ -273,6 +273,48 @@ export default class DateInput extends PureComponent {
 
   onKeyDown = (event) => {
     switch (event.key) {
+			case 'ArrowUp': {
+				event.preventDefault();
+				const key = event.target.name;
+				const { value } = this.state;
+				const nextValue = new Date(value);
+				if (key === 'day') {
+				  nextValue.setDate(nextValue.getDate() + 1);
+        }
+        else if (key === 'month') {
+					nextValue.setMonth(nextValue.getMonth() + 1);
+        }
+				else if (key === 'year') {
+					nextValue.setFullYear(nextValue.getFullYear() + 1);
+				}
+        this.onChangeKeyEvent(nextValue);
+				break;
+			}
+			case 'ArrowDown': {
+				event.preventDefault();
+				const key = event.target.name;
+				const { value } = this.state;
+				const nextValue = new Date(value);
+				if (key === 'day') {
+					nextValue.setDate(nextValue.getDate() - 1);
+				}
+				else if (key === 'month') {
+					nextValue.setMonth(nextValue.getMonth() - 1);
+				}
+				else if (key === 'year') {
+					nextValue.setFullYear(nextValue.getFullYear() - 1);
+				}
+				this.onChangeKeyEvent(nextValue);
+				break;
+			}
+			case 'ArrowDown': {
+				event.preventDefault();
+
+				const input = event.target;
+				const previousInput = findPreviousInput(input);
+				focus(previousInput);
+				break;
+			}
       case 'ArrowLeft': {
         event.preventDefault();
 
@@ -333,6 +375,16 @@ export default class DateInput extends PureComponent {
     onChange(processedValue, false);
   }
 
+  onChangeKeyEvent = (proposedValue) => {
+		const { onChange } = this.props;
+
+		if (!onChange) {
+			return;
+		}
+		const processedValue = this.getProcessedValue(proposedValue);
+		return onChange(processedValue, false);
+  }
+
   /**
    * Called after internal onChange. Checks input validity. If all fields are valid,
    * calls props.onChange.
@@ -345,20 +397,22 @@ export default class DateInput extends PureComponent {
     }
 
     const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(Boolean);
+    const activeElement = formElements.find(el => document.activeElement === el);
 
     const values = {};
     formElements.forEach((formElement) => {
       values[formElement.name] = formElement.value;
     });
-
     if (formElements.every(formElement => !formElement.value)) {
       onChange(null, false);
-    } else if (
-      formElements.every(formElement => formElement.value && formElement.checkValidity())
-    ) {
+    } else if (Date.parse(`${values.year}-${values.month}-${values.day}`)) {
       const proposedValue = new Date(values.year, (values.month || 1) - 1, values.day || 1);
       const processedValue = this.getProcessedValue(proposedValue);
-      onChange(processedValue, false);
+			formElements.forEach(el => el.setCustomValidity(''));
+			onChange(processedValue, false);
+    }
+    else if (activeElement) {
+      activeElement.setCustomValidity('Invalid date');
     }
   }
 
