@@ -2,40 +2,16 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 
-import {
-  getYear,
-} from '../shared/dates';
-import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
-import { max, min, updateInputWidth } from '../shared/utils';
+import { updateInputWidth } from '../shared/utils';
 
 const select = element => element && element.select();
 
 export default class YearInput extends PureComponent {
-  get maxYear() {
-    const { maxDate } = this.props;
-    return min(275760, maxDate && getYear(maxDate));
-  }
-
-  get minYear() {
-    const { minDate } = this.props;
-    return max(1000, minDate && getYear(minDate));
-  }
-
-  get yearStep() {
-    const { valueType } = this.props;
-
-    if (valueType === 'century') {
-      return 10;
-    }
-    return 1;
-  }
-
   render() {
-    const { maxYear, minYear, yearStep } = this;
     const {
       className, disabled, itemRef, value, onChange, onKeyDown, required,
     } = this.props;
-
+    const v = parseInt(value, 10) ? parseInt(value, 10).toString().slice(-4) : '';
     const name = 'year';
 
     return (
@@ -46,8 +22,6 @@ export default class YearInput extends PureComponent {
         )}
         disabled={disabled}
         name={name}
-        max={maxYear}
-        min={minYear}
         onChange={onChange}
         onFocus={event => select(event.target)}
         onKeyDown={onKeyDown}
@@ -63,9 +37,7 @@ export default class YearInput extends PureComponent {
           }
         }}
         required={required}
-        step={yearStep}
-        type="number"
-        value={value !== null ? value : ''}
+        value={v}
       />
     );
   }
@@ -75,11 +47,8 @@ YearInput.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
-  maxDate: isMaxDate,
-  minDate: isMinDate,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   required: PropTypes.bool,
   value: PropTypes.number,
-  valueType: isValueType,
 };

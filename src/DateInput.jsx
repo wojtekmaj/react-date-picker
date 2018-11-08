@@ -271,8 +271,46 @@ export default class DateInput extends PureComponent {
     return getValueType(maxDetail);
   }
 
+  isValidDate = (date) => {
+    return (date >= (this.props.minDate || defaultMinDate)) && (date <= (this.props.maxDate || defaultMaxDate));
+  }
+
   onKeyDown = (event) => {
     switch (event.key) {
+      case 'ArrowUp': {
+        event.preventDefault();
+        const key = event.target.name;
+        const { value } = this.state;
+        const nextValue = new Date(value);
+        if (key === 'day') {
+          nextValue.setDate(nextValue.getDate() + 1);
+        }
+        else if (key === 'month') {
+          nextValue.setMonth(nextValue.getMonth() + 1);
+        }
+        else if (key === 'year') {
+          nextValue.setFullYear(nextValue.getFullYear() + 1);
+        }
+        this.onChangeKeyEvent(nextValue);
+        break;
+      }
+      case 'ArrowDown': {
+        event.preventDefault();
+        const key = event.target.name;
+        const { value } = this.state;
+        const nextValue = new Date(value);
+        if (key === 'day') {
+          nextValue.setDate(nextValue.getDate() - 1);
+        }
+        else if (key === 'month') {
+          nextValue.setMonth(nextValue.getMonth() - 1);
+        }
+        else if (key === 'year') {
+          nextValue.setFullYear(nextValue.getFullYear() - 1);
+        }
+        this.onChangeKeyEvent(nextValue);
+        break;
+      }
       case 'ArrowLeft': {
         event.preventDefault();
 
@@ -333,6 +371,16 @@ export default class DateInput extends PureComponent {
     onChange(processedValue, false);
   }
 
+  onChangeKeyEvent = (proposedValue) => {
+    const { onChange } = this.props;
+
+    if (!onChange) {
+      return;
+    }
+    const processedValue = this.getProcessedValue(proposedValue);
+    return onChange(processedValue, false);
+  }
+
   /**
    * Called after internal onChange. Checks input validity. If all fields are valid,
    * calls props.onChange.
@@ -345,20 +393,27 @@ export default class DateInput extends PureComponent {
     }
 
     const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(Boolean);
+    const activeElement = formElements.find(el => document.activeElement === el);
 
     const values = {};
     formElements.forEach((formElement) => {
       values[formElement.name] = formElement.value;
     });
-
     if (formElements.every(formElement => !formElement.value)) {
       onChange(null, false);
-    } else if (
-      formElements.every(formElement => formElement.value && formElement.checkValidity())
-    ) {
+    } else if (Date.parse(`${values.year}-${values.month}-${values.day}`)) {
       const proposedValue = new Date(values.year, (values.month || 1) - 1, values.day || 1);
-      const processedValue = this.getProcessedValue(proposedValue);
-      onChange(processedValue, false);
+      if (this.isValidDate(proposedValue)) {
+        const processedValue = this.getProcessedValue(proposedValue);
+        formElements.forEach(el => el.setCustomValidity(''));
+        onChange(processedValue, false);
+      }
+      else {
+        formElements.forEach(el => el.setCustomValidity('Invalid range'));
+      }
+    }
+    else if (activeElement) {
+      activeElement.setCustomValidity('Invalid date');
     }
   }
 
@@ -370,17 +425,15 @@ export default class DateInput extends PureComponent {
       return null;
     }
 
-    const { day: value, month, year } = this.state;
+    const { day: value } = this.state;
 
     return (
       <DayInput
         key="day"
         {...this.commonInputProps}
         maxDetail={maxDetail}
-        month={month}
         showLeadingZeros={showLeadingZeros}
         value={value}
-        year={year}
       />
     );
   }
@@ -393,7 +446,7 @@ export default class DateInput extends PureComponent {
       return null;
     }
 
-    const { month: value, year } = this.state;
+    const { month: value } = this.state;
 
     return (
       <MonthInput
@@ -402,7 +455,6 @@ export default class DateInput extends PureComponent {
         maxDetail={maxDetail}
         showLeadingZeros={showLeadingZeros}
         value={value}
-        year={year}
       />
     );
   }
