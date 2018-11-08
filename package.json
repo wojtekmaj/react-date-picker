@@ -13,6 +13,7 @@
     "copy-styles": "node ./copy-styles.js",
     "copy-types": "node ./copy-types.js",
     "prepublishOnly": "yarn run clean && yarn run build",
+    "prepare": "yarn run clean && yarn run build",
     "test": "yarn run test-eslint && yarn run test-jest",
     "test-eslint": "eslint src/ test/ --ext .jsx,.js",
     "test-jest": "jest",
