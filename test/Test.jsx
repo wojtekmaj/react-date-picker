@@ -19,6 +19,7 @@ const now = new Date();
 
 export default class Test extends PureComponent {
   state = {
+    disabled: false,
     locale: null,
     maxDate: new Date(now.getUTCFullYear(), now.getUTCMonth() + 1, 15, 12),
     maxDetail: 'month',
@@ -36,6 +37,7 @@ export default class Test extends PureComponent {
 
   render() {
     const {
+      disabled,
       locale,
       maxDate,
       maxDetail,
@@ -85,6 +87,7 @@ export default class Test extends PureComponent {
               value={value}
             />
             <ViewOptions
+              disabled={disabled}
               setState={setState}
               showLeadingZeros={showLeadingZeros}
               showNeighboringMonth={showNeighboringMonth}
@@ -105,7 +108,7 @@ export default class Test extends PureComponent {
               <DatePicker
                 className="myCustomDatePickerClassName"
                 calendarClassName="myCustomCalendarClassName"
-                disabled={false}
+                disabled={disabled}
                 locale={locale}
                 maxDate={maxDate}
                 maxDetail={maxDetail}

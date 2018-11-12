@@ -2,6 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 export default class ViewOptions extends PureComponent {
+  onDisabledChange = (event) => {
+    const { setState } = this.props;
+
+    const { checked } = event.target;
+
+    setState({ disabled: checked });
+  }
+
   onShowLeadingZerosChange = (event) => {
     const { setState } = this.props;
 
@@ -27,13 +35,30 @@ export default class ViewOptions extends PureComponent {
   }
 
   render() {
-    const { showLeadingZeros, showWeekNumbers, showNeighboringMonth } = this.props;
+    const {
+      disabled,
+      showLeadingZeros,
+      showWeekNumbers,
+      showNeighboringMonth,
+    } = this.props;
 
     return (
       <fieldset id="viewoptions">
         <legend htmlFor="viewoptions">
           View options
         </legend>
+
+        <div>
+          <input
+            id="disabled"
+            type="checkbox"
+            checked={disabled}
+            onChange={this.onDisabledChange}
+          />
+          <label htmlFor="disabled">
+            Disabled
+          </label>
+        </div>
 
         <div>
           <input
@@ -76,6 +101,7 @@ export default class ViewOptions extends PureComponent {
 }
 
 ViewOptions.propTypes = {
+  disabled: PropTypes.bool.isRequired,
   setState: PropTypes.func.isRequired,
   showLeadingZeros: PropTypes.bool.isRequired,
   showNeighboringMonth: PropTypes.bool.isRequired,
