@@ -15,7 +15,7 @@ export const updateInputWidth = (element) => {
   container.appendChild(span);
 
   const { width } = span.getBoundingClientRect();
-  element.style.width = `${width}px`;
+  element.style.width = `${Math.ceil(width)}px`;
 
   container.removeChild(span);
 };
