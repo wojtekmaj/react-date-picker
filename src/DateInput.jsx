@@ -8,7 +8,7 @@ import MonthInput from './DateInput/MonthInput';
 import YearInput from './DateInput/YearInput';
 import NativeInput from './DateInput/NativeInput';
 
-import { formatDate } from './shared/dateFormatter';
+import { getFormatter } from './shared/dateFormatter';
 import {
   getBegin,
   getDay,
@@ -128,18 +128,24 @@ const findNextInput = (element) => {
 
 const focus = element => element && element.focus();
 
-const removeUnwantedCharacters = str => str
-  .replace(/[年月日]/g, '/')
-  .split('')
-  .filter(a => (
-    // We don't want spaces in dates
-    a.charCodeAt(0) !== 32
-    // Internet Explorer specific
-    && a.charCodeAt(0) !== 8206
-    // Remove non-ASCII characters
-    && /^[\x20-\x7F]*$/.test(a)
-  ))
-  .join('');
+const renderCustomInputs = (placeholder, elementFunctions) => {
+  const pattern = new RegExp(Object.keys(elementFunctions).join('|'), 'gi');
+  const matches = placeholder.match(pattern);
+  return placeholder.split(pattern)
+    .reduce((arr, element, index) => {
+      const divider = element && (
+        // eslint-disable-next-line react/no-array-index-key
+        <Divider key={`separator_${index}`}>
+          {element}
+        </Divider>
+      );
+      const res = [...arr, divider];
+      if (matches[index]) {
+        res.push(elementFunctions[matches[index]]());
+      }
+      return res;
+    }, []);
+};
 
 export default class DateInput extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -195,6 +201,21 @@ export default class DateInput extends PureComponent {
     day: null,
   };
 
+  get formatDate() {
+    const { locale, maxDetail } = this.props;
+
+    const options = { year: 'numeric' };
+    const level = allViews.indexOf(maxDetail);
+    if (level >= 2) {
+      options.month = 'numeric';
+    }
+    if (level >= 3) {
+      options.day = 'numeric';
+    }
+
+    return getFormatter(options, locale);
+  }
+
   /**
    * Gets current value in a desired format.
    */
@@ -219,10 +240,7 @@ export default class DateInput extends PureComponent {
     const { locale } = this.props;
     const date = new Date(2017, 11, 11);
 
-    return (
-      removeUnwantedCharacters(formatDate(date, locale))
-        .match(/[^0-9]/)[0]
-    );
+    return this.formatDate(date, locale).match(/[^0-9]/)[0];
   }
 
   get placeholder() {
@@ -230,7 +248,7 @@ export default class DateInput extends PureComponent {
     const date = new Date(2017, 11, 11);
 
     return (
-      removeUnwantedCharacters(formatDate(date, locale))
+      this.formatDate(date, locale)
         .replace('2017', 'year')
         .replace('12', 'month')
         .replace('11', 'day')
@@ -368,14 +386,8 @@ export default class DateInput extends PureComponent {
     }
   }
 
-  renderDay() {
+  renderDay = () => {
     const { maxDetail, showLeadingZeros } = this.props;
-
-    // Do not display if maxDetail is "year" or less
-    if (allViews.indexOf(maxDetail) < 3) {
-      return null;
-    }
-
     const { day: value, month, year } = this.state;
 
     return (
@@ -391,14 +403,8 @@ export default class DateInput extends PureComponent {
     );
   }
 
-  renderMonth() {
+  renderMonth = () => {
     const { maxDetail, showLeadingZeros } = this.props;
-
-    // Do not display if maxDetail is "decade" or less
-    if (allViews.indexOf(maxDetail) < 2) {
-      return null;
-    }
-
     const { month: value, year } = this.state;
 
     return (
@@ -413,7 +419,7 @@ export default class DateInput extends PureComponent {
     );
   }
 
-  renderYear() {
+  renderYear = () => {
     const { year } = this.state;
 
     return (
@@ -427,35 +433,14 @@ export default class DateInput extends PureComponent {
   }
 
   renderCustomInputs() {
-    const { divider, placeholder } = this;
+    const { placeholder } = this;
+    const elementFunctions = {
+      day: this.renderDay,
+      month: this.renderMonth,
+      year: this.renderYear,
+    };
 
-    return (
-      placeholder
-        .split(divider)
-        .map((part) => {
-          switch (part) {
-            case 'day': return this.renderDay();
-            case 'month': return this.renderMonth();
-            case 'year': return this.renderYear();
-            default: return null;
-          }
-        })
-        .filter(Boolean)
-        .reduce((result, element, index) => {
-          if (index) {
-            result.push(
-              // eslint-disable-next-line react/no-array-index-key
-              <Divider key={`separator_${index}`}>
-                {divider}
-              </Divider>,
-            );
-          }
-
-          result.push(element);
-
-          return result;
-        }, [])
-    );
+    return renderCustomInputs(placeholder, elementFunctions);
   }
 
   renderNativeInput() {

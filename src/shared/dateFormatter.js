@@ -2,11 +2,13 @@ import getUserLocale from 'get-user-locale';
 
 const formatterCache = {};
 
+/* eslint-disable import/prefer-default-export */
+
 /**
  * Gets Intl-based date formatter from formatter cache. If it doesn't exist in cache
  * just yet, it will be created on the fly.
  */
-const getFormatter = (options, locale) => {
+export const getFormatter = (options, locale) => {
   if (!locale) {
     // Default parameter is not enough as it does not protect us from null values
     // eslint-disable-next-line no-param-reassign
@@ -25,9 +27,3 @@ const getFormatter = (options, locale) => {
 
   return formatterCache[locale][stringifiedOptions];
 };
-
-// eslint-disable-next-line import/prefer-default-export
-export const formatDate = (date, locale) => getFormatter(
-  { day: 'numeric', month: 'numeric', year: 'numeric' },
-  locale,
-)(date);
