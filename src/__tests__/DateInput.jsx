@@ -243,7 +243,7 @@ describe('DateInput', () => {
     expect(document.activeElement).toBe(dayInput.getDOMNode());
   });
 
-  it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
+  it('does not jump to the previous field when left arrow is pressed when the first input is focused', () => {
     const component = mount(
       <DateInput {...defaultProps} />
     );
