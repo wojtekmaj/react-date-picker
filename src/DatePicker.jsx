@@ -80,7 +80,13 @@ export default class DatePicker extends PureComponent {
       onBlur(event);
     }
 
-    this.closeCalendar();
+    requestAnimationFrame(() => {
+      const stillHasFocus = this.wrapper.querySelector(':focus');
+
+      if (!stillHasFocus) {
+        this.closeCalendar();
+      }
+    });
   }
 
   stopPropagation = event => event.stopPropagation();
