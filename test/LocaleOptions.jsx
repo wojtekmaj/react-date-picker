@@ -78,6 +78,19 @@ export default class LocaleOptions extends PureComponent {
             fr-FR
           </label>
         </div>
+        <div>
+          <input
+            checked={locale === 'ar-EG'}
+            id="localeArEG"
+            name="locale"
+            onChange={this.onChange}
+            type="radio"
+            value="ar-EG"
+          />
+          <label htmlFor="localeArEG">
+            ar-EG
+          </label>
+        </div>
         <form onSubmit={this.onCustomChange}>
           <label htmlFor="customLocale">
             Custom locale:
