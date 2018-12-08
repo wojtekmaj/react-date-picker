@@ -140,7 +140,7 @@ const renderCustomInputs = (placeholder, elementFunctions) => {
         </Divider>
       );
       const res = [...arr, divider];
-      if (matches[index]) {
+      if (matches && matches[index]) {
         res.push(elementFunctions[matches[index]]());
       }
       return res;
