@@ -213,12 +213,15 @@ export default class DateInput extends PureComponent {
       options.day = 'numeric';
     }
 
-    return getFormatter(options, locale);
+    return getFormatter(locale, options);
   }
 
   get formatNumber() {
     const { locale } = this.props;
-    return num => num.toLocaleString(locale, { useGrouping: false });
+
+    const options = { useGrouping: false };
+
+    return getFormatter(locale, options);
   }
 
   /**
@@ -242,25 +245,23 @@ export default class DateInput extends PureComponent {
   }
 
   get divider() {
-    const { locale } = this.props;
     const date = new Date(2017, 11, 11);
 
-    return this.formatDate(date, locale).match(/[^0-9]/)[0];
+    return this.formatDate(date).match(/[^0-9]/)[0];
   }
 
   get placeholder() {
-    const { locale } = this.props;
     const year = 2017;
-    const month = 11;
+    const monthIndex = 11;
     const day = 11;
 
-    const date = new Date(year, month, day);
+    const date = new Date(year, monthIndex, day);
 
     return (
-      this.formatDate(date, locale)
-        .replace(this.formatNumber(year, locale), 'year')
-        .replace(this.formatNumber(month + 1, locale), 'month')
-        .replace(this.formatNumber(day, locale), 'day')
+      this.formatDate(date)
+        .replace(this.formatNumber(year), 'year')
+        .replace(this.formatNumber(monthIndex + 1), 'month')
+        .replace(this.formatNumber(day), 'day')
     );
   }
 
