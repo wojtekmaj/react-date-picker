@@ -216,6 +216,11 @@ export default class DateInput extends PureComponent {
     return getFormatter(options, locale);
   }
 
+  get formatNumber() {
+    const { locale } = this.props;
+    return num => num.toLocaleString(locale, { useGrouping: false });
+  }
+
   /**
    * Gets current value in a desired format.
    */
@@ -245,13 +250,17 @@ export default class DateInput extends PureComponent {
 
   get placeholder() {
     const { locale } = this.props;
-    const date = new Date(2017, 11, 11);
+    const year = 2017;
+    const month = 11;
+    const day = 11;
+
+    const date = new Date(year, month, day);
 
     return (
       this.formatDate(date, locale)
-        .replace('2017', 'year')
-        .replace('12', 'month')
-        .replace('11', 'day')
+        .replace(this.formatNumber(year, locale), 'year')
+        .replace(this.formatNumber(month + 1, locale), 'month')
+        .replace(this.formatNumber(day, locale), 'day')
     );
   }
 
