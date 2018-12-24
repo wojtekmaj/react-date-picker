@@ -42,7 +42,7 @@ Your project needs to use React 16 or later. If you use older version of React, 
 |React version|Newest supported React-Date-Picker|
 |----|----|
 |>16.0|latest|
-|>15.0|6.7.0|
+|>15.5|6.7.0|
 
 [React-Calendar](https://github.com/wojtekmaj/react-calendar), on which React-Date-Picker relies heavily, uses modern web technologies. That's why it's so fast, lightweight and easy to style. This, however, comes at a cost of [supporting only modern browsers](https://caniuse.com/#feat=internationalization).
 
@@ -97,9 +97,9 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |Prop name|Description|Example values|
 |----|----|----|
 |calendarClassName|Defines class name(s) that will be added along with "react-calendar" to the main React-Calendar `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
-|calendarIcon|Defines the content of the calendar button.|<ul><li>String: `"Calendar"`</li><li>React element: `<CalendarIcon />`</li></ul>|
+|calendarIcon|Defines the content of the calendar button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Calendar"`</li><li>React element: `<CalendarIcon />`</li></ul>|
 |className|Defines class name(s) that will be added along with "react-date-picker" to the main React-Date-Picker `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
-|clearIcon|Defines the content of the clear button.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
+|clearIcon|Defines the content of the clear button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
 |disabled|Defines whether the date picker should be disabled. Defaults to false.|`true`|
 |isOpen|Defines whether the calendar should be opened. Defaults to false.|`true`|
 |locale|Defines which locale should be used by the date picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
@@ -136,3 +136,23 @@ The MIT License.
     </td>
   </tr>
 </table>
+
+## Thank you
+
+### Sponsors
+
+Thank you to all our sponsors! [Become a sponsor](https://opencollective.com/react-date-picker#sponsor) and get your image on our README on GitHub.
+
+<a href="https://opencollective.com/react-date-picker#sponsors" target="_blank"><img src="https://opencollective.com/react-date-picker/sponsors.svg?width=890"></a>
+
+### Backers
+
+Thank you to all our backers! [Become a backer](https://opencollective.com/react-date-picker#backer) and get your image on our README on GitHub.
+
+<a href="https://opencollective.com/react-date-picker#backers" target="_blank"><img src="https://opencollective.com/react-date-picker/backers.svg?width=890"></a>
+
+### Top Contributors
+
+Thank you to all our contributors that helped on this project!
+
+![Top Contributors](https://opencollective.com/react-date-picker/contributors.svg?width=890&button=false)

@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
+import makeEventProps from 'make-event-props';
 import mergeClassNames from 'merge-class-names';
 import detectElementOverflow from 'detect-element-overflow';
 
 import Calendar from 'react-calendar/dist/entry.nostyle';
 
 import DateInput from './DateInput';
+
+const baseClassName = 'react-date-picker';
 
 export default class DatePicker extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -22,15 +25,21 @@ export default class DatePicker extends PureComponent {
 
   state = {};
 
+  get eventProps() {
+    return makeEventProps(this.props);
+  }
+
   componentDidMount() {
-    document.addEventListener('mousedown', this.onClick);
+    document.addEventListener('mousedown', this.onOutsideAction);
+    document.addEventListener('focusin', this.onOutsideAction);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.onClick);
+    document.removeEventListener('mousedown', this.onOutsideAction);
+    document.removeEventListener('focusin', this.onOutsideAction);
   }
 
-  onClick = (event) => {
+  onOutsideAction = (event) => {
     if (this.wrapper && !this.wrapper.contains(event.target)) {
       this.closeCalendar();
     }
@@ -41,7 +50,13 @@ export default class DatePicker extends PureComponent {
   }
 
   closeCalendar = () => {
-    this.setState({ isOpen: false });
+    this.setState((prevState) => {
+      if (!prevState.isOpen) {
+        return null;
+      }
+
+      return { isOpen: false };
+    });
   }
 
   toggleCalendar = () => {
@@ -59,11 +74,18 @@ export default class DatePicker extends PureComponent {
     }
   }
 
-  onFocus = () => {
+  onFocus = (event) => {
+    const { disabled, onFocus } = this.props;
+
+    if (onFocus) {
+      onFocus(event);
+    }
+
     // Internet Explorer still fires onFocus on disabled elements
-    if (this.props.disabled) {
+    if (disabled) {
       return;
     }
+
     this.openCalendar();
   }
 
@@ -72,47 +94,62 @@ export default class DatePicker extends PureComponent {
   clear = () => this.onChange(null);
 
   renderInputs() {
-    const { disabled } = this.props;
+    const {
+      calendarIcon,
+      clearIcon,
+      disabled,
+      locale,
+      maxDate,
+      maxDetail,
+      minDate,
+      name,
+      returnValue,
+      required,
+      showLeadingZeros,
+      value,
+    } = this.props;
+    const { isOpen } = this.state;
 
-    const [valueFrom] = [].concat(this.props.value);
+    const [valueFrom] = [].concat(value);
 
     return (
-      <div className="react-date-picker__button">
+      <div className={`${baseClassName}__wrapper`}>
         <DateInput
+          className={`${baseClassName}__inputGroup`}
           disabled={disabled}
-          locale={this.props.locale}
-          isCalendarOpen={this.state.isOpen}
-          maxDate={this.props.maxDate}
-          maxDetail={this.props.maxDetail}
-          minDate={this.props.minDate}
-          name={this.props.name}
+          locale={locale}
+          isCalendarOpen={isOpen}
+          maxDate={maxDate}
+          maxDetail={maxDetail}
+          minDate={minDate}
+          name={name}
           onChange={this.onChange}
-          returnValue={this.props.returnValue}
-          required={this.props.required}
-          showLeadingZeros={this.props.showLeadingZeros}
+          returnValue={returnValue}
+          required={required}
+          showLeadingZeros={showLeadingZeros}
           value={valueFrom}
         />
-        {this.props.clearIcon !== null && (
+        {clearIcon !== null && (
           <button
-            className="react-date-picker__clear-button react-date-picker__button__icon"
+            className={`${baseClassName}__clear-button ${baseClassName}__button`}
             disabled={disabled}
             onClick={this.clear}
             onFocus={this.stopPropagation}
             type="button"
           >
-            {this.props.clearIcon}
+            {clearIcon}
           </button>
         )}
-        {this.props.calendarIcon !== null && (
+        {calendarIcon !== null && (
           <button
-            className="react-date-picker__calendar-button react-date-picker__button__icon"
+            className={`${baseClassName}__calendar-button ${baseClassName}__button`}
             disabled={disabled}
             onClick={this.toggleCalendar}
             onFocus={this.stopPropagation}
             onBlur={this.resetValue}
             type="button"
           >
-            {this.props.calendarIcon}
+            {calendarIcon}
           </button>
         )}
       </div>
@@ -134,7 +171,7 @@ export default class DatePicker extends PureComponent {
       ...calendarProps
     } = this.props;
 
-    const className = 'react-date-picker__calendar';
+    const className = `${baseClassName}__calendar`;
 
     return (
       <div
@@ -152,8 +189,9 @@ export default class DatePicker extends PureComponent {
           const collisions = detectElementOverflow(ref, document.body);
 
           if (collisions.collidedBottom) {
-            const overflowTopAfterChange =
-              collisions.overflowTop + ref.clientHeight + this.wrapper.clientHeight;
+            const overflowTopAfterChange = (
+              collisions.overflowTop + ref.clientHeight + this.wrapper.clientHeight
+            );
 
             // If it's going to make situation any better, display the calendar above the input
             if (overflowTopAfterChange < collisions.overflowBottom) {
@@ -173,16 +211,18 @@ export default class DatePicker extends PureComponent {
   }
 
   render() {
-    const className = 'react-date-picker';
+    const { className, disabled } = this.props;
+    const { isOpen } = this.state;
 
     return (
       <div
         className={mergeClassNames(
+          baseClassName,
+          `${baseClassName}--${isOpen ? 'open' : 'closed'}`,
+          `${baseClassName}--${disabled ? 'disabled' : 'enabled'}`,
           className,
-          `${className}--${this.state.isOpen ? 'open' : 'closed'}`,
-          `${className}--${this.props.disabled ? 'disabled' : 'enabled'}`,
-          this.props.className,
         )}
+        {...this.eventProps}
         onFocus={this.onFocus}
         ref={(ref) => {
           if (!ref) {
@@ -240,7 +280,7 @@ DatePicker.propTypes = {
   disabled: PropTypes.bool,
   isOpen: PropTypes.bool,
   name: PropTypes.string,
-  returnValue: PropTypes.oneOf(['start', 'end']),
+  returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
 };

@@ -22,9 +22,13 @@ const getKey = key => ({
 });
 
 describe('DateInput', () => {
+  const defaultProps = {
+    className: 'react-date-picker__inputGroup',
+  };
+
   it('renders a native input and custom inputs', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const nativeInput = component.find('input[type="date"]');
@@ -36,7 +40,10 @@ describe('DateInput', () => {
 
   it('does not render day input when maxDetail is "year" or less', () => {
     const component = mount(
-      <DateInput maxDetail="year" />
+      <DateInput
+        {...defaultProps}
+        maxDetail="year"
+      />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -52,7 +59,10 @@ describe('DateInput', () => {
 
   it('does not render day and month inputs when maxDetail is "decade" or less', () => {
     const component = mount(
-      <DateInput maxDetail="decade" />
+      <DateInput
+        {...defaultProps}
+        maxDetail="decade"
+      />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -70,7 +80,10 @@ describe('DateInput', () => {
     const date = new Date(2017, 8, 30);
 
     const component = mount(
-      <DateInput value={date} />
+      <DateInput
+        {...defaultProps}
+        value={date}
+      />
     );
 
     const nativeInput = component.find('input[type="date"]');
@@ -82,11 +95,31 @@ describe('DateInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('2017');
   });
 
+  it('shows empty value in all inputs correctly', () => {
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        value={null}
+      />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.getDOMNode().value).toBe('');
+    expect(customInputs.at(0).getDOMNode().value).toBe('');
+    expect(customInputs.at(1).getDOMNode().value).toBe('');
+    expect(customInputs.at(2).getDOMNode().value).toBe('');
+  });
+
   it('clears the value correctly', () => {
     const date = new Date(2017, 8, 30);
 
     const component = mount(
-      <DateInput value={date} />
+      <DateInput
+        {...defaultProps}
+        value={date}
+      />
     );
 
     component.setProps({ value: null });
@@ -100,11 +133,9 @@ describe('DateInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('');
   });
 
-  it('renders custom inputs in a proper order (en-US)', () => {
+  it('renders custom inputs in a proper order', () => {
     const component = mount(
-      <DateInput
-        locale="en-US"
-      />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -114,14 +145,12 @@ describe('DateInput', () => {
     expect(customInputs.at(2).prop('name')).toBe('year');
   });
 
-  it('renders proper input separators (en-US)', () => {
+  it('renders proper input separators', () => {
     const component = mount(
-      <DateInput
-        locale="en-US"
-      />
+      <DateInput {...defaultProps} />
     );
 
-    const separators = component.find('.react-date-picker__button__input__divider');
+    const separators = component.find('.react-date-picker__inputGroup__divider');
 
     expect(separators).toHaveLength(2);
     expect(separators.at(0).text()).toBe('/');
@@ -129,10 +158,13 @@ describe('DateInput', () => {
 
   it('renders proper amount of separators', () => {
     const component = mount(
-      <DateInput maxDetail="year" />
+      <DateInput
+        {...defaultProps}
+        maxDetail="year"
+      />
     );
 
-    const separators = component.find('.react-date-picker__button__input__divider');
+    const separators = component.find('.react-date-picker__inputGroup__divider');
     const customInputs = component.find('input[type="number"]');
 
     expect(separators).toHaveLength(customInputs.length - 1);
@@ -140,7 +172,7 @@ describe('DateInput', () => {
 
   it('jumps to the next field when right arrow is pressed', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -158,7 +190,7 @@ describe('DateInput', () => {
 
   it('jumps to the next field when separator key is pressed', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -169,7 +201,7 @@ describe('DateInput', () => {
 
     expect(document.activeElement).toBe(dayInput.getDOMNode());
 
-    const separators = component.find('.react-date-picker__button__input__divider');
+    const separators = component.find('.react-date-picker__inputGroup__divider');
     const separatorKey = separators.at(0).text();
     dayInput.simulate('keydown', getKey(separatorKey));
 
@@ -178,7 +210,7 @@ describe('DateInput', () => {
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -195,7 +227,7 @@ describe('DateInput', () => {
 
   it('jumps to the previous field when left arrow is pressed', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -211,9 +243,9 @@ describe('DateInput', () => {
     expect(document.activeElement).toBe(dayInput.getDOMNode());
   });
 
-  it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
+  it('does not jump to the previous field when left arrow is pressed when the first input is focused', () => {
     const component = mount(
-      <DateInput />
+      <DateInput {...defaultProps} />
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -226,5 +258,91 @@ describe('DateInput', () => {
     dayInput.simulate('keydown', getKey('ArrowLeft'));
 
     expect(document.activeElement).toBe(dayInput.getDOMNode());
+  });
+
+  it('triggers onChange correctly when changed custom input', () => {
+    const onChange = jest.fn();
+    const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        onChange={onChange}
+        value={date}
+      />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+
+    customInputs.at(1).getDOMNode().value = '20';
+    customInputs.at(1).simulate('change');
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
+  });
+
+  it('triggers onChange correctly when cleared custom inputs', () => {
+    const onChange = jest.fn();
+    const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        onChange={onChange}
+        value={date}
+      />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+
+    customInputs.forEach((customInput) => {
+      customInput.getDOMNode().value = ''; // eslint-disable-line no-param-reassign
+      customInput.simulate('change');
+    });
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(null, false);
+  });
+
+  it('triggers onChange correctly when changed native input', () => {
+    const onChange = jest.fn();
+    const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        onChange={onChange}
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+
+    nativeInput.getDOMNode().value = '2017-09-20';
+    nativeInput.simulate('change');
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
+  });
+
+  it('triggers onChange correctly when cleared native input', () => {
+    const onChange = jest.fn();
+    const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        onChange={onChange}
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+
+    nativeInput.getDOMNode().value = '';
+    nativeInput.simulate('change');
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith(null, false);
   });
 });

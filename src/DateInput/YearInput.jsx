@@ -6,12 +6,14 @@ import {
   getYear,
 } from '../shared/dates';
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
-import { max, updateInputWidth } from '../shared/utils';
+import { max, min, updateInputWidth } from '../shared/utils';
+
+const select = element => element && element.select();
 
 export default class YearInput extends PureComponent {
   get maxYear() {
     const { maxDate } = this.props;
-    return maxDate ? getYear(maxDate) : null;
+    return min(275760, maxDate && getYear(maxDate));
   }
 
   get minYear() {
@@ -20,7 +22,9 @@ export default class YearInput extends PureComponent {
   }
 
   get yearStep() {
-    if (this.props.valueType === 'century') {
+    const { valueType } = this.props;
+
+    if (valueType === 'century') {
       return 10;
     }
     return 1;
@@ -32,6 +36,8 @@ export default class YearInput extends PureComponent {
       className, disabled, itemRef, value, onChange, onKeyDown, required,
     } = this.props;
 
+    const name = 'year';
+
     return (
       <input
         className={mergeClassNames(
@@ -39,19 +45,21 @@ export default class YearInput extends PureComponent {
           `${className}__year`,
         )}
         disabled={disabled}
-        name="year"
+        name={name}
         max={maxYear}
         min={minYear}
         onChange={onChange}
+        onFocus={event => select(event.target)}
         onKeyDown={onKeyDown}
-        placeholder="--"
+        onKeyUp={event => updateInputWidth(event.target)}
+        placeholder="----"
         ref={(ref) => {
-          if (!ref) return;
-
-          updateInputWidth(ref);
+          if (ref) {
+            updateInputWidth(ref);
+          }
 
           if (itemRef) {
-            itemRef(ref);
+            itemRef(ref, name);
           }
         }}
         required={required}

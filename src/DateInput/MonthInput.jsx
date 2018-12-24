@@ -9,6 +9,8 @@ import {
 import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max, updateInputWidth } from '../shared/utils';
 
+const select = element => element && element.select();
+
 export default class MonthInput extends PureComponent {
   get maxMonth() {
     const { maxDate, year } = this.props;
@@ -26,10 +28,11 @@ export default class MonthInput extends PureComponent {
       className, disabled, itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
     } = this.props;
 
+    const name = 'month';
     const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
 
     return [
-      (hasLeadingZero ? '0' : null),
+      (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
       <input
         key="month"
         className={mergeClassNames(
@@ -38,19 +41,21 @@ export default class MonthInput extends PureComponent {
           hasLeadingZero && `${className}__input--hasLeadingZero`,
         )}
         disabled={disabled}
-        name="month"
+        name={name}
         max={maxMonth}
         min={minMonth}
         onChange={onChange}
+        onFocus={event => select(event.target)}
         onKeyDown={onKeyDown}
+        onKeyUp={event => updateInputWidth(event.target)}
         placeholder="--"
         ref={(ref) => {
-          if (!ref) return;
-
-          updateInputWidth(ref);
+          if (ref) {
+            updateInputWidth(ref);
+          }
 
           if (itemRef) {
-            itemRef(ref);
+            itemRef(ref, name);
           }
         }}
         type="number"

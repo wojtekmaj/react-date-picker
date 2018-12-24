@@ -5,15 +5,19 @@ import { getISOLocalDate } from '../src/shared/dates';
 
 export default class ValidityOptions extends PureComponent {
   onMinChange = (event) => {
+    const { setState } = this.props;
+
     const { value } = event.target;
 
-    this.props.setState({ minDate: value ? new Date(value) : null });
+    setState({ minDate: value ? new Date(value) : null });
   }
 
   onMaxChange = (event) => {
+    const { setState } = this.props;
+
     const { value } = event.target;
 
-    this.props.setState({ maxDate: value ? new Date(value) : null });
+    setState({ maxDate: value ? new Date(value) : null });
   }
 
   render() {
@@ -23,16 +27,21 @@ export default class ValidityOptions extends PureComponent {
 
     return (
       <fieldset id="ValidityOptions">
-        <legend htmlFor="ValidityOptions">Minimum and maximum date</legend>
+        <legend htmlFor="ValidityOptions">
+          Minimum and maximum date
+        </legend>
 
         <div>
-          <label htmlFor="minDate">Minimum date</label>
+          <label htmlFor="minDate">
+            Minimum date
+          </label>
           <input
             id="minDate"
             onChange={this.onMinChange}
             type="date"
             value={minDate ? getISOLocalDate(minDate) : ''}
-          />&nbsp;
+          />
+          &nbsp;
           <button
             onClick={() => setState({ minDate: null })}
             type="button"
@@ -42,13 +51,16 @@ export default class ValidityOptions extends PureComponent {
         </div>
 
         <div>
-          <label htmlFor="maxDate">Maximum date</label>
+          <label htmlFor="maxDate">
+            Maximum date
+          </label>
           <input
             id="maxDate"
             onChange={this.onMaxChange}
             type="date"
             value={maxDate ? getISOLocalDate(maxDate) : ''}
-          />&nbsp;
+          />
+          &nbsp;
           <button
             onClick={() => setState({ maxDate: null })}
             type="button"
@@ -64,7 +76,9 @@ export default class ValidityOptions extends PureComponent {
             checked={required}
             onChange={event => setState({ required: event.target.checked })}
           />
-          <label htmlFor="required">Required</label>
+          <label htmlFor="required">
+            Required
+          </label>
         </div>
       </fieldset>
     );

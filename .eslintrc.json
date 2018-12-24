@@ -6,14 +6,8 @@
     "jest": true
   },
   "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
-  },
   "rules": {
-    "function-paren-newline": "off",
-    "global-require": "off",
+    "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/label-has-for": ["error", { "required": { "some": ["id", "nesting"] }}],
     "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["element"] }],
     "no-restricted-globals": "off",

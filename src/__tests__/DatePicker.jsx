@@ -5,23 +5,29 @@ import DatePicker from '../DatePicker';
 
 /* eslint-disable comma-dangle */
 
-const mockDocumentListeners = () => {
-  const eventMap = {};
-  document.addEventListener = jest.fn((method, cb) => {
-    if (!eventMap[method]) {
-      eventMap[method] = [];
-    }
-    eventMap[method].push(cb);
+describe('DatePicker', () => {
+  it('passes default name to DateInput', () => {
+    const component = mount(
+      <DatePicker />
+    );
+
+    const dateInput = component.find('DateInput');
+
+    expect(dateInput.prop('name')).toBe('date');
   });
 
-  return {
-    simulate: (method, args) => {
-      eventMap[method].forEach(cb => cb(args));
-    },
-  };
-};
+  it('passes custom name to DateInput', () => {
+    const name = 'testName';
 
-describe('DatePicker', () => {
+    const component = mount(
+      <DatePicker name={name} />
+    );
+
+    const dateInput = component.find('DateInput');
+
+    expect(dateInput.prop('name')).toBe(name);
+  });
+
   it('applies className to its wrapper when given a string', () => {
     const className = 'testClassName';
 
@@ -146,30 +152,50 @@ describe('DatePicker', () => {
   });
 
   it('closes Calendar component when clicked outside', () => {
-    const { simulate } = mockDocumentListeners();
+    const root = document.createElement('div');
+    document.body.appendChild(root);
 
     const component = mount(
-      <DatePicker isOpen />
+      <DatePicker isOpen />,
+      { attachTo: root }
     );
 
-    simulate('mousedown', {
-      target: document,
-    });
+    const event = document.createEvent('MouseEvent');
+    event.initEvent('mousedown', true, true);
+    document.body.dispatchEvent(event);
     component.update();
 
     expect(component.state('isOpen')).toBe(false);
   });
 
-  it('does not close Calendar component when clicked inside', () => {
-    const { simulate } = mockDocumentListeners();
+  it('closes Calendar component when focused outside', () => {
+    const root = document.createElement('div');
+    document.body.appendChild(root);
 
+    const component = mount(
+      <DatePicker isOpen />,
+      { attachTo: root }
+    );
+
+    const event = document.createEvent('FocusEvent');
+    event.initEvent('focusin', true, true);
+    document.body.dispatchEvent(event);
+    component.update();
+
+    expect(component.state('isOpen')).toBe(false);
+  });
+
+  it('does not close Calendar component when focused inside', () => {
     const component = mount(
       <DatePicker isOpen />
     );
 
-    simulate('mousedown', {
-      target: component.getDOMNode(),
-    });
+    const customInputs = component.find('input[type="number"]');
+    const dayInput = customInputs.at(0);
+    const monthInput = customInputs.at(1);
+
+    dayInput.simulate('blur');
+    monthInput.simulate('focus');
     component.update();
 
     expect(component.state('isOpen')).toBe(true);

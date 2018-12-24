@@ -1,6 +1,6 @@
 {
   "name": "react-date-picker-sample-page-ts",
-  "version": "6.10.4",
+  "version": "7.1.1",
   "description": "A sample TypeScript page for React-Date-Picker.",
   "private": true,
   "scripts": {
@@ -22,14 +22,14 @@
   "license": "MIT",
   "dependencies": {
     "prop-types": "^15.6.0",
-    "react": "^16.4.0",
+    "react": "^16.5.0",
     "react-date-picker": "latest",
-    "react-dom": "^16.4.0"
+    "react-dom": "^16.5.0"
   },
   "devDependencies": {
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
-    "parcel-bundler": "1.5.1",
+    "parcel-bundler": "^1.11.0",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.4.2",
     "typescript": "^2.6.2"

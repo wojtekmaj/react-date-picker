@@ -1,11 +1,9 @@
 {
   "presets": [
-    "env",
-    "stage-2",
-    "react"
+    "@babel/env",
+    "@babel/react"
   ],
   "plugins": [
-    "transform-class-properties",
-    "transform-es2015-modules-commonjs"
+    "@babel/proposal-class-properties"
   ]
 }

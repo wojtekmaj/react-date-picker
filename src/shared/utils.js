@@ -3,6 +3,7 @@ export {
 } from 'react-calendar/dist/shared/utils';
 
 const isValidNumber = a => typeof a === 'number' && !isNaN(a);
+
 export const min = (...args) => Math.min(...args.filter(isValidNumber));
 export const max = (...args) => Math.max(...args.filter(isValidNumber));
 
@@ -14,8 +15,8 @@ export const updateInputWidth = (element) => {
 
   container.appendChild(span);
 
-  const width = span.getBoundingClientRect().width + 4;
-  element.style.width = `${width}px`;
+  const { width } = span.getBoundingClientRect();
+  element.style.width = `${Math.ceil(width)}px`;
 
   container.removeChild(span);
 };

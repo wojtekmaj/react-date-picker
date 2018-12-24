@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
+// eslint-disable-next-line import/no-unresolved
 import DatePicker from 'react-date-picker/src/entry.nostyle';
+// eslint-disable-next-line import/no-unresolved
 import 'react-date-picker/src/DatePicker.less';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-calendar/src/Calendar.less';
@@ -17,6 +19,7 @@ const now = new Date();
 
 export default class Test extends PureComponent {
   state = {
+    disabled: false,
     locale: null,
     maxDate: new Date(now.getUTCFullYear(), now.getUTCMonth() + 1, 15, 12),
     maxDetail: 'month',
@@ -34,6 +37,7 @@ export default class Test extends PureComponent {
 
   render() {
     const {
+      disabled,
       locale,
       maxDate,
       maxDetail,
@@ -52,7 +56,9 @@ export default class Test extends PureComponent {
     return (
       <div className="Test">
         <header>
-          <h1>react-date-picker test page</h1>
+          <h1>
+            react-date-picker test page
+          </h1>
         </header>
         <div className="Test__container">
           <aside className="Test__container__options">
@@ -81,6 +87,7 @@ export default class Test extends PureComponent {
               value={value}
             />
             <ViewOptions
+              disabled={disabled}
               setState={setState}
               showLeadingZeros={showLeadingZeros}
               showNeighboringMonth={showNeighboringMonth}
@@ -91,8 +98,9 @@ export default class Test extends PureComponent {
             <form
               onSubmit={(event) => {
                 event.preventDefault();
+
                 /* eslint-disable no-console */
-                console.error('Calendar triggered submitting the form.');
+                console.warn('Calendar triggered submitting the form.');
                 console.log(event);
                 /* eslint-enable no-console */
               }}
@@ -100,7 +108,7 @@ export default class Test extends PureComponent {
               <DatePicker
                 className="myCustomDatePickerClassName"
                 calendarClassName="myCustomCalendarClassName"
-                disabled={false}
+                disabled={disabled}
                 locale={locale}
                 maxDate={maxDate}
                 maxDetail={maxDetail}
@@ -117,7 +125,12 @@ export default class Test extends PureComponent {
               />
               <br />
               <br />
-              <button id="submit">Submit</button>
+              <button
+                type="submit"
+                id="submit"
+              >
+                Submit
+              </button>
             </form>
           </main>
         </div>
