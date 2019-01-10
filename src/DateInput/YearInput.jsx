@@ -40,6 +40,7 @@ export default class YearInput extends PureComponent {
 
     return (
       <input
+        autoComplete="off"
         className={mergeClassNames(
           `${className}__input`,
           `${className}__year`,

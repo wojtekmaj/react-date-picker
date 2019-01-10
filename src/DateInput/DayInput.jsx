@@ -52,6 +52,7 @@ export default class DayInput extends PureComponent {
       (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
       <input
         key="day"
+        autoComplete="off"
         className={mergeClassNames(
           `${className}__input`,
           `${className}__day`,

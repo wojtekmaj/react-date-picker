@@ -35,6 +35,7 @@ export default class MonthInput extends PureComponent {
       (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
       <input
         key="month"
+        autoComplete="off"
         className={mergeClassNames(
           `${className}__input`,
           `${className}__month`,
