@@ -17,7 +17,9 @@ import {
   getYear,
 } from './shared/dates';
 import { isMaxDate, isMinDate } from './shared/propTypes';
-import { between } from './shared/utils';
+import {
+  between, focus, findPreviousInput, findNextInput,
+} from './shared/utils';
 
 const defaultMinDate = new Date(-8.64e15);
 const defaultMaxDate = new Date(8.64e15);
@@ -109,24 +111,6 @@ const getDetailValueArray = (value, minDate, maxDate, maxDetail) => {
     getDetailValueTo(value, minDate, maxDate, maxDetail),
   ];
 };
-
-const findPreviousInput = (element) => {
-  const previousElement = element.previousElementSibling; // Divider between inputs
-  if (!previousElement) {
-    return null;
-  }
-  return previousElement.previousElementSibling; // Actual input
-};
-
-const findNextInput = (element) => {
-  const nextElement = element.nextElementSibling; // Divider between inputs
-  if (!nextElement) {
-    return null;
-  }
-  return nextElement.nextElementSibling; // Actual input
-};
-
-const focus = element => element && element.focus();
 
 const renderCustomInputs = (placeholder, elementFunctions) => {
   const pattern = new RegExp(Object.keys(elementFunctions).join('|'), 'gi');

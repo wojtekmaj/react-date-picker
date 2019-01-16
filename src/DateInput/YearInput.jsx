@@ -6,9 +6,9 @@ import {
   getYear,
 } from '../shared/dates';
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
-import { max, min, updateInputWidth } from '../shared/utils';
-
-const select = element => element && element.select();
+import {
+  max, min, select, updateInputWidth,
+} from '../shared/utils';
 
 export default class YearInput extends PureComponent {
   get maxYear() {
@@ -52,7 +52,7 @@ export default class YearInput extends PureComponent {
         onFocus={event => select(event.target)}
         onKeyDown={onKeyDown}
         onKeyUp={event => updateInputWidth(event.target)}
-        placeholder="----"
+        placeholder="yyyy"
         ref={(ref) => {
           if (ref) {
             updateInputWidth(ref);
