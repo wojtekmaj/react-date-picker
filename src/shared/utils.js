@@ -7,22 +7,16 @@ const valueIsHigherThanMax = (value, max) => Number(value) > Number(max);
 const keyIsHigherThanMaxFirstChar = (key, max) => Number(key) > Number(max.charAt(0));
 const valueLengthEqualsMaxLength = (value, max) => value.length === max.length;
 
-export const findPreviousInput = (element) => {
-  const previousElement = element.previousElementSibling; // Divider between inputs
-  if (!previousElement) {
+const findInput = sibling => (element) => {
+  const foundElement = element[sibling]; // Divider between inputs
+  if (!foundElement) {
     return null;
   }
-  return previousElement.previousElementSibling; // Actual input
+  return foundElement[sibling]; // Actual input
 };
 
-export const findNextInput = (element) => {
-  const nextElement = element.nextElementSibling; // Divider between inputs
-  if (!nextElement) {
-    return null;
-  }
-  return nextElement.nextElementSibling; // Actual input
-};
-
+export const findPreviousInput = element => findInput('previousElementSibling')(element);
+export const findNextInput = element => findInput('nextElementSibling')(element);
 export const min = (...args) => Math.min(...args.filter(isValidNumber));
 export const max = (...args) => Math.max(...args.filter(isValidNumber));
 export const focus = element => element && element.focus();
