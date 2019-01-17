@@ -8,7 +8,7 @@ import DayInput from '../DayInput';
 describe('DayInput', () => {
   const defaultProps = {
     className: 'className',
-    onChange: () => {},
+    onChange: () => { }
   };
 
   it('renders an input', () => {
@@ -236,5 +236,29 @@ describe('DayInput', () => {
     const input = component.find('input');
 
     expect(input.prop('max')).toBe(15);
+  });
+
+  it('triggers onChange correctly when key up with value higher than max', () => {
+    const onKeyUp = jest.fn();
+    const onChange = jest.fn();
+    const otherProps = { onChange, onKeyUp };
+    const target = {
+      max: '5', min: '1', value: 9
+    };
+    const event = { key: target.value, target };
+    const component = mount(
+      <DayInput
+        {...defaultProps}
+        {...otherProps}
+        year={2018}
+        month={1}
+        maxDate={new Date(2018, 0, 15)}
+      />
+    );
+
+    component.simulate('keyUp', event);
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining(event));
   });
 });
