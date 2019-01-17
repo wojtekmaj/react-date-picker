@@ -14,27 +14,21 @@ describe('appendInputValue', () => {
     onChange: jest.fn()
   };
 
-  it('set value to max when value is higher than max', () => {
-    defaultArgs.event.target.value = '20';
+  describe('when value is higher than max', () => {
     const { event, onChange } = defaultArgs;
 
-    appendInputValue(event, onChange);
-    expect(event.target.value).toEqual('12');
-  });
+    beforeAll(() => {
+      defaultArgs.event.target.value = '20';
+      appendInputValue(event, onChange);
+    });
 
-  it('triggers onChange correctly when value is higher than max', () => {
-    defaultArgs.event.target.value = '20';
-    const { event, onChange } = defaultArgs;
+    it('set value to max', () => {
+      expect(event.target.value).toEqual('12');
+    });
 
-    appendInputValue(event, onChange);
-    expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledWith(event);
-  });
-
-  it('find next input when key is higher than first character of max', () => {
-    defaultArgs.event.target.value = '2';
-    const { event, onChange } = defaultArgs;
-
-    appendInputValue(event, onChange);
+    it('triggers onChange correctly', () => {
+      expect(onChange).toHaveBeenCalled();
+      expect(onChange).toHaveBeenCalledWith(event);
+    });
   });
 });
