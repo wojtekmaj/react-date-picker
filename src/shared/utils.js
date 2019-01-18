@@ -11,6 +11,9 @@ const findInput = sibling => (element) => {
   }
   return foundElement[sibling]; // Actual input
 };
+const shouldFocusNextInput = (key, value, maxValue) => Number(value) > Number(maxValue)
+  || Number(key) > Number(maxValue.charAt(0))
+  || value.length >= maxValue.length;
 
 export const findPreviousInput = findInput('previousElementSibling');
 export const findNextInput = findInput('nextElementSibling');
@@ -22,10 +25,11 @@ export const select = element => element && element.select();
 export const appendInputValue = (event, onChange) => {
   const { target, target: { value, max: maxValue }, key } = event;
 
+  if (!isValidNumber(Number(key))) {
+    return;
+  }
 
-  if (Number(value) > Number(maxValue)
-    || Number(key) > Number(maxValue.charAt(0))
-    || value.length >= maxValue.length) {
+  if (shouldFocusNextInput(key, value, maxValue)) {
     const nextInput = findNextInput(target);
 
     if (Number(value) > Number(maxValue)) {
