@@ -243,7 +243,7 @@ describe('DayInput', () => {
     const onChange = jest.fn();
     const otherProps = { onChange, onKeyUp };
     const target = {
-      max: '5', min: '1', value: 9
+      max: '5', min: '1', value: '9'
     };
     const event = { key: target.value, target };
     const component = mount(

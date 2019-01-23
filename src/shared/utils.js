@@ -3,6 +3,11 @@ export {
 } from 'react-calendar/dist/shared/utils';
 
 const isValidNumber = a => typeof a === 'number' && !isNaN(a);
+export const isPositiveInteger = (a) => {
+  const n = Math.floor(Number(a));
+
+  return n !== Infinity && String(n) === a && n >= 0;
+};
 
 const findInput = sibling => (element) => {
   const foundElement = element[sibling]; // Divider between inputs
@@ -25,7 +30,7 @@ export const select = element => element && element.select();
 export const appendInputValue = (event, onChange) => {
   const { target, target: { value, max: maxValue }, key } = event;
 
-  if (!isValidNumber(Number(key))) {
+  if (!isPositiveInteger(key)) {
     return;
   }
 

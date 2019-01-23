@@ -1,19 +1,20 @@
-import { appendInputValue } from '../utils';
+import { appendInputValue, isPositiveInteger } from '../utils';
 
 /* eslint-disable comma-dangle */
-describe('appendInputValue', () => {
-  const defaultArgs = {
-    event: {
-      target: {
-        value: '2',
-        max: '12',
-        min: '1'
-      },
-      key: '2'
-    },
-    onChange: jest.fn()
-  };
 
+const defaultArgs = {
+  event: {
+    target: {
+      value: '2',
+      max: '12',
+      min: '1'
+    },
+    key: '2'
+  },
+  onChange: jest.fn()
+};
+
+describe('appendInputValue', () => {
   describe('when value is higher than max', () => {
     const { event, onChange } = defaultArgs;
 
@@ -30,5 +31,35 @@ describe('appendInputValue', () => {
       expect(onChange).toHaveBeenCalled();
       expect(onChange).toHaveBeenCalledWith(event);
     });
+  });
+});
+
+describe('isPositiveInteger', () => {
+  it('should not accept e', () => {
+    expect(isPositiveInteger('e')).toBe(false);
+  });
+
+  it('should not accept +', () => {
+    expect(isPositiveInteger('+')).toBe(false);
+  });
+
+  it('should not accept .', () => {
+    expect(isPositiveInteger('.')).toBe(false);
+  });
+
+  it('should not accept ,', () => {
+    expect(isPositiveInteger(',')).toBe(false);
+  });
+
+  it('should accept 1', () => {
+    expect(isPositiveInteger('1')).toBe(true);
+  });
+
+  it('should accept 9', () => {
+    expect(isPositiveInteger('9')).toBe(true);
+  });
+
+  it('should accept 0', () => {
+    expect(isPositiveInteger('0')).toBe(true);
   });
 });
