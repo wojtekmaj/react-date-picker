@@ -66,12 +66,12 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "detect-element-overflow": "^1.1.1",
     "get-user-locale": "^1.1.1",
     "make-event-props": "^1.1.0",
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
     "react-calendar": "^2.18.0",
+    "react-fit": "^1.0.2",
     "react-lifecycles-compat": "^3.0.4"
   },
   "devDependencies": {

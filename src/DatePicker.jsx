@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
 import makeEventProps from 'make-event-props';
 import mergeClassNames from 'merge-class-names';
-import detectElementOverflow from 'detect-element-overflow';
+import Fit from 'react-fit';
 
 import Calendar from 'react-calendar/dist/entry.nostyle';
 
@@ -174,39 +174,16 @@ export default class DatePicker extends PureComponent {
     const className = `${baseClassName}__calendar`;
 
     return (
-      <div
-        className={mergeClassNames(
-          className,
-          `${className}--${isOpen ? 'open' : 'closed'}`,
-        )}
-        ref={(ref) => {
-          if (!ref || !isOpen) {
-            return;
-          }
-
-          ref.classList.remove(`${className}--above-label`);
-
-          const collisions = detectElementOverflow(ref, document.body);
-
-          if (collisions.collidedBottom) {
-            const overflowTopAfterChange = (
-              collisions.overflowTop + ref.clientHeight + this.wrapper.clientHeight
-            );
-
-            // If it's going to make situation any better, display the calendar above the input
-            if (overflowTopAfterChange < collisions.overflowBottom) {
-              ref.classList.add(`${className}--above-label`);
-            }
-          }
-        }}
-      >
-        <Calendar
-          className={calendarClassName}
-          onChange={this.onChange}
-          value={value || null}
-          {...calendarProps}
-        />
-      </div>
+      <Fit>
+        <div className={mergeClassNames(className, `${className}--${isOpen ? 'open' : 'closed'}`)}>
+          <Calendar
+            className={calendarClassName}
+            onChange={this.onChange}
+            value={value || null}
+            {...calendarProps}
+          />
+        </div>
+      </Fit>
     );
   }
 
