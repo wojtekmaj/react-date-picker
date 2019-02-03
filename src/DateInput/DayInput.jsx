@@ -65,7 +65,7 @@ export default class DayInput extends PureComponent {
         onFocus={event => select(event.target)}
         onKeyDown={onKeyDown}
         onKeyUp={event => appendInputValue(event, onChange)}
-        placeholder="dd"
+        placeholder="--"
         ref={(ref) => {
           if (ref) {
             updateInputWidth(ref);

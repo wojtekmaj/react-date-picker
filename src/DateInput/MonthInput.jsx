@@ -48,7 +48,7 @@ export default class MonthInput extends PureComponent {
         onFocus={event => select(event.target)}
         onKeyDown={onKeyDown}
         onKeyUp={event => appendInputValue(event, onChange)}
-        placeholder="mm"
+        placeholder="--"
         ref={(ref) => {
           if (ref) {
             updateInputWidth(ref);
