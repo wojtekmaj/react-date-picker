@@ -42,7 +42,8 @@ export default class DayInput extends PureComponent {
   render() {
     const { maxDay, minDay } = this;
     const {
-      className, disabled, itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
+      className, disabled, itemRef, value, onChange,
+      onKeyDown, required, showLeadingZeros, ariaLabel,
     } = this.props;
 
     const name = 'day';
@@ -79,6 +80,7 @@ export default class DayInput extends PureComponent {
         required={required}
         type="number"
         value={value !== null ? value : ''}
+        aria-label={ariaLabel}
       />,
     ];
   }
@@ -97,4 +99,5 @@ DayInput.propTypes = {
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
   year: PropTypes.number,
+  ariaLabel: PropTypes.string,
 };

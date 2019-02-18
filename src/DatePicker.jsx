@@ -96,7 +96,9 @@ export default class DatePicker extends PureComponent {
   renderInputs() {
     const {
       calendarIcon,
+      calendarButtonTitle,
       clearIcon,
+      clearButtonTitle,
       disabled,
       locale,
       maxDate,
@@ -107,13 +109,16 @@ export default class DatePicker extends PureComponent {
       required,
       showLeadingZeros,
       value,
+      dayAriaLabel,
+      monthAriaLabel,
+      yearAriaLabel,
     } = this.props;
     const { isOpen } = this.state;
 
     const [valueFrom] = [].concat(value);
 
     return (
-      <div className={`${baseClassName}__wrapper`}>
+      <div className={`${baseClassName}__wrapper `}>
         <DateInput
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
@@ -128,6 +133,9 @@ export default class DatePicker extends PureComponent {
           required={required}
           showLeadingZeros={showLeadingZeros}
           value={valueFrom}
+          dayAriaLabel={dayAriaLabel}
+          monthAriaLabel={monthAriaLabel}
+          yearAriaLabel={yearAriaLabel}
         />
         {clearIcon !== null && (
           <button
@@ -136,6 +144,7 @@ export default class DatePicker extends PureComponent {
             onClick={this.clear}
             onFocus={this.stopPropagation}
             type="button"
+            title={clearButtonTitle}
           >
             {clearIcon}
           </button>
@@ -148,6 +157,7 @@ export default class DatePicker extends PureComponent {
             onFocus={this.stopPropagation}
             onBlur={this.resetValue}
             type="button"
+            title={calendarButtonTitle}
           >
             {calendarIcon}
           </button>
@@ -249,11 +259,13 @@ DatePicker.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
   ]),
   calendarIcon: PropTypes.node,
+  calendarButtonTitle: PropTypes.string,
   className: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
   clearIcon: PropTypes.node,
+  clearButtonTitle: PropTypes.string,
   disabled: PropTypes.bool,
   isOpen: PropTypes.bool,
   name: PropTypes.string,
