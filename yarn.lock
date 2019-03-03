@@ -4164,10 +4164,10 @@ react-dom@^16.7.0:
     prop-types "^15.6.2"
     scheduler "^0.12.0"
 
-react-fit@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-fit/-/react-fit-1.0.2.tgz#cfe46d774247c0d30b2a7582d8f04a3a5d93cc64"
-  integrity sha512-Osm/d8tekZQbC3zuXxmbs7yOgVoFiAFAZ6cjWQHwjhYDdYdGIdquQTQslQZAFkIYVZt9amgPuKK8SUNNKrXwjw==
+react-fit@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-fit/-/react-fit-1.0.3.tgz#92bf13bbbf26a809d30e11545ae119b1307ca1af"
+  integrity sha512-hUspwHv7iL8sB5K92kabHjUvxsnbEs+Qpgjk57a/r4lAISwrSTh5qzs2nqDpJypj7UxHOeJp5CmopLtn4FG4zQ==
   dependencies:
     detect-element-overflow "^1.1.1"
     prop-types "^15.6.0"
