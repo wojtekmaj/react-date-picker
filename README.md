@@ -1,6 +1,4 @@
-![downloads](https://img.shields.io/npm/dt/react-date-picker.svg) ![build](https://img.shields.io/travis/wojtekmaj/react-date-picker/master.svg) ![dependencies](https://img.shields.io/david/wojtekmaj/react-date-picker.svg
-) ![dev dependencies](https://img.shields.io/david/dev/wojtekmaj/react-date-picker.svg
-) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+[![npm](https://img.shields.io/npm/v/react-date-picker.svg)](https://www.npmjs.com/package/react-date-picker) ![downloads](https://img.shields.io/npm/dt/react-date-picker.svg) ![build](https://img.shields.io/travis/wojtekmaj/react-date-picker/master.svg) ![dependencies](https://img.shields.io/david/wojtekmaj/react-date-picker.svg) ![dev dependencies](https://img.shields.io/david/dev/wojtekmaj/react-date-picker.svg) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
 # React-Date-Picker
 
