@@ -33,7 +33,7 @@ export default class YearInput extends PureComponent {
   render() {
     const { maxYear, minYear, yearStep } = this;
     const {
-      className, disabled, itemRef, value, onChange, onKeyDown, required,
+      className, disabled, itemRef, value, onChange, onKeyDown, required, ariaLabel,
     } = this.props;
 
     const name = 'year';
@@ -67,6 +67,7 @@ export default class YearInput extends PureComponent {
         step={yearStep}
         type="number"
         value={value !== null ? value : ''}
+        aria-label={ariaLabel}
       />
     );
   }
@@ -83,4 +84,5 @@ YearInput.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.number,
   valueType: isValueType,
+  ariaLabel: PropTypes.string,
 };

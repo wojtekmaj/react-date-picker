@@ -397,7 +397,7 @@ export default class DateInput extends PureComponent {
   }
 
   renderDay = () => {
-    const { maxDetail, showLeadingZeros } = this.props;
+    const { maxDetail, showLeadingZeros, dayAriaLabel } = this.props;
     const { day: value, month, year } = this.state;
 
     return (
@@ -409,12 +409,13 @@ export default class DateInput extends PureComponent {
         showLeadingZeros={showLeadingZeros}
         value={value}
         year={year}
+        ariaLabel={dayAriaLabel}
       />
     );
   }
 
   renderMonth = () => {
-    const { maxDetail, showLeadingZeros } = this.props;
+    const { maxDetail, showLeadingZeros, monthAriaLabel } = this.props;
     const { month: value, year } = this.state;
 
     return (
@@ -425,12 +426,14 @@ export default class DateInput extends PureComponent {
         showLeadingZeros={showLeadingZeros}
         value={value}
         year={year}
+        ariaLabel={monthAriaLabel}
       />
     );
   }
 
   renderYear = () => {
     const { year } = this.state;
+    const { yearAriaLabel } = this.props;
 
     return (
       <YearInput
@@ -438,6 +441,7 @@ export default class DateInput extends PureComponent {
         {...this.commonInputProps}
         value={year}
         valueType={this.valueType}
+        ariaLabel={yearAriaLabel}
       />
     );
   }
@@ -517,6 +521,9 @@ DateInput.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
+  dayAriaLabel: PropTypes.string,
+  monthAriaLabel: PropTypes.string,
+  yearAriaLabel: PropTypes.string,
 };
 
 polyfill(DateInput);

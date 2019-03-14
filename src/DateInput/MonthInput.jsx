@@ -25,7 +25,8 @@ export default class MonthInput extends PureComponent {
   render() {
     const { maxMonth, minMonth } = this;
     const {
-      className, disabled, itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
+      className, disabled, itemRef, value, onChange,
+      onKeyDown, required, showLeadingZeros, ariaLabel,
     } = this.props;
 
     const name = 'month';
@@ -62,6 +63,7 @@ export default class MonthInput extends PureComponent {
         type="number"
         required={required}
         value={value !== null ? value : ''}
+        aria-label={ariaLabel}
       />,
     ];
   }
@@ -79,4 +81,5 @@ MonthInput.propTypes = {
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
   year: PropTypes.number,
+  ariaLabel: PropTypes.string,
 };
