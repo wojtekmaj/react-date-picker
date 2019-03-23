@@ -15,6 +15,8 @@ import './Test.less';
 
 const now = new Date();
 
+/* eslint-disable no-console */
+
 export default class Test extends PureComponent {
   state = {
     disabled: false,
@@ -97,10 +99,8 @@ export default class Test extends PureComponent {
               onSubmit={(event) => {
                 event.preventDefault();
 
-                /* eslint-disable no-console */
                 console.warn('Calendar triggered submitting the form.');
                 console.log(event);
-                /* eslint-enable no-console */
               }}
             >
               <DatePicker
@@ -114,6 +114,8 @@ export default class Test extends PureComponent {
                 minDetail={minDetail}
                 name="myCustomName"
                 onChange={this.onChange}
+                onCalendarOpen={() => console.log('Calendar opened')}
+                onCalendarClose={() => console.log('Calendar closed')}
                 returnValue={returnValue}
                 required={required}
                 showLeadingZeros={showLeadingZeros}

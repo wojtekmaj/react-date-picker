@@ -1,5 +1,6 @@
 export {
   between,
+  callIfDefined,
 } from 'react-calendar/dist/shared/utils';
 
 const isValidNumber = a => typeof a === 'number' && !isNaN(a);

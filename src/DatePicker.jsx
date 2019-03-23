@@ -9,6 +9,8 @@ import Calendar from 'react-calendar/dist/entry.nostyle';
 
 import DateInput from './DateInput';
 
+import { callIfDefined } from './shared/utils';
+
 const baseClassName = 'react-date-picker';
 
 export default class DatePicker extends PureComponent {
@@ -32,6 +34,15 @@ export default class DatePicker extends PureComponent {
   componentDidMount() {
     document.addEventListener('mousedown', this.onOutsideAction);
     document.addEventListener('focusin', this.onOutsideAction);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isOpen } = this.state;
+    const { onCalendarClose, onCalendarOpen } = this.props;
+
+    if (isOpen !== prevState.isOpen) {
+      callIfDefined(isOpen ? onCalendarOpen : onCalendarClose);
+    }
   }
 
   componentWillUnmount() {
