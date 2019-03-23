@@ -510,8 +510,8 @@ DateInput.propTypes = {
   minDate: isMinDate,
   name: PropTypes.string,
   onChange: PropTypes.func,
-  returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   required: PropTypes.bool,
+  returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.oneOfType([
     PropTypes.string,
