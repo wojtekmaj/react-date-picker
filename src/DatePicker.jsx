@@ -269,6 +269,8 @@ DatePicker.propTypes = {
   isOpen: PropTypes.bool,
   name: PropTypes.string,
   returnValue: PropTypes.oneOf(['start', 'end', 'range']),
+  onCalendarClose: PropTypes.func,
+  onCalendarOpen: PropTypes.func,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
 };
