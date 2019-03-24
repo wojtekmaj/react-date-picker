@@ -397,14 +397,13 @@ export default class DateInput extends PureComponent {
   }
 
   renderDay = () => {
-    const { maxDetail, showLeadingZeros } = this.props;
+    const { showLeadingZeros } = this.props;
     const { day: value, month, year } = this.state;
 
     return (
       <DayInput
         key="day"
         {...this.commonInputProps}
-        maxDetail={maxDetail}
         month={month}
         showLeadingZeros={showLeadingZeros}
         value={value}
@@ -414,14 +413,13 @@ export default class DateInput extends PureComponent {
   }
 
   renderMonth = () => {
-    const { maxDetail, showLeadingZeros } = this.props;
+    const { showLeadingZeros } = this.props;
     const { month: value, year } = this.state;
 
     return (
       <MonthInput
         key="month"
         {...this.commonInputProps}
-        maxDetail={maxDetail}
         showLeadingZeros={showLeadingZeros}
         value={value}
         year={year}
