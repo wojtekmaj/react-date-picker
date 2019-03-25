@@ -1,15 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import mergeClassNames from 'merge-class-names';
 
-import {
-  getMonth,
-  getYear,
-} from '../shared/dates';
+import Input from './Input';
+
+import { getMonth, getYear } from '../shared/dates';
 import { isMaxDate, isMinDate } from '../shared/propTypes';
-import { min, max, updateInputWidth } from '../shared/utils';
-
-const select = element => element && element.select();
+import { min, max } from '../shared/utils';
 
 export default class MonthInput extends PureComponent {
   get maxMonth() {
@@ -25,45 +21,20 @@ export default class MonthInput extends PureComponent {
   render() {
     const { maxMonth, minMonth } = this;
     const {
-      className, disabled, itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
+      maxDate,
+      minDate,
+      year,
+      ...otherProps
     } = this.props;
 
-    const name = 'month';
-    const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
-
-    return [
-      (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
-      <input
-        key="month"
-        autoComplete="off"
-        className={mergeClassNames(
-          `${className}__input`,
-          `${className}__month`,
-          hasLeadingZero && `${className}__input--hasLeadingZero`,
-        )}
-        disabled={disabled}
-        name={name}
+    return (
+      <Input
+        name="month"
         max={maxMonth}
         min={minMonth}
-        onChange={onChange}
-        onFocus={event => select(event.target)}
-        onKeyDown={onKeyDown}
-        onKeyUp={event => updateInputWidth(event.target)}
-        placeholder="--"
-        ref={(ref) => {
-          if (ref) {
-            updateInputWidth(ref);
-          }
-
-          if (itemRef) {
-            itemRef(ref, name);
-          }
-        }}
-        type="number"
-        required={required}
-        value={value !== null ? value : ''}
-      />,
-    ];
+        {...otherProps}
+      />
+    );
   }
 }
 

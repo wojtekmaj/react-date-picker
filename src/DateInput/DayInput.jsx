@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import mergeClassNames from 'merge-class-names';
+
+import Input from './Input';
 
 import {
   getDay,
@@ -9,9 +10,7 @@ import {
   getYear,
 } from '../shared/dates';
 import { isMaxDate, isMinDate } from '../shared/propTypes';
-import { min, max, updateInputWidth } from '../shared/utils';
-
-const select = element => element && element.select();
+import { min, max } from '../shared/utils';
 
 export default class DayInput extends PureComponent {
   get currentMonthMaxDays() {
@@ -42,45 +41,21 @@ export default class DayInput extends PureComponent {
   render() {
     const { maxDay, minDay } = this;
     const {
-      className, disabled, itemRef, value, onChange, onKeyDown, required, showLeadingZeros,
+      maxDate,
+      minDate,
+      month,
+      year,
+      ...otherProps
     } = this.props;
 
-    const name = 'day';
-    const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
-
-    return [
-      (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
-      <input
-        key="day"
-        autoComplete="off"
-        className={mergeClassNames(
-          `${className}__input`,
-          `${className}__day`,
-          hasLeadingZero && `${className}__input--hasLeadingZero`,
-        )}
-        disabled={disabled}
-        name={name}
+    return (
+      <Input
+        name="day"
         max={maxDay}
         min={minDay}
-        onChange={onChange}
-        onFocus={event => select(event.target)}
-        onKeyDown={onKeyDown}
-        onKeyUp={event => updateInputWidth(event.target)}
-        placeholder="--"
-        ref={(ref) => {
-          if (ref) {
-            updateInputWidth(ref);
-          }
-
-          if (itemRef) {
-            itemRef(ref, name);
-          }
-        }}
-        required={required}
-        type="number"
-        value={value !== null ? value : ''}
-      />,
-    ];
+        {...otherProps}
+      />
+    );
   }
 }
 
