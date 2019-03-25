@@ -13,6 +13,7 @@ const Input = ({
   max,
   min,
   name,
+  nameForClass,
   onChange,
   onKeyDown,
   placeholder,
@@ -30,7 +31,7 @@ const Input = ({
       autoComplete="off"
       className={mergeClassNames(
         `${className}__input`,
-        `${className}__${name}`,
+        `${className}__${nameForClass || name}`,
         hasLeadingZero && `${className}__input--hasLeadingZero`,
       )}
       disabled={disabled}
