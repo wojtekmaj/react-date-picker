@@ -5,6 +5,18 @@ import DateInput from '../DateInput';
 
 /* eslint-disable comma-dangle */
 
+const hasFullICU = (() => {
+  try {
+    const date = new Date(2018, 0, 1, 21);
+    const formatter = new Intl.DateTimeFormat('de-DE', { hour: 'numeric' });
+    return formatter.format(date) === '21';
+  } catch (err) {
+    return false;
+  }
+})();
+
+const itIfFullICU = hasFullICU ? it : it.skip;
+
 const keyCodes = {
   ArrowLeft: 37,
   ArrowUp: 38,
@@ -95,6 +107,26 @@ describe('DateInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('2017');
   });
 
+  itIfFullICU('shows a given date in all inputs correctly (de-DE locale)', () => {
+    const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        locale="de-DE"
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.getDOMNode().value).toBe('2017-09-30');
+    expect(customInputs.at(0).getDOMNode().value).toBe('2017');
+    expect(customInputs.at(1).getDOMNode().value).toBe('9');
+    expect(customInputs.at(2).getDOMNode().value).toBe('30');
+  });
+
   it('shows empty value in all inputs correctly', () => {
     const component = mount(
       <DateInput
@@ -143,6 +175,21 @@ describe('DateInput', () => {
     expect(customInputs.at(0).prop('name')).toBe('month');
     expect(customInputs.at(1).prop('name')).toBe('day');
     expect(customInputs.at(2).prop('name')).toBe('year');
+  });
+
+  itIfFullICU('renders custom inputs in a proper order (de-DE locale)', () => {
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        locale="de-DE"
+      />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+
+    expect(customInputs.at(0).prop('name')).toBe('year');
+    expect(customInputs.at(1).prop('name')).toBe('month');
+    expect(customInputs.at(2).prop('name')).toBe('day');
   });
 
   it('renders proper input separators', () => {
