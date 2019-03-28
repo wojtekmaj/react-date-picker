@@ -110,20 +110,22 @@ const getDetailValueArray = (value, minDate, maxDate, maxDetail) => {
   ];
 };
 
+const isValidInput = element => element.tagName === 'INPUT' && element.type === 'number';
+
 const findPreviousInput = (element) => {
-  const previousElement = element.previousElementSibling; // Divider between inputs
-  if (!previousElement) {
-    return null;
-  }
-  return previousElement.previousElementSibling; // Actual input
+  let previousElement = element;
+  do {
+    previousElement = previousElement.previousElementSibling;
+  } while (previousElement && !isValidInput(previousElement));
+  return previousElement;
 };
 
 const findNextInput = (element) => {
-  const nextElement = element.nextElementSibling; // Divider between inputs
-  if (!nextElement) {
-    return null;
-  }
-  return nextElement.nextElementSibling; // Actual input
+  let nextElement = element;
+  do {
+    nextElement = nextElement.nextElementSibling;
+  } while (nextElement && !isValidInput(nextElement));
+  return nextElement;
 };
 
 const focus = element => element && element.focus();
