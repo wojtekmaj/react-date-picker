@@ -131,8 +131,11 @@ const findNextInput = (element) => {
 const focus = element => element && element.focus();
 
 const renderCustomInputs = (placeholder, elementFunctions) => {
-  const pattern = new RegExp(Object.keys(elementFunctions).join('|'), 'gi');
+  const pattern = new RegExp(
+    Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
+  );
   const matches = placeholder.match(pattern);
+
   return placeholder.split(pattern)
     .reduce((arr, element, index) => {
       const divider = element && (
@@ -144,16 +147,14 @@ const renderCustomInputs = (placeholder, elementFunctions) => {
       const res = [...arr, divider];
       const currentMatch = matches && matches[index];
       if (currentMatch) {
-        const otherMatches = [...matches];
-        otherMatches.splice(index, 1);
-        if (otherMatches.includes(currentMatch)) {
-          throw new Error(`You can't render ${currentMatch} more than once.`);
-        }
-        const renderFunction = elementFunctions[currentMatch];
-        if (!renderFunction) {
-          throw new Error(`Missing render function for ${currentMatch}`);
-        }
-        res.push(renderFunction());
+        const renderFunction = (
+          elementFunctions[currentMatch]
+          || elementFunctions[
+            Object.keys(elementFunctions)
+              .find(elementFunction => currentMatch.match(elementFunction))
+          ]
+        );
+        res.push(renderFunction(currentMatch));
       }
       return res;
     }, []);
@@ -412,9 +413,15 @@ export default class DateInput extends PureComponent {
     }
   }
 
-  renderDay = (showLeadingZerosFromFormat) => {
+  renderDay = (currentMatch) => {
     const { showLeadingZeros } = this.props;
     const { day: value, month, year } = this.state;
+
+    if (currentMatch && currentMatch.length > 2) {
+      throw new Error(`Unsupported token: ${currentMatch}`);
+    }
+
+    const showLeadingZerosFromFormat = currentMatch && currentMatch.length === 2;
 
     return (
       <DayInput
@@ -428,9 +435,15 @@ export default class DateInput extends PureComponent {
     );
   }
 
-  renderMonth = (showLeadingZerosFromFormat) => {
+  renderMonth = (currentMatch) => {
     const { showLeadingZeros } = this.props;
     const { month: value, year } = this.state;
+
+    if (currentMatch && currentMatch.length > 2) {
+      throw new Error(`Unsupported token: ${currentMatch}`);
+    }
+
+    const showLeadingZerosFromFormat = currentMatch && currentMatch.length === 2;
 
     return (
       <MonthInput
@@ -459,9 +472,7 @@ export default class DateInput extends PureComponent {
   renderCustomInputs() {
     const { placeholder } = this;
     const elementFunctions = {
-      dd: () => this.renderDay(true),
       d: this.renderDay,
-      MM: () => this.renderMonth(true),
       M: this.renderMonth,
       y: this.renderYear,
     };
