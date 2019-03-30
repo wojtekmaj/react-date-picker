@@ -3,6 +3,8 @@ import { mount } from 'enzyme';
 
 import DateInput from '../DateInput';
 
+import { muteConsole, restoreConsole } from './utils';
+
 /* eslint-disable comma-dangle */
 
 const hasFullICU = (() => {
@@ -190,6 +192,152 @@ describe('DateInput', () => {
     expect(customInputs.at(0).prop('name')).toBe('year');
     expect(customInputs.at(1).prop('name')).toBe('month');
     expect(customInputs.at(2).prop('name')).toBe('day');
+  });
+
+  describe('renders custom inputs in a proper order given format', () => {
+    it('renders "y" properly', () => {
+      const component = mount(
+        <DateInput
+          {...defaultProps}
+          format="y"
+        />
+      );
+
+      const componentInput = component.find('YearInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+    });
+
+    it('renders "yyyy" properly', () => {
+      const component = mount(
+        <DateInput
+          {...defaultProps}
+          format="yyyy"
+        />
+      );
+
+      const componentInput = component.find('YearInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+    });
+
+    it('renders "M" properly', () => {
+      const component = mount(
+        <DateInput
+          {...defaultProps}
+          format="M"
+        />
+      );
+
+      const componentInput = component.find('MonthInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+    });
+
+    it('renders "MM" properly', () => {
+      const component = mount(
+        <DateInput
+          {...defaultProps}
+          format="MM"
+        />
+      );
+
+      const componentInput = component.find('MonthInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+      expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
+    });
+
+    it('throws error for "MMM"', () => {
+      muteConsole();
+
+      const renderComponent = () => mount(
+        <DateInput
+          {...defaultProps}
+          format="MMM"
+        />
+      );
+
+      expect(renderComponent).toThrow('Unsupported token: MMM');
+
+      restoreConsole();
+    });
+
+    it('renders "d" properly', () => {
+      const component = mount(
+        <DateInput
+          {...defaultProps}
+          format="d"
+        />
+      );
+
+      const componentInput = component.find('DayInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+    });
+
+    it('renders "dd" properly', () => {
+      const component = mount(
+        <DateInput
+          {...defaultProps}
+          format="dd"
+        />
+      );
+
+      const componentInput = component.find('DayInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+      expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
+    });
+
+    it('throws error for "ddd"', () => {
+      muteConsole();
+
+      const renderComponent = () => mount(
+        <DateInput
+          {...defaultProps}
+          format="ddd"
+        />
+      );
+
+      expect(renderComponent).toThrow('Unsupported token: ddd');
+
+      restoreConsole();
+    });
+
+    it('renders "yyyy-MM-dd" properly', () => {
+      const component = mount(
+        <DateInput
+          {...defaultProps}
+          format="yyyy-MM-d"
+        />
+      );
+
+      const monthInput = component.find('MonthInput');
+      const dayInput = component.find('DayInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(monthInput).toHaveLength(1);
+      expect(dayInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(3);
+      expect(customInputs.at(0).prop('name')).toBe('year');
+      expect(customInputs.at(1).prop('name')).toBe('month');
+      expect(customInputs.at(2).prop('name')).toBe('day');
+      expect(monthInput.prop('showLeadingZeros')).toBeTruthy();
+      expect(dayInput.prop('showLeadingZeros')).toBeFalsy();
+    });
   });
 
   it('renders proper input separators', () => {

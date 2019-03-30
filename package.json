@@ -26,6 +26,9 @@
       "**/src/**.{js,jsx}",
       "!**/src/entry.js",
       "!**/src/entry.nostyle.js"
+    ],
+    "testPathIgnorePatterns": [
+      "utils.js"
     ]
   },
   "keywords": [
