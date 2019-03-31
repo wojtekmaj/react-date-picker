@@ -200,4 +200,43 @@ describe('DatePicker', () => {
 
     expect(component.state('isOpen')).toBe(true);
   });
+
+  it('closes Calendar when calling internal onChange', () => {
+    const component = mount(
+      <DatePicker isOpen />
+    );
+
+    const { onChange } = component.instance();
+
+    onChange(new Date());
+
+    expect(component.state('isOpen')).toBe(false);
+  });
+
+  it('does not close Calendar when calling internal onChange with closeCalendar = false', () => {
+    const component = mount(
+      <DatePicker isOpen />
+    );
+
+    const { onChange } = component.instance();
+
+    onChange(new Date(), false);
+
+    expect(component.state('isOpen')).toBe(true);
+  });
+
+  it('calls onChange callback when calling internal onChange', () => {
+    const nextValue = new Date(2019, 0, 1);
+    const onChange = jest.fn();
+
+    const component = mount(
+      <DatePicker onChange={onChange} />
+    );
+
+    const { onChange: onChangeInternal } = component.instance();
+
+    onChangeInternal(nextValue);
+
+    expect(onChange).toHaveBeenCalledWith(nextValue);
+  });
 });
