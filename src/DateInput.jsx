@@ -131,8 +131,11 @@ const findNextInput = (element) => {
 const focus = element => element && element.focus();
 
 const renderCustomInputs = (placeholder, elementFunctions) => {
-  const pattern = new RegExp(Object.keys(elementFunctions).join('|'), 'gi');
+  const pattern = new RegExp(
+    Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
+  );
   const matches = placeholder.match(pattern);
+
   return placeholder.split(pattern)
     .reduce((arr, element, index) => {
       const divider = element && (
@@ -142,8 +145,16 @@ const renderCustomInputs = (placeholder, elementFunctions) => {
         </Divider>
       );
       const res = [...arr, divider];
-      if (matches && matches[index]) {
-        res.push(elementFunctions[matches[index]]());
+      const currentMatch = matches && matches[index];
+      if (currentMatch) {
+        const renderFunction = (
+          elementFunctions[currentMatch]
+          || elementFunctions[
+            Object.keys(elementFunctions)
+              .find(elementFunction => currentMatch.match(elementFunction))
+          ]
+        );
+        res.push(renderFunction(currentMatch));
       }
       return res;
     }, []);
@@ -247,12 +258,16 @@ export default class DateInput extends PureComponent {
   }
 
   get divider() {
-    const date = new Date(2017, 11, 11);
-
-    return this.formatDate(date).match(/[^0-9]/)[0];
+    return this.placeholder.match(/[^0-9a-z]/i)[0];
   }
 
   get placeholder() {
+    const { format } = this.props;
+
+    if (format) {
+      return format;
+    }
+
     const year = 2017;
     const monthIndex = 11;
     const day = 11;
@@ -261,9 +276,9 @@ export default class DateInput extends PureComponent {
 
     return (
       this.formatDate(date)
-        .replace(this.formatNumber(year), 'year')
-        .replace(this.formatNumber(monthIndex + 1), 'month')
-        .replace(this.formatNumber(day), 'day')
+        .replace(this.formatNumber(year), 'y')
+        .replace(this.formatNumber(monthIndex + 1), 'M')
+        .replace(this.formatNumber(day), 'd')
     );
   }
 
@@ -398,31 +413,43 @@ export default class DateInput extends PureComponent {
     }
   }
 
-  renderDay = () => {
+  renderDay = (currentMatch) => {
     const { showLeadingZeros } = this.props;
     const { day: value, month, year } = this.state;
+
+    if (currentMatch && currentMatch.length > 2) {
+      throw new Error(`Unsupported token: ${currentMatch}`);
+    }
+
+    const showLeadingZerosFromFormat = currentMatch && currentMatch.length === 2;
 
     return (
       <DayInput
         key="day"
         {...this.commonInputProps}
         month={month}
-        showLeadingZeros={showLeadingZeros}
+        showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={value}
         year={year}
       />
     );
   }
 
-  renderMonth = () => {
+  renderMonth = (currentMatch) => {
     const { showLeadingZeros } = this.props;
     const { month: value, year } = this.state;
+
+    if (currentMatch && currentMatch.length > 2) {
+      throw new Error(`Unsupported token: ${currentMatch}`);
+    }
+
+    const showLeadingZerosFromFormat = currentMatch && currentMatch.length === 2;
 
     return (
       <MonthInput
         key="month"
         {...this.commonInputProps}
-        showLeadingZeros={showLeadingZeros}
+        showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={value}
         year={year}
       />
@@ -445,9 +472,9 @@ export default class DateInput extends PureComponent {
   renderCustomInputs() {
     const { placeholder } = this;
     const elementFunctions = {
-      day: this.renderDay,
-      month: this.renderMonth,
-      year: this.renderYear,
+      d: this.renderDay,
+      M: this.renderMonth,
+      y: this.renderYear,
     };
 
     return renderCustomInputs(placeholder, elementFunctions);

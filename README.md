@@ -99,6 +99,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |className|Defines class name(s) that will be added along with "react-date-picker" to the main React-Date-Picker `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
 |clearIcon|Defines the content of the clear button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
 |disabled|Defines whether the date picker should be disabled. Defaults to false.|`true`|
+|format|Defines input format based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table). Supported values are: `y`, `M`, `MM`, `d`, `dd`.|`"y-MM-dd"`|
 |isOpen|Defines whether the calendar should be opened. Defaults to false.|`true`|
 |locale|Defines which locale should be used by the date picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
 |maxDate|Defines maximum date that the user can select. Periods partially overlapped by maxDate will also be selectable, although React-Date-Picker will ensure that no later date is selected.|Date: `new Date()`|

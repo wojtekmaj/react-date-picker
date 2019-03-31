@@ -109,6 +109,7 @@ export default class DatePicker extends PureComponent {
       calendarIcon,
       clearIcon,
       disabled,
+      format,
       locale,
       maxDate,
       maxDetail,
@@ -128,6 +129,7 @@ export default class DatePicker extends PureComponent {
         <DateInput
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
+          format={format}
           locale={locale}
           isCalendarOpen={isOpen}
           maxDate={maxDate}
