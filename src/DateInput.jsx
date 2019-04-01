@@ -415,7 +415,7 @@ export default class DateInput extends PureComponent {
 
   renderDay = (currentMatch) => {
     const { showLeadingZeros } = this.props;
-    const { day: value, month, year } = this.state;
+    const { day, month, year } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
@@ -429,7 +429,7 @@ export default class DateInput extends PureComponent {
         {...this.commonInputProps}
         month={month}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
-        value={value}
+        value={day}
         year={year}
       />
     );
@@ -437,7 +437,7 @@ export default class DateInput extends PureComponent {
 
   renderMonth = (currentMatch) => {
     const { showLeadingZeros } = this.props;
-    const { month: value, year } = this.state;
+    const { month, year } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
@@ -450,7 +450,7 @@ export default class DateInput extends PureComponent {
         key="month"
         {...this.commonInputProps}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
-        value={value}
+        value={month}
         year={year}
       />
     );
