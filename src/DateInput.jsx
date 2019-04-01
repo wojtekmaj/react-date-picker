@@ -530,6 +530,7 @@ DateInput.defaultProps = {
 DateInput.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  format: PropTypes.string,
   isCalendarOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDate: isMaxDate,
