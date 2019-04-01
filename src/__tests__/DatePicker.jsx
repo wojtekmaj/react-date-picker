@@ -28,6 +28,18 @@ describe('DatePicker', () => {
     expect(dateInput.prop('name')).toBe(name);
   });
 
+  it('passes format to DateInput', () => {
+    const format = 'y-MM-dd';
+
+    const component = mount(
+      <DatePicker format={format} />
+    );
+
+    const dateInput = component.find('DateInput');
+
+    expect(dateInput.prop('format')).toBe(format);
+  });
+
   it('applies className to its wrapper when given a string', () => {
     const className = 'testClassName';
 
