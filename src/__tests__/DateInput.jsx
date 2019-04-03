@@ -90,8 +90,46 @@ describe('DateInput', () => {
     expect(yearInput).toHaveLength(1);
   });
 
-  it('shows a given date in all inputs correctly', () => {
+  it('shows a given date in all inputs correctly given Date', () => {
     const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.getDOMNode().value).toBe('2017-09-30');
+    expect(customInputs.at(0).getDOMNode().value).toBe('9');
+    expect(customInputs.at(1).getDOMNode().value).toBe('30');
+    expect(customInputs.at(2).getDOMNode().value).toBe('2017');
+  });
+
+  it('shows a given date in all inputs correctly given array of Date objects', () => {
+    const date = [new Date(2017, 8, 30), new Date(2017, 8, 31, 0, 0, 0, -1)];
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.getDOMNode().value).toBe('2017-09-30');
+    expect(customInputs.at(0).getDOMNode().value).toBe('9');
+    expect(customInputs.at(1).getDOMNode().value).toBe('30');
+    expect(customInputs.at(2).getDOMNode().value).toBe('2017');
+  });
+
+  it('shows a given date in all inputs correctly given ISO string', () => {
+    const date = '2017-09-30T00:00:00.000';
 
     const component = mount(
       <DateInput

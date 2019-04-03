@@ -487,8 +487,8 @@ export default class DateInput extends PureComponent {
       minDate,
       name,
       required,
-      value,
     } = this.props;
+    const { value } = this.state;
 
     return (
       <NativeInput
@@ -544,6 +544,7 @@ DateInput.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(Date),
+    PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   ]),
 };
 
