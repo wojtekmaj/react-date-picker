@@ -35,24 +35,32 @@ const datesAreDifferent = (date1, date2) => (
  */
 const getValueType = maxDetail => allValueTypes[allViews.indexOf(maxDetail)];
 
+const getValueFromRange = (valueOrArrayOfValues, index) => {
+  if (Array.isArray(valueOrArrayOfValues)) {
+    return valueOrArrayOfValues[index];
+  }
+
+  return valueOrArrayOfValues;
+};
+
+const parseAndValidateDate = (rawValue) => {
+  if (!rawValue) {
+    return null;
+  }
+
+  const valueDate = new Date(rawValue);
+
+  if (isNaN(valueDate.getTime())) {
+    throw new Error(`Invalid date: ${rawValue}`);
+  }
+
+  return valueDate;
+};
+
 const getValueFrom = (value) => {
-  if (!value) {
-    return null;
-  }
+  const valueFrom = getValueFromRange(value, 0);
 
-  const rawValueFrom = value instanceof Array && value.length === 2 ? value[0] : value;
-
-  if (!rawValueFrom) {
-    return null;
-  }
-
-  const valueFromDate = new Date(rawValueFrom);
-
-  if (isNaN(valueFromDate.getTime())) {
-    throw new Error(`Invalid date: ${value}`);
-  }
-
-  return valueFromDate;
+  return parseAndValidateDate(valueFrom);
 };
 
 const getDetailValueFrom = (value, minDate, maxDate, maxDetail) => {
@@ -68,23 +76,9 @@ const getDetailValueFrom = (value, minDate, maxDate, maxDetail) => {
 };
 
 const getValueTo = (value) => {
-  if (!value) {
-    return null;
-  }
+  const valueTo = getValueFromRange(value, 1);
 
-  const rawValueTo = value instanceof Array && value.length === 2 ? value[1] : value;
-
-  if (!rawValueTo) {
-    return null;
-  }
-
-  const valueToDate = new Date(rawValueTo);
-
-  if (isNaN(valueToDate.getTime())) {
-    throw new Error(`Invalid date: ${value}`);
-  }
-
-  return valueToDate;
+  return parseAndValidateDate(valueTo);
 };
 
 const getDetailValueTo = (value, minDate, maxDate, maxDetail) => {
