@@ -167,11 +167,28 @@ describe('DateInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('30');
   });
 
-  it('shows empty value in all inputs correctly', () => {
+  it('shows empty value in all inputs correctly given null', () => {
     const component = mount(
       <DateInput
         {...defaultProps}
         value={null}
+      />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.getDOMNode().value).toBe('');
+    expect(customInputs.at(0).getDOMNode().value).toBe('');
+    expect(customInputs.at(1).getDOMNode().value).toBe('');
+    expect(customInputs.at(2).getDOMNode().value).toBe('');
+  });
+
+  it('shows empty value in all inputs correctly given an array of nulls', () => {
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        value={[null, null]}
       />
     );
 
