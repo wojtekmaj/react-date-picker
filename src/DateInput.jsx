@@ -114,10 +114,6 @@ const findInput = (element, property) => {
   return nextElement;
 };
 
-const findPreviousInput = element => findInput(element, 'previousElementSibling');
-
-const findNextInput = element => findInput(element, 'nextElementSibling');
-
 const focus = element => element && element.focus();
 
 const renderCustomInputs = (placeholder, elementFunctions) => {
@@ -314,20 +310,14 @@ export default class DateInput extends PureComponent {
 
   onKeyDown = (event) => {
     switch (event.key) {
-      case 'ArrowLeft': {
-        event.preventDefault();
-
-        const input = event.target;
-        const previousInput = findPreviousInput(input);
-        focus(previousInput);
-        break;
-      }
+      case 'ArrowLeft':
       case 'ArrowRight':
       case this.divider: {
         event.preventDefault();
 
         const input = event.target;
-        const nextInput = findNextInput(input);
+        const property = event.key === 'ArrowLeft' ? 'previousElementSibling' : 'nextElementSibling';
+        const nextInput = findInput(input, property);
         focus(nextInput);
         break;
       }
