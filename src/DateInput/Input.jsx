@@ -6,7 +6,7 @@ import { updateInputWidth } from '../shared/utils';
 
 const select = element => element && element.select();
 
-const Input = ({
+export default function Input({
   className,
   disabled,
   itemRef,
@@ -21,7 +21,7 @@ const Input = ({
   showLeadingZeros,
   step,
   value,
-}) => {
+}) {
   const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
 
   return [
@@ -58,7 +58,7 @@ const Input = ({
       value={value !== null ? value : ''}
     />,
   ];
-};
+}
 
 Input.propTypes = {
   className: PropTypes.string.isRequired,
@@ -77,5 +77,3 @@ Input.propTypes = {
 Input.defaultProps = {
   placeholder: '--',
 };
-
-export default Input;
