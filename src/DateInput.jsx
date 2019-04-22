@@ -201,7 +201,7 @@ export default class DateInput extends PureComponent {
   };
 
   get formatDate() {
-    const { locale, maxDetail } = this.props;
+    const { maxDetail } = this.props;
 
     const options = { year: 'numeric' };
     const level = allViews.indexOf(maxDetail);
@@ -212,15 +212,14 @@ export default class DateInput extends PureComponent {
       options.day = 'numeric';
     }
 
-    return getFormatter(locale, options);
+    return getFormatter(options);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get formatNumber() {
-    const { locale } = this.props;
-
     const options = { useGrouping: false };
 
-    return getFormatter(locale, options);
+    return getFormatter(options);
   }
 
   /**
@@ -248,7 +247,7 @@ export default class DateInput extends PureComponent {
   }
 
   get placeholder() {
-    const { format } = this.props;
+    const { format, locale } = this.props;
 
     if (format) {
       return format;
@@ -261,10 +260,10 @@ export default class DateInput extends PureComponent {
     const date = new Date(year, monthIndex, day);
 
     return (
-      this.formatDate(date)
-        .replace(this.formatNumber(year), 'y')
-        .replace(this.formatNumber(monthIndex + 1), 'M')
-        .replace(this.formatNumber(day), 'd')
+      this.formatDate(locale, date)
+        .replace(this.formatNumber(locale, year), 'y')
+        .replace(this.formatNumber(locale, monthIndex + 1), 'M')
+        .replace(this.formatNumber(locale, day), 'd')
     );
   }
 
