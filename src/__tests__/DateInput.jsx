@@ -90,7 +90,7 @@ describe('DateInput', () => {
     expect(yearInput).toHaveLength(1);
   });
 
-  it('shows a given date in all inputs correctly given Date', () => {
+  it('shows a given date in all inputs correctly given Date (12-hour format)', () => {
     const date = new Date(2017, 8, 30);
 
     const component = mount(
@@ -109,7 +109,7 @@ describe('DateInput', () => {
     expect(customInputs.at(2).prop('value')).toBe(2017);
   });
 
-  it('shows a given date in all inputs correctly given array of Date objects', () => {
+  it('shows a given date in all inputs correctly given array of Date objects (12-hour format)', () => {
     const date = [new Date(2017, 8, 30), new Date(2017, 8, 31, 0, 0, 0, -1)];
 
     const component = mount(
@@ -128,7 +128,7 @@ describe('DateInput', () => {
     expect(customInputs.at(2).prop('value')).toBe(2017);
   });
 
-  it('shows a given date in all inputs correctly given ISO string', () => {
+  it('shows a given date in all inputs correctly given ISO string (12-hour format)', () => {
     const date = '2017-09-30T00:00:00.000';
 
     const component = mount(
@@ -147,8 +147,48 @@ describe('DateInput', () => {
     expect(customInputs.at(2).prop('value')).toBe(2017);
   });
 
-  itIfFullICU('shows a given date in all inputs correctly (de-DE locale)', () => {
+  itIfFullICU('shows a given date in all inputs correctly given Date (24-hour format)', () => {
     const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        locale="de-DE"
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.prop('value')).toBe('2017-09-30');
+    expect(customInputs.at(0).prop('value')).toBe(2017);
+    expect(customInputs.at(1).prop('value')).toBe(9);
+    expect(customInputs.at(2).prop('value')).toBe(30);
+  });
+
+  itIfFullICU('shows a given date in all inputs correctly given array of Date objects (24-hour format)', () => {
+    const date = [new Date(2017, 8, 30), new Date(2017, 8, 31, 0, 0, 0, -1)];
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        locale="de-DE"
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.prop('value')).toBe('2017-09-30');
+    expect(customInputs.at(0).prop('value')).toBe(2017);
+    expect(customInputs.at(1).prop('value')).toBe(9);
+    expect(customInputs.at(2).prop('value')).toBe(30);
+  });
+
+  itIfFullICU('shows a given date in all inputs correctly given ISO string (24-hour format)', () => {
+    const date = '2017-09-30T00:00:00.000';
 
     const component = mount(
       <DateInput
@@ -222,7 +262,7 @@ describe('DateInput', () => {
     expect(customInputs.at(2).prop('value')).toBeFalsy();
   });
 
-  it('renders custom inputs in a proper order', () => {
+  it('renders custom inputs in a proper order (12-hour format)', () => {
     const component = mount(
       <DateInput {...defaultProps} />
     );
@@ -234,7 +274,7 @@ describe('DateInput', () => {
     expect(customInputs.at(2).prop('name')).toBe('year');
   });
 
-  itIfFullICU('renders custom inputs in a proper order (de-DE locale)', () => {
+  itIfFullICU('renders custom inputs in a proper order (24-hour format)', () => {
     const component = mount(
       <DateInput
         {...defaultProps}
