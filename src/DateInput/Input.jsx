@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
-
-import { updateInputWidth } from '../shared/utils';
+import updateInputWidth from 'update-input-width';
 
 const select = element => element && element.select();
 

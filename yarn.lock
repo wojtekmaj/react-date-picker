@@ -5043,6 +5043,11 @@ upath@^1.0.5:
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.1.0.tgz#35256597e46a581db4793d0ce47fa9aebfc9fabd"
   integrity sha512-bzpH/oBhoS/QI/YtbkqCg6VEiPYjSZtrHQM6/QnJS6OL9pKUFLqb3aFh4Scvwm45+7iAgiMkLhSbaZxUqmrprw==
 
+update-input-width@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/update-input-width/-/update-input-width-1.0.1.tgz#916033cccc8bca9debaa6ed7a8f74def33198a84"
+  integrity sha512-RejZ4/tYUZwaudPbSD4pOW5sYXKFI6bvHc+nb8z8GUdixxbQm2391IguMa8eYMraBs8hdVQMUXeseDbfs77Anw==
+
 uri-js@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/uri-js/-/uri-js-4.2.2.tgz#94c540e1ff772956e2299507c010aea6c8838eb0"
