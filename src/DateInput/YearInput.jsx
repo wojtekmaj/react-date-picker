@@ -58,6 +58,7 @@ YearInput.propTypes = {
   minDate: isMinDate,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
+  onKeyUp: PropTypes.func,
   required: PropTypes.bool,
   value: PropTypes.number,
   valueType: isValueType,

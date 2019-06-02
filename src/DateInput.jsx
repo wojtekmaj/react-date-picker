@@ -284,6 +284,7 @@ export default class DateInput extends PureComponent {
       minDate: minDate || defaultMinDate,
       onChange: this.onChange,
       onKeyDown: this.onKeyDown,
+      onKeyUp: this.onKeyUp,
       // This is only for showing validity when editing
       required: required || isCalendarOpen,
       itemRef: (ref, name) => {
@@ -314,13 +315,38 @@ export default class DateInput extends PureComponent {
       case this.divider: {
         event.preventDefault();
 
-        const input = event.target;
+        const { target: input } = event;
         const property = event.key === 'ArrowLeft' ? 'previousElementSibling' : 'nextElementSibling';
         const nextInput = findInput(input, property);
         focus(nextInput);
         break;
       }
       default:
+    }
+  }
+
+  onKeyUp = (event) => {
+    const { key, target: input } = event;
+
+    const isNumberKey = !isNaN(parseInt(key, 10));
+
+    if (!isNumberKey) {
+      return;
+    }
+
+    const { value } = input;
+    const max = parseInt(input.getAttribute('max'), 10);
+
+    /**
+     * Given 1, the smallest possible number the user could type by adding another digit is 10.
+     * 10 would be a valid value given max = 12, so we won't jump to the next input.
+     * However, given 2, smallers possible number would be 20, and thus keeping the focus in
+     * this field doesn't make sense.
+     */
+    if (value * 10 > max) {
+      const property = 'nextElementSibling';
+      const nextInput = findInput(input, property);
+      focus(nextInput);
     }
   }
 
