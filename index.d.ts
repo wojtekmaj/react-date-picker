@@ -9,6 +9,7 @@ declare module "react-date-picker" {
     className?: string | string[];
     clearIcon?: JSX.Element | null;
     disabled?: boolean;
+    format?: string;
     isOpen?: boolean;
     name?: string;
     required?: boolean;
