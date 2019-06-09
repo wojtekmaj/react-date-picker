@@ -46,6 +46,7 @@ MonthInput.propTypes = {
   minDate: isMinDate,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
+  onKeyUp: PropTypes.func,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
