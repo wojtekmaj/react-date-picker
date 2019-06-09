@@ -550,6 +550,39 @@ describe('DateInput', () => {
     expect(document.activeElement).toBe(dayInput.getDOMNode());
   });
 
+  it('jumps to the next field when a value which can\'t be extended to another valid value is entered ', () => {
+    const component = mount(
+      <DateInput {...defaultProps} />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+    const dayInput = customInputs.at(0);
+    const monthInput = customInputs.at(1);
+
+    dayInput.getDOMNode().focus();
+    dayInput.getDOMNode().value = '4';
+
+    dayInput.simulate('keyup', { target: dayInput.getDOMNode(), key: '4' });
+
+    expect(document.activeElement).toBe(monthInput.getDOMNode());
+  });
+
+  it('does not jump the next field when a value which can be extended to another valid value is entered ', () => {
+    const component = mount(
+      <DateInput {...defaultProps} />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+    const dayInput = customInputs.at(0);
+
+    dayInput.getDOMNode().focus();
+    dayInput.getDOMNode().value = '1';
+
+    dayInput.simulate('keyup', { target: dayInput.getDOMNode(), key: '1' });
+
+    expect(document.activeElement).toBe(dayInput.getDOMNode());
+  });
+
   it('triggers onChange correctly when changed custom input', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
