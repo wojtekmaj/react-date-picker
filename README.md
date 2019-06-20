@@ -94,10 +94,13 @@ Displays an input field complete with custom inputs, native input, and a calenda
 
 |Prop name|Description|Example values|
 |----|----|----|
+|calendarAriaLabel|Defines the `aria-label` for the calendar button.|`"Toggle clock"`|
 |calendarClassName|Defines class name(s) that will be added along with "react-calendar" to the main React-Calendar `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
 |calendarIcon|Defines the content of the calendar button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Calendar"`</li><li>React element: `<CalendarIcon />`</li></ul>|
 |className|Defines class name(s) that will be added along with "react-date-picker" to the main React-Date-Picker `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
+|clearAriaLabel|Defines the `aria-label` for the clear button.|`"Clear value"`|
 |clearIcon|Defines the content of the clear button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
+|dayAriaLabel|Defines the `aria-label` for the day input.|`"Year"`|
 |disabled|Defines whether the date picker should be disabled. Defaults to false.|`true`|
 |format|Defines input format based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table). Supported values are: `y`, `M`, `MM`, `d`, `dd`.|`"y-MM-dd"`|
 |isOpen|Defines whether the calendar should be opened. Defaults to false.|`true`|
@@ -106,7 +109,9 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |maxDetail|Defines the most detailed calendar view that the user shall see. View defined here also becomes the one on which clicking an item in the calendar will select a date and pass it to onChange. Can be "month", "year", "decade" or "century". Defaults to "month".|`"month"`|
 |minDate|Defines minimum date that the user can select. Periods partially overlapped by minDate will also be selectable, although React-Date-Picker will ensure that no earlier date is selected.|Date: `new Date()`|
 |minDetail|Defines the least detailed calendar view that the user shall see. Can be "month", "year", "decade" or "century". Defaults to "century".|`"century"`|
+|monthAriaLabel|Defines the `aria-label` for the month input.|`"Month"`|
 |name|Defines input name. Defaults to "date".|`"myCustomName"`|
+|nativeInputAriaLabel|Defines the `aria-label` for the native date input.|`"Date"`|
 |onCalendarClose|Function called when the calendar closes.|`() => alert('Calendar closed')`|
 |onCalendarOpen|Function called when the calendar opens.|`() => alert('Calendar opened')`|
 |onChange|Function called when the user clicks an item on the most detailed view available.|`(value) => alert('New date is: ', value)`|
@@ -114,6 +119,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |returnValue|Defines which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be "start", "end" or "range". The latter will cause an array with start and end values to be passed. Defaults to "start".|`"range"`|
 |showLeadingZeros|Defines whether leading zeros should be rendered in date inputs. Defaults to false.|`true`|
 |value|Defines the value of the input.|<ul><li>Date: `new Date()`</li><li>An array of dates: `[new Date(2017, 0, 1), new Date(2017, 7, 1)]`</li></ul>|
+|yearAriaLabel|Defines the `aria-label` for the year input.|`"Year"`|
 
 ### Calendar
 

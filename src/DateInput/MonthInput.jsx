@@ -23,6 +23,7 @@ export default class MonthInput extends PureComponent {
     const {
       maxDate,
       minDate,
+      monthAriaLabel,
       year,
       ...otherProps
     } = this.props;
@@ -30,6 +31,7 @@ export default class MonthInput extends PureComponent {
     return (
       <Input
         name="month"
+        ariaLabel={monthAriaLabel}
         max={maxMonth}
         min={minMonth}
         {...otherProps}
@@ -44,6 +46,7 @@ MonthInput.propTypes = {
   itemRef: PropTypes.func,
   maxDate: isMaxDate,
   minDate: isMinDate,
+  monthAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,

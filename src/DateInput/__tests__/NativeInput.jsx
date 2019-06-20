@@ -21,6 +21,21 @@ describe('NativeInput', () => {
     expect(input).toHaveLength(1);
   });
 
+  it('applies given aria-label properly', () => {
+    const nativeInputAriaLabel = 'Date';
+
+    const component = shallow(
+      <NativeInput
+        {...defaultProps}
+        nativeInputAriaLabel={nativeInputAriaLabel}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('aria-label')).toBe(nativeInputAriaLabel);
+  });
+
   it('has proper name defined', () => {
     const name = 'testName';
 

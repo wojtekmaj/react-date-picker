@@ -65,6 +65,21 @@ describe('MonthInput', () => {
     expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
+  it('applies given aria-label properly', () => {
+    const monthAriaLabel = 'Month';
+
+    const component = mount(
+      <MonthInput
+        {...defaultProps}
+        monthAriaLabel={monthAriaLabel}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('aria-label')).toBe(monthAriaLabel);
+  });
+
   it('has proper name defined', () => {
     const component = mount(
       <MonthInput {...defaultProps} />

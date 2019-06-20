@@ -106,19 +106,25 @@ export default class DatePicker extends PureComponent {
 
   renderInputs() {
     const {
+      calendarAriaLabel,
       calendarIcon,
+      clearAriaLabel,
       clearIcon,
+      dayAriaLabel,
       disabled,
       format,
       locale,
       maxDate,
       maxDetail,
       minDate,
+      monthAriaLabel,
       name,
-      returnValue,
+      nativeInputAriaLabel,
       required,
+      returnValue,
       showLeadingZeros,
       value,
+      yearAriaLabel,
     } = this.props;
     const { isOpen } = this.state;
 
@@ -128,22 +134,27 @@ export default class DatePicker extends PureComponent {
       <div className={`${baseClassName}__wrapper`}>
         <DateInput
           className={`${baseClassName}__inputGroup`}
+          dayAriaLabel={dayAriaLabel}
           disabled={disabled}
           format={format}
-          locale={locale}
           isCalendarOpen={isOpen}
+          locale={locale}
           maxDate={maxDate}
           maxDetail={maxDetail}
           minDate={minDate}
+          monthAriaLabel={monthAriaLabel}
           name={name}
+          nativeInputAriaLabel={nativeInputAriaLabel}
           onChange={this.onChange}
-          returnValue={returnValue}
           required={required}
+          returnValue={returnValue}
           showLeadingZeros={showLeadingZeros}
           value={valueFrom}
+          yearAriaLabel={yearAriaLabel}
         />
         {clearIcon !== null && (
           <button
+            aria-label={clearAriaLabel}
             className={`${baseClassName}__clear-button ${baseClassName}__button`}
             disabled={disabled}
             onClick={this.clear}
@@ -155,6 +166,7 @@ export default class DatePicker extends PureComponent {
         )}
         {calendarIcon !== null && (
           <button
+            aria-label={calendarAriaLabel}
             className={`${baseClassName}__calendar-button ${baseClassName}__button`}
             disabled={disabled}
             onClick={this.toggleCalendar}
@@ -257,6 +269,7 @@ DatePicker.defaultProps = {
 
 DatePicker.propTypes = {
   ...Calendar.propTypes,
+  calendarAriaLabel: PropTypes.string,
   calendarClassName: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
@@ -266,16 +279,21 @@ DatePicker.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
+  clearAriaLabel: PropTypes.string,
   clearIcon: PropTypes.node,
+  dayAriaLabel: PropTypes.string,
   disabled: PropTypes.bool,
   format: PropTypes.string,
   isOpen: PropTypes.bool,
+  monthAriaLabel: PropTypes.string,
   name: PropTypes.string,
+  nativeInputAriaLabel: PropTypes.string,
   onCalendarClose: PropTypes.func,
   onCalendarOpen: PropTypes.func,
   required: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   showLeadingZeros: PropTypes.bool,
+  yearAriaLabel: PropTypes.string,
 };
 
 polyfill(DatePicker);

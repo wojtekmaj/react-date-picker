@@ -41,6 +41,7 @@ export default class DayInput extends PureComponent {
   render() {
     const { maxDay, minDay } = this;
     const {
+      dayAriaLabel,
       maxDate,
       minDate,
       month,
@@ -51,6 +52,7 @@ export default class DayInput extends PureComponent {
     return (
       <Input
         name="day"
+        ariaLabel={dayAriaLabel}
         max={maxDay}
         min={minDay}
         {...otherProps}
@@ -61,6 +63,7 @@ export default class DayInput extends PureComponent {
 
 DayInput.propTypes = {
   className: PropTypes.string.isRequired,
+  dayAriaLabel: PropTypes.string,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
   maxDate: isMaxDate,

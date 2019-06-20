@@ -419,7 +419,7 @@ export default class DateInput extends PureComponent {
   }
 
   renderDay = (currentMatch) => {
-    const { showLeadingZeros } = this.props;
+    const { dayAriaLabel, showLeadingZeros } = this.props;
     const { day, month, year } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -432,6 +432,7 @@ export default class DateInput extends PureComponent {
       <DayInput
         key="day"
         {...this.commonInputProps}
+        dayAriaLabel={dayAriaLabel}
         month={month}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={day}
@@ -441,7 +442,7 @@ export default class DateInput extends PureComponent {
   }
 
   renderMonth = (currentMatch) => {
-    const { showLeadingZeros } = this.props;
+    const { monthAriaLabel, showLeadingZeros } = this.props;
     const { month, year } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -454,6 +455,7 @@ export default class DateInput extends PureComponent {
       <MonthInput
         key="month"
         {...this.commonInputProps}
+        monthAriaLabel={monthAriaLabel}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={month}
         year={year}
@@ -462,6 +464,7 @@ export default class DateInput extends PureComponent {
   }
 
   renderYear = () => {
+    const { yearAriaLabel } = this.props;
     const { year } = this.state;
 
     return (
@@ -470,6 +473,7 @@ export default class DateInput extends PureComponent {
         {...this.commonInputProps}
         value={year}
         valueType={this.valueType}
+        yearAriaLabel={yearAriaLabel}
       />
     );
   }
@@ -491,6 +495,7 @@ export default class DateInput extends PureComponent {
       maxDate,
       minDate,
       name,
+      nativeInputAriaLabel,
       required,
     } = this.props;
     const { value } = this.state;
@@ -502,6 +507,7 @@ export default class DateInput extends PureComponent {
         maxDate={maxDate || defaultMaxDate}
         minDate={minDate || defaultMinDate}
         name={name}
+        nativeInputAriaLabel={nativeInputAriaLabel}
         onChange={this.onChangeNative}
         required={required}
         value={value}

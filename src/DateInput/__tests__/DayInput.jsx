@@ -65,6 +65,21 @@ describe('DayInput', () => {
     expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
+  it('applies given aria-label properly', () => {
+    const dayAriaLabel = 'Day';
+
+    const component = mount(
+      <DayInput
+        {...defaultProps}
+        dayAriaLabel={dayAriaLabel}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('aria-label')).toBe(dayAriaLabel);
+  });
+
   it('has proper name defined', () => {
     const component = mount(
       <DayInput {...defaultProps} />

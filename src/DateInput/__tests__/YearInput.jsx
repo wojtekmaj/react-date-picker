@@ -21,6 +21,21 @@ describe('YearInput', () => {
     expect(input).toHaveLength(1);
   });
 
+  it('applies given aria-label properly', () => {
+    const yearAriaLabel = 'Year';
+
+    const component = mount(
+      <YearInput
+        {...defaultProps}
+        yearAriaLabel={yearAriaLabel}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('aria-label')).toBe(yearAriaLabel);
+  });
+
   it('has proper name defined', () => {
     const component = mount(
       <YearInput {...defaultProps} />

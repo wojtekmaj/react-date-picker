@@ -34,12 +34,14 @@ export default class YearInput extends PureComponent {
       maxDate,
       minDate,
       valueType,
+      yearAriaLabel,
       ...otherProps
     } = this.props;
 
     return (
       <Input
         name="year"
+        ariaLabel={yearAriaLabel}
         max={maxYear}
         min={minYear}
         placeholder="----"
@@ -62,4 +64,5 @@ YearInput.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.number,
   valueType: isValueType,
+  yearAriaLabel: PropTypes.string,
 };
