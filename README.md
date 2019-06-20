@@ -110,8 +110,8 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |onCalendarClose|Function called when the calendar closes.|`() => alert('Calendar closed')`|
 |onCalendarOpen|Function called when the calendar opens.|`() => alert('Calendar opened')`|
 |onChange|Function called when the user clicks an item on the most detailed view available.|`(value) => alert('New date is: ', value)`|
-|returnValue|Defines which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be "start", "end" or "range". The latter will cause an array with start and end values to be passed. Defaults to "start".|`"range"`|
 |required|Defines whether date input should be required. Defaults to false.|`true`|
+|returnValue|Defines which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be "start", "end" or "range". The latter will cause an array with start and end values to be passed. Defaults to "start".|`"range"`|
 |showLeadingZeros|Defines whether leading zeros should be rendered in date inputs. Defaults to false.|`true`|
 |value|Defines the value of the input.|<ul><li>Date: `new Date()`</li><li>An array of dates: `[new Date(2017, 0, 1), new Date(2017, 7, 1)]`</li></ul>|
 
