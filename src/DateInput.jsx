@@ -540,6 +540,7 @@ DateInput.defaultProps = {
 
 DateInput.propTypes = {
   className: PropTypes.string.isRequired,
+  dayAriaLabel: PropTypes.string,
   disabled: PropTypes.bool,
   format: PropTypes.string,
   isCalendarOpen: PropTypes.bool,
@@ -547,7 +548,9 @@ DateInput.propTypes = {
   maxDate: isMaxDate,
   maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
+  monthAriaLabel: PropTypes.string,
   name: PropTypes.string,
+  nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end', 'range']),
@@ -557,6 +560,7 @@ DateInput.propTypes = {
     PropTypes.instanceOf(Date),
     PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   ]),
+  yearAriaLabel: PropTypes.string,
 };
 
 polyfill(DateInput);
