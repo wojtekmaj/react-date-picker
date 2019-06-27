@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -8,10 +8,18 @@ import {
 } from '../shared/dates';
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 
-export default class NativeInput extends PureComponent {
-  get nativeInputType() {
-    const { valueType } = this.props;
-
+export default function NativeInput({
+  disabled,
+  maxDate,
+  minDate,
+  name,
+  nativeInputAriaLabel,
+  onChange,
+  required,
+  value,
+  valueType,
+}) {
+  const nativeInputType = (() => {
     switch (valueType) {
       case 'decade':
       case 'year':
@@ -23,11 +31,9 @@ export default class NativeInput extends PureComponent {
       default:
         throw new Error('Invalid valueType.');
     }
-  }
+  })();
 
-  get nativeValueParser() {
-    const { valueType } = this.props;
-
+  const nativeValueParser = (() => {
     switch (valueType) {
       case 'century':
       case 'decade':
@@ -40,44 +46,32 @@ export default class NativeInput extends PureComponent {
       default:
         throw new Error('Invalid valueType.');
     }
+  })();
+
+  function stopPropagation(event) {
+    event.stopPropagation();
   }
 
-  stopPropagation = event => event.stopPropagation();
-
-  render() {
-    const { nativeValueParser } = this;
-    const {
-      disabled,
-      maxDate,
-      minDate,
-      name,
-      nativeInputAriaLabel,
-      onChange,
-      required,
-      value,
-    } = this.props;
-
-    return (
-      <input
-        type={this.nativeInputType}
-        aria-label={nativeInputAriaLabel}
-        disabled={disabled}
-        max={maxDate ? nativeValueParser(maxDate) : null}
-        min={minDate ? nativeValueParser(minDate) : null}
-        name={name}
-        onChange={onChange}
-        onFocus={this.stopPropagation}
-        required={required}
-        style={{
-          visibility: 'hidden',
-          position: 'absolute',
-          top: '-9999px',
-          left: '-9999px',
-        }}
-        value={value ? nativeValueParser(value) : ''}
-      />
-    );
-  }
+  return (
+    <input
+      type={nativeInputType}
+      aria-label={nativeInputAriaLabel}
+      disabled={disabled}
+      max={maxDate ? nativeValueParser(maxDate) : null}
+      min={minDate ? nativeValueParser(minDate) : null}
+      name={name}
+      onChange={onChange}
+      onFocus={stopPropagation}
+      required={required}
+      style={{
+        visibility: 'hidden',
+        position: 'absolute',
+        top: '-9999px',
+        left: '-9999px',
+      }}
+      value={value ? nativeValueParser(value) : ''}
+    />
+  );
 }
 
 NativeInput.propTypes = {

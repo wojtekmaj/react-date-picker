@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Input from './Input';
@@ -7,37 +7,25 @@ import { getMonth, getYear } from '../shared/dates';
 import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
 
-export default class MonthInput extends PureComponent {
-  get maxMonth() {
-    const { maxDate, year } = this.props;
-    return min(12, maxDate && year === getYear(maxDate) && getMonth(maxDate));
-  }
+export default function MonthInput({
+  maxDate,
+  minDate,
+  monthAriaLabel,
+  year,
+  ...otherProps
+}) {
+  const maxMonth = min(12, maxDate && year === getYear(maxDate) && getMonth(maxDate));
+  const minMonth = max(1, minDate && year === getYear(minDate) && getMonth(minDate));
 
-  get minMonth() {
-    const { minDate, year } = this.props;
-    return max(1, minDate && year === getYear(minDate) && getMonth(minDate));
-  }
-
-  render() {
-    const { maxMonth, minMonth } = this;
-    const {
-      maxDate,
-      minDate,
-      monthAriaLabel,
-      year,
-      ...otherProps
-    } = this.props;
-
-    return (
-      <Input
-        name="month"
-        ariaLabel={monthAriaLabel}
-        max={maxMonth}
-        min={minMonth}
-        {...otherProps}
-      />
-    );
-  }
+  return (
+    <Input
+      name="month"
+      ariaLabel={monthAriaLabel}
+      max={maxMonth}
+      min={minMonth}
+      {...otherProps}
+    />
+  );
 }
 
 MonthInput.propTypes = {

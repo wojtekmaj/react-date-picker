@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Input from './Input';
@@ -12,53 +12,40 @@ import {
 import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
 
-export default class DayInput extends PureComponent {
-  get currentMonthMaxDays() {
-    const { year, month } = this.props;
-
+export default function DayInput({
+  dayAriaLabel,
+  maxDate,
+  minDate,
+  month,
+  year,
+  ...otherProps
+}) {
+  const currentMonthMaxDays = (() => {
     if (!month) {
       return 31;
     }
 
     return getDaysInMonth(new Date(year, month - 1, 1));
-  }
+  })();
 
-  get maxDay() {
-    const { maxDate, month, year } = this.props;
-    return min(
-      this.currentMonthMaxDays,
-      maxDate && year === getYear(maxDate) && month === getMonth(maxDate) && getDay(maxDate),
-    );
-  }
+  const maxDay = min(
+    currentMonthMaxDays,
+    maxDate && year === getYear(maxDate) && month === getMonth(maxDate) && getDay(maxDate),
+  );
 
-  get minDay() {
-    const { minDate, month, year } = this.props;
-    return max(
-      1, minDate && year === getYear(minDate) && month === getMonth(minDate) && getDay(minDate),
-    );
-  }
+  const minDay = max(
+    1, minDate && year === getYear(minDate) && month === getMonth(minDate) && getDay(minDate),
+  );
 
-  render() {
-    const { maxDay, minDay } = this;
-    const {
-      dayAriaLabel,
-      maxDate,
-      minDate,
-      month,
-      year,
-      ...otherProps
-    } = this.props;
-
-    return (
-      <Input
-        name="day"
-        ariaLabel={dayAriaLabel}
-        max={maxDay}
-        min={minDay}
-        {...otherProps}
-      />
-    );
-  }
+  return (
+    <Input
+      name="day"
+      ariaLabel={dayAriaLabel}
+      max={maxDay}
+      min={minDay}
+      {...otherProps}
+    />
+  );
 }
 
 DayInput.propTypes = {
