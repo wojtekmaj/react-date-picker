@@ -22,16 +22,16 @@
   "license": "MIT",
   "dependencies": {
     "prop-types": "^15.6.0",
-    "react": "^16.5.0",
+    "react": "^16.8.0",
     "react-date-picker": "latest",
-    "react-dom": "^16.5.0"
+    "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@types/react": "^16.0.34",
-    "@types/react-dom": "^16.0.3",
+    "@types/react": "^16.8.22",
+    "@types/react-dom": "^16.8.4",
     "parcel-bundler": "^1.12.0",
-    "tslint": "^5.9.1",
-    "tslint-config-airbnb": "^5.4.2",
-    "typescript": "^2.6.2"
+    "tslint": "^5.18.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.5.2"
   }
 }
