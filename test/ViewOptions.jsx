@@ -1,103 +1,92 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class ViewOptions extends PureComponent {
-  onDisabledChange = (event) => {
-    const { setState } = this.props;
-
+export default function ViewOptions({
+  disabled,
+  setState,
+  showLeadingZeros,
+  showNeighboringMonth,
+  showWeekNumbers,
+}) {
+  function onDisabledChange(event) {
     const { checked } = event.target;
 
     setState({ disabled: checked });
   }
 
-  onShowLeadingZerosChange = (event) => {
-    const { setState } = this.props;
-
+  function onShowLeadingZerosChange(event) {
     const { checked } = event.target;
 
     setState({ showLeadingZeros: checked });
   }
 
-  onShowWeekNumbersChange = (event) => {
-    const { setState } = this.props;
-
+  function onShowWeekNumbersChange(event) {
     const { checked } = event.target;
 
     setState({ showWeekNumbers: checked });
   }
 
-  onShowNeighboringMonthChange = (event) => {
-    const { setState } = this.props;
-
+  function onShowNeighboringMonthChange(event) {
     const { checked } = event.target;
 
     setState({ showNeighboringMonth: checked });
   }
 
-  render() {
-    const {
-      disabled,
-      showLeadingZeros,
-      showWeekNumbers,
-      showNeighboringMonth,
-    } = this.props;
+  return (
+    <fieldset id="viewoptions">
+      <legend htmlFor="viewoptions">
+        View options
+      </legend>
 
-    return (
-      <fieldset id="viewoptions">
-        <legend htmlFor="viewoptions">
-          View options
-        </legend>
+      <div>
+        <input
+          id="disabled"
+          type="checkbox"
+          checked={disabled}
+          onChange={onDisabledChange}
+        />
+        <label htmlFor="disabled">
+          Disabled
+        </label>
+      </div>
 
-        <div>
-          <input
-            id="disabled"
-            type="checkbox"
-            checked={disabled}
-            onChange={this.onDisabledChange}
-          />
-          <label htmlFor="disabled">
-            Disabled
-          </label>
-        </div>
+      <div>
+        <input
+          id="showLeadingZeros"
+          type="checkbox"
+          checked={showLeadingZeros}
+          onChange={onShowLeadingZerosChange}
+        />
+        <label htmlFor="showLeadingZeros">
+          Show leading zeros
+        </label>
+      </div>
 
-        <div>
-          <input
-            id="showLeadingZeros"
-            type="checkbox"
-            checked={showLeadingZeros}
-            onChange={this.onShowLeadingZerosChange}
-          />
-          <label htmlFor="showLeadingZeros">
-            Show leading zeros
-          </label>
-        </div>
+      <div>
+        <input
+          id="showWeekNumbers"
+          type="checkbox"
+          checked={showWeekNumbers}
+          onChange={onShowWeekNumbersChange}
+        />
+        <label htmlFor="showWeekNumbers">
+          Show week numbers
+        </label>
+      </div>
 
-        <div>
-          <input
-            id="showWeekNumbers"
-            type="checkbox"
-            checked={showWeekNumbers}
-            onChange={this.onShowWeekNumbersChange}
-          />
-          <label htmlFor="showWeekNumbers">
-            Show week numbers
-          </label>
-        </div>
-
-        <div>
-          <input
-            id="showNeighboringMonth"
-            type="checkbox"
-            checked={showNeighboringMonth}
-            onChange={this.onShowNeighboringMonthChange}
-          />
-          <label htmlFor="showNeighboringMonth">
-            {'Show neighboring month\'s days'}
-          </label>
-        </div>
-      </fieldset>
-    );
-  }
+      <div>
+        <input
+          id="showNeighboringMonth"
+          type="checkbox"
+          checked={showNeighboringMonth}
+          onChange={onShowNeighboringMonthChange}
+        />
+        <label htmlFor="showNeighboringMonth">
+          {'Show neighboring month\'s days'}
+        </label>
+      </div>
+    </fieldset>
+  );
 }
 
 ViewOptions.propTypes = {
