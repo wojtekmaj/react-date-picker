@@ -221,6 +221,23 @@ describe('DatePicker', () => {
     expect(component.state('isOpen')).toBe(false);
   });
 
+  it('closes Calendar component when tapped outside', () => {
+    const root = document.createElement('div');
+    document.body.appendChild(root);
+
+    const component = mount(
+      <DatePicker isOpen />,
+      { attachTo: root }
+    );
+
+    const event = document.createEvent('TouchEvent');
+    event.initEvent('touchstart', true, true);
+    document.body.dispatchEvent(event);
+    component.update();
+
+    expect(component.state('isOpen')).toBe(false);
+  });
+
   it('does not close Calendar component when focused inside', () => {
     const component = mount(
       <DatePicker isOpen />
