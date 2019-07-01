@@ -33,9 +33,7 @@ export default class DatePicker extends PureComponent {
   }
 
   componentDidMount() {
-    outsideActionEvents.forEach(
-      eventName => document.addEventListener(eventName, this.onOutsideAction),
-    );
+    this.handleOutsideActionListeners();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -43,14 +41,21 @@ export default class DatePicker extends PureComponent {
     const { onCalendarClose, onCalendarOpen } = this.props;
 
     if (isOpen !== prevState.isOpen) {
+      this.handleOutsideActionListeners();
       callIfDefined(isOpen ? onCalendarOpen : onCalendarClose);
     }
   }
 
   componentWillUnmount() {
-    outsideActionEvents.forEach(
-      eventName => document.removeEventListener(eventName, this.onOutsideAction),
-    );
+    this.handleOutsideActionListeners(false);
+  }
+
+  handleOutsideActionListeners(shouldListen) {
+    const { isOpen } = this.state;
+
+    const shouldListenWithFallback = typeof shouldListen !== 'undefined' ? shouldListen : isOpen;
+    const fnName = shouldListenWithFallback ? 'addEventListener' : 'removeEventListener';
+    outsideActionEvents.forEach(eventName => document[fnName](eventName, this.onOutsideAction));
   }
 
   onOutsideAction = (event) => {
