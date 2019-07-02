@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 import updateInputWidth from 'update-input-width';
 
-const select = element => element && element.select();
+function select(element) {
+  if (!element) {
+    return;
+  }
+
+  requestAnimationFrame(() => element.select());
+}
 
 const Input = ({
   ariaLabel,
