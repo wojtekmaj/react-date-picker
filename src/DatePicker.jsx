@@ -249,22 +249,33 @@ export default class DatePicker extends PureComponent {
   }
 }
 
+const iconProps = {
+  xmlns: 'http://www.w3.org/2000/svg',
+  width: 19,
+  height: 19,
+  viewBox: '0 0 19 19',
+  stroke: 'black',
+  strokeWidth: 2,
+};
+
 const CalendarIcon = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
-    <g stroke="black" strokeWidth="2">
-      <rect width="15" height="15" x="2" y="2" fill="none" />
-      <line x1="6" y1="0" x2="6" y2="4" />
-      <line x1="13" y1="0" x2="13" y2="4" />
-    </g>
+  <svg
+    {...iconProps}
+    className={`${baseClassName}__calendar-button__icon ${baseClassName}__button__icon`}
+  >
+    <rect width="15" height="15" x="2" y="2" fill="none" />
+    <line x1="6" y1="0" x2="6" y2="4" />
+    <line x1="13" y1="0" x2="13" y2="4" />
   </svg>
 );
 
 const ClearIcon = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
-    <g stroke="black" strokeWidth="2">
-      <line x1="4" y1="4" x2="15" y2="15" />
-      <line x1="15" y1="4" x2="4" y2="15" />
-    </g>
+  <svg
+    {...iconProps}
+    className={`${baseClassName}__clear-button__icon ${baseClassName}__button__icon`}
+  >
+    <line x1="4" y1="4" x2="15" y2="15" />
+    <line x1="15" y1="4" x2="4" y2="15" />
   </svg>
 );
 
