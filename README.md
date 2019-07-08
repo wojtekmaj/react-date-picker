@@ -95,16 +95,16 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |Prop name|Description|Default value|Example values|
 |----|----|----|----|
 |calendarAriaLabel|`aria-label` for the calendar button.|n/a|`"Toggle calendar"`|
-|calendarClassName|Class name(s) that will be added along with "react-calendar" to the main React-Calendar `<div>` element.|n/a|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
-|calendarIcon|Content of the calendar button. Setting the value explicitly to `null` will hide the icon.| (default icon)|<ul><li>String: `"Calendar"`</li><li>React element: `<CalendarIcon />`</li></ul>|
+|calendarClassName|Class name(s) that will be added along with `"react-calendar"` to the main React-Calendar `<div>` element.|n/a|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
+|calendarIcon|Content of the calendar button. Setting the value explicitly to `null` will hide the icon.|(default icon)|<ul><li>String: `"Calendar"`</li><li>React element: `<CalendarIcon />`</li></ul>|
 |className|Class name(s) that will be added along with `"react-date-picker"` to the main React-Date-Picker `<div>` element.|n/a|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
 |clearAriaLabel|`aria-label` for the clear button.|n/a|`"Clear value"`|
 |clearIcon|Content of the clear button. Setting the value explicitly to `null` will hide the icon.|(default icon)|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
-|dayAriaLabel| `aria-label` for the day input.|n/a|`"Year"`|
+|dayAriaLabel|`aria-label` for the day input.|n/a|`"Year"`|
 |disabled|Whether the date picker should be disabled.|`false`|`true`|
 |format|Input format based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table). Supported values are: `y`, `M`, `MM`, `MMM`, `MMMM`, `d`, `dd`.|n/a|`"y-MM-dd"`|
 |isOpen|Whether the calendar should be opened.|`false`|`true`|
-|locale|Locale that should be used by the date picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag).|User's browser settings.|`"hu-HU"`|
+|locale|Locale that should be used by the date picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag).|User's browser settings|`"hu-HU"`|
 |maxDate|Maximum date that the user can select. Periods partially overlapped by maxDate will also be selectable, although React-Date-Picker will ensure that no later date is selected.|n/a|Date: `new Date()`|
 |maxDetail|The most detailed calendar view that the user shall see. View defined here also becomes the one on which clicking an item in the calendar will select a date and pass it to onChange. Can be `"month"`, `"year"`, `"decade"` or `"century"`.|`"month"`|`"year"`|
 |minDate|Minimum date that the user can select. Periods partially overlapped by minDate will also be selectable, although React-Date-Picker will ensure that no earlier date is selected.|n/a|Date: `new Date()`|
@@ -116,7 +116,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |onCalendarOpen|Function called when the calendar opens.|n/a|`() => alert('Calendar opened')`|
 |onChange|Function called when the user clicks an item on the most detailed view available.|n/a|`(value) => alert('New date is: ', value)`|
 |required|Whether date input should be required.|`false`|`true`|
-|returnValue|Which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be "start", "end" or "range". The latter will cause an array with start and end values to be passed.|`"start"`|`"range"`|
+|returnValue|Which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be `"start"`, `"end"` or `"range"`. The latter will cause an array with start and end values to be passed.|`"start"`|`"range"`|
 |showLeadingZeros|Whether leading zeros should be rendered in date inputs.|`false`|`true`|
 |value|Input value.|n/a|<ul><li>Date: `new Date()`</li><li>An array of dates: `[new Date(2017, 0, 1), new Date(2017, 7, 1)]`</li></ul>|
 |yearAriaLabel|`aria-label` for the year input.|n/a|`"Year"`|
