@@ -46,6 +46,22 @@ describe('YearInput', () => {
     expect(input.prop('name')).toBe('year');
   });
 
+  it('has proper className defined', () => {
+    const className = 'react-date-picker';
+
+    const component = mount(
+      <YearInput
+        {...defaultProps}
+        className={className}
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.hasClass('react-date-picker__input')).toBe(true);
+    expect(input.hasClass('react-date-picker__year')).toBe(true);
+  });
+
   it('displays given value properly', () => {
     const value = 2018;
 

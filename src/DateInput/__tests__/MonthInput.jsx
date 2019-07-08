@@ -90,6 +90,22 @@ describe('MonthInput', () => {
     expect(input.prop('name')).toBe('month');
   });
 
+  it('has proper className defined', () => {
+    const className = 'react-date-picker';
+
+    const component = mount(
+      <MonthInput
+        {...defaultProps}
+        className={className}
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.hasClass('react-date-picker__input')).toBe(true);
+    expect(input.hasClass('react-date-picker__month')).toBe(true);
+  });
+
   it('displays given value properly', () => {
     const value = 11;
 

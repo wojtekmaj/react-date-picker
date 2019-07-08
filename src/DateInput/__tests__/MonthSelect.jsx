@@ -48,6 +48,22 @@ describe('MonthSelect', () => {
     expect(select.prop('name')).toBe('month');
   });
 
+  it('has proper className defined', () => {
+    const className = 'react-date-picker';
+
+    const component = mount(
+      <MonthSelect
+        {...defaultProps}
+        className={className}
+      />
+    );
+
+    const select = component.find('select');
+
+    expect(select.hasClass('react-date-picker__input')).toBe(true);
+    expect(select.hasClass('react-date-picker__month')).toBe(true);
+  });
+
   it('displays given value properly', () => {
     const value = 11;
 
