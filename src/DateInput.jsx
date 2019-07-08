@@ -5,6 +5,7 @@ import { polyfill } from 'react-lifecycles-compat';
 import Divider from './Divider';
 import DayInput from './DateInput/DayInput';
 import MonthInput from './DateInput/MonthInput';
+import MonthSelect from './DateInput/MonthSelect';
 import YearInput from './DateInput/YearInput';
 import NativeInput from './DateInput/NativeInput';
 
@@ -442,11 +443,25 @@ export default class DateInput extends PureComponent {
   }
 
   renderMonth = (currentMatch) => {
-    const { monthAriaLabel, showLeadingZeros } = this.props;
+    const { locale, monthAriaLabel, showLeadingZeros } = this.props;
     const { month, year } = this.state;
 
-    if (currentMatch && currentMatch.length > 2) {
+    if (currentMatch && currentMatch.length > 4) {
       throw new Error(`Unsupported token: ${currentMatch}`);
+    }
+
+    if (currentMatch.length > 2) {
+      return (
+        <MonthSelect
+          key="month"
+          {...this.commonInputProps}
+          locale={locale}
+          monthAriaLabel={monthAriaLabel}
+          short={currentMatch.length === 3}
+          value={month}
+          year={year}
+        />
+      );
     }
 
     const showLeadingZerosFromFormat = currentMatch && currentMatch.length === 2;
