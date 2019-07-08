@@ -30,7 +30,7 @@ export default function MonthSelect({
       aria-label={monthAriaLabel}
       className={mergeClassNames(
         `${className}__input`,
-        `${className}__month`,
+        `${className}__${name}`,
       )}
       name={name}
       ref={(ref) => {
