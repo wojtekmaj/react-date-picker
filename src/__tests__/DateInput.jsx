@@ -351,19 +351,36 @@ describe('DateInput', () => {
       expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
     });
 
-    it('throws error for "MMM"', () => {
-      muteConsole();
-
-      const renderComponent = () => mount(
+    it('renders "MMM" properly', () => {
+      const component = mount(
         <DateInput
           {...defaultProps}
           format="MMM"
         />
       );
 
-      expect(renderComponent).toThrow('Unsupported token: MMM');
+      const componentSelect = component.find('MonthSelect');
+      const customInputs = component.find('select');
 
-      restoreConsole();
+      expect(componentSelect).toHaveLength(1);
+      expect(componentSelect.prop('short')).toBeTruthy();
+      expect(customInputs).toHaveLength(1);
+    });
+
+    it('renders "MMMM" properly', () => {
+      const component = mount(
+        <DateInput
+          {...defaultProps}
+          format="MMMM"
+        />
+      );
+
+      const componentSelect = component.find('MonthSelect');
+      const customInputs = component.find('select');
+
+      expect(componentSelect).toHaveLength(1);
+      expect(componentSelect.prop('short')).toBeFalsy();
+      expect(customInputs).toHaveLength(1);
     });
 
     it('renders "d" properly', () => {
