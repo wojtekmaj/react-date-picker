@@ -15,6 +15,15 @@ import './Test.less';
 
 const now = new Date();
 
+const ariaLabelProps = {
+  calendarAriaLabel: 'Toggle calendar',
+  clearAriaLabel: 'Clear value',
+  dayAriaLabel: 'Day',
+  monthAriaLabel: 'Month',
+  nativeInputAriaLabel: 'Date',
+  yearAriaLabel: 'Year',
+};
+
 /* eslint-disable no-console */
 
 export default class Test extends PureComponent {
@@ -104,6 +113,7 @@ export default class Test extends PureComponent {
               }}
             >
               <DatePicker
+                {...ariaLabelProps}
                 className="myCustomDatePickerClassName"
                 calendarClassName="myCustomCalendarClassName"
                 disabled={disabled}

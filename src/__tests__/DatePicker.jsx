@@ -46,7 +46,7 @@ describe('DatePicker', () => {
       clearAriaLabel: 'Clear value',
       dayAriaLabel: 'Day',
       monthAriaLabel: 'Month',
-      yearAriaLabel: 'Year'
+      yearAriaLabel: 'Year',
     };
 
     const component = mount(
