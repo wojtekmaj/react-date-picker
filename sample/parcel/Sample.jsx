@@ -21,8 +21,8 @@ export default class Sample extends Component {
         <div className="Sample__container">
           <main className="Sample__container__content">
             <DatePicker
+              calendarAriaLabel="Toggle calendar"
               clearAriaLabel="Clear value"
-              clockAriaLabel="Toggle clock"
               dayAriaLabel="Day"
               monthAriaLabel="Month"
               nativeInputAriaLabel="Date"
