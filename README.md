@@ -8,14 +8,6 @@ A date picker for your React app.
 * Supports virtually any language
 * No moment.js needed
 
-## Important message for React-Date-Picker ≤5 users
-
-Sadly, the authors of original React-Date-Picker ≤5 have abandoned the package. Because it lacked compatibility with React 16, the package would quickly become dead.
-
-In version 6 I aim to provide a solution that will suit everyone's needs. To make that happen, I need time and your help. Please don't hesitate to file an issues with bugs, suggestions, or simply telling me more about how *you* use react-date-picker. Your help will be invaluable!
-
-[Upgrade guide for React-Date-Picker ≤5 users](https://github.com/wojtekmaj/react-date-picker/wiki/Upgrade-guide-for-React-Date-Picker-≤5-users) is there to help you with the upgrade.
-
 ## tl;dr
 * Install by executing `npm install react-date-picker` or `yarn add react-date-picker`.
 * Import by adding `import DatePicker from 'react-date-picker'`.
