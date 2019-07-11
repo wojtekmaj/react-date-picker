@@ -46,6 +46,7 @@ describe('DatePicker', () => {
       clearAriaLabel: 'Clear value',
       dayAriaLabel: 'Day',
       monthAriaLabel: 'Month',
+      nativeInputAriaLabel: 'Date',
       yearAriaLabel: 'Year',
     };
 
@@ -61,6 +62,7 @@ describe('DatePicker', () => {
     expect(clearButton.prop('aria-label')).toBe(ariaLabelProps.clearAriaLabel);
     expect(dateInput.prop('dayAriaLabel')).toBe(ariaLabelProps.dayAriaLabel);
     expect(dateInput.prop('monthAriaLabel')).toBe(ariaLabelProps.monthAriaLabel);
+    expect(dateInput.prop('nativeInputAriaLabel')).toBe(ariaLabelProps.nativeInputAriaLabel);
     expect(dateInput.prop('yearAriaLabel')).toBe(ariaLabelProps.yearAriaLabel);
   });
 
