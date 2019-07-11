@@ -138,11 +138,18 @@ export default class DatePicker extends PureComponent {
 
     const [valueFrom] = [].concat(value);
 
+    const ariaLabelProps = {
+      dayAriaLabel,
+      monthAriaLabel,
+      nativeInputAriaLabel,
+      yearAriaLabel,
+    };
+
     return (
       <div className={`${baseClassName}__wrapper`}>
         <DateInput
+          {...ariaLabelProps}
           className={`${baseClassName}__inputGroup`}
-          dayAriaLabel={dayAriaLabel}
           disabled={disabled}
           format={format}
           isCalendarOpen={isOpen}
@@ -150,15 +157,12 @@ export default class DatePicker extends PureComponent {
           maxDate={maxDate}
           maxDetail={maxDetail}
           minDate={minDate}
-          monthAriaLabel={monthAriaLabel}
           name={name}
-          nativeInputAriaLabel={nativeInputAriaLabel}
           onChange={this.onChange}
           required={required}
           returnValue={returnValue}
           showLeadingZeros={showLeadingZeros}
           value={valueFrom}
-          yearAriaLabel={yearAriaLabel}
         />
         {clearIcon !== null && (
           <button
