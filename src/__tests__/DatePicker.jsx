@@ -163,6 +163,18 @@ describe('DatePicker', () => {
     expect(calendar).toHaveLength(1);
   });
 
+  it('does not render Calendar component when given disableCalendar & isOpen flags', () => {
+    const component = mount(
+      <DatePicker disableCalendar isOpen />
+    );
+
+    const dateInput = component.find('DateInput');
+    const calendar = component.find('Calendar');
+
+    expect(dateInput).toHaveLength(1);
+    expect(calendar).toHaveLength(0);
+  });
+
   it('opens Calendar component when given isOpen flag by changing props', () => {
     const component = mount(
       <DatePicker />
