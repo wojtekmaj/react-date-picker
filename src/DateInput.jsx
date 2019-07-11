@@ -553,6 +553,11 @@ DateInput.defaultProps = {
   returnValue: 'start',
 };
 
+const isValue = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.instanceOf(Date),
+]);
+
 DateInput.propTypes = {
   className: PropTypes.string.isRequired,
   dayAriaLabel: PropTypes.string,
@@ -571,9 +576,8 @@ DateInput.propTypes = {
   returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Date),
-    PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+    isValue,
+    PropTypes.arrayOf(isValue),
   ]),
   yearAriaLabel: PropTypes.string,
 };

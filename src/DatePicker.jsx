@@ -9,10 +9,12 @@ import Calendar from 'react-calendar/dist/entry.nostyle';
 
 import DateInput from './DateInput';
 
+import { isMaxDate, isMinDate } from './shared/propTypes';
 import { callIfDefined } from './shared/utils';
 
 const baseClassName = 'react-date-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'];
+const allViews = ['century', 'decade', 'year', 'month'];
 
 export default class DatePicker extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -290,8 +292,12 @@ DatePicker.defaultProps = {
   returnValue: 'start',
 };
 
+const isValue = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.instanceOf(Date),
+]);
+
 DatePicker.propTypes = {
-  ...Calendar.propTypes,
   calendarAriaLabel: PropTypes.string,
   calendarClassName: PropTypes.oneOfType([
     PropTypes.string,
@@ -308,14 +314,24 @@ DatePicker.propTypes = {
   disabled: PropTypes.bool,
   format: PropTypes.string,
   isOpen: PropTypes.bool,
+  locale: PropTypes.string,
+  maxDate: isMaxDate,
+  maxDetail: PropTypes.oneOf(allViews),
+  minDate: isMinDate,
   monthAriaLabel: PropTypes.string,
   name: PropTypes.string,
   nativeInputAriaLabel: PropTypes.string,
   onCalendarClose: PropTypes.func,
   onCalendarOpen: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
   required: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   showLeadingZeros: PropTypes.bool,
+  value: PropTypes.oneOfType([
+    isValue,
+    PropTypes.arrayOf(isValue),
+  ]),
   yearAriaLabel: PropTypes.string,
 };
 
