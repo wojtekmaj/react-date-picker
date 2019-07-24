@@ -40,10 +40,10 @@ export default function ViewOptions({
 
       <div>
         <input
-          id="disabled"
-          type="checkbox"
           checked={disabled}
+          id="disabled"
           onChange={onDisabledChange}
+          type="checkbox"
         />
         <label htmlFor="disabled">
           Disabled
@@ -52,10 +52,10 @@ export default function ViewOptions({
 
       <div>
         <input
-          id="showLeadingZeros"
-          type="checkbox"
           checked={showLeadingZeros}
+          id="showLeadingZeros"
           onChange={onShowLeadingZerosChange}
+          type="checkbox"
         />
         <label htmlFor="showLeadingZeros">
           Show leading zeros
@@ -64,10 +64,10 @@ export default function ViewOptions({
 
       <div>
         <input
-          id="showWeekNumbers"
-          type="checkbox"
           checked={showWeekNumbers}
+          id="showWeekNumbers"
           onChange={onShowWeekNumbersChange}
+          type="checkbox"
         />
         <label htmlFor="showWeekNumbers">
           Show week numbers
@@ -76,10 +76,10 @@ export default function ViewOptions({
 
       <div>
         <input
-          id="showNeighboringMonth"
-          type="checkbox"
           checked={showNeighboringMonth}
+          id="showNeighboringMonth"
           onChange={onShowNeighboringMonthChange}
+          type="checkbox"
         />
         <label htmlFor="showNeighboringMonth">
           {'Show neighboring month\'s days'}

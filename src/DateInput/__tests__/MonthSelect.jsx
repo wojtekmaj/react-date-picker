@@ -171,8 +171,8 @@ describe('MonthSelect', () => {
     const component = mount(
       <MonthSelect
         {...defaultProps}
-        year={2018}
         minDate={new Date(2017, 6, 1)}
+        year={2018}
       />
     );
 
@@ -188,8 +188,8 @@ describe('MonthSelect', () => {
     const component = mount(
       <MonthSelect
         {...defaultProps}
-        year={2018}
         minDate={new Date(2018, 6, 1)}
+        year={2018}
       />
     );
 
@@ -210,8 +210,8 @@ describe('MonthSelect', () => {
     const component = mount(
       <MonthSelect
         {...defaultProps}
-        year={2018}
         maxDate={new Date(2019, 6, 1)}
+        year={2018}
       />
     );
 
@@ -227,8 +227,8 @@ describe('MonthSelect', () => {
     const component = mount(
       <MonthSelect
         {...defaultProps}
-        year={2018}
         maxDate={new Date(2018, 6, 1)}
+        year={2018}
       />
     );
 

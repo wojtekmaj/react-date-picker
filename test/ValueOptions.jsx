@@ -36,14 +36,14 @@ export default function ValueOptions({
         />
         &nbsp;
         <button
-          type="button"
           onClick={() => setValue(null)}
+          type="button"
         >
           Clear to null
         </button>
         <button
-          type="button"
           onClick={() => setValue('')}
+          type="button"
         >
           Clear to empty string
         </button>

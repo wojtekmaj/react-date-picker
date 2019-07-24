@@ -43,9 +43,9 @@ export default function Input({
         hasLeadingZero && `${className}__input--hasLeadingZero`,
       )}
       disabled={disabled}
-      name={name}
       max={max}
       min={min}
+      name={name}
       onChange={onChange}
       onFocus={event => select(event.target)}
       onKeyDown={onKeyDown}

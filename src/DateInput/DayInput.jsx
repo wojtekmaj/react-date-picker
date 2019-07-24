@@ -38,9 +38,9 @@ export default function DayInput({
 
   return (
     <Input
-      name="day"
       max={maxDay}
       min={minDay}
+      name="day"
       {...otherProps}
     />
   );

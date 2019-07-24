@@ -18,9 +18,9 @@ export default function MonthInput({
 
   return (
     <Input
-      name="month"
       max={maxMonth}
       min={minMonth}
+      name="month"
       {...otherProps}
     />
   );

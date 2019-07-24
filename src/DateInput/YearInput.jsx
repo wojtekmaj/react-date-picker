@@ -26,9 +26,9 @@ export default function YearInput({
 
   return (
     <Input
-      name="year"
       max={maxYear}
       min={minYear}
+      name="year"
       step={yearStep}
       {...otherProps}
     />

@@ -542,11 +542,11 @@ export default class DateInput extends PureComponent {
     return (
       <NativeInput
         key="date"
+        ariaLabel={nativeInputAriaLabel}
         disabled={disabled}
         maxDate={maxDate || defaultMaxDate}
         minDate={minDate || defaultMinDate}
         name={name}
-        ariaLabel={nativeInputAriaLabel}
         onChange={this.onChangeNative}
         required={required}
         value={value}

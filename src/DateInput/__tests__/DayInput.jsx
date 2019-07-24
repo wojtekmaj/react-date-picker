@@ -210,9 +210,9 @@ describe('DayInput', () => {
     const component = mount(
       <DayInput
         {...defaultProps}
-        year={2018}
-        month={1}
         minDate={new Date(2017, 11, 15)}
+        month={1}
+        year={2018}
       />
     );
 
@@ -225,9 +225,9 @@ describe('DayInput', () => {
     const component = mount(
       <DayInput
         {...defaultProps}
-        year={2018}
-        month={1}
         minDate={new Date(2018, 0, 15)}
+        month={1}
+        year={2018}
       />
     );
 
@@ -242,8 +242,8 @@ describe('DayInput', () => {
     const component = mount(
       <DayInput
         {...defaultProps}
-        year={2018}
         month={1}
+        year={2018}
       />
     );
 
@@ -258,9 +258,9 @@ describe('DayInput', () => {
     const component = mount(
       <DayInput
         {...defaultProps}
-        year={2018}
-        month={1}
         maxDate={new Date(2018, 1, 15)}
+        month={1}
+        year={2018}
       />
     );
 
@@ -273,9 +273,9 @@ describe('DayInput', () => {
     const component = mount(
       <DayInput
         {...defaultProps}
-        year={2018}
-        month={1}
         maxDate={new Date(2018, 0, 15)}
+        month={1}
+        year={2018}
       />
     );
 

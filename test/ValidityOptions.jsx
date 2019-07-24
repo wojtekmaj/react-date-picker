@@ -67,10 +67,10 @@ export default function ValidityOptions({
 
       <div>
         <input
-          id="required"
-          type="checkbox"
           checked={required}
+          id="required"
           onChange={event => setState({ required: event.target.checked })}
+          type="checkbox"
         />
         <label htmlFor="required">
           Required
