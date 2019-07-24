@@ -27,7 +27,7 @@ describe('NativeInput', () => {
     const component = shallow(
       <NativeInput
         {...defaultProps}
-        nativeInputAriaLabel={nativeInputAriaLabel}
+        ariaLabel={nativeInputAriaLabel}
       />
     );
 

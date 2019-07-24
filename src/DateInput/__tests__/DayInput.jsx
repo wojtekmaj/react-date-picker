@@ -71,7 +71,7 @@ describe('DayInput', () => {
     const component = mount(
       <DayInput
         {...defaultProps}
-        dayAriaLabel={dayAriaLabel}
+        ariaLabel={dayAriaLabel}
       />
     );
 

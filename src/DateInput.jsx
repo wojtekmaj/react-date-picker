@@ -445,7 +445,7 @@ export default class DateInput extends PureComponent {
       <DayInput
         key="day"
         {...this.commonInputProps}
-        dayAriaLabel={dayAriaLabel}
+        ariaLabel={dayAriaLabel}
         month={month}
         placeholder={dayPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
@@ -473,8 +473,8 @@ export default class DateInput extends PureComponent {
         <MonthSelect
           key="month"
           {...this.commonInputProps}
+          ariaLabel={monthAriaLabel}
           locale={locale}
-          monthAriaLabel={monthAriaLabel}
           placeholder={monthPlaceholder}
           short={currentMatch.length === 3}
           value={month}
@@ -489,7 +489,7 @@ export default class DateInput extends PureComponent {
       <MonthInput
         key="month"
         {...this.commonInputProps}
-        monthAriaLabel={monthAriaLabel}
+        ariaLabel={monthAriaLabel}
         placeholder={monthPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={month}
@@ -506,10 +506,10 @@ export default class DateInput extends PureComponent {
       <YearInput
         key="year"
         {...this.commonInputProps}
+        ariaLabel={yearAriaLabel}
         placeholder={yearPlaceholder}
         value={year}
         valueType={this.valueType}
-        yearAriaLabel={yearAriaLabel}
       />
     );
   }
@@ -546,7 +546,7 @@ export default class DateInput extends PureComponent {
         maxDate={maxDate || defaultMaxDate}
         minDate={minDate || defaultMinDate}
         name={name}
-        nativeInputAriaLabel={nativeInputAriaLabel}
+        ariaLabel={nativeInputAriaLabel}
         onChange={this.onChangeNative}
         required={required}
         value={value}

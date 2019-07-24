@@ -10,7 +10,6 @@ import { min, max } from '../shared/utils';
 export default function MonthInput({
   maxDate,
   minDate,
-  monthAriaLabel,
   year,
   ...otherProps
 }) {
@@ -20,7 +19,6 @@ export default function MonthInput({
   return (
     <Input
       name="month"
-      ariaLabel={monthAriaLabel}
       max={maxMonth}
       min={minMonth}
       {...otherProps}
@@ -29,15 +27,16 @@ export default function MonthInput({
 }
 
 MonthInput.propTypes = {
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
   maxDate: isMaxDate,
   minDate: isMinDate,
-  monthAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,

@@ -8,12 +8,12 @@ import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
 
 export default function MonthSelect({
+  ariaLabel,
   className,
   itemRef,
   locale,
   maxDate,
   minDate,
-  monthAriaLabel,
   short,
   year,
   value,
@@ -27,7 +27,7 @@ export default function MonthSelect({
 
   return (
     <select
-      aria-label={monthAriaLabel}
+      aria-label={ariaLabel}
       className={mergeClassNames(
         `${className}__input`,
         `${className}__${name}`,
@@ -65,16 +65,17 @@ export default function MonthSelect({
 }
 
 MonthSelect.propTypes = {
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
   locale: PropTypes.string,
   maxDate: isMaxDate,
   minDate: isMinDate,
-  monthAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   short: PropTypes.bool,
   value: PropTypes.number,

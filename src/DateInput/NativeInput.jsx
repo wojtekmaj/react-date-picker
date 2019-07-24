@@ -9,11 +9,11 @@ import {
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 
 export default function NativeInput({
+  ariaLabel,
   disabled,
   maxDate,
   minDate,
   name,
-  nativeInputAriaLabel,
   onChange,
   required,
   value,
@@ -55,7 +55,7 @@ export default function NativeInput({
   return (
     <input
       type={nativeInputType}
-      aria-label={nativeInputAriaLabel}
+      aria-label={ariaLabel}
       disabled={disabled}
       max={maxDate ? nativeValueParser(maxDate) : null}
       min={minDate ? nativeValueParser(minDate) : null}
@@ -75,11 +75,11 @@ export default function NativeInput({
 }
 
 NativeInput.propTypes = {
+  ariaLabel: PropTypes.string,
   disabled: PropTypes.bool,
   maxDate: isMaxDate,
   minDate: isMinDate,
   name: PropTypes.string,
-  nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   value: PropTypes.oneOfType([

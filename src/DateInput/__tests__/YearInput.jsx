@@ -27,7 +27,7 @@ describe('YearInput', () => {
     const component = mount(
       <YearInput
         {...defaultProps}
-        yearAriaLabel={yearAriaLabel}
+        ariaLabel={yearAriaLabel}
       />
     );
 

@@ -11,7 +11,6 @@ export default function YearInput({
   maxDate,
   minDate,
   valueType,
-  yearAriaLabel,
   ...otherProps
 }) {
   const maxYear = min(275760, maxDate && getYear(maxDate));
@@ -28,7 +27,6 @@ export default function YearInput({
   return (
     <Input
       name="year"
-      ariaLabel={yearAriaLabel}
       max={maxYear}
       min={minYear}
       step={yearStep}
@@ -38,6 +36,7 @@ export default function YearInput({
 }
 
 YearInput.propTypes = {
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
@@ -50,7 +49,6 @@ YearInput.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.number,
   valueType: isValueType,
-  yearAriaLabel: PropTypes.string,
 };
 
 YearInput.defaultProps = {

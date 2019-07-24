@@ -13,7 +13,6 @@ import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
 
 export default function DayInput({
-  dayAriaLabel,
   maxDate,
   minDate,
   month,
@@ -40,7 +39,6 @@ export default function DayInput({
   return (
     <Input
       name="day"
-      ariaLabel={dayAriaLabel}
       max={maxDay}
       min={minDay}
       {...otherProps}
@@ -49,8 +47,8 @@ export default function DayInput({
 }
 
 DayInput.propTypes = {
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
-  dayAriaLabel: PropTypes.string,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
   maxDate: isMaxDate,
@@ -59,6 +57,7 @@ DayInput.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,

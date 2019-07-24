@@ -71,7 +71,7 @@ describe('MonthInput', () => {
     const component = mount(
       <MonthInput
         {...defaultProps}
-        monthAriaLabel={monthAriaLabel}
+        ariaLabel={monthAriaLabel}
       />
     );
 
