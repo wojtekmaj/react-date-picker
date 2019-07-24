@@ -36,6 +36,21 @@ describe('YearInput', () => {
     expect(select.prop('aria-label')).toBe(yearAriaLabel);
   });
 
+  it('applies given placeholder properly', () => {
+    const yearPlaceholder = 'Year';
+
+    const component = mount(
+      <YearInput
+        {...defaultProps}
+        placeholder={yearPlaceholder}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('placeholder')).toBe(yearPlaceholder);
+  });
+
   it('has proper name defined', () => {
     const component = mount(
       <YearInput {...defaultProps} />

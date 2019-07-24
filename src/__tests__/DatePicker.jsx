@@ -66,6 +66,24 @@ describe('DatePicker', () => {
     expect(dateInput.prop('yearAriaLabel')).toBe(ariaLabelProps.yearAriaLabel);
   });
 
+  it('passes placeholder props to DateInput', () => {
+    const placeholderProps = {
+      dayPlaceholder: 'dd',
+      monthPlaceholder: 'mm',
+      yearPlaceholder: 'yyyy',
+    };
+
+    const component = mount(
+      <DatePicker {...placeholderProps} />
+    );
+
+    const dateInput = component.find('DateInput');
+
+    expect(dateInput.prop('dayPlaceholder')).toBe(placeholderProps.dayPlaceholder);
+    expect(dateInput.prop('monthPlaceholder')).toBe(placeholderProps.monthPlaceholder);
+    expect(dateInput.prop('yearPlaceholder')).toBe(placeholderProps.yearPlaceholder);
+  });
+
   describe('passes value to DateInput', () => {
     it('passes single value to DateInput', () => {
       const value = new Date(2019, 0, 1);

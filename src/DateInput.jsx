@@ -432,7 +432,7 @@ export default class DateInput extends PureComponent {
   }
 
   renderDay = (currentMatch) => {
-    const { dayAriaLabel, showLeadingZeros } = this.props;
+    const { dayAriaLabel, dayPlaceholder, showLeadingZeros } = this.props;
     const { day, month, year } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -447,6 +447,7 @@ export default class DateInput extends PureComponent {
         {...this.commonInputProps}
         dayAriaLabel={dayAriaLabel}
         month={month}
+        placeholder={dayPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={day}
         year={year}
@@ -455,7 +456,12 @@ export default class DateInput extends PureComponent {
   }
 
   renderMonth = (currentMatch) => {
-    const { locale, monthAriaLabel, showLeadingZeros } = this.props;
+    const {
+      locale,
+      monthAriaLabel,
+      monthPlaceholder,
+      showLeadingZeros,
+    } = this.props;
     const { month, year } = this.state;
 
     if (currentMatch && currentMatch.length > 4) {
@@ -469,6 +475,7 @@ export default class DateInput extends PureComponent {
           {...this.commonInputProps}
           locale={locale}
           monthAriaLabel={monthAriaLabel}
+          placeholder={monthPlaceholder}
           short={currentMatch.length === 3}
           value={month}
           year={year}
@@ -483,6 +490,7 @@ export default class DateInput extends PureComponent {
         key="month"
         {...this.commonInputProps}
         monthAriaLabel={monthAriaLabel}
+        placeholder={monthPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={month}
         year={year}
@@ -491,13 +499,14 @@ export default class DateInput extends PureComponent {
   }
 
   renderYear = () => {
-    const { yearAriaLabel } = this.props;
+    const { yearAriaLabel, yearPlaceholder } = this.props;
     const { year } = this.state;
 
     return (
       <YearInput
         key="year"
         {...this.commonInputProps}
+        placeholder={yearPlaceholder}
         value={year}
         valueType={this.valueType}
         yearAriaLabel={yearAriaLabel}
@@ -576,6 +585,7 @@ const isValue = PropTypes.oneOfType([
 DateInput.propTypes = {
   className: PropTypes.string.isRequired,
   dayAriaLabel: PropTypes.string,
+  dayPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
   format: PropTypes.string,
   isCalendarOpen: PropTypes.bool,
@@ -584,6 +594,7 @@ DateInput.propTypes = {
   maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
   monthAriaLabel: PropTypes.string,
+  monthPlaceholder: PropTypes.string,
   name: PropTypes.string,
   nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
@@ -595,6 +606,7 @@ DateInput.propTypes = {
     PropTypes.arrayOf(isValue),
   ]),
   yearAriaLabel: PropTypes.string,
+  yearPlaceholder: PropTypes.string,
 };
 
 polyfill(DateInput);

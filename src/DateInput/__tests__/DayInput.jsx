@@ -80,6 +80,21 @@ describe('DayInput', () => {
     expect(select.prop('aria-label')).toBe(dayAriaLabel);
   });
 
+  it('applies given placeholder properly', () => {
+    const dayPlaceholder = 'dd';
+
+    const component = mount(
+      <DayInput
+        {...defaultProps}
+        placeholder={dayPlaceholder}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('placeholder')).toBe(dayPlaceholder);
+  });
+
   it('has proper name defined', () => {
     const component = mount(
       <DayInput {...defaultProps} />

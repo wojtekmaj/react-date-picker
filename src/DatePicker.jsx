@@ -121,6 +121,7 @@ export default class DatePicker extends PureComponent {
       clearAriaLabel,
       clearIcon,
       dayAriaLabel,
+      dayPlaceholder,
       disableCalendar,
       disabled,
       format,
@@ -129,6 +130,7 @@ export default class DatePicker extends PureComponent {
       maxDetail,
       minDate,
       monthAriaLabel,
+      monthPlaceholder,
       name,
       nativeInputAriaLabel,
       required,
@@ -136,6 +138,7 @@ export default class DatePicker extends PureComponent {
       showLeadingZeros,
       value,
       yearAriaLabel,
+      yearPlaceholder,
     } = this.props;
     const { isOpen } = this.state;
 
@@ -148,10 +151,17 @@ export default class DatePicker extends PureComponent {
       yearAriaLabel,
     };
 
+    const placeholderProps = {
+      dayPlaceholder,
+      monthPlaceholder,
+      yearPlaceholder,
+    };
+
     return (
       <div className={`${baseClassName}__wrapper`}>
         <DateInput
           {...ariaLabelProps}
+          {...placeholderProps}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
           format={format}
@@ -313,6 +323,7 @@ DatePicker.propTypes = {
   clearAriaLabel: PropTypes.string,
   clearIcon: PropTypes.node,
   dayAriaLabel: PropTypes.string,
+  dayPlaceholder: PropTypes.string,
   disableCalendar: PropTypes.bool,
   disabled: PropTypes.bool,
   format: PropTypes.string,
@@ -322,6 +333,7 @@ DatePicker.propTypes = {
   maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
   monthAriaLabel: PropTypes.string,
+  monthPlaceholder: PropTypes.string,
   name: PropTypes.string,
   nativeInputAriaLabel: PropTypes.string,
   onCalendarClose: PropTypes.func,
@@ -336,6 +348,7 @@ DatePicker.propTypes = {
     PropTypes.arrayOf(isValue),
   ]),
   yearAriaLabel: PropTypes.string,
+  yearPlaceholder: PropTypes.string,
 };
 
 polyfill(DatePicker);

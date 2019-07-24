@@ -31,7 +31,6 @@ export default function YearInput({
       ariaLabel={yearAriaLabel}
       max={maxYear}
       min={minYear}
-      placeholder="----"
       step={yearStep}
       {...otherProps}
     />
@@ -47,8 +46,13 @@ YearInput.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   value: PropTypes.number,
   valueType: isValueType,
   yearAriaLabel: PropTypes.string,
+};
+
+YearInput.defaultProps = {
+  placeholder: '----',
 };

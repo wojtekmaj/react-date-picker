@@ -93,6 +93,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |clearAriaLabel|`aria-label` for the clear button.|n/a|`"Clear value"`|
 |clearIcon|Content of the clear button. Setting the value explicitly to `null` will hide the icon.|(default icon)|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
 |dayAriaLabel|`aria-label` for the day input.|n/a|`"Day"`|
+|dayPlaceholder|`placeholder` for the day input.|`"--"`|`"dd"`|
 |disabled|Whether the date picker should be disabled.|`false`|`true`|
 |disableCalendar|When set to `true`, will remove the calendar and the button toggling its visibility.|`false`|`true`|
 |format|Input format based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table). Supported values are: `y`, `M`, `MM`, `MMM`, `MMMM`, `d`, `dd`.|n/a|`"y-MM-dd"`|
@@ -103,6 +104,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |minDate|Minimum date that the user can select. Periods partially overlapped by minDate will also be selectable, although React-Date-Picker will ensure that no earlier date is selected.|n/a|Date: `new Date()`|
 |minDetail|The least detailed calendar view that the user shall see. Can be `"month"`, `"year"`, `"decade"` or `"century"`.|`"century"`|`"decade"`|
 |monthAriaLabel|`aria-label` for the month input.|n/a|`"Month"`|
+|monthPlaceholder|`placeholder` for the month input.|`"--"`|`"mm"`|
 |name|Input name.|`"date"`|`"myCustomName"`|
 |nativeInputAriaLabel|`aria-label` for the native date input.|n/a|`"Date"`|
 |onCalendarClose|Function called when the calendar closes.|n/a|`() => alert('Calendar closed')`|
@@ -113,6 +115,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |showLeadingZeros|Whether leading zeros should be rendered in date inputs.|`false`|`true`|
 |value|Input value.|n/a|<ul><li>Date: `new Date()`</li><li>An array of dates: `[new Date(2017, 0, 1), new Date(2017, 7, 1)]`</li></ul>|
 |yearAriaLabel|`aria-label` for the year input.|n/a|`"Year"`|
+|yearPlaceholder|`aria-label` for the year input.|`"----"`|`"yyyy"`|
 
 ### Calendar
 
