@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { polyfill } from 'react-lifecycles-compat';
 
 import Divider from './Divider';
 import DayInput from './DateInput/DayInput';
@@ -608,5 +607,3 @@ DateInput.propTypes = {
   yearAriaLabel: PropTypes.string,
   yearPlaceholder: PropTypes.string,
 };
-
-polyfill(DateInput);
