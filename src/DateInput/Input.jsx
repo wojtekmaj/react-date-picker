@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
-import updateInputWidth from 'update-input-width';
+import updateInputWidth, { getFontShorthand } from 'update-input-width';
 
 function select(element) {
   if (!element) {
@@ -9,6 +9,25 @@ function select(element) {
   }
 
   requestAnimationFrame(() => element.select());
+}
+
+function updateInputWidthOnFontLoad(element) {
+  if (!document.fonts) {
+    return;
+  }
+
+  const font = getFontShorthand(element);
+  const isFontLoaded = document.fonts.check(font);
+
+  if (isFontLoaded) {
+    return;
+  }
+
+  function onLoadingDone() {
+    updateInputWidth(element);
+  }
+
+  document.fonts.addEventListener('loadingdone', onLoadingDone);
 }
 
 export default function Input({
@@ -60,6 +79,7 @@ export default function Input({
       ref={(ref) => {
         if (ref) {
           updateInputWidth(ref);
+          updateInputWidthOnFontLoad(ref);
         }
 
         if (itemRef) {
