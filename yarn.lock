@@ -5327,10 +5327,10 @@ upath@^1.1.1:
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.1.2.tgz#3db658600edaeeccbe6db5e684d67ee8c2acd068"
   integrity sha512-kXpym8nmDmlCBr7nKdIx8P2jNBa+pBpIUFRnKJ4dr8htyYGJFokkr2ZvERRtUN+9SY+JqXouNgUPtv6JQva/2Q==
 
-update-input-width@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/update-input-width/-/update-input-width-1.0.1.tgz#916033cccc8bca9debaa6ed7a8f74def33198a84"
-  integrity sha512-RejZ4/tYUZwaudPbSD4pOW5sYXKFI6bvHc+nb8z8GUdixxbQm2391IguMa8eYMraBs8hdVQMUXeseDbfs77Anw==
+update-input-width@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/update-input-width/-/update-input-width-1.1.0.tgz#a9a214e9075f28011c0a40fca7ea5b5a79ab5b10"
+  integrity sha512-nURZCbSnjTgRYFIXhPPVsXMiLeao4fcNq0d7Su+XHsHG5b2dKJmFMzUhENZsYq+3MSPX5y3fk5tSBIh4FoxwMQ==
 
 uri-js@^4.2.2:
   version "4.2.2"

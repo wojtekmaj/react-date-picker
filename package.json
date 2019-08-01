@@ -76,7 +76,7 @@
     "react-calendar": "^2.18.0",
     "react-fit": "^1.0.3",
     "react-lifecycles-compat": "^3.0.4",
-    "update-input-width": "^1.0.1"
+    "update-input-width": "^1.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
