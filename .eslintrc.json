@@ -20,7 +20,6 @@
       "reservedFirst": ["key"]
     }],
     "react/require-default-props": "off",
-    "react/sort-comp": "off",
     "react/sort-prop-types": "error"
   },
   "overrides": [
