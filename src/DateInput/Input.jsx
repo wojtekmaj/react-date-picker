@@ -17,6 +17,11 @@ function updateInputWidthOnFontLoad(element) {
   }
 
   const font = getFontShorthand(element);
+
+  if (!font) {
+    return;
+  }
+
   const isFontLoaded = document.fonts.check(font);
 
   if (isFontLoaded) {
