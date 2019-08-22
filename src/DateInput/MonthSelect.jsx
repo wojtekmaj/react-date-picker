@@ -44,7 +44,7 @@ export default function MonthSelect({
     >
       {!value && (
         <option value="">
-          {placeholder !== void 0 ? placeholder : '--'}
+          {placeholder !== undefined ? placeholder : '--'}
         </option>
       )}
       {dates.map((date) => {
