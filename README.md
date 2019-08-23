@@ -29,7 +29,7 @@ React-Date-Picker will play nicely with [React-Time-Picker](https://github.com/w
 
 Your project needs to use React 16 or later. If you use older version of React, please refer to the table below to find suitable React-Date-Picker version.
 
-|React version|Newest supported React-Date-Picker|
+|React version|Newest available React-Date-Picker|
 |----|----|
 |>16.0|latest|
 |>15.5|6.7.0|
