@@ -75,9 +75,9 @@ describe('MonthInput', () => {
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('aria-label')).toBe(monthAriaLabel);
+    expect(input.prop('aria-label')).toBe(monthAriaLabel);
   });
 
   it('applies given placeholder properly', () => {
@@ -90,9 +90,9 @@ describe('MonthInput', () => {
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('placeholder')).toBe(monthPlaceholder);
+    expect(input.prop('placeholder')).toBe(monthPlaceholder);
   });
 
   it('has proper name defined', () => {

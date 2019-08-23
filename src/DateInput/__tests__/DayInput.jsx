@@ -75,9 +75,9 @@ describe('DayInput', () => {
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('aria-label')).toBe(dayAriaLabel);
+    expect(input.prop('aria-label')).toBe(dayAriaLabel);
   });
 
   it('applies given placeholder properly', () => {
@@ -90,9 +90,9 @@ describe('DayInput', () => {
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('placeholder')).toBe(dayPlaceholder);
+    expect(input.prop('placeholder')).toBe(dayPlaceholder);
   });
 
   it('has proper name defined', () => {
