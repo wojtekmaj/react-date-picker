@@ -44,7 +44,7 @@ export default function MonthSelect({
     >
       {!value && (
         <option value="">
-          {placeholder !== undefined ? placeholder : '--'}
+          {placeholder}
         </option>
       )}
       {dates.map((date) => {
@@ -81,4 +81,8 @@ MonthSelect.propTypes = {
   short: PropTypes.bool,
   value: PropTypes.number,
   year: PropTypes.number,
+};
+
+MonthSelect.defaultProps = {
+  placeholder: '--',
 };
