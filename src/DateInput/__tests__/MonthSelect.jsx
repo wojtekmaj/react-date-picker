@@ -38,7 +38,7 @@ describe('MonthSelect', () => {
     expect(select.prop('aria-label')).toBe(monthAriaLabel);
   });
 
-  it('applies given placeholder properly', () => {
+  it('applies given placeholder properly when provided', () => {
     const monthPlaceholder = 'mm';
 
     const component = mount(
@@ -48,9 +48,19 @@ describe('MonthSelect', () => {
       />
     );
 
-    const select = component.find('select');
+    const options = component.find('select').find('option');
 
-    expect(select.prop('placeholder')).toBe(monthPlaceholder);
+    expect(options.get(0).props.children).toBe(monthPlaceholder);
+  });
+
+  it('applies given placeholder properly when not provided', () => {
+    const component = mount(
+      <MonthSelect {...defaultProps} />
+    );
+
+    const options = component.find('select').find('option');
+
+    expect(options.get(0).props.children).toBe('--');
   });
 
   it('has proper name defined', () => {
