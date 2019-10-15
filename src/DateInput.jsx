@@ -558,11 +558,12 @@ export default class DateInput extends PureComponent {
   render() {
     const { className } = this.props;
 
+    /* eslint-disable jsx-a11y/click-events-have-key-events */
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
       <div
         className={className}
         onClick={this.onClick}
-        role="presentation"
       >
         {this.renderNativeInput()}
         {this.renderCustomInputs()}
