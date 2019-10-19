@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import MonthInput from '../MonthInput';
+import MonthInput from './MonthInput';
 
 /* eslint-disable comma-dangle */
 

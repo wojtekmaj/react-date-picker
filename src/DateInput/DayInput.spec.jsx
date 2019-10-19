@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import DayInput from '../DayInput';
+import DayInput from './DayInput';
 
 /* eslint-disable comma-dangle */
 
