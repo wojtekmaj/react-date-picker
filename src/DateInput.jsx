@@ -25,26 +25,30 @@ const defaultMaxDate = new Date(8.64e15);
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
 
-const datesAreDifferent = (date1, date2) => (
-  (date1 && !date2)
-  || (!date1 && date2)
-  || (date1 && date2 && date1.getTime() !== date2.getTime())
-);
+function datesAreDifferent(date1, date2) {
+  return (
+    (date1 && !date2)
+    || (!date1 && date2)
+    || (date1 && date2 && date1.getTime() !== date2.getTime())
+  );
+}
 
 /**
  * Returns value type that can be returned with currently applied settings.
  */
-const getValueType = maxDetail => allValueTypes[allViews.indexOf(maxDetail)];
+function getValueType(maxDetail) {
+  return allValueTypes[allViews.indexOf(maxDetail)];
+}
 
-const getValueFromRange = (valueOrArrayOfValues, index) => {
+function getValueFromRange(valueOrArrayOfValues, index) {
   if (Array.isArray(valueOrArrayOfValues)) {
     return valueOrArrayOfValues[index];
   }
 
   return valueOrArrayOfValues;
-};
+}
 
-const parseAndValidateDate = (rawValue) => {
+function parseAndValidateDate(rawValue) {
   if (!rawValue) {
     return null;
   }
@@ -56,15 +60,15 @@ const parseAndValidateDate = (rawValue) => {
   }
 
   return valueDate;
-};
+}
 
-const getValueFrom = (value) => {
+function getValueFrom(value) {
   const valueFrom = getValueFromRange(value, 0);
 
   return parseAndValidateDate(valueFrom);
-};
+}
 
-const getDetailValueFrom = (value, minDate, maxDate, maxDetail) => {
+function getDetailValueFrom(value, minDate, maxDate, maxDetail) {
   const valueFrom = getValueFrom(value);
 
   if (!valueFrom) {
@@ -74,15 +78,15 @@ const getDetailValueFrom = (value, minDate, maxDate, maxDetail) => {
   const detailValueFrom = getBegin(getValueType(maxDetail), valueFrom);
 
   return between(detailValueFrom, minDate, maxDate);
-};
+}
 
-const getValueTo = (value) => {
+function getValueTo(value) {
   const valueTo = getValueFromRange(value, 1);
 
   return parseAndValidateDate(valueTo);
-};
+}
 
-const getDetailValueTo = (value, minDate, maxDate, maxDetail) => {
+function getDetailValueTo(value, minDate, maxDate, maxDetail) {
   const valueTo = getValueTo(value);
 
   if (!valueTo) {
@@ -92,9 +96,9 @@ const getDetailValueTo = (value, minDate, maxDate, maxDetail) => {
   const detailValueTo = getEnd(getValueType(maxDetail), valueTo);
 
   return between(detailValueTo, minDate, maxDate);
-};
+}
 
-const getDetailValueArray = (value, minDate, maxDate, maxDetail) => {
+function getDetailValueArray(value, minDate, maxDate, maxDetail) {
   if (value instanceof Array) {
     return value;
   }
@@ -103,21 +107,27 @@ const getDetailValueArray = (value, minDate, maxDate, maxDetail) => {
     getDetailValueFrom(value, minDate, maxDate, maxDetail),
     getDetailValueTo(value, minDate, maxDate, maxDetail),
   ];
-};
+}
 
-const isValidInput = element => element.tagName === 'INPUT' && element.type === 'number';
+function isValidInput(element) {
+  return element.tagName === 'INPUT' && element.type === 'number';
+}
 
-const findInput = (element, property) => {
+function findInput(element, property) {
   let nextElement = element;
   do {
     nextElement = nextElement[property];
   } while (nextElement && !isValidInput(nextElement));
   return nextElement;
-};
+}
 
-const focus = element => element && element.focus();
+function focus(element) {
+  if (element) {
+    element.focus();
+  }
+}
 
-const renderCustomInputs = (placeholder, elementFunctions, allowMultipleInstances) => {
+function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstances) {
   const usedFunctions = [];
   const pattern = new RegExp(
     Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
@@ -153,7 +163,7 @@ const renderCustomInputs = (placeholder, elementFunctions, allowMultipleInstance
       }
       return res;
     }, []);
-};
+}
 
 export default class DateInput extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
