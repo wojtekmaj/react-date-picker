@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import NativeInput from '../NativeInput';
+import NativeInput from './NativeInput';
 
 /* eslint-disable comma-dangle */
 
