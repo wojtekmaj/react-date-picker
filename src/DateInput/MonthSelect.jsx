@@ -14,10 +14,10 @@ export default function MonthSelect({
   locale,
   maxDate,
   minDate,
+  placeholder = '--',
   short,
-  year,
   value,
-  placeholder,
+  year,
   ...otherProps
 }) {
   const maxMonth = min(12, maxDate && year === getYear(maxDate) && getMonth(maxDate));
@@ -81,8 +81,4 @@ MonthSelect.propTypes = {
   short: PropTypes.bool,
   value: PropTypes.number,
   year: PropTypes.number,
-};
-
-MonthSelect.defaultProps = {
-  placeholder: '--',
 };

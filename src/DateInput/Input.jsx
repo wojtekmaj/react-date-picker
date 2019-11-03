@@ -47,7 +47,7 @@ export default function Input({
   onChange,
   onKeyDown,
   onKeyUp,
-  placeholder,
+  placeholder = '--',
   required,
   showLeadingZeros,
   step,
@@ -112,8 +112,4 @@ Input.propTypes = {
   showLeadingZeros: PropTypes.bool,
   step: PropTypes.number,
   value: PropTypes.number,
-};
-
-Input.defaultProps = {
-  placeholder: '--',
 };

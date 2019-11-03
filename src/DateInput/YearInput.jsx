@@ -10,6 +10,7 @@ import { max, min } from '../shared/utils';
 export default function YearInput({
   maxDate,
   minDate,
+  placeholder = '----',
   valueType,
   ...otherProps
 }) {
@@ -29,6 +30,7 @@ export default function YearInput({
       max={maxYear}
       min={minYear}
       name="year"
+      placeholder={placeholder}
       step={yearStep}
       {...otherProps}
     />
@@ -49,8 +51,4 @@ YearInput.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.number,
   valueType: isValueType,
-};
-
-YearInput.defaultProps = {
-  placeholder: '----',
 };
