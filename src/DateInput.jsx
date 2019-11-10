@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
+import { getYear, getMonthHuman, getDate } from '@wojtekmaj/date-utils';
 
 import Divider from './Divider';
 import DayInput from './DateInput/DayInput';
@@ -12,10 +13,7 @@ import NativeInput from './DateInput/NativeInput';
 import { getFormatter } from './shared/dateFormatter';
 import {
   getBegin,
-  getDay,
   getEnd,
-  getMonth,
-  getYear,
 } from './shared/dates';
 import { isMaxDate, isMinDate } from './shared/propTypes';
 import { between } from './shared/utils';
@@ -200,8 +198,8 @@ export default class DateInput extends PureComponent {
     ) {
       if (nextValue) {
         nextState.year = getYear(nextValue);
-        nextState.month = getMonth(nextValue);
-        nextState.day = getDay(nextValue);
+        nextState.month = getMonthHuman(nextValue);
+        nextState.day = getDate(nextValue);
       } else {
         nextState.year = null;
         nextState.month = null;

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getYear } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { getYear } from '../shared/dates';
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 import { max, min } from '../shared/utils';
 

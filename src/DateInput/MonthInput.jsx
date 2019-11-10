@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getYear, getMonthHuman } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { getMonth, getYear } from '../shared/dates';
 import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
 
@@ -13,8 +13,8 @@ export default function MonthInput({
   year,
   ...otherProps
 }) {
-  const maxMonth = min(12, maxDate && year === getYear(maxDate) && getMonth(maxDate));
-  const minMonth = max(1, minDate && year === getYear(minDate) && getMonth(minDate));
+  const maxMonth = min(12, maxDate && year === getYear(maxDate) && getMonthHuman(maxDate));
+  const minMonth = max(1, minDate && year === getYear(minDate) && getMonthHuman(minDate));
 
   return (
     <Input
