@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 import updateInputWidth, { getFontShorthand } from 'update-input-width';
 
+/* eslint-disable jsx-a11y/no-autofocus */
+
 function select(element) {
   if (!element) {
     return;
@@ -37,6 +39,7 @@ function updateInputWidthOnFontLoad(element) {
 
 export default function Input({
   ariaLabel,
+  autoFocus,
   className,
   disabled,
   itemRef,
@@ -61,6 +64,7 @@ export default function Input({
       key="input"
       aria-label={ariaLabel}
       autoComplete="off"
+      autoFocus={autoFocus}
       className={mergeClassNames(
         `${className}__input`,
         `${className}__${nameForClass || name}`,

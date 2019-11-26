@@ -155,7 +155,7 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
         if (!allowMultipleInstances && usedFunctions.includes(renderFunction)) {
           res.push(currentMatch);
         } else {
-          res.push(renderFunction(currentMatch));
+          res.push(renderFunction(currentMatch, index));
           usedFunctions.push(renderFunction);
         }
       }
@@ -439,8 +439,13 @@ export default class DateInput extends PureComponent {
     }
   }
 
-  renderDay = (currentMatch) => {
-    const { dayAriaLabel, dayPlaceholder, showLeadingZeros } = this.props;
+  renderDay = (currentMatch, index) => {
+    const {
+      autoFocus,
+      dayAriaLabel,
+      dayPlaceholder,
+      showLeadingZeros,
+    } = this.props;
     const { day, month, year } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -454,6 +459,7 @@ export default class DateInput extends PureComponent {
         key="day"
         {...this.commonInputProps}
         ariaLabel={dayAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         month={month}
         placeholder={dayPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
@@ -463,8 +469,9 @@ export default class DateInput extends PureComponent {
     );
   }
 
-  renderMonth = (currentMatch) => {
+  renderMonth = (currentMatch, index) => {
     const {
+      autoFocus,
       locale,
       monthAriaLabel,
       monthPlaceholder,
@@ -482,6 +489,7 @@ export default class DateInput extends PureComponent {
           key="month"
           {...this.commonInputProps}
           ariaLabel={monthAriaLabel}
+          autoFocus={index === 0 && autoFocus}
           locale={locale}
           placeholder={monthPlaceholder}
           short={currentMatch.length === 3}
@@ -498,6 +506,7 @@ export default class DateInput extends PureComponent {
         key="month"
         {...this.commonInputProps}
         ariaLabel={monthAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         placeholder={monthPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={month}
@@ -506,8 +515,8 @@ export default class DateInput extends PureComponent {
     );
   }
 
-  renderYear = () => {
-    const { yearAriaLabel, yearPlaceholder } = this.props;
+  renderYear = (currentMatch, index) => {
+    const { autoFocus, yearAriaLabel, yearPlaceholder } = this.props;
     const { year } = this.state;
 
     return (
@@ -515,6 +524,7 @@ export default class DateInput extends PureComponent {
         key="year"
         {...this.commonInputProps}
         ariaLabel={yearAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         placeholder={yearPlaceholder}
         value={year}
         valueType={this.valueType}
@@ -592,6 +602,7 @@ const isValue = PropTypes.oneOfType([
 ]);
 
 DateInput.propTypes = {
+  autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,
