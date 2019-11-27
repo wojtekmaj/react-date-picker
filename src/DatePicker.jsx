@@ -116,6 +116,7 @@ export default class DatePicker extends PureComponent {
 
   renderInputs() {
     const {
+      autoFocus,
       calendarAriaLabel,
       calendarIcon,
       clearAriaLabel,
@@ -162,6 +163,7 @@ export default class DatePicker extends PureComponent {
         <DateInput
           {...ariaLabelProps}
           {...placeholderProps}
+          autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
           format={format}
@@ -310,6 +312,7 @@ const isValue = PropTypes.oneOfType([
 ]);
 
 DatePicker.propTypes = {
+  autoFocus: PropTypes.bool,
   calendarAriaLabel: PropTypes.string,
   calendarClassName: PropTypes.oneOfType([
     PropTypes.string,
