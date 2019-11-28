@@ -28,6 +28,16 @@ describe('DatePicker', () => {
     expect(dateInput.prop('name')).toBe(name);
   });
 
+  it('passes autoFocus flag to DateInput', () => {
+    const component = mount(
+      <DatePicker autoFocus />
+    );
+
+    const dateInput = component.find('DateInput');
+
+    expect(dateInput.prop('autoFocus')).toBeTruthy();
+  });
+
   it('passes disabled flag to DateInput', () => {
     const component = mount(
       <DatePicker disabled />
