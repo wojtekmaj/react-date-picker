@@ -5,7 +5,7 @@ import makeEventProps from 'make-event-props';
 import mergeClassNames from 'merge-class-names';
 import Fit from 'react-fit';
 
-import Calendar from 'react-calendar/dist/entry.nostyle';
+import Calendar from 'react-calendar/dist/esm/entry.nostyle';
 
 import DateInput from './DateInput';
 
@@ -17,25 +17,19 @@ const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'];
 const allViews = ['century', 'decade', 'year', 'month'];
 
 export default class DatePicker extends PureComponent {
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.isOpen !== prevState.isOpenProps) {
-      return {
-        isOpen: nextProps.isOpen,
-        isOpenProps: nextProps.isOpen,
-      };
-    }
-
-    return null;
-  }
-
-  state = {};
+  state = {
+    /* eslint-disable react/destructuring-assignment */
+    isOpen: this.props.defaultIsOpen,
+    value: this.props.defaultValue,
+    /* eslint-enable react/destructuring-assignment */
+  };
 
   componentDidMount() {
     this.handleOutsideActionListeners();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { isOpen } = this.state;
+    const { isOpen } = this;
     const { onCalendarClose, onCalendarOpen } = this.props;
 
     if (isOpen !== prevState.isOpen) {
@@ -50,6 +44,20 @@ export default class DatePicker extends PureComponent {
 
   get eventProps() {
     return makeEventProps(this.props);
+  }
+
+  get isOpen() {
+    const { isOpen: isOpenProps } = this.props;
+    const { isOpen: isOpenState } = this.state;
+
+    return isOpenProps || isOpenState;
+  }
+
+  get value() {
+    const { value: valueProps } = this.props;
+    const { value: valueState } = this.state;
+
+    return valueProps || valueState;
   }
 
   onOutsideAction = (event) => {
@@ -107,7 +115,7 @@ export default class DatePicker extends PureComponent {
   clear = () => this.onChange(null);
 
   handleOutsideActionListeners(shouldListen) {
-    const { isOpen } = this.state;
+    const { isOpen } = this;
 
     const shouldListenWithFallback = typeof shouldListen !== 'undefined' ? shouldListen : isOpen;
     const fnName = shouldListenWithFallback ? 'addEventListener' : 'removeEventListener';
@@ -115,6 +123,7 @@ export default class DatePicker extends PureComponent {
   }
 
   renderInputs() {
+    const { isOpen, value } = this;
     const {
       autoFocus,
       calendarAriaLabel,
@@ -137,11 +146,9 @@ export default class DatePicker extends PureComponent {
       required,
       returnValue,
       showLeadingZeros,
-      value,
       yearAriaLabel,
       yearPlaceholder,
     } = this.props;
-    const { isOpen } = this.state;
 
     const [valueFrom] = [].concat(value);
 
@@ -209,8 +216,8 @@ export default class DatePicker extends PureComponent {
   }
 
   renderCalendar() {
+    const { isOpen, value } = this;
     const { disableCalendar } = this.props;
-    const { isOpen } = this.state;
 
     if (isOpen === null || disableCalendar) {
       return null;
@@ -220,7 +227,7 @@ export default class DatePicker extends PureComponent {
       calendarClassName,
       className: datePickerClassName, // Unused, here to exclude it from calendarProps
       onChange,
-      value,
+      value: datePickerValue, // Unused, here to exclude it from calendarProps
       ...calendarProps
     } = this.props;
 
@@ -230,10 +237,10 @@ export default class DatePicker extends PureComponent {
       <Fit>
         <div className={mergeClassNames(className, `${className}--${isOpen ? 'open' : 'closed'}`)}>
           <Calendar
+            {...calendarProps}
             className={calendarClassName}
             onChange={this.onChange}
-            value={value || null}
-            {...calendarProps}
+            value={value}
           />
         </div>
       </Fit>
@@ -241,8 +248,8 @@ export default class DatePicker extends PureComponent {
   }
 
   render() {
+    const { isOpen } = this;
     const { className, disabled } = this.props;
-    const { isOpen } = this.state;
 
     return (
       <div
@@ -302,7 +309,6 @@ const ClearIcon = (
 DatePicker.defaultProps = {
   calendarIcon: CalendarIcon,
   clearIcon: ClearIcon,
-  isOpen: null,
   returnValue: 'start',
 };
 
@@ -327,6 +333,11 @@ DatePicker.propTypes = {
   clearIcon: PropTypes.node,
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,
+  defaultIsOpen: PropTypes.bool,
+  defaultValue: PropTypes.oneOfType([
+    isValue,
+    PropTypes.arrayOf(isValue),
+  ]),
   disableCalendar: PropTypes.bool,
   disabled: PropTypes.bool,
   format: PropTypes.string,

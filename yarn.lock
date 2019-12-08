@@ -4446,15 +4446,15 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-calendar@^2.19.1:
-  version "2.19.1"
-  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.19.1.tgz#6d56ec4abc5c93681b980e46fedb86712542531e"
-  integrity sha512-BVV6q7mRFB0Gcc0N3UhfpQHzUTCsSbNj7RFIVXW3ZmcB+57Vx6QY+Y81va7GShedDDViwpAba99rAi8KaBUJDw==
+react-calendar@^3.0.0-beta.3:
+  version "3.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-3.0.0-beta.3.tgz#45ef45cdd3142f5bd3942b7e27ecfb112845e510"
+  integrity sha512-7WbwE6Pvl5RvywE1hNQIB5R1GTnz5AxUsEBFgar10KCmIXclFblpTH9YNfGsN8pR9sdhtudlXxXXwWw8SRCDRw==
   dependencies:
+    "@wojtekmaj/date-utils" "^1.0.0"
     get-user-locale "^1.2.0"
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
-    react-lifecycles-compat "^3.0.4"
 
 react-dom@^16.7.0:
   version "16.8.6"

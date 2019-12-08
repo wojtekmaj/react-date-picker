@@ -35,6 +35,7 @@ const placeholderProps = {
 export default class Test extends PureComponent {
   state = {
     disabled: false,
+    isOpen: true, // TODO: Toggle this
     locale: null,
     maxDate: new Date(now.getUTCFullYear(), now.getUTCMonth() + 1, 15, 12),
     maxDetail: 'month',
@@ -48,11 +49,12 @@ export default class Test extends PureComponent {
     value: now,
   }
 
-  onChange = value => this.setState({ value })
+  onChange = value => this.setState({ value });
 
   render() {
     const {
       disabled,
+      isOpen,
       locale,
       maxDate,
       maxDetail,
@@ -67,6 +69,28 @@ export default class Test extends PureComponent {
     } = this.state;
 
     const setState = state => this.setState(state);
+
+    const commonProps = {
+      ...ariaLabelProps,
+      ...placeholderProps,
+      calendarClassName: 'myCustomCalendarClassName',
+      className: 'myCustomDatePickerClassName',
+      disabled,
+      locale,
+      maxDate,
+      maxDetail,
+      minDate,
+      minDetail,
+      name: 'myCustomName',
+      onCalendarClose: () => console.log('Calendar closed'),
+      onCalendarOpen: () => console.log('Calendar opened'),
+      onChange: this.onChange,
+      required,
+      returnValue,
+      showLeadingZeros,
+      showNeighboringMonth,
+      showWeekNumbers,
+    };
 
     return (
       <div className="Test">
@@ -118,27 +142,17 @@ export default class Test extends PureComponent {
                 console.log(event);
               }}
             >
+              <p>Controlled:</p>
               <DatePicker
-                {...ariaLabelProps}
-                {...placeholderProps}
-                calendarClassName="myCustomCalendarClassName"
-                className="myCustomDatePickerClassName"
-                disabled={disabled}
-                locale={locale}
-                maxDate={maxDate}
-                maxDetail={maxDetail}
-                minDate={minDate}
-                minDetail={minDetail}
-                name="myCustomName"
-                onCalendarClose={() => console.log('Calendar closed')}
-                onCalendarOpen={() => console.log('Calendar opened')}
-                onChange={this.onChange}
-                required={required}
-                returnValue={returnValue}
-                showLeadingZeros={showLeadingZeros}
-                showNeighboringMonth={showNeighboringMonth}
-                showWeekNumbers={showWeekNumbers}
+                {...commonProps}
+                isOpen={isOpen}
                 value={value}
+              />
+              <p>Uncontrolled:</p>
+              <DatePicker
+                {...commonProps}
+                defaultIsOpen={isOpen}
+                defaultValue={value}
               />
               <br />
               <br />
