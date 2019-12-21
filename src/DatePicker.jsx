@@ -50,14 +50,14 @@ export default class DatePicker extends PureComponent {
     const { isOpen: isOpenProps } = this.props;
     const { isOpen: isOpenState } = this.state;
 
-    return isOpenProps || isOpenState;
+    return isOpenProps !== undefined ? isOpenProps : isOpenState;
   }
 
   get value() {
     const { value: valueProps } = this.props;
     const { value: valueState } = this.state;
 
-    return valueProps || valueState;
+    return valueProps !== undefined ? valueProps : valueState;
   }
 
   onOutsideAction = (event) => {
