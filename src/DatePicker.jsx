@@ -69,6 +69,7 @@ export default class DatePicker extends PureComponent {
   onChange = (value, closeCalendar = true) => {
     this.setState({
       isOpen: !closeCalendar,
+      value,
     });
 
     const { onChange } = this.props;
