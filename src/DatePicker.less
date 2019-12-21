@@ -22,12 +22,8 @@
 
   &__inputGroup {
     @digit-width: .54em;
-    @dot-width: .217em;
-    // own padding + inputs padding + digits width + dots width
-    min-width: calc(~"(4px * 3) + " @digit-width * 8 ~" + " @dot-width * 2);
     flex-grow: 1;
     padding: 0 2px;
-    box-sizing: content-box;
 
     &__divider {
       padding: 1px 0;
