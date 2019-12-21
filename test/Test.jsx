@@ -35,7 +35,7 @@ const placeholderProps = {
 export default class Test extends PureComponent {
   state = {
     disabled: false,
-    isOpen: true, // TODO: Toggle this
+    isOpen: false,
     locale: null,
     maxDate: new Date(now.getUTCFullYear(), now.getUTCMonth() + 1, 15, 12),
     maxDetail: 'month',
@@ -127,6 +127,7 @@ export default class Test extends PureComponent {
             />
             <ViewOptions
               disabled={disabled}
+              isOpen={isOpen}
               setState={setState}
               showLeadingZeros={showLeadingZeros}
               showNeighboringMonth={showNeighboringMonth}
