@@ -5,7 +5,7 @@ import makeEventProps from 'make-event-props';
 import mergeClassNames from 'merge-class-names';
 import Fit from 'react-fit';
 
-import Calendar from 'react-calendar/dist/esm/entry.nostyle';
+import Calendar from 'react-calendar';
 
 import DateInput from './DateInput';
 

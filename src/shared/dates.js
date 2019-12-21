@@ -1,4 +1,4 @@
 export {
   getBegin,
   getEnd,
-} from 'react-calendar/dist/umd/shared/dates';
+} from 'react-calendar/dist/esm/shared/dates';
