@@ -37,6 +37,27 @@ function updateInputWidthOnFontLoad(element) {
   document.fonts.addEventListener('loadingdone', onLoadingDone);
 }
 
+function getSelectionString() {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  return window.getSelection().toString();
+}
+
+function makeOnKeyPress(maxLength) {
+  return function onKeyPress(event) {
+    const { value } = event.target;
+    const selection = getSelectionString();
+
+    if (selection || value.length < maxLength) {
+      return;
+    }
+
+    event.preventDefault();
+  };
+}
+
 export default function Input({
   ariaLabel,
   autoFocus,
@@ -57,6 +78,7 @@ export default function Input({
   value,
 }) {
   const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
+  const maxLength = max.toString().length;
 
   return [
     (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
@@ -77,6 +99,7 @@ export default function Input({
       onChange={onChange}
       onFocus={event => select(event.target)}
       onKeyDown={onKeyDown}
+      onKeyPress={makeOnKeyPress(maxLength)}
       onKeyUp={(event) => {
         updateInputWidth(event.target);
 
