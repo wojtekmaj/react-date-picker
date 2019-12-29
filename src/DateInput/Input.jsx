@@ -5,12 +5,10 @@ import updateInputWidth, { getFontShorthand } from 'update-input-width';
 
 /* eslint-disable jsx-a11y/no-autofocus */
 
-function select(element) {
-  if (!element) {
-    return;
-  }
+function onFocus(event) {
+  const { target } = event;
 
-  requestAnimationFrame(() => element.select());
+  requestAnimationFrame(() => target.select());
 }
 
 function updateInputWidthOnFontLoad(element) {
@@ -97,7 +95,7 @@ export default function Input({
       min={min}
       name={name}
       onChange={onChange}
-      onFocus={event => select(event.target)}
+      onFocus={onFocus}
       onKeyDown={onKeyDown}
       onKeyPress={makeOnKeyPress(maxLength)}
       onKeyUp={(event) => {
