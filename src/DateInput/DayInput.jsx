@@ -27,14 +27,12 @@ export default function DayInput({
     return getDaysInMonth(new Date(year, month - 1, 1));
   })();
 
-  const maxDay = min(
-    currentMonthMaxDays,
-    maxDate && year === getYear(maxDate) && month === getMonthHuman(maxDate) && getDate(maxDate),
-  );
+  function isSameMonth(date) {
+    return date && year === getYear(date) && month === getMonthHuman(date);
+  }
 
-  const minDay = max(
-    1, minDate && year === getYear(minDate) && month === getMonthHuman(minDate) && getDate(minDate),
-  );
+  const maxDay = min(currentMonthMaxDays, isSameMonth(maxDate) && getDate(maxDate));
+  const minDay = max(1, isSameMonth(minDate) && getDate(minDate));
 
   return (
     <Input
