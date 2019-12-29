@@ -13,8 +13,12 @@ export default function MonthInput({
   year,
   ...otherProps
 }) {
-  const maxMonth = min(12, maxDate && year === getYear(maxDate) && getMonthHuman(maxDate));
-  const minMonth = max(1, minDate && year === getYear(minDate) && getMonthHuman(minDate));
+  function isSameYear(date) {
+    return date && year === getYear(date);
+  }
+
+  const maxMonth = min(12, isSameYear(maxDate) && getMonthHuman(maxDate));
+  const minMonth = max(1, isSameYear(minDate) && getMonthHuman(minDate));
 
   return (
     <Input
