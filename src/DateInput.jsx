@@ -352,7 +352,7 @@ export default class DateInput extends PureComponent {
     }
 
     const { value } = input;
-    const max = parseInt(input.getAttribute('max'), 10);
+    const max = input.getAttribute('max');
 
     /**
      * Given 1, the smallest possible number the user could type by adding another digit is 10.
@@ -360,7 +360,7 @@ export default class DateInput extends PureComponent {
      * However, given 2, smallers possible number would be 20, and thus keeping the focus in
      * this field doesn't make sense.
      */
-    if (value * 10 > max) {
+    if ((value * 10 > max) || (value.length >= max.length)) {
       const property = 'nextElementSibling';
       const nextInput = findInput(input, property);
       focus(nextInput);
