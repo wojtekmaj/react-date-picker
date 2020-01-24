@@ -12,6 +12,8 @@ declare module "react-date-picker" {
     format?: string;
     isOpen?: boolean;
     name?: string;
+    onCalendarOpen?: () => void;
+    onCalendarClose?: () => void;
     required?: boolean;
     showLeadingZeros?: boolean;
   }
