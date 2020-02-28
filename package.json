@@ -72,7 +72,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@wojtekmaj/date-utils": "^1.0.0",
+    "@wojtekmaj/date-utils": "^1.0.2",
     "get-user-locale": "^1.2.0",
     "make-event-props": "^1.1.0",
     "merge-class-names": "^1.1.1",
