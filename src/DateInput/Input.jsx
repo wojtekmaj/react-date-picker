@@ -1,18 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
-import updateInputWidth from 'update-input-width';
+import updateInputWidth, { getFontShorthand } from 'update-input-width';
 
-function select(element) {
-  if (!element) {
+/* eslint-disable jsx-a11y/no-autofocus */
+
+function onFocus(event) {
+  const { target } = event;
+
+  requestAnimationFrame(() => target.select());
+}
+
+function updateInputWidthOnFontLoad(element) {
+  if (!document.fonts) {
     return;
   }
 
-  requestAnimationFrame(() => element.select());
+  const font = getFontShorthand(element);
+
+  if (!font) {
+    return;
+  }
+
+  const isFontLoaded = document.fonts.check(font);
+
+  if (isFontLoaded) {
+    return;
+  }
+
+  function onLoadingDone() {
+    updateInputWidth(element);
+  }
+
+  document.fonts.addEventListener('loadingdone', onLoadingDone);
+}
+
+function getSelectionString() {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  return window.getSelection().toString();
+}
+
+function makeOnKeyPress(maxLength) {
+  return function onKeyPress(event) {
+    const { value } = event.target;
+    const selection = getSelectionString();
+
+    if (selection || value.length < maxLength) {
+      return;
+    }
+
+    event.preventDefault();
+  };
 }
 
 export default function Input({
   ariaLabel,
+  autoFocus,
   className,
   disabled,
   itemRef,
@@ -23,13 +69,14 @@ export default function Input({
   onChange,
   onKeyDown,
   onKeyUp,
-  placeholder,
+  placeholder = '--',
   required,
   showLeadingZeros,
   step,
   value,
 }) {
   const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
+  const maxLength = max.toString().length;
 
   return [
     (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
@@ -37,6 +84,7 @@ export default function Input({
       key="input"
       aria-label={ariaLabel}
       autoComplete="off"
+      autoFocus={autoFocus}
       className={mergeClassNames(
         `${className}__input`,
         `${className}__${nameForClass || name}`,
@@ -47,8 +95,9 @@ export default function Input({
       min={min}
       name={name}
       onChange={onChange}
-      onFocus={event => select(event.target)}
+      onFocus={onFocus}
       onKeyDown={onKeyDown}
+      onKeyPress={makeOnKeyPress(maxLength)}
       onKeyUp={(event) => {
         updateInputWidth(event.target);
 
@@ -60,6 +109,7 @@ export default function Input({
       ref={(ref) => {
         if (ref) {
           updateInputWidth(ref);
+          updateInputWidthOnFontLoad(ref);
         }
 
         if (itemRef) {
@@ -87,8 +137,4 @@ Input.propTypes = {
   showLeadingZeros: PropTypes.bool,
   step: PropTypes.number,
   value: PropTypes.number,
-};
-
-Input.defaultProps = {
-  placeholder: '--',
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import YearInput from '../YearInput';
+import YearInput from './YearInput';
 
 /* eslint-disable comma-dangle */
 
@@ -31,9 +31,9 @@ describe('YearInput', () => {
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('aria-label')).toBe(yearAriaLabel);
+    expect(input.prop('aria-label')).toBe(yearAriaLabel);
   });
 
   it('applies given placeholder properly', () => {
@@ -46,9 +46,9 @@ describe('YearInput', () => {
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('placeholder')).toBe(yearPlaceholder);
+    expect(input.prop('placeholder')).toBe(yearPlaceholder);
   });
 
   it('has proper name defined', () => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
+import { getYear, getMonthHuman } from '@wojtekmaj/date-utils';
 
-import { getMonth, getYear } from '../shared/dates';
 import { formatMonth, formatShortMonth } from '../shared/dateFormatter';
 import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
@@ -14,13 +14,18 @@ export default function MonthSelect({
   locale,
   maxDate,
   minDate,
+  placeholder = '--',
   short,
-  year,
   value,
+  year,
   ...otherProps
 }) {
-  const maxMonth = min(12, maxDate && year === getYear(maxDate) && getMonth(maxDate));
-  const minMonth = max(1, minDate && year === getYear(minDate) && getMonth(minDate));
+  function isSameYear(date) {
+    return date && year === getYear(date);
+  }
+
+  const maxMonth = min(12, isSameYear(maxDate) && getMonthHuman(maxDate));
+  const minMonth = max(1, isSameYear(minDate) && getMonthHuman(minDate));
   const dates = [...Array(12)].map((el, index) => new Date(2019, index, 1));
   const name = 'month';
   const formatter = short ? formatShortMonth : formatMonth;
@@ -43,11 +48,11 @@ export default function MonthSelect({
     >
       {!value && (
         <option value="">
-          --
+          {placeholder}
         </option>
       )}
       {dates.map((date) => {
-        const month = getMonth(date);
+        const month = getMonthHuman(date);
         const disabled = month < minMonth || month > maxMonth;
 
         return (

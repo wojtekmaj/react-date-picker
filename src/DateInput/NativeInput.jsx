@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
+  getYear,
   getISOLocalDate,
   getISOLocalMonth,
-  getYear,
-} from '../shared/dates';
+} from '@wojtekmaj/date-utils';
+
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 
 export default function NativeInput({

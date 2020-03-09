@@ -8,11 +8,16 @@ declare module "react-date-picker" {
     calendarIcon?: JSX.Element | null;
     className?: string | string[];
     clearIcon?: JSX.Element | null;
+    dayPlaceholder?: string;
     disabled?: boolean;
     format?: string;
     isOpen?: boolean;
+    monthPlaceholder?: string;
     name?: string;
+    onCalendarOpen?: () => void;
+    onCalendarClose?: () => void;
     required?: boolean;
     showLeadingZeros?: boolean;
+    yearPlaceholder?: string;
   }
 }

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  getYear,
+  getMonthHuman,
+  getDate,
+  getDaysInMonth,
+} from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import {
-  getDay,
-  getDaysInMonth,
-  getMonth,
-  getYear,
-} from '../shared/dates';
 import { isMaxDate, isMinDate } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
 
@@ -27,14 +27,12 @@ export default function DayInput({
     return getDaysInMonth(new Date(year, month - 1, 1));
   })();
 
-  const maxDay = min(
-    currentMonthMaxDays,
-    maxDate && year === getYear(maxDate) && month === getMonth(maxDate) && getDay(maxDate),
-  );
+  function isSameMonth(date) {
+    return date && year === getYear(date) && month === getMonthHuman(date);
+  }
 
-  const minDay = max(
-    1, minDate && year === getYear(minDate) && month === getMonth(minDate) && getDay(minDate),
-  );
+  const maxDay = min(currentMonthMaxDays, isSameMonth(maxDate) && getDate(maxDate));
+  const minDay = max(1, isSameMonth(minDate) && getDate(minDate));
 
   return (
     <Input

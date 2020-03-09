@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import MonthSelect from '../MonthSelect';
+import MonthSelect from './MonthSelect';
 
 /* eslint-disable comma-dangle */
 
@@ -38,7 +38,18 @@ describe('MonthSelect', () => {
     expect(select.prop('aria-label')).toBe(monthAriaLabel);
   });
 
-  it('applies given placeholder properly', () => {
+  it('has proper placeholder by default', () => {
+    const component = mount(
+      <MonthSelect {...defaultProps} />
+    );
+
+    const options = component.find('option');
+    const firstOption = options.first();
+
+    expect(firstOption.text()).toBe('--');
+  });
+
+  it('displays given placeholder properly', () => {
     const monthPlaceholder = 'mm';
 
     const component = mount(
@@ -48,9 +59,10 @@ describe('MonthSelect', () => {
       />
     );
 
-    const select = component.find('select');
+    const options = component.find('option');
+    const firstOption = options.first();
 
-    expect(select.prop('placeholder')).toBe(monthPlaceholder);
+    expect(firstOption.text()).toBe(monthPlaceholder);
   });
 
   it('has proper name defined', () => {

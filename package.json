@@ -1,13 +1,13 @@
 {
   "name": "react-date-picker",
-  "version": "7.8.0",
+  "version": "7.10.0",
   "description": "A date picker for your React app.",
   "main": "dist/entry.js",
   "source": "src/entry.js",
   "types": "./index.d.ts",
   "scripts": {
     "build": "yarn build-js && yarn copy-styles && yarn build-styles && yarn copy-types",
-    "build-js": "babel src -d dist --ignore **/__tests__,**/**/__tests__",
+    "build-js": "babel src -d dist --ignore **/*.spec.js,**/*.spec.jsx",
     "build-styles": "lessc ./dist/DatePicker.less ./dist/DatePicker.css",
     "clean": "rimraf dist",
     "copy-styles": "node ./copy-styles.js",
@@ -63,41 +63,46 @@
       "email": "kevin.kipp@gmail.com"
     },
     {
+      "name": "Linus Marco"
+    },
+    {
       "name": "Marco Fugaro",
       "email": "marco.fugaro@gmail.com"
     }
   ],
   "license": "MIT",
   "dependencies": {
-    "get-user-locale": "^1.1.1",
+    "@wojtekmaj/date-utils": "^1.0.2",
+    "get-user-locale": "^1.2.0",
     "make-event-props": "^1.1.0",
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
-    "react-calendar": "^2.18.0",
+    "react-calendar": "^2.19.1",
     "react-fit": "^1.0.3",
-    "update-input-width": "^1.0.1"
+    "update-input-width": "^1.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.0",
-    "@babel/plugin-proposal-class-properties": "^7.5.0",
-    "@babel/preset-env": "^7.5.0",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.0",
     "babel-jest": "^24.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.14.2",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.8.0",
     "less": "^3.8.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-test-renderer": "^16.7.0",
-    "rimraf": "^2.6.2"
+    "rimraf": "^3.0.0"
   },
   "peerDependencies": {
     "react": ">=16.3",

@@ -29,10 +29,6 @@ export default class DatePicker extends PureComponent {
 
   state = {};
 
-  get eventProps() {
-    return makeEventProps(this.props);
-  }
-
   componentDidMount() {
     this.handleOutsideActionListeners();
   }
@@ -51,36 +47,14 @@ export default class DatePicker extends PureComponent {
     this.handleOutsideActionListeners(false);
   }
 
-  handleOutsideActionListeners(shouldListen) {
-    const { isOpen } = this.state;
-
-    const shouldListenWithFallback = typeof shouldListen !== 'undefined' ? shouldListen : isOpen;
-    const fnName = shouldListenWithFallback ? 'addEventListener' : 'removeEventListener';
-    outsideActionEvents.forEach(eventName => document[fnName](eventName, this.onOutsideAction));
+  get eventProps() {
+    return makeEventProps(this.props);
   }
 
   onOutsideAction = (event) => {
     if (this.wrapper && !this.wrapper.contains(event.target)) {
       this.closeCalendar();
     }
-  }
-
-  openCalendar = () => {
-    this.setState({ isOpen: true });
-  }
-
-  closeCalendar = () => {
-    this.setState((prevState) => {
-      if (!prevState.isOpen) {
-        return null;
-      }
-
-      return { isOpen: false };
-    });
-  }
-
-  toggleCalendar = () => {
-    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   }
 
   onChange = (value, closeCalendar = true) => {
@@ -109,12 +83,39 @@ export default class DatePicker extends PureComponent {
     this.openCalendar();
   }
 
+  openCalendar = () => {
+    this.setState({ isOpen: true });
+  }
+
+  closeCalendar = () => {
+    this.setState((prevState) => {
+      if (!prevState.isOpen) {
+        return null;
+      }
+
+      return { isOpen: false };
+    });
+  }
+
+  toggleCalendar = () => {
+    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+  }
+
   stopPropagation = event => event.stopPropagation();
 
   clear = () => this.onChange(null);
 
+  handleOutsideActionListeners(shouldListen) {
+    const { isOpen } = this.state;
+
+    const shouldListenWithFallback = typeof shouldListen !== 'undefined' ? shouldListen : isOpen;
+    const fnName = shouldListenWithFallback ? 'addEventListener' : 'removeEventListener';
+    outsideActionEvents.forEach(eventName => document[fnName](eventName, this.onOutsideAction));
+  }
+
   renderInputs() {
     const {
+      autoFocus,
       calendarAriaLabel,
       calendarIcon,
       clearAriaLabel,
@@ -161,6 +162,7 @@ export default class DatePicker extends PureComponent {
         <DateInput
           {...ariaLabelProps}
           {...placeholderProps}
+          autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
           format={format}
@@ -309,6 +311,7 @@ const isValue = PropTypes.oneOfType([
 ]);
 
 DatePicker.propTypes = {
+  autoFocus: PropTypes.bool,
   calendarAriaLabel: PropTypes.string,
   calendarClassName: PropTypes.oneOfType([
     PropTypes.string,

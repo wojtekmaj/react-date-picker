@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { getISOLocalDate } from '../src/shared/dates';
+import { getISOLocalDate } from '@wojtekmaj/date-utils';
 
 export default function ValueOptions({
   setState,

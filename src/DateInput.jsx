@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { getYear, getMonthHuman, getDate } from '@wojtekmaj/date-utils';
 
 import Divider from './Divider';
 import DayInput from './DateInput/DayInput';
@@ -11,10 +12,7 @@ import NativeInput from './DateInput/NativeInput';
 import { getFormatter } from './shared/dateFormatter';
 import {
   getBegin,
-  getDay,
   getEnd,
-  getMonth,
-  getYear,
 } from './shared/dates';
 import { isMaxDate, isMinDate } from './shared/propTypes';
 import { between } from './shared/utils';
@@ -24,26 +22,30 @@ const defaultMaxDate = new Date(8.64e15);
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
 
-const datesAreDifferent = (date1, date2) => (
-  (date1 && !date2)
-  || (!date1 && date2)
-  || (date1 && date2 && date1.getTime() !== date2.getTime())
-);
+function datesAreDifferent(date1, date2) {
+  return (
+    (date1 && !date2)
+    || (!date1 && date2)
+    || (date1 && date2 && date1.getTime() !== date2.getTime())
+  );
+}
 
 /**
  * Returns value type that can be returned with currently applied settings.
  */
-const getValueType = maxDetail => allValueTypes[allViews.indexOf(maxDetail)];
+function getValueType(maxDetail) {
+  return allValueTypes[allViews.indexOf(maxDetail)];
+}
 
-const getValueFromRange = (valueOrArrayOfValues, index) => {
+function getValueFromRange(valueOrArrayOfValues, index) {
   if (Array.isArray(valueOrArrayOfValues)) {
     return valueOrArrayOfValues[index];
   }
 
   return valueOrArrayOfValues;
-};
+}
 
-const parseAndValidateDate = (rawValue) => {
+function parseAndValidateDate(rawValue) {
   if (!rawValue) {
     return null;
   }
@@ -55,15 +57,15 @@ const parseAndValidateDate = (rawValue) => {
   }
 
   return valueDate;
-};
+}
 
-const getValueFrom = (value) => {
+function getValueFrom(value) {
   const valueFrom = getValueFromRange(value, 0);
 
   return parseAndValidateDate(valueFrom);
-};
+}
 
-const getDetailValueFrom = (value, minDate, maxDate, maxDetail) => {
+function getDetailValueFrom(value, minDate, maxDate, maxDetail) {
   const valueFrom = getValueFrom(value);
 
   if (!valueFrom) {
@@ -73,15 +75,15 @@ const getDetailValueFrom = (value, minDate, maxDate, maxDetail) => {
   const detailValueFrom = getBegin(getValueType(maxDetail), valueFrom);
 
   return between(detailValueFrom, minDate, maxDate);
-};
+}
 
-const getValueTo = (value) => {
+function getValueTo(value) {
   const valueTo = getValueFromRange(value, 1);
 
   return parseAndValidateDate(valueTo);
-};
+}
 
-const getDetailValueTo = (value, minDate, maxDate, maxDetail) => {
+function getDetailValueTo(value, minDate, maxDate, maxDetail) {
   const valueTo = getValueTo(value);
 
   if (!valueTo) {
@@ -91,9 +93,9 @@ const getDetailValueTo = (value, minDate, maxDate, maxDetail) => {
   const detailValueTo = getEnd(getValueType(maxDetail), valueTo);
 
   return between(detailValueTo, minDate, maxDate);
-};
+}
 
-const getDetailValueArray = (value, minDate, maxDate, maxDetail) => {
+function getDetailValueArray(value, minDate, maxDate, maxDetail) {
   if (value instanceof Array) {
     return value;
   }
@@ -102,21 +104,27 @@ const getDetailValueArray = (value, minDate, maxDate, maxDetail) => {
     getDetailValueFrom(value, minDate, maxDate, maxDetail),
     getDetailValueTo(value, minDate, maxDate, maxDetail),
   ];
-};
+}
 
-const isValidInput = element => element.tagName === 'INPUT' && element.type === 'number';
+function isValidInput(element) {
+  return element.tagName === 'INPUT' && element.type === 'number';
+}
 
-const findInput = (element, property) => {
+function findInput(element, property) {
   let nextElement = element;
   do {
     nextElement = nextElement[property];
   } while (nextElement && !isValidInput(nextElement));
   return nextElement;
-};
+}
 
-const focus = element => element && element.focus();
+function focus(element) {
+  if (element) {
+    element.focus();
+  }
+}
 
-const renderCustomInputs = (placeholder, elementFunctions, allowMultipleInstances) => {
+function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstances) {
   const usedFunctions = [];
   const pattern = new RegExp(
     Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
@@ -146,13 +154,13 @@ const renderCustomInputs = (placeholder, elementFunctions, allowMultipleInstance
         if (!allowMultipleInstances && usedFunctions.includes(renderFunction)) {
           res.push(currentMatch);
         } else {
-          res.push(renderFunction(currentMatch));
+          res.push(renderFunction(currentMatch, index));
           usedFunctions.push(renderFunction);
         }
       }
       return res;
     }, []);
-};
+}
 
 export default class DateInput extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -189,8 +197,8 @@ export default class DateInput extends PureComponent {
     ) {
       if (nextValue) {
         nextState.year = getYear(nextValue);
-        nextState.month = getMonth(nextValue);
-        nextState.day = getDay(nextValue);
+        nextState.month = getMonthHuman(nextValue);
+        nextState.day = getDate(nextValue);
       } else {
         nextState.year = null;
         nextState.month = null;
@@ -343,7 +351,7 @@ export default class DateInput extends PureComponent {
     }
 
     const { value } = input;
-    const max = parseInt(input.getAttribute('max'), 10);
+    const max = input.getAttribute('max');
 
     /**
      * Given 1, the smallest possible number the user could type by adding another digit is 10.
@@ -351,7 +359,7 @@ export default class DateInput extends PureComponent {
      * However, given 2, smallers possible number would be 20, and thus keeping the focus in
      * this field doesn't make sense.
      */
-    if (value * 10 > max) {
+    if ((value * 10 > max) || (value.length >= max.length)) {
       const property = 'nextElementSibling';
       const nextInput = findInput(input, property);
       focus(nextInput);
@@ -430,8 +438,13 @@ export default class DateInput extends PureComponent {
     }
   }
 
-  renderDay = (currentMatch) => {
-    const { dayAriaLabel, dayPlaceholder, showLeadingZeros } = this.props;
+  renderDay = (currentMatch, index) => {
+    const {
+      autoFocus,
+      dayAriaLabel,
+      dayPlaceholder,
+      showLeadingZeros,
+    } = this.props;
     const { day, month, year } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -445,6 +458,7 @@ export default class DateInput extends PureComponent {
         key="day"
         {...this.commonInputProps}
         ariaLabel={dayAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         month={month}
         placeholder={dayPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
@@ -454,8 +468,9 @@ export default class DateInput extends PureComponent {
     );
   }
 
-  renderMonth = (currentMatch) => {
+  renderMonth = (currentMatch, index) => {
     const {
+      autoFocus,
       locale,
       monthAriaLabel,
       monthPlaceholder,
@@ -473,6 +488,7 @@ export default class DateInput extends PureComponent {
           key="month"
           {...this.commonInputProps}
           ariaLabel={monthAriaLabel}
+          autoFocus={index === 0 && autoFocus}
           locale={locale}
           placeholder={monthPlaceholder}
           short={currentMatch.length === 3}
@@ -489,6 +505,7 @@ export default class DateInput extends PureComponent {
         key="month"
         {...this.commonInputProps}
         ariaLabel={monthAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         placeholder={monthPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={month}
@@ -497,8 +514,8 @@ export default class DateInput extends PureComponent {
     );
   }
 
-  renderYear = () => {
-    const { yearAriaLabel, yearPlaceholder } = this.props;
+  renderYear = (currentMatch, index) => {
+    const { autoFocus, yearAriaLabel, yearPlaceholder } = this.props;
     const { year } = this.state;
 
     return (
@@ -506,6 +523,7 @@ export default class DateInput extends PureComponent {
         key="year"
         {...this.commonInputProps}
         ariaLabel={yearAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         placeholder={yearPlaceholder}
         value={year}
         valueType={this.valueType}
@@ -557,11 +575,12 @@ export default class DateInput extends PureComponent {
   render() {
     const { className } = this.props;
 
+    /* eslint-disable jsx-a11y/click-events-have-key-events */
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
       <div
         className={className}
         onClick={this.onClick}
-        role="presentation"
       >
         {this.renderNativeInput()}
         {this.renderCustomInputs()}
@@ -582,6 +601,7 @@ const isValue = PropTypes.oneOfType([
 ]);
 
 DateInput.propTypes = {
+  autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,

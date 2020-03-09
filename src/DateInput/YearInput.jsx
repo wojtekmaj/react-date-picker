@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getYear } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { getYear } from '../shared/dates';
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 import { max, min } from '../shared/utils';
 
 export default function YearInput({
   maxDate,
   minDate,
+  placeholder = '----',
   valueType,
   ...otherProps
 }) {
@@ -29,6 +30,7 @@ export default function YearInput({
       max={maxYear}
       min={minYear}
       name="year"
+      placeholder={placeholder}
       step={yearStep}
       {...otherProps}
     />
@@ -49,8 +51,4 @@ YearInput.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.number,
   valueType: isValueType,
-};
-
-YearInput.defaultProps = {
-  placeholder: '----',
 };

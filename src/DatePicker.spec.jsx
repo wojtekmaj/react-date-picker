@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import DatePicker from '../DatePicker';
+import DatePicker from './DatePicker';
 
 /* eslint-disable comma-dangle */
 
@@ -26,6 +26,26 @@ describe('DatePicker', () => {
     const dateInput = component.find('DateInput');
 
     expect(dateInput.prop('name')).toBe(name);
+  });
+
+  it('passes autoFocus flag to DateInput', () => {
+    const component = mount(
+      <DatePicker autoFocus />
+    );
+
+    const dateInput = component.find('DateInput');
+
+    expect(dateInput.prop('autoFocus')).toBeTruthy();
+  });
+
+  it('passes disabled flag to DateInput', () => {
+    const component = mount(
+      <DatePicker disabled />
+    );
+
+    const dateInput = component.find('DateInput');
+
+    expect(dateInput.prop('disabled')).toBeTruthy();
   });
 
   it('passes format to DateInput', () => {

@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import MonthInput from '../MonthInput';
+import DayInput from './DayInput';
 
 /* eslint-disable comma-dangle */
 
-describe('MonthInput', () => {
+describe('DayInput', () => {
   const defaultProps = {
     className: 'className',
     onChange: () => {},
@@ -13,7 +13,7 @@ describe('MonthInput', () => {
 
   it('renders an input', () => {
     const component = mount(
-      <MonthInput {...defaultProps} />
+      <DayInput {...defaultProps} />
     );
 
     const input = component.find('input');
@@ -23,7 +23,7 @@ describe('MonthInput', () => {
 
   it('renders "0" given showLeadingZeros if day is <10', () => {
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
         showLeadingZeros
         value={9}
@@ -38,7 +38,7 @@ describe('MonthInput', () => {
 
   it('does not render "0" given showLeadingZeros if day is >=10', () => {
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
         showLeadingZeros
         value={10}
@@ -53,7 +53,7 @@ describe('MonthInput', () => {
 
   it('does not render "0" if not given showLeadingZeros', () => {
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
         value={9}
       />
@@ -66,50 +66,50 @@ describe('MonthInput', () => {
   });
 
   it('applies given aria-label properly', () => {
-    const monthAriaLabel = 'Month';
+    const dayAriaLabel = 'Day';
 
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
-        ariaLabel={monthAriaLabel}
+        ariaLabel={dayAriaLabel}
       />
-    );
-
-    const select = component.find('input');
-
-    expect(select.prop('aria-label')).toBe(monthAriaLabel);
-  });
-
-  it('applies given placeholder properly', () => {
-    const monthPlaceholder = 'mm';
-
-    const component = mount(
-      <MonthInput
-        {...defaultProps}
-        placeholder={monthPlaceholder}
-      />
-    );
-
-    const select = component.find('input');
-
-    expect(select.prop('placeholder')).toBe(monthPlaceholder);
-  });
-
-  it('has proper name defined', () => {
-    const component = mount(
-      <MonthInput {...defaultProps} />
     );
 
     const input = component.find('input');
 
-    expect(input.prop('name')).toBe('month');
+    expect(input.prop('aria-label')).toBe(dayAriaLabel);
+  });
+
+  it('applies given placeholder properly', () => {
+    const dayPlaceholder = 'dd';
+
+    const component = mount(
+      <DayInput
+        {...defaultProps}
+        placeholder={dayPlaceholder}
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('placeholder')).toBe(dayPlaceholder);
+  });
+
+  it('has proper name defined', () => {
+    const component = mount(
+      <DayInput {...defaultProps} />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('name')).toBe('day');
   });
 
   it('has proper className defined', () => {
     const className = 'react-date-picker';
 
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
         className={className}
       />
@@ -118,14 +118,14 @@ describe('MonthInput', () => {
     const input = component.find('input');
 
     expect(input.hasClass('react-date-picker__input')).toBe(true);
-    expect(input.hasClass('react-date-picker__month')).toBe(true);
+    expect(input.hasClass('react-date-picker__day')).toBe(true);
   });
 
   it('displays given value properly', () => {
     const value = 11;
 
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
         value={value}
       />
@@ -138,7 +138,7 @@ describe('MonthInput', () => {
 
   it('does not disable input by default', () => {
     const component = mount(
-      <MonthInput {...defaultProps} />
+      <DayInput {...defaultProps} />
     );
 
     const input = component.find('input');
@@ -148,7 +148,7 @@ describe('MonthInput', () => {
 
   it('disables input given disabled flag', () => {
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
         disabled
       />
@@ -161,7 +161,7 @@ describe('MonthInput', () => {
 
   it('is not required input by default', () => {
     const component = mount(
-      <MonthInput {...defaultProps} />
+      <DayInput {...defaultProps} />
     );
 
     const input = component.find('input');
@@ -171,7 +171,7 @@ describe('MonthInput', () => {
 
   it('required input given required flag', () => {
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
         required
       />
@@ -186,19 +186,19 @@ describe('MonthInput', () => {
     const itemRef = jest.fn();
 
     mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
         itemRef={itemRef}
       />
     );
 
     expect(itemRef).toHaveBeenCalled();
-    expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLInputElement), 'month');
+    expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLInputElement), 'day');
   });
 
   it('has min = 1 by default', () => {
     const component = mount(
-      <MonthInput {...defaultProps} />
+      <DayInput {...defaultProps} />
     );
 
     const input = component.find('input');
@@ -206,11 +206,12 @@ describe('MonthInput', () => {
     expect(input.prop('min')).toBe(1);
   });
 
-  it('has min = 1 given minDate in a past year', () => {
+  it('has min = 1 given minDate in a past month', () => {
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
-        minDate={new Date(2017, 6, 1)}
+        minDate={new Date(2017, 11, 15)}
+        month={1}
         year={2018}
       />
     );
@@ -220,58 +221,66 @@ describe('MonthInput', () => {
     expect(input.prop('min')).toBe(1);
   });
 
-  it('has min = (month in minDate) given minDate in a current year', () => {
+  it('has min = (day in minDate) given minDate in a current month', () => {
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
-        minDate={new Date(2018, 6, 1)}
+        minDate={new Date(2018, 0, 15)}
+        month={1}
         year={2018}
       />
     );
 
     const input = component.find('input');
 
-    expect(input.prop('min')).toBe(7);
+    expect(input.prop('min')).toBe(15);
   });
 
-  it('has max = 12 by default', () => {
+  it('has max = (number of days in current month) by default', () => {
+    const numberOfDaysInJanuary2018 = new Date(2018, 1, 0).getDate();
+
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
+        month={1}
         year={2018}
       />
     );
 
     const input = component.find('input');
 
-    expect(input.prop('max')).toBe(12);
+    expect(input.prop('max')).toBe(numberOfDaysInJanuary2018);
   });
 
-  it('has max = 12 given maxDate in a future year', () => {
+  it('has max = (number of days in current month) given maxDate in a future month', () => {
+    const numberOfDaysInJanuary2018 = new Date(2018, 1, 0).getDate();
+
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
-        maxDate={new Date(2019, 6, 1)}
+        maxDate={new Date(2018, 1, 15)}
+        month={1}
         year={2018}
       />
     );
 
     const input = component.find('input');
 
-    expect(input.prop('max')).toBe(12);
+    expect(input.prop('max')).toBe(numberOfDaysInJanuary2018);
   });
 
-  it('has max = (month in maxDate) given maxDate in a current year', () => {
+  it('has max = (day in maxDate) given maxDate in a current month', () => {
     const component = mount(
-      <MonthInput
+      <DayInput
         {...defaultProps}
-        maxDate={new Date(2018, 6, 1)}
+        maxDate={new Date(2018, 0, 15)}
+        month={1}
         year={2018}
       />
     );
 
     const input = component.find('input');
 
-    expect(input.prop('max')).toBe(7);
+    expect(input.prop('max')).toBe(15);
   });
 });

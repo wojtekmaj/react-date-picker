@@ -29,7 +29,7 @@ React-Date-Picker will play nicely with [React-Time-Picker](https://github.com/w
 
 Your project needs to use React 16 or later. If you use older version of React, please refer to the table below to find suitable React-Date-Picker version.
 
-|React version|Newest supported React-Date-Picker|
+|React version|Newest available React-Date-Picker|
 |----|----|
 |>16.0|latest|
 |>15.5|6.7.0|
@@ -86,6 +86,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 
 |Prop name|Description|Default value|Example values|
 |----|----|----|----|
+|autoFocus|Automatically focuses the input on mount.|n/a|`true`|
 |calendarAriaLabel|`aria-label` for the calendar button.|n/a|`"Toggle calendar"`|
 |calendarClassName|Class name(s) that will be added along with `"react-calendar"` to the main React-Calendar `<div>` element.|n/a|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
 |calendarIcon|Content of the calendar button. Setting the value explicitly to `null` will hide the icon.|(default icon)|<ul><li>String: `"Calendar"`</li><li>React element: `<CalendarIcon />`</li></ul>|
