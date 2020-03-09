@@ -432,7 +432,9 @@ export default class DateInput extends PureComponent {
       const month = parseInt(values.month || 1, 10);
       const day = parseInt(values.day || 1, 10);
 
-      const proposedValue = new Date(year, month - 1, day);
+      const proposedValue = new Date();
+      proposedValue.setFullYear(year, month - 1, day);
+      proposedValue.setHours(0, 0, 0, 0);
       const processedValue = this.getProcessedValue(proposedValue);
       onChange(processedValue, false);
     }
