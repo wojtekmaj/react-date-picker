@@ -152,14 +152,14 @@ describe('YearInput', () => {
     expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLInputElement), 'year');
   });
 
-  it('has min = 1000 by default', () => {
+  it('has min = 0 by default', () => {
     const component = mount(
       <YearInput {...defaultProps} />
     );
 
     const input = component.find('input');
 
-    expect(input.prop('min')).toBe(1000);
+    expect(input.prop('min')).toBe(0);
   });
 
   it('has min = (year in minDate) given minDate', () => {
