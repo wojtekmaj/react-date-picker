@@ -438,6 +438,11 @@ export default class DateInput extends PureComponent {
     }
   }
 
+  startsWithZeroInputValue = name => {
+    const input = this[`${name}Input`];
+    return input && input.value && input.value.length > 1 && input.value.startsWith('0');
+  }
+
   renderDay = (currentMatch, index) => {
     const {
       autoFocus,
@@ -461,7 +466,7 @@ export default class DateInput extends PureComponent {
         autoFocus={index === 0 && autoFocus}
         month={month}
         placeholder={dayPlaceholder}
-        showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
+        showLeadingZeros={showLeadingZerosFromFormat || (showLeadingZeros && !this.startsWithZeroInputValue('day'))}
         value={day}
         year={year}
       />
@@ -499,6 +504,7 @@ export default class DateInput extends PureComponent {
     }
 
     const showLeadingZerosFromFormat = currentMatch && currentMatch.length === 2;
+    const valueStartsWithZero = this.startsWithZeroInputValue('month');
 
     return (
       <MonthInput
@@ -507,7 +513,7 @@ export default class DateInput extends PureComponent {
         ariaLabel={monthAriaLabel}
         autoFocus={index === 0 && autoFocus}
         placeholder={monthPlaceholder}
-        showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
+        showLeadingZeros={showLeadingZerosFromFormat || (showLeadingZeros && !this.startsWithZeroInputValue('month'))}
         value={month}
         year={year}
       />
