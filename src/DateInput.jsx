@@ -438,7 +438,7 @@ export default class DateInput extends PureComponent {
     }
   }
 
-  startsWithZeroInputValue = name => {
+  startsWithZeroInputValue = (name) => {
     const input = this[`${name}Input`];
     return input && input.value && input.value.length > 1 && input.value.startsWith('0');
   }
@@ -504,7 +504,6 @@ export default class DateInput extends PureComponent {
     }
 
     const showLeadingZerosFromFormat = currentMatch && currentMatch.length === 2;
-    const valueStartsWithZero = this.startsWithZeroInputValue('month');
 
     return (
       <MonthInput
