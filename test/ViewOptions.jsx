@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function ViewOptions({
   disabled,
+  isOpen,
   setState,
   showLeadingZeros,
   showNeighboringMonth,
@@ -12,6 +13,12 @@ export default function ViewOptions({
     const { checked } = event.target;
 
     setState({ disabled: checked });
+  }
+
+  function onIsOpenChange(event) {
+    const { checked } = event.target;
+
+    setState({ isOpen: checked });
   }
 
   function onShowLeadingZerosChange(event) {
@@ -47,6 +54,18 @@ export default function ViewOptions({
         />
         <label htmlFor="disabled">
           Disabled
+        </label>
+      </div>
+
+      <div>
+        <input
+          checked={isOpen}
+          id="isOpen"
+          onChange={onIsOpenChange}
+          type="checkbox"
+        />
+        <label htmlFor="isOpen">
+          Calendar open
         </label>
       </div>
 
@@ -91,6 +110,7 @@ export default function ViewOptions({
 
 ViewOptions.propTypes = {
   disabled: PropTypes.bool.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   setState: PropTypes.func.isRequired,
   showLeadingZeros: PropTypes.bool.isRequired,
   showNeighboringMonth: PropTypes.bool.isRequired,
