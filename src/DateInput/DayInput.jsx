@@ -10,7 +10,7 @@ import {
 import Input from './Input';
 
 import { isMaxDate, isMinDate } from '../shared/propTypes';
-import { min, max } from '../shared/utils';
+import { safeMin, safeMax } from '../shared/utils';
 
 export default function DayInput({
   maxDate,
@@ -31,8 +31,8 @@ export default function DayInput({
     return date && year === getYear(date) && month === getMonthHuman(date);
   }
 
-  const maxDay = min(currentMonthMaxDays, isSameMonth(maxDate) && getDate(maxDate));
-  const minDay = max(1, isSameMonth(minDate) && getDate(minDate));
+  const maxDay = safeMin(currentMonthMaxDays, isSameMonth(maxDate) && getDate(maxDate));
+  const minDay = safeMax(1, isSameMonth(minDate) && getDate(minDate));
 
   return (
     <Input

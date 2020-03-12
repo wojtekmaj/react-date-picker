@@ -5,7 +5,7 @@ import { getYear, getMonthHuman } from '@wojtekmaj/date-utils';
 
 import { formatMonth, formatShortMonth } from '../shared/dateFormatter';
 import { isMaxDate, isMinDate } from '../shared/propTypes';
-import { min, max } from '../shared/utils';
+import { safeMin, safeMax } from '../shared/utils';
 
 export default function MonthSelect({
   ariaLabel,
@@ -24,8 +24,8 @@ export default function MonthSelect({
     return date && year === getYear(date);
   }
 
-  const maxMonth = min(12, isSameYear(maxDate) && getMonthHuman(maxDate));
-  const minMonth = max(1, isSameYear(minDate) && getMonthHuman(minDate));
+  const maxMonth = safeMin(12, isSameYear(maxDate) && getMonthHuman(maxDate));
+  const minMonth = safeMax(1, isSameYear(minDate) && getMonthHuman(minDate));
   const dates = [...Array(12)].map((el, index) => new Date(2019, index, 1));
   const name = 'month';
   const formatter = short ? formatShortMonth : formatMonth;

@@ -5,7 +5,7 @@ import { getYear, getMonthHuman } from '@wojtekmaj/date-utils';
 import Input from './Input';
 
 import { isMaxDate, isMinDate } from '../shared/propTypes';
-import { min, max } from '../shared/utils';
+import { safeMin, safeMax } from '../shared/utils';
 
 export default function MonthInput({
   maxDate,
@@ -17,8 +17,8 @@ export default function MonthInput({
     return date && year === getYear(date);
   }
 
-  const maxMonth = min(12, isSameYear(maxDate) && getMonthHuman(maxDate));
-  const minMonth = max(1, isSameYear(minDate) && getMonthHuman(minDate));
+  const maxMonth = safeMin(12, isSameYear(maxDate) && getMonthHuman(maxDate));
+  const minMonth = safeMax(1, isSameYear(minDate) && getMonthHuman(minDate));
 
   return (
     <Input

@@ -5,7 +5,7 @@ import { getYear } from '@wojtekmaj/date-utils';
 import Input from './Input';
 
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
-import { max, min } from '../shared/utils';
+import { safeMax, safeMin } from '../shared/utils';
 
 export default function YearInput({
   maxDate,
@@ -14,8 +14,8 @@ export default function YearInput({
   valueType,
   ...otherProps
 }) {
-  const maxYear = min(275760, maxDate && getYear(maxDate));
-  const minYear = max(1000, minDate && getYear(minDate));
+  const maxYear = safeMin(275760, maxDate && getYear(maxDate));
+  const minYear = safeMax(1000, minDate && getYear(minDate));
 
   const yearStep = (() => {
     if (valueType === 'century') {
