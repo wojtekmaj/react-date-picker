@@ -26,8 +26,8 @@ export function callIfDefined(fn, ...args) {
   }
 }
 
-function isValidNumber(a) {
-  return typeof a === 'number' && !isNaN(a);
+function isValidNumber(num) {
+  return num !== null && num !== false && !Number.isNaN(Number(num));
 }
 
 export function safeMin(...args) {
