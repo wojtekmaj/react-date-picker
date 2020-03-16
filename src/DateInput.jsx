@@ -397,9 +397,13 @@ export default class DateInput extends PureComponent {
       const [yearString, monthString, dayString] = value.split('-');
       const year = parseInt(yearString, 10);
       const monthIndex = parseInt(monthString, 10) - 1 || 0;
-      const date = parseInt(dayString, 10) || 1;
+      const day = parseInt(dayString, 10) || 1;
 
-      return new Date(year, monthIndex, date);
+      const proposedValue = new Date();
+      proposedValue.setFullYear(year, monthIndex, day);
+      proposedValue.setHours(0, 0, 0, 0);
+
+      return proposedValue;
     })();
 
     onChange(processedValue, false);
@@ -429,10 +433,12 @@ export default class DateInput extends PureComponent {
       formElements.every(formElement => formElement.value && formElement.checkValidity())
     ) {
       const year = parseInt(values.year, 10);
-      const month = parseInt(values.month || 1, 10);
+      const monthIndex = parseInt(values.month, 10) - 1 || 0;
       const day = parseInt(values.day || 1, 10);
 
-      const proposedValue = new Date(year, month - 1, day);
+      const proposedValue = new Date();
+      proposedValue.setFullYear(year, monthIndex, day);
+      proposedValue.setHours(0, 0, 0, 0);
       const processedValue = this.getProcessedValue(proposedValue);
       onChange(processedValue, false);
     }

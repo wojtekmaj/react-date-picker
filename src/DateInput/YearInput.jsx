@@ -15,7 +15,7 @@ export default function YearInput({
   ...otherProps
 }) {
   const maxYear = safeMin(275760, maxDate && getYear(maxDate));
-  const minYear = safeMax(1000, minDate && getYear(minDate));
+  const minYear = safeMax(0, minDate && getYear(minDate));
 
   const yearStep = (() => {
     if (valueType === 'century') {
