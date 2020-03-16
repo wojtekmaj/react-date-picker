@@ -40,6 +40,19 @@ describe('DateInput', () => {
     className: 'react-date-picker__inputGroup',
   };
 
+  let container;
+
+  beforeEach(() => {
+    container = document.createElement('div');
+    container.id = 'container';
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    document.body.removeChild(container);
+    container = null;
+  });
+
   it('renders a native input and custom inputs', () => {
     const component = mount(
       <DateInput {...defaultProps} />
@@ -479,7 +492,8 @@ describe('DateInput', () => {
 
   it('jumps to the next field when right arrow is pressed', () => {
     const component = mount(
-      <DateInput {...defaultProps} />
+      <DateInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -497,12 +511,15 @@ describe('DateInput', () => {
 
   it('jumps to the next field when separator key is pressed', () => {
     const component = mount(
-      <DateInput {...defaultProps} />
+      <DateInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
     const dayInput = customInputs.at(0);
     const monthInput = customInputs.at(1);
+
+    console.log(monthInput);
 
     dayInput.getDOMNode().focus();
 
@@ -517,7 +534,8 @@ describe('DateInput', () => {
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
     const component = mount(
-      <DateInput {...defaultProps} />
+      <DateInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -534,7 +552,8 @@ describe('DateInput', () => {
 
   it('jumps to the previous field when left arrow is pressed', () => {
     const component = mount(
-      <DateInput {...defaultProps} />
+      <DateInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -552,7 +571,8 @@ describe('DateInput', () => {
 
   it('does not jump to the previous field when left arrow is pressed when the first input is focused', () => {
     const component = mount(
-      <DateInput {...defaultProps} />
+      <DateInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -569,7 +589,8 @@ describe('DateInput', () => {
 
   it('jumps to the next field when a value which can\'t be extended to another valid value is entered', () => {
     const component = mount(
-      <DateInput {...defaultProps} />
+      <DateInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -586,7 +607,8 @@ describe('DateInput', () => {
 
   it('jumps to the next field when a value as long as the length of maximum value is entered', () => {
     const component = mount(
-      <DateInput {...defaultProps} />
+      <DateInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -603,7 +625,8 @@ describe('DateInput', () => {
 
   it('does not jump the next field when a value which can be extended to another valid value is entered', () => {
     const component = mount(
-      <DateInput {...defaultProps} />
+      <DateInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
