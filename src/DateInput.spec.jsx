@@ -653,12 +653,41 @@ describe('DateInput', () => {
     );
 
     const customInputs = component.find('input[type="number"]');
+    const dayInput = customInputs.at(1);
 
-    customInputs.at(1).getDOMNode().value = '20';
-    customInputs.at(1).simulate('change');
+    dayInput.getDOMNode().value = '20';
+    dayInput.simulate('change');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
+  });
+
+  it('triggers onChange correctly when changed custom input with year < 100', () => {
+    const onChange = jest.fn();
+    const date = new Date();
+    date.setFullYear(19, 8, 30);
+    date.setHours(0, 0, 0, 0);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        onChange={onChange}
+        value={date}
+      />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+    const dayInput = customInputs.at(1);
+
+    dayInput.getDOMNode().value = '20';
+    dayInput.simulate('change');
+
+    const nextDate = new Date();
+    nextDate.setFullYear(19, 8, 20);
+    nextDate.setHours(0, 0, 0, 0);
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith(nextDate, false);
   });
 
   it('triggers onChange correctly when cleared custom inputs', () => {
@@ -703,6 +732,31 @@ describe('DateInput', () => {
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
+  });
+
+  it('triggers onChange correctly when changed native input with year < 100', () => {
+    const onChange = jest.fn();
+    const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        onChange={onChange}
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="date"]');
+
+    nativeInput.getDOMNode().value = '0019-09-20';
+    nativeInput.simulate('change');
+
+    const nextDate = new Date();
+    nextDate.setFullYear(19, 8, 20);
+    nextDate.setHours(0, 0, 0, 0);
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith(nextDate, false);
   });
 
   it('triggers onChange correctly when cleared native input', () => {
