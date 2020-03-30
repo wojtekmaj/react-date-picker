@@ -519,8 +519,6 @@ describe('DateInput', () => {
     const dayInput = customInputs.at(0);
     const monthInput = customInputs.at(1);
 
-    console.log(monthInput);
-
     dayInput.getDOMNode().focus();
 
     expect(document.activeElement).toBe(dayInput.getDOMNode());
