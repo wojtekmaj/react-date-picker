@@ -418,7 +418,7 @@ export default class DateInput extends PureComponent {
     if (formElements.every(formElement => !formElement.value)) {
       onChange(null, false);
     } else if (
-      formElements.every(formElement => formElement.value && formElement.checkValidity())
+      formElements.every(formElement => formElement.value && formElement.validity.valid)
     ) {
       const year = parseInt(values.year, 10);
       const monthIndex = parseInt(values.month, 10) - 1 || 0;
