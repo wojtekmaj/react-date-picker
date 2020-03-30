@@ -412,7 +412,8 @@ export default class DateInput extends PureComponent {
 
     const values = {};
     formElements.forEach((formElement) => {
-      values[formElement.name] = formElement.value;
+      // eslint-disable-next-line react/destructuring-assignment
+      values[formElement.name] = this.state[formElement.name];
     });
 
     if (formElements.every(formElement => !formElement.value)) {
