@@ -383,7 +383,7 @@ export default class DateInput extends PureComponent {
       }
 
       const [yearString, monthString, dayString] = value.split('-');
-      const year = parseInt(yearString, 10);
+      const year = parseInt(yearString, 10) || 0;
       const monthIndex = parseInt(monthString, 10) - 1 || 0;
       const day = parseInt(dayString, 10) || 1;
 
@@ -402,7 +402,7 @@ export default class DateInput extends PureComponent {
    * calls props.onChange.
    */
   onChangeExternal = () => {
-    const { onChange } = this.props;
+    const { allowInvalidValues, onChange } = this.props;
 
     if (!onChange) {
       return;
@@ -418,9 +418,10 @@ export default class DateInput extends PureComponent {
     if (formElements.every(formElement => !formElement.value)) {
       onChange(null, false);
     } else if (
-      formElements.every(formElement => formElement.value && formElement.checkValidity())
+      allowInvalidValues
+      || formElements.every(formElement => formElement.value && formElement.checkValidity())
     ) {
-      const year = parseInt(values.year, 10);
+      const year = parseInt(values.year, 10) || 0;
       const monthIndex = parseInt(values.month, 10) - 1 || 0;
       const day = parseInt(values.day || 1, 10);
 
@@ -595,6 +596,7 @@ const isValue = PropTypes.oneOfType([
 ]);
 
 DateInput.propTypes = {
+  allowInvalidValues: PropTypes.bool,
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   dayAriaLabel: PropTypes.string,
