@@ -37,15 +37,13 @@ function getValueType(maxDetail) {
   return allValueTypes[allViews.indexOf(maxDetail)];
 }
 
-function getValueFromRange(valueOrArrayOfValues, index) {
-  if (Array.isArray(valueOrArrayOfValues)) {
-    return valueOrArrayOfValues[index];
+function getValue(value, index) {
+  if (!value) {
+    return null;
   }
 
-  return valueOrArrayOfValues;
-}
+  const rawValue = value instanceof Array && value.length === 2 ? value[index] : value;
 
-function parseAndValidateDate(rawValue) {
   if (!rawValue) {
     return null;
   }
@@ -53,58 +51,40 @@ function parseAndValidateDate(rawValue) {
   const valueDate = new Date(rawValue);
 
   if (isNaN(valueDate.getTime())) {
-    throw new Error(`Invalid date: ${rawValue}`);
+    throw new Error(`Invalid date: ${value}`);
   }
 
   return valueDate;
 }
 
-function getValueFrom(value) {
-  const valueFrom = getValueFromRange(value, 0);
+function getDetailValue({
+  value, minDate, maxDate, maxDetail,
+}, index) {
+  const valuePiece = getValue(value, index);
 
-  return parseAndValidateDate(valueFrom);
-}
-
-function getDetailValueFrom(value, minDate, maxDate, maxDetail) {
-  const valueFrom = getValueFrom(value);
-
-  if (!valueFrom) {
+  if (!valuePiece) {
     return null;
   }
 
-  const detailValueFrom = getBegin(getValueType(maxDetail), valueFrom);
+  const valueType = getValueType(maxDetail);
+  const detailValueFrom = [getBegin, getEnd][index](valueType, valuePiece);
 
   return between(detailValueFrom, minDate, maxDate);
 }
 
-function getValueTo(value) {
-  const valueTo = getValueFromRange(value, 1);
+const getDetailValueFrom = args => getDetailValue(args, 0);
 
-  return parseAndValidateDate(valueTo);
-}
+const getDetailValueTo = args => getDetailValue(args, 1);
 
-function getDetailValueTo(value, minDate, maxDate, maxDetail) {
-  const valueTo = getValueTo(value);
+const getDetailValueArray = (args) => {
+  const { value } = args;
 
-  if (!valueTo) {
-    return null;
-  }
-
-  const detailValueTo = getEnd(getValueType(maxDetail), valueTo);
-
-  return between(detailValueTo, minDate, maxDate);
-}
-
-function getDetailValueArray(value, minDate, maxDate, maxDetail) {
   if (value instanceof Array) {
     return value;
   }
 
-  return [
-    getDetailValueFrom(value, minDate, maxDate, maxDetail),
-    getDetailValueTo(value, minDate, maxDate, maxDetail),
-  ];
-}
+  return [getDetailValueFrom, getDetailValueTo].map(fn => fn(args));
+};
 
 function isValidInput(element) {
   return element.tagName === 'INPUT' && element.type === 'number';
@@ -183,16 +163,22 @@ export default class DateInput extends PureComponent {
      * which values provided are limited by minDate and maxDate so that the dates are the same),
      * get a new one.
      */
-    const nextValue = getDetailValueFrom(nextProps.value, minDate, maxDate, maxDetail);
+    const nextValue = getDetailValueFrom({
+      value: nextProps.value, minDate, maxDate, maxDetail,
+    });
     const values = [nextValue, prevState.value];
     if (
       // Toggling calendar visibility resets values
       nextState.isCalendarOpen // Flag was toggled
       || datesAreDifferent(
-        ...values.map(value => getDetailValueFrom(value, minDate, maxDate, maxDetail)),
+        ...values.map(value => getDetailValueFrom({
+          value, minDate, maxDate, maxDetail,
+        })),
       )
       || datesAreDifferent(
-        ...values.map(value => getDetailValueTo(value, minDate, maxDate, maxDetail)),
+        ...values.map(value => getDetailValueTo({
+          value, minDate, maxDate, maxDetail,
+        })),
       )
     ) {
       if (nextValue) {
@@ -246,16 +232,18 @@ export default class DateInput extends PureComponent {
       minDate, maxDate, maxDetail, returnValue,
     } = this.props;
 
-    switch (returnValue) {
-      case 'start':
-        return getDetailValueFrom(value, minDate, maxDate, maxDetail);
-      case 'end':
-        return getDetailValueTo(value, minDate, maxDate, maxDetail);
-      case 'range':
-        return getDetailValueArray(value, minDate, maxDate, maxDetail);
-      default:
-        throw new Error('Invalid returnValue.');
-    }
+    const processFunction = (() => {
+      switch (returnValue) {
+        case 'start': return getDetailValueFrom;
+        case 'end': return getDetailValueTo;
+        case 'range': return getDetailValueArray;
+        default: throw new Error('Invalid returnValue.');
+      }
+    })();
+
+    return processFunction({
+      value, minDate, maxDate, maxDetail,
+    });
   }
 
   get divider() {
