@@ -15,7 +15,6 @@ import {
   getEnd,
 } from './shared/dates';
 import { isMaxDate, isMinDate } from './shared/propTypes';
-import { between } from './shared/utils';
 
 const defaultMinDate = new Date(-8.64e15);
 const defaultMaxDate = new Date(8.64e15);
@@ -57,9 +56,7 @@ function getValue(value, index) {
   return valueDate;
 }
 
-function getDetailValue({
-  value, minDate, maxDate, maxDetail,
-}, index) {
+function getDetailValue({ value, maxDetail }, index) {
   const valuePiece = getValue(value, index);
 
   if (!valuePiece) {
@@ -67,9 +64,9 @@ function getDetailValue({
   }
 
   const valueType = getValueType(maxDetail);
-  const detailValueFrom = [getBegin, getEnd][index](valueType, valuePiece);
+  const detailValue = [getBegin, getEnd][index](valueType, valuePiece);
 
-  return between(detailValueFrom, minDate, maxDate);
+  return detailValue;
 }
 
 const getDetailValueFrom = args => getDetailValue(args, 0);
@@ -170,16 +167,8 @@ export default class DateInput extends PureComponent {
     if (
       // Toggling calendar visibility resets values
       nextState.isCalendarOpen // Flag was toggled
-      || datesAreDifferent(
-        ...values.map(value => getDetailValueFrom({
-          value, minDate, maxDate, maxDetail,
-        })),
-      )
-      || datesAreDifferent(
-        ...values.map(value => getDetailValueTo({
-          value, minDate, maxDate, maxDetail,
-        })),
-      )
+      || datesAreDifferent(...values.map(value => getDetailValueFrom({ value, maxDetail })))
+      || datesAreDifferent(...values.map(value => getDetailValueTo({ value, maxDetail })))
     ) {
       if (nextValue) {
         nextState.year = getYear(nextValue);
@@ -228,9 +217,7 @@ export default class DateInput extends PureComponent {
    * Gets current value in a desired format.
    */
   getProcessedValue(value) {
-    const {
-      minDate, maxDate, maxDetail, returnValue,
-    } = this.props;
+    const { maxDetail, returnValue } = this.props;
 
     const processFunction = (() => {
       switch (returnValue) {
@@ -241,9 +228,7 @@ export default class DateInput extends PureComponent {
       }
     })();
 
-    return processFunction({
-      value, minDate, maxDate, maxDetail,
-    });
+    return processFunction({ value, maxDetail });
   }
 
   get divider() {
@@ -410,28 +395,34 @@ export default class DateInput extends PureComponent {
 
     const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(Boolean);
 
+    // If date is incomplete, don't trigger onChange…
+    if (formElements.some(formElement => !formElement.value)) {
+      // …unless all form elements are empty.
+      if (formElements.every(formElement => !formElement.value)) {
+        onChange(null, false);
+      }
+      return;
+    }
+
+    if (!allowInvalidValues && formElements.some(formElement => !formElement.checkValidity())) {
+      return;
+    }
+
     const values = {};
     formElements.forEach((formElement) => {
       // eslint-disable-next-line react/destructuring-assignment
       values[formElement.name] = this.state[formElement.name];
     });
 
-    if (formElements.every(formElement => !formElement.value)) {
-      onChange(null, false);
-    } else if (
-      allowInvalidValues
-      || formElements.every(formElement => formElement.value && formElement.checkValidity())
-    ) {
-      const year = parseInt(values.year, 10) || 0;
-      const monthIndex = parseInt(values.month, 10) - 1 || 0;
-      const day = parseInt(values.day || 1, 10);
+    const year = parseInt(values.year, 10) || 0;
+    const monthIndex = parseInt(values.month, 10) - 1 || 0;
+    const day = parseInt(values.day || 1, 10);
 
-      const proposedValue = new Date();
-      proposedValue.setFullYear(year, monthIndex, day);
-      proposedValue.setHours(0, 0, 0, 0);
-      const processedValue = this.getProcessedValue(proposedValue);
-      onChange(processedValue, false);
-    }
+    const proposedValue = new Date();
+    proposedValue.setFullYear(year, monthIndex, day);
+    proposedValue.setHours(0, 0, 0, 0);
+    const processedValue = this.getProcessedValue(proposedValue);
+    onChange(processedValue, false);
   }
 
   renderDay = (currentMatch, index) => {
