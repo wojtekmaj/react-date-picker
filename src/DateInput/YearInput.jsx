@@ -37,6 +37,8 @@ export default function YearInput({
   );
 }
 
+const isNumberOrString = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+
 YearInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
@@ -49,6 +51,6 @@ YearInput.propTypes = {
   onKeyUp: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
-  value: PropTypes.number,
+  value: isNumberOrString,
   valueType: isValueType,
 };

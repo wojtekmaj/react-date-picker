@@ -30,6 +30,8 @@ export default function MonthInput({
   );
 }
 
+const isNumberOrString = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+
 MonthInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
@@ -43,6 +45,6 @@ MonthInput.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
-  year: PropTypes.number,
+  value: isNumberOrString,
+  year: isNumberOrString,
 };
