@@ -44,6 +44,8 @@ export default function DayInput({
   );
 }
 
+const isNumberOrString = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+
 DayInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
@@ -51,13 +53,13 @@ DayInput.propTypes = {
   itemRef: PropTypes.func,
   maxDate: isMaxDate,
   minDate: isMinDate,
-  month: PropTypes.number,
+  month: isNumberOrString,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
-  year: PropTypes.number,
+  value: isNumberOrString,
+  year: isNumberOrString,
 };
