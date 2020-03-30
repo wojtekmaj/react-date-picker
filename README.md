@@ -93,6 +93,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |className|Class name(s) that will be added along with `"react-date-picker"` to the main React-Date-Picker `<div>` element.|n/a|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
 |clearAriaLabel|`aria-label` for the clear button.|n/a|`"Clear value"`|
 |clearIcon|Content of the clear button. Setting the value explicitly to `null` will hide the icon.|(default icon)|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
+|closeCalendar|Whether to close the calendar on value selection.|`true`|`false`|
 |dayAriaLabel|`aria-label` for the day input.|n/a|`"Day"`|
 |dayPlaceholder|`placeholder` for the day input.|`"--"`|`"dd"`|
 |disabled|Whether the date picker should be disabled.|`false`|`true`|
