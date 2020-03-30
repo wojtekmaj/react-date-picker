@@ -361,7 +361,7 @@ export default class DateInput extends PureComponent {
     const { name, value } = event.target;
 
     this.setState(
-      { [name]: value ? parseInt(value, 10) : null },
+      { [name]: value },
       this.onChangeExternal,
     );
   }
