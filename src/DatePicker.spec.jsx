@@ -333,7 +333,7 @@ describe('DatePicker', () => {
     expect(component.state('isOpen')).toBe(true);
   });
 
-  it('closes Calendar when calling internal onChange', () => {
+  it('closes Calendar when calling internal onChange by default', () => {
     const component = mount(
       <DatePicker isOpen />
     );
@@ -343,6 +343,21 @@ describe('DatePicker', () => {
     onChange(new Date());
 
     expect(component.state('isOpen')).toBe(false);
+  });
+
+  it('does not close Calendar when calling internal onChange with prop closeCalendar = false', () => {
+    const component = mount(
+      <DatePicker
+        closeCalendar={false}
+        isOpen
+      />
+    );
+
+    const { onChange } = component.instance();
+
+    onChange(new Date());
+
+    expect(component.state('isOpen')).toBe(true);
   });
 
   it('does not close Calendar when calling internal onChange with closeCalendar = false', () => {

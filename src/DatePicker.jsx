@@ -56,12 +56,14 @@ export default class DatePicker extends PureComponent {
     }
   }
 
-  onChange = (value, closeCalendar = true) => {
-    this.setState({
-      isOpen: !closeCalendar,
-    });
-
+  // eslint-disable-next-line react/destructuring-assignment
+  onChange = (value, closeCalendar = this.props.closeCalendar) => {
     const { onChange } = this.props;
+
+    if (closeCalendar) {
+      this.closeCalendar();
+    }
+
     if (onChange) {
       onChange(value);
     }
@@ -300,6 +302,7 @@ const ClearIcon = (
 DatePicker.defaultProps = {
   calendarIcon: CalendarIcon,
   clearIcon: ClearIcon,
+  closeCalendar: true,
   isOpen: null,
   returnValue: 'start',
 };
@@ -323,6 +326,7 @@ DatePicker.propTypes = {
   ]),
   clearAriaLabel: PropTypes.string,
   clearIcon: PropTypes.node,
+  closeCalendar: PropTypes.bool,
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,
   disableCalendar: PropTypes.bool,
