@@ -47,30 +47,14 @@ const numberRegExp = /[0-9]/;
 
 function makeOnKeyPress(maxLength) {
   return function onKeyPress(event) {
-    // Check if a number key was pressed. If not, cancel the event.
-    if (!numberRegExp.test(event.key)) {
-      event.preventDefault();
-      return false;
-    }
-
-    // Check if any text is selected.  If it is, pressing a key will cause
-    // the selected text to be replaced, so we're good.
     const selection = getSelectionString();
-
-    if (selection) {
-      return true;
-    }
-
-    // Otherwise, check if current value has reached the length limit. If it
-    // did, we shouldn't allow any more characters.
     const { value } = event.target;
 
-    if (value.length >= maxLength) {
-      event.preventDefault();
-      return false;
+    if (numberRegExp.test(event.key) && (selection || value.length < maxLength)) {
+      return;
     }
 
-    return true;
+    event.preventDefault();
   };
 }
 
