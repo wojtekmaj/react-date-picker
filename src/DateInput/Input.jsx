@@ -43,12 +43,14 @@ function getSelectionString() {
   return window.getSelection().toString();
 }
 
+const numberRegExp = /[0-9]/;
+
 function makeOnKeyPress(maxLength) {
   return function onKeyPress(event) {
-    const { value } = event.target;
     const selection = getSelectionString();
+    const { value } = event.target;
 
-    if (selection || value.length < maxLength) {
+    if (numberRegExp.test(event.key) && (selection || value.length < maxLength)) {
       return;
     }
 
