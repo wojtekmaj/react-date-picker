@@ -1083,6 +1083,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.9.1.tgz#96f606f8cd67fb018847d9b61e93997dabdefc72"
   integrity sha512-E6M6N0blf/jiZx8Q3nb0vNaswQeEyn0XlupO+xN6DtJ6r6IT4nXrTry7zhIfYvFCl3/8Cu6WIysmUBKiqV0bqQ==
 
+"@types/react-calendar@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-calendar/-/react-calendar-3.0.0.tgz#3d707468db20f59bc51fc8e9a09ef493b872162e"
+  integrity sha512-h00bPn86LZIAbmedFDrp0lmv7g3KHTKY85er710UAlUMocVZZEPhKma9ZFuFHlH9S0KOlKfe3ZeM/WC4+JVYCw==
+
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
