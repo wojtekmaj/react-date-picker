@@ -118,6 +118,7 @@ export default class DatePicker extends PureComponent {
     const {
       autoFocus,
       calendarAriaLabel,
+      calendarButtonPosition,
       calendarIcon,
       clearAriaLabel,
       clearIcon,
@@ -158,8 +159,23 @@ export default class DatePicker extends PureComponent {
       yearPlaceholder,
     };
 
+    const renderCalendarButton = () => calendarIcon !== null && !disableCalendar && (
+      <button
+        aria-label={calendarAriaLabel}
+        className={`${baseClassName}__calendar-button ${baseClassName}__button`}
+        disabled={disabled}
+        onBlur={this.resetValue}
+        onClick={this.toggleCalendar}
+        onFocus={this.stopPropagation}
+        type="button"
+      >
+        {calendarIcon}
+      </button>
+    );
+
     return (
       <div className={`${baseClassName}__wrapper`}>
+        {calendarButtonPosition === 'left' && renderCalendarButton()}
         <DateInput
           {...ariaLabelProps}
           {...placeholderProps}
@@ -191,19 +207,7 @@ export default class DatePicker extends PureComponent {
             {clearIcon}
           </button>
         )}
-        {calendarIcon !== null && !disableCalendar && (
-          <button
-            aria-label={calendarAriaLabel}
-            className={`${baseClassName}__calendar-button ${baseClassName}__button`}
-            disabled={disabled}
-            onBlur={this.resetValue}
-            onClick={this.toggleCalendar}
-            onFocus={this.stopPropagation}
-            type="button"
-          >
-            {calendarIcon}
-          </button>
-        )}
+        {calendarButtonPosition === 'right' && renderCalendarButton()}
       </div>
     );
   }
@@ -305,6 +309,7 @@ DatePicker.defaultProps = {
   closeCalendar: true,
   isOpen: null,
   returnValue: 'start',
+  calendarButtonPosition: 'right',
 };
 
 const isValue = PropTypes.oneOfType([
@@ -315,6 +320,7 @@ const isValue = PropTypes.oneOfType([
 DatePicker.propTypes = {
   autoFocus: PropTypes.bool,
   calendarAriaLabel: PropTypes.string,
+  calendarButtonPosition: PropTypes.oneOf(['left', 'right']),
   calendarClassName: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),

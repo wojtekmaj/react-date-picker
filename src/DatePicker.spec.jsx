@@ -184,7 +184,31 @@ describe('DatePicker', () => {
       <DatePicker />
     );
 
-    const calendarButton = component.find('button.react-date-picker__calendar-button');
+    const calendarButton = component.find(
+      'button.react-date-picker__clear-button + button.react-date-picker__calendar-button'
+    );
+
+    expect(calendarButton).toHaveLength(1);
+  });
+
+  it('renders calendar button on the left side', () => {
+    const component = mount(
+      <DatePicker calendarButtonPosition="left" />
+    );
+
+    const calendarButton = component.find('button.react-date-picker__calendar-button + DateInput');
+
+    expect(calendarButton).toHaveLength(1);
+  });
+
+  it('renders calendar button on the right side', () => {
+    const component = mount(
+      <DatePicker calendarButtonPosition="right" />
+    );
+
+    const calendarButton = component.find(
+      'button.react-date-picker__clear-button + button.react-date-picker__calendar-button'
+    );
 
     expect(calendarButton).toHaveLength(1);
   });
