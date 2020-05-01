@@ -8,7 +8,6 @@ import Fit from 'react-fit';
 import DateInput from './DateInput';
 
 import { isMaxDate, isMinDate } from './shared/propTypes';
-import { callIfDefined } from './shared/utils';
 
 const baseClassName = 'react-date-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'];
@@ -38,7 +37,8 @@ export default class DatePicker extends PureComponent {
 
     if (isOpen !== prevState.isOpen) {
       this.handleOutsideActionListeners();
-      callIfDefined(isOpen ? onCalendarOpen : onCalendarClose);
+      const callback = isOpen ? onCalendarOpen : onCalendarClose;
+      if (callback) callback();
     }
   }
 
