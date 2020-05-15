@@ -50,26 +50,20 @@ Add React-Date-Picker to your project by executing `npm install react-date-picke
 Here's an example of basic usage:
 
 ```js
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-date-picker';
 
-class MyApp extends Component {
-  state = {
-    date: new Date(),
-  }
+function MyApp() {
+  const [value, onChange] = useState(new Date());
 
-  onChange = date => this.setState({ date })
-
-  render() {
-    return (
-      <div>
-        <DatePicker
-          onChange={this.onChange}
-          value={this.state.date}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <DatePicker
+        onChange={onChange}
+        value={value}
+      />
+    </div>
+  );
 }
 ```
 
