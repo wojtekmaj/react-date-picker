@@ -43,14 +43,15 @@ function getSelectionString() {
   return window.getSelection().toString();
 }
 
-const numberRegExp = /[0-9]/;
-
 function makeOnKeyPress(maxLength) {
   return function onKeyPress(event) {
-    const selection = getSelectionString();
-    const { value } = event.target;
+    const { key, target: input } = event;
+    const { value } = input;
 
-    if (numberRegExp.test(event.key) && (selection || value.length < maxLength)) {
+    const isNumberKey = !isNaN(parseInt(key, 10));
+    const selection = getSelectionString();
+
+    if (isNumberKey && (selection || value.length < maxLength)) {
       return;
     }
 
