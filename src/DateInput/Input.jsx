@@ -128,6 +128,7 @@ export default function Input({
 }
 
 Input.propTypes = {
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
