@@ -93,6 +93,7 @@ export default function Input({
         `${className}__${nameForClass || name}`,
         hasLeadingZero && `${className}__input--hasLeadingZero`,
       )}
+      data-input="true"
       disabled={disabled}
       max={max}
       min={min}

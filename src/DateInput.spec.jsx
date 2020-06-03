@@ -59,7 +59,7 @@ describe('DateInput', () => {
     );
 
     const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput).toHaveLength(1);
     expect(customInputs).toHaveLength(3);
@@ -73,7 +73,7 @@ describe('DateInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.find('input[name="day"]');
     const monthInput = customInputs.find('input[name="month"]');
     const yearInput = customInputs.find('input[name="year"]');
@@ -92,12 +92,12 @@ describe('DateInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.find('input[name="day"]');
     const monthInput = customInputs.find('input[name="month"]');
     const yearInput = customInputs.find('input[name="year"]');
 
-    expect(customInputs).toHaveLength(2);
+    expect(customInputs).toHaveLength(1);
     expect(dayInput).toHaveLength(0);
     expect(monthInput).toHaveLength(0);
     expect(yearInput).toHaveLength(1);
@@ -114,7 +114,7 @@ describe('DateInput', () => {
     );
 
     const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBe('2017-09-30');
     expect(customInputs.at(0).prop('value')).toBe(9);
@@ -133,7 +133,7 @@ describe('DateInput', () => {
     );
 
     const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBe('2017-09-30');
     expect(customInputs.at(0).prop('value')).toBe(9);
@@ -152,7 +152,7 @@ describe('DateInput', () => {
     );
 
     const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBe('2017-09-30');
     expect(customInputs.at(0).prop('value')).toBe(9);
@@ -172,7 +172,7 @@ describe('DateInput', () => {
     );
 
     const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBe('2017-09-30');
     expect(customInputs.at(0).prop('value')).toBe(2017);
@@ -192,7 +192,7 @@ describe('DateInput', () => {
     );
 
     const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBe('2017-09-30');
     expect(customInputs.at(0).prop('value')).toBe(2017);
@@ -212,7 +212,7 @@ describe('DateInput', () => {
     );
 
     const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBe('2017-09-30');
     expect(customInputs.at(0).prop('value')).toBe(2017);
@@ -229,7 +229,7 @@ describe('DateInput', () => {
     );
 
     const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBeFalsy();
     expect(customInputs.at(0).prop('value')).toBeFalsy();
@@ -246,7 +246,7 @@ describe('DateInput', () => {
     );
 
     const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBeFalsy();
     expect(customInputs.at(0).prop('value')).toBeFalsy();
@@ -267,7 +267,7 @@ describe('DateInput', () => {
     component.setProps({ value: null });
 
     const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBeFalsy();
     expect(customInputs.at(0).prop('value')).toBeFalsy();
@@ -280,7 +280,7 @@ describe('DateInput', () => {
       <DateInput {...defaultProps} />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(customInputs.at(0).prop('name')).toBe('month');
     expect(customInputs.at(1).prop('name')).toBe('day');
@@ -295,7 +295,7 @@ describe('DateInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(customInputs.at(0).prop('name')).toBe('year');
     expect(customInputs.at(1).prop('name')).toBe('month');
@@ -312,7 +312,7 @@ describe('DateInput', () => {
       );
 
       const componentInput = component.find('YearInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -327,7 +327,7 @@ describe('DateInput', () => {
       );
 
       const componentInput = component.find('YearInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -342,7 +342,7 @@ describe('DateInput', () => {
       );
 
       const componentInput = component.find('MonthInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -357,7 +357,7 @@ describe('DateInput', () => {
       );
 
       const componentInput = component.find('MonthInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -405,7 +405,7 @@ describe('DateInput', () => {
       );
 
       const componentInput = component.find('DayInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -420,7 +420,7 @@ describe('DateInput', () => {
       );
 
       const componentInput = component.find('DayInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -452,7 +452,7 @@ describe('DateInput', () => {
 
       const monthInput = component.find('MonthInput');
       const dayInput = component.find('DayInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(monthInput).toHaveLength(1);
       expect(dayInput).toHaveLength(1);
@@ -485,7 +485,7 @@ describe('DateInput', () => {
     );
 
     const separators = component.find('.react-date-picker__inputGroup__divider');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(separators).toHaveLength(customInputs.length - 1);
   });
@@ -496,7 +496,7 @@ describe('DateInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
     const monthInput = customInputs.at(1);
 
@@ -515,7 +515,7 @@ describe('DateInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
     const monthInput = customInputs.at(1);
 
@@ -536,7 +536,7 @@ describe('DateInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const yearInput = customInputs.at(2);
 
     yearInput.getDOMNode().focus();
@@ -554,7 +554,7 @@ describe('DateInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
     const monthInput = customInputs.at(1);
 
@@ -573,7 +573,7 @@ describe('DateInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
 
     dayInput.getDOMNode().focus();
@@ -591,7 +591,7 @@ describe('DateInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
     const monthInput = customInputs.at(1);
 
@@ -609,7 +609,7 @@ describe('DateInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
     const monthInput = customInputs.at(1);
 
@@ -627,7 +627,7 @@ describe('DateInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
 
     dayInput.getDOMNode().focus();
@@ -650,7 +650,7 @@ describe('DateInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(1);
 
     dayInput.getDOMNode().value = '20';
@@ -674,7 +674,7 @@ describe('DateInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(1);
 
     dayInput.getDOMNode().value = '20';
@@ -700,7 +700,7 @@ describe('DateInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     customInputs.forEach((customInput) => {
       customInput.getDOMNode().value = ''; // eslint-disable-line no-param-reassign
