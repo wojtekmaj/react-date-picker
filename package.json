@@ -74,6 +74,7 @@
   "dependencies": {
     "@types/react-calendar": "^3.0.0",
     "@wojtekmaj/date-utils": "^1.0.3",
+    "@wojtekmaj/predict-input-value": "^1.0.0",
     "get-user-locale": "^1.2.0",
     "make-event-props": "^1.1.0",
     "merge-class-names": "^1.1.1",

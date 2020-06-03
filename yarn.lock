@@ -1760,6 +1760,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wojtekmaj/predict-input-value@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "@wojtekmaj/predict-input-value@npm:1.0.1"
+  checksum: fdbf2a22de81dd3fd23e4a5319bf40c166c705b661bd01dc1084f3c9fad73945ceca45675d42154463447414612a3bf03035f7086e523d7b5d5c442bb31902f9
+  languageName: node
+  linkType: hard
+
 "abab@npm:^2.0.3":
   version: 2.0.4
   resolution: "abab@npm:2.0.4"
@@ -6711,6 +6718,7 @@ fsevents@^2.1.2:
     "@types/react-calendar": ^3.0.0
     "@wojtekmaj/date-utils": ^1.0.3
     "@wojtekmaj/enzyme-adapter-react-17": ^0.3.1
+    "@wojtekmaj/predict-input-value": ^1.0.0
     babel-eslint: ^10.0.0
     enzyme: ^3.10.0
     eslint: ^7.12.0
