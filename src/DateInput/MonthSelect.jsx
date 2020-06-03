@@ -37,6 +37,7 @@ export default function MonthSelect({
         `${className}__input`,
         `${className}__${name}`,
       )}
+      data-input="true"
       name={name}
       ref={(ref) => {
         if (itemRef) {
