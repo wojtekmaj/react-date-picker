@@ -51,15 +51,16 @@ describe('NativeInput', () => {
     expect(input.prop('name')).toBe(name);
   });
 
-  /* eslint-disable indent */
   it.each`
     valueType   | parsedValue
     ${'day'}    | ${'2019-06-01'}
     ${'month'}  | ${'2019-06'}
     ${'year'}   | ${'2019'}
     ${'decade'} | ${'2019'}
-  `('displays given value properly if valueType is $valueType',
-  ({ valueType, parsedValue }) => {
+  `('displays given value properly if valueType is $valueType', ({
+    valueType,
+    parsedValue,
+  }) => {
     const value = new Date(2019, 5, 1);
 
     const component = shallow(
@@ -138,8 +139,10 @@ describe('NativeInput', () => {
     ${'month'}  | ${'2019-01'}
     ${'year'}   | ${'2019'}
     ${'decade'} | ${'2019'}
-  `('has proper min for minDate which is a full year if valueType is $valueType',
-  ({ valueType, parsedMin }) => {
+  `('has proper min for minDate which is a full year if valueType is $valueType', ({
+    valueType,
+    parsedMin
+  }) => {
     const component = shallow(
       <NativeInput
         {...defaultProps}
@@ -159,8 +162,10 @@ describe('NativeInput', () => {
     ${'month'}  | ${'2019-06'}
     ${'year'}   | ${'2019'}
     ${'decade'} | ${'2019'}
-  `('has proper min for minDate which is not a full year if valueType is $valueType',
-  ({ valueType, parsedMin }) => {
+  `('has proper min for minDate which is not a full year if valueType is $valueType', ({
+    valueType,
+    parsedMin,
+  }) => {
     const component = shallow(
       <NativeInput
         {...defaultProps}
@@ -190,8 +195,10 @@ describe('NativeInput', () => {
     ${'month'}  | ${'2020-01'}
     ${'year'}   | ${'2020'}
     ${'decade'} | ${'2020'}
-  `('has proper max for maxDate which is a full year if valueType is $valueType',
-  ({ valueType, parsedMax }) => {
+  `('has proper max for maxDate which is a full year if valueType is $valueType', ({
+    valueType,
+    parsedMax,
+  }) => {
     const component = shallow(
       <NativeInput
         {...defaultProps}
@@ -211,8 +218,10 @@ describe('NativeInput', () => {
     ${'month'}  | ${'2020-06'}
     ${'year'}   | ${'2020'}
     ${'decade'} | ${'2020'}
-  `('has proper max for maxDate which is not a full year if valueType is $valueType',
-  ({ valueType, parsedMax }) => {
+  `('has proper max for maxDate which is not a full year if valueType is $valueType', ({
+    valueType,
+    parsedMax,
+  }) => {
     const component = shallow(
       <NativeInput
         {...defaultProps}
