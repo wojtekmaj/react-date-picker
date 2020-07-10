@@ -10,8 +10,9 @@ import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 
 export default function NativeInput({
   ariaLabel,
-  customInput,
-  customInputOverrides,
+  customInput = <input />,
+  customInputStyle = {},
+  customInputOverrides = [],
   disabled,
   maxDate,
   minDate,
@@ -54,6 +55,14 @@ export default function NativeInput({
     event.stopPropagation();
   }
 
+  const inputStyle = {
+    visibility: 'hidden',
+    position: 'absolute',
+    top: '-9999px',
+    left: '-9999px',
+    ...customInputStyle
+  }
+
   const inputProps = {
     ['aria-label']: ariaLabel,
     disabled,
@@ -63,30 +72,27 @@ export default function NativeInput({
     onChange,
     onFocus: stopPropagation,
     required,
-    style: {
-      visibility: 'hidden',
-      position: 'absolute',
-      top: '-9999px',
-      left: '-9999px',
-    },
     type: nativeInputType,
     value: value ? nativeValueParser(value) : ''
   }
 
   const filteredInputProps = Object.keys(inputProps)
     .reduce((obj, key) => {
-      return customInputOverrides.includes(key) ?
+      return customInputOverrides && customInputOverrides.includes(key) ?
         { ...obj } :
         { ...obj, [key]: inputProps[key] }
     }, {});
 
-  const InputComponent = customInput ? customInput : <input />;
+  const InputComponent = customInput;
 
-  return <InputComponent {...filteredInputProps} />
+  return <InputComponent {...filteredInputProps} style={inputStyle} />
 }
 
 NativeInput.propTypes = {
   ariaLabel: PropTypes.string,
+  customInput: PropTypes.element,
+  customInputStyle: PropTypes.object,
+  customInputOverrides: PropTypes.arrayOf(PropTypes.string),
   disabled: PropTypes.bool,
   maxDate: isMaxDate,
   minDate: isMinDate,

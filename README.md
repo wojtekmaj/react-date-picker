@@ -90,7 +90,8 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |clearIcon|Content of the clear button. Setting the value explicitly to `null` will hide the icon.|(default icon)|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
 |closeCalendar|Whether to close the calendar on value selection.|`true`|`false`|
 |customInput|Custom input component. Note that many attributes will be overriden to provide react-date-picker functionality. See customInputOverrides to control this.|<input />|<input />|
-|customInputOverrides|Tell react-date-picker to not override these attributes with its own custom attributes. Note this may result in loss of functionality. Exception is the style attribute; the style properties will be appended or overriden.|[]|['style']|
+|customInputStyle|Custom input style property. This will be merged with the existing default style.|{}|{ color: 'red' }|
+|customInputOverrides|Tell react-date-picker to not override these attributes with its own custom attributes. Note this may result in loss of functionality.|[]|['aria-label']|
 |dayAriaLabel|`aria-label` for the day input.|n/a|`"Day"`|
 |dayPlaceholder|`placeholder` for the day input.|`"--"`|`"dd"`|
 |disabled|Whether the date picker should be disabled.|`false`|`true`|
