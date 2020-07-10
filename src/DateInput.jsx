@@ -601,6 +601,8 @@ const isValue = PropTypes.oneOfType([
 DateInput.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
+  customInput: PropTypes.element,
+  customInputOverrides: PropTypes.arrayOf(PropTypes.string),
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
@@ -623,7 +625,5 @@ DateInput.propTypes = {
     PropTypes.arrayOf(isValue),
   ]),
   yearAriaLabel: PropTypes.string,
-  yearPlaceholder: PropTypes.string,
-  customInput: PropTypes.element,
-  customInputOverrides: PropTypes.arrayOf(PropTypes.string)
+  yearPlaceholder: PropTypes.string
 };
