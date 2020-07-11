@@ -51,7 +51,6 @@ export default function NativeInput({
   value,
   valueType,
 }) {
-
   const inputStyle = {
     visibility: 'hidden',
     position: 'absolute',
@@ -82,7 +81,6 @@ export default function NativeInput({
   const InputComponent = customInput;
 
   return <InputComponent {...filteredInputProps} style={inputStyle} />;
-
 }
 
 NativeInput.propTypes = {
