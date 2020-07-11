@@ -549,7 +549,7 @@ export default class DateInput extends PureComponent {
       required,
       customInput,
       customInputOverrides,
-      customInputStyle
+      customInputStyle,
     } = this.props;
     const { value } = this.state;
 
@@ -558,8 +558,8 @@ export default class DateInput extends PureComponent {
         key="date"
         ariaLabel={nativeInputAriaLabel}
         customInput={customInput}
-        customInputStyle={customInputStyle}
         customInputOverrides={customInputOverrides}
+        customInputStyle={customInputStyle}
         disabled={disabled}
         maxDate={maxDate || defaultMaxDate}
         minDate={minDate || defaultMinDate}
@@ -603,9 +603,9 @@ const isValue = PropTypes.oneOfType([
 DateInput.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
-  customInput: PropTypes.element,
-  customInputStyle: PropTypes.object,
+  customInput: PropTypes.func,
   customInputOverrides: PropTypes.arrayOf(PropTypes.string),
+  customInputStyle: PropTypes.objectOf(PropTypes.any),
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
@@ -628,5 +628,5 @@ DateInput.propTypes = {
     PropTypes.arrayOf(isValue),
   ]),
   yearAriaLabel: PropTypes.string,
-  yearPlaceholder: PropTypes.string
+  yearPlaceholder: PropTypes.string,
 };

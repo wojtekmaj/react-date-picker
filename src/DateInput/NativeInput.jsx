@@ -8,9 +8,38 @@ import {
 
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 
+const nativeInputType = (valueType) => {
+  switch (valueType) {
+    case 'decade':
+    case 'year':
+      return 'number';
+    case 'month':
+      return 'month';
+    case 'day':
+      return 'date';
+    default:
+      throw new Error('Invalid valueType.');
+  }
+};
+
+const nativeValueParser = (valueType) => {
+  switch (valueType) {
+    case 'century':
+    case 'decade':
+    case 'year':
+      return getYear;
+    case 'month':
+      return getISOLocalMonth;
+    case 'day':
+      return getISOLocalDate;
+    default:
+      throw new Error('Invalid valueType.');
+  }
+};
+
 export default function NativeInput({
   ariaLabel,
-  customInput = <input />,
+  customInput = () => <input />,
   customInputStyle = {},
   customInputOverrides = [],
   disabled,
@@ -22,34 +51,6 @@ export default function NativeInput({
   value,
   valueType,
 }) {
-  const nativeInputType = (() => {
-    switch (valueType) {
-      case 'decade':
-      case 'year':
-        return 'number';
-      case 'month':
-        return 'month';
-      case 'day':
-        return 'date';
-      default:
-        throw new Error('Invalid valueType.');
-    }
-  })();
-
-  const nativeValueParser = (() => {
-    switch (valueType) {
-      case 'century':
-      case 'decade':
-      case 'year':
-        return getYear;
-      case 'month':
-        return getISOLocalMonth;
-      case 'day':
-        return getISOLocalDate;
-      default:
-        throw new Error('Invalid valueType.');
-    }
-  })();
 
   function stopPropagation(event) {
     event.stopPropagation();
@@ -60,11 +61,11 @@ export default function NativeInput({
     position: 'absolute',
     top: '-9999px',
     left: '-9999px',
-    ...customInputStyle
-  }
+    ...customInputStyle,
+  };
 
   const inputProps = {
-    ['aria-label']: ariaLabel,
+    'aria-label': ariaLabel,
     disabled,
     max: maxDate ? nativeValueParser(maxDate) : null,
     min: minDate ? nativeValueParser(minDate) : null,
@@ -72,27 +73,26 @@ export default function NativeInput({
     onChange,
     onFocus: stopPropagation,
     required,
-    type: nativeInputType,
-    value: value ? nativeValueParser(value) : ''
-  }
+    type: nativeInputType(valueType),
+    value: value ? nativeValueParser(valueType)(value) : '',
+  };
 
   const filteredInputProps = Object.keys(inputProps)
-    .reduce((obj, key) => {
-      return customInputOverrides && customInputOverrides.includes(key) ?
-        { ...obj } :
-        { ...obj, [key]: inputProps[key] }
-    }, {});
+    .reduce((obj, key) => customInputOverrides && customInputOverrides.includes(key)
+      ? { ...obj }
+      : { ...obj, [key]: inputProps[key] },
+    {});
 
   const InputComponent = customInput;
 
-  return <InputComponent {...filteredInputProps} style={inputStyle} />
+  return <InputComponent {...filteredInputProps} style={inputStyle} />;
 }
 
 NativeInput.propTypes = {
   ariaLabel: PropTypes.string,
-  customInput: PropTypes.element,
-  customInputStyle: PropTypes.object,
+  customInput: PropTypes.func,
   customInputOverrides: PropTypes.arrayOf(PropTypes.string),
+  customInputStyle: PropTypes.objectOf(PropTypes.any),
   disabled: PropTypes.bool,
   maxDate: isMaxDate,
   minDate: isMinDate,
