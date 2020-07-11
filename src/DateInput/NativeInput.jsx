@@ -67,7 +67,7 @@ export default function NativeInput({
     min: minDate ? nativeValueParser(valueType)(minDate) : null,
     name,
     onChange,
-    onFocus: (event) => event.stopPropagation(),
+    onFocus: event => event.stopPropagation(),
     required,
     type: nativeInputType(valueType),
     value: value ? nativeValueParser(valueType)(value) : '',
@@ -82,6 +82,7 @@ export default function NativeInput({
   const InputComponent = customInput;
 
   return <InputComponent {...filteredInputProps} style={inputStyle} />;
+
 }
 
 NativeInput.propTypes = {
