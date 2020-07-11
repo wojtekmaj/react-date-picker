@@ -52,10 +52,6 @@ export default function NativeInput({
   valueType,
 }) {
 
-  function stopPropagation(event) {
-    event.stopPropagation();
-  }
-
   const inputStyle = {
     visibility: 'hidden',
     position: 'absolute',
@@ -67,20 +63,20 @@ export default function NativeInput({
   const inputProps = {
     'aria-label': ariaLabel,
     disabled,
-    max: maxDate ? nativeValueParser(maxDate) : null,
-    min: minDate ? nativeValueParser(minDate) : null,
+    max: maxDate ? nativeValueParser(valueType)(maxDate) : null,
+    min: minDate ? nativeValueParser(valueType)(minDate) : null,
     name,
     onChange,
-    onFocus: stopPropagation,
+    onFocus: (event) => event.stopPropagation(),
     required,
     type: nativeInputType(valueType),
     value: value ? nativeValueParser(valueType)(value) : '',
   };
 
   const filteredInputProps = Object.keys(inputProps)
-    .reduce((obj, key) => customInputOverrides && customInputOverrides.includes(key)
+    .reduce((obj, key) => (customInputOverrides && customInputOverrides.includes(key)
       ? { ...obj }
-      : { ...obj, [key]: inputProps[key] },
+      : { ...obj, [key]: inputProps[key] }),
     {});
 
   const InputComponent = customInput;
