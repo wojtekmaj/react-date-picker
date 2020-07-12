@@ -540,8 +540,8 @@ export default class DateInput extends PureComponent {
   }
 
   renderNativeInput() {
-    const { disabled, maxDate, minDate, name, nativeInputAriaLabel,
-      required, customInput, customInputOverrides, customInputStyle } = this.props;
+    const { disabled, maxDate, minDate, name, nativeInputAriaLabel } = this.props;
+    const { required, customInput, customInputOverrides, customInputStyle } = this.props;
     const { value } = this.state;
 
     return (
