@@ -78,7 +78,7 @@ export default function NativeInput({
       : { ...obj, [key]: inputProps[key] }),
     {});
 
-  return <>{React.cloneElement(customInput, { ...filteredInputProps, style: inputStyle })}</>
+  return <>{React.cloneElement(customInput, { ...filteredInputProps, style: inputStyle })}</>;
 }
 
 NativeInput.propTypes = {
