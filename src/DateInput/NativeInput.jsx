@@ -39,7 +39,7 @@ const nativeValueParser = (valueType) => {
 
 export default function NativeInput({
   ariaLabel,
-  customInput = () => <input />,
+  customInput = <input />,
   customInputStyle = {},
   customInputOverrides = [],
   disabled,
@@ -78,14 +78,12 @@ export default function NativeInput({
       : { ...obj, [key]: inputProps[key] }),
     {});
 
-  const InputComponent = customInput;
-
-  return <InputComponent {...filteredInputProps} style={inputStyle} />;
+  return <>{React.cloneElement(customInput, { ...filteredInputProps, style: inputStyle })}</>
 }
 
 NativeInput.propTypes = {
   ariaLabel: PropTypes.string,
-  customInput: PropTypes.func,
+  customInput: PropTypes.element,
   customInputOverrides: PropTypes.arrayOf(PropTypes.string),
   customInputStyle: PropTypes.objectOf(PropTypes.any),
   disabled: PropTypes.bool,

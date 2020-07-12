@@ -89,7 +89,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |clearAriaLabel|`aria-label` for the clear button.|n/a|`"Clear value"`|
 |clearIcon|Content of the clear button. Setting the value explicitly to `null` will hide the icon.|(default icon)|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
 |closeCalendar|Whether to close the calendar on value selection.|`true`|`false`|
-|customInput|Custom input component function. Note that many attributes will be overriden to provide react-date-picker functionality. See customInputOverrides to control this.|() => <input />|() => <input />|
+|customInput|Custom input component function. Note that many attributes will be overriden to provide react-date-picker functionality. See customInputOverrides to control this.|<input />|<input />|
 |customInputStyle|Custom input style property. This will be merged with the existing default style.|{}|{ color: 'red' }|
 |customInputOverrides|Tell react-date-picker to not override these attributes with its own custom attributes. Note this may result in loss of functionality.|[]|['aria-label']|
 |dayAriaLabel|`aria-label` for the day input.|n/a|`"Day"`|
