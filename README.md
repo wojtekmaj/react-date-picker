@@ -16,7 +16,7 @@ A date picker for your React app.
 
 ## Demo
 
-Minimal demo page is included in sample directory.
+A minimal demo page can be found in `sample` directory.
 
 [Online demo](http://projects.wojtekmaj.pl/react-date-picker/) is also available!
 
@@ -28,7 +28,7 @@ React-Date-Picker will play nicely with [React-Time-Picker](https://github.com/w
 
 ### Compatibility
 
-Your project needs to use React 16 or later. If you use older version of React, please refer to the table below to find suitable React-Date-Picker version.
+Your project needs to use React 16 or later. If you use an older version of React, please refer to the table below to find a suitable React-Date-Picker version.
 
 |React version|Newest available React-Date-Picker|
 |----|----|
