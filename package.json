@@ -5,6 +5,10 @@
   "main": "dist/entry.js",
   "source": "src/entry.js",
   "types": "./index.d.ts",
+  "workspaces": [
+    ".",
+    "test"
+  ],
   "scripts": {
     "build": "yarn build-js && yarn copy-styles && yarn build-styles && yarn copy-types",
     "build-js": "babel src -d dist --ignore **/*.spec.js,**/*.spec.jsx",
