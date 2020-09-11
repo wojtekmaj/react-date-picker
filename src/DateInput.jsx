@@ -17,7 +17,7 @@ import {
 import { isMaxDate, isMinDate } from './shared/propTypes';
 import { between } from './shared/utils';
 
-const defaultMinDate = new Date(-8.64e15);
+const defaultMinDate = new Date('0001-01-01');
 const defaultMaxDate = new Date(8.64e15);
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
