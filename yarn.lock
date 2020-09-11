@@ -2038,10 +2038,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wojtekmaj/date-utils@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@wojtekmaj/date-utils@npm:1.0.2"
-  checksum: 8672bd900e01aa445842712cd2ab4a03392624883f3cfe7ea37f8740c578ade2f50630d479769e5fd5c9cad930c209a7dc7f6dee67ce7cbd3bac54e490e1515e
+"@wojtekmaj/date-utils@npm:^1.0.2, @wojtekmaj/date-utils@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@wojtekmaj/date-utils@npm:1.0.3"
+  checksum: b51df8d0d29cc4f62d07cfb3c29acb621207ec4e7401834b232e0c264dc3558897128361e29ac85560cc6fb0306639a62a6a398ef22a8ccd2f25753414dbf26a
   languageName: node
   linkType: hard
 
@@ -8678,7 +8678,7 @@ fsevents@^2.1.2:
     "@babel/preset-env": ^7.9.0
     "@babel/preset-react": ^7.9.0
     "@types/react-calendar": ^3.0.0
-    "@wojtekmaj/date-utils": ^1.0.2
+    "@wojtekmaj/date-utils": ^1.0.3
     babel-eslint: ^10.0.0
     enzyme: ^3.10.0
     enzyme-adapter-react-16: ^1.14.0
@@ -8717,7 +8717,7 @@ fsevents@^2.1.2:
     "@babel/preset-env": ^7.9.0
     "@babel/preset-react": ^7.9.0
     "@types/react-calendar": ^3.0.0
-    "@wojtekmaj/date-utils": ^1.0.2
+    "@wojtekmaj/date-utils": ^1.0.3
     babel-eslint: ^10.0.0
     enzyme: ^3.10.0
     enzyme-adapter-react-16: ^1.14.0
