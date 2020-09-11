@@ -8986,12 +8986,51 @@ fsevents@^2.1.2:
     parcel-bundler: ^1.12.4
     prop-types: ^15.6.0
     react: ^16.5.0
-    react-date-picker: "workspace:*"
+    react-date-picker: "portal:../"
     react-dom: ^16.5.0
   languageName: unknown
   linkType: soft
 
-"react-date-picker@workspace:*, react-date-picker@workspace:.":
+"react-date-picker@portal:../::locator=react-date-picker-test-page%40workspace%3Atest":
+  version: 0.0.0-use.local
+  resolution: "react-date-picker@portal:../::locator=react-date-picker-test-page%40workspace%3Atest"
+  dependencies:
+    "@babel/cli": ^7.8.0
+    "@babel/core": ^7.9.0
+    "@babel/plugin-proposal-class-properties": ^7.8.0
+    "@babel/preset-env": ^7.9.0
+    "@babel/preset-react": ^7.9.0
+    "@types/react-calendar": ^3.0.0
+    "@wojtekmaj/date-utils": ^1.0.2
+    babel-eslint: ^10.0.0
+    enzyme: ^3.10.0
+    enzyme-adapter-react-16: ^1.14.0
+    eslint: ~7.2.0
+    eslint-config-airbnb: ^18.2.0
+    eslint-plugin-import: ^2.21.2
+    eslint-plugin-jsx-a11y: ^6.3.0
+    eslint-plugin-react: ^7.20.0
+    eslint-plugin-react-hooks: ^4.0.0
+    get-user-locale: ^1.2.0
+    jest: ^26.0.0
+    less: ^3.8.1
+    make-event-props: ^1.1.0
+    merge-class-names: ^1.1.1
+    prop-types: ^15.6.0
+    react: ^16.7.0
+    react-calendar: ^3.0.0
+    react-dom: ^16.7.0
+    react-fit: ^1.0.3
+    react-test-renderer: ^16.7.0
+    rimraf: ^3.0.0
+    update-input-width: ^1.1.1
+  peerDependencies:
+    react: ">=16.3"
+    react-dom: ">=16.3"
+  languageName: node
+  linkType: soft
+
+"react-date-picker@workspace:.":
   version: 0.0.0-use.local
   resolution: "react-date-picker@workspace:."
   dependencies:
