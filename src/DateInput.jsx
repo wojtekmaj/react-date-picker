@@ -543,20 +543,18 @@ export default class DateInput extends PureComponent {
   }
 
   renderNativeInput() {
-    const {
-      disabled,
-      maxDate,
-      minDate,
-      name,
-      nativeInputAriaLabel,
-      required,
-    } = this.props;
+    const { disabled, maxDate, minDate } = this.props;
+    const { name, nativeInputAriaLabel, required } = this.props;
+    const { customInput, customInputOverrides, customInputStyle } = this.props;
     const { value } = this.state;
 
     return (
       <NativeInput
         key="date"
         ariaLabel={nativeInputAriaLabel}
+        customInput={customInput}
+        customInputOverrides={customInputOverrides}
+        customInputStyle={customInputStyle}
         disabled={disabled}
         maxDate={maxDate || defaultMaxDate}
         minDate={minDate || defaultMinDate}
@@ -600,6 +598,9 @@ const isValue = PropTypes.oneOfType([
 DateInput.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
+  customInput: PropTypes.element,
+  customInputOverrides: PropTypes.arrayOf(PropTypes.string),
+  customInputStyle: PropTypes.objectOf(PropTypes.any),
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
