@@ -65,8 +65,7 @@ export default function NativeInput({
       style={{
         visibility: 'hidden',
         position: 'absolute',
-        top: '-9999px',
-        left: '-9999px',
+        zIndex: '-999',
       }}
       type={nativeInputType}
       value={value ? nativeValueParser(value) : ''}
