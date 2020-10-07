@@ -51,7 +51,7 @@ function makeOnKeyPress(maxLength) {
     const isNumberKey = !isNaN(parseInt(key, 10));
     const selection = getSelectionString();
 
-    if (isNumberKey && (selection || value.length < maxLength)) {
+    if (isNumberKey && (selection || value.length <= maxLength)) {
       return;
     }
 
