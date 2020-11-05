@@ -5,7 +5,7 @@ export const muteConsole = () => {
 };
 
 export const restoreConsole = () => {
-  global.console.log.mockClear();
-  global.console.error.mockClear();
-  global.console.warn.mockClear();
+  global.console.log.mockRestore();
+  global.console.error.mockRestore();
+  global.console.warn.mockRestore();
 };
