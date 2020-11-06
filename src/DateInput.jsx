@@ -72,9 +72,9 @@ function getDetailValue({
   return between(detailValueFrom, minDate, maxDate);
 }
 
-const getDetailValueFrom = args => getDetailValue(args, 0);
+const getDetailValueFrom = (args) => getDetailValue(args, 0);
 
-const getDetailValueTo = args => getDetailValue(args, 1);
+const getDetailValueTo = (args) => getDetailValue(args, 1);
 
 const getDetailValueArray = (args) => {
   const { value } = args;
@@ -83,7 +83,7 @@ const getDetailValueArray = (args) => {
     return value;
   }
 
-  return [getDetailValueFrom, getDetailValueTo].map(fn => fn(args));
+  return [getDetailValueFrom, getDetailValueTo].map((fn) => fn(args));
 };
 
 function isInternalInput(element) {
@@ -107,7 +107,7 @@ function focus(element) {
 function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstances) {
   const usedFunctions = [];
   const pattern = new RegExp(
-    Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
+    Object.keys(elementFunctions).map((el) => `${el}+`).join('|'), 'g',
   );
   const matches = placeholder.match(pattern);
 
@@ -127,7 +127,7 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
           elementFunctions[currentMatch]
           || elementFunctions[
             Object.keys(elementFunctions)
-              .find(elementFunction => currentMatch.match(elementFunction))
+              .find((elementFunction) => currentMatch.match(elementFunction))
           ]
         );
 
@@ -171,12 +171,12 @@ export default class DateInput extends PureComponent {
       // Toggling calendar visibility resets values
       nextState.isCalendarOpen // Flag was toggled
       || datesAreDifferent(
-        ...values.map(value => getDetailValueFrom({
+        ...values.map((value) => getDetailValueFrom({
           value, minDate, maxDate, maxDetail,
         })),
       )
       || datesAreDifferent(
-        ...values.map(value => getDetailValueTo({
+        ...values.map((value) => getDetailValueTo({
           value, minDate, maxDate, maxDetail,
         })),
       )
@@ -418,10 +418,10 @@ export default class DateInput extends PureComponent {
       values[formElement.name] = formElement.value;
     });
 
-    if (formElements.every(formElement => !formElement.value)) {
+    if (formElements.every((formElement) => !formElement.value)) {
       onChange(null, false);
     } else if (
-      formElements.every(formElement => formElement.value && formElement.validity.valid)
+      formElements.every((formElement) => formElement.value && formElement.validity.valid)
     ) {
       const year = parseInt(values.year, 10);
       const monthIndex = parseInt(values.month, 10) - 1 || 0;

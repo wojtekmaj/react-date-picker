@@ -29,7 +29,7 @@ const keyCodes = {
   '/': 191,
 };
 
-const getKey = key => ({
+const getKey = (key) => ({
   keyCode: keyCodes[key],
   which: keyCodes[key],
   key,
