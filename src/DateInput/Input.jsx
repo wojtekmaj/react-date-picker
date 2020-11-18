@@ -81,8 +81,7 @@ export default function Input({
   const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
   const maxLength = max.toString().length;
 
-  return [
-    (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
+  return (
     <input
       key="input"
       aria-label={ariaLabel}
@@ -91,7 +90,6 @@ export default function Input({
       className={mergeClassNames(
         `${className}__input`,
         `${className}__${nameForClass || name}`,
-        hasLeadingZero && `${className}__input--hasLeadingZero`,
       )}
       data-input="true"
       disabled={disabled}
@@ -123,9 +121,9 @@ export default function Input({
       required={required}
       step={step}
       type="number"
-      value={value !== null ? value : ''}
-    />,
-  ];
+      value={value !== null ? (hasLeadingZero ? `0${value}` : value) : ''}
+    />
+  );
 }
 
 Input.propTypes = {
