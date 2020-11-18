@@ -21,50 +21,6 @@ describe('DayInput', () => {
     expect(input).toHaveLength(1);
   });
 
-  it('renders "0" given showLeadingZeros if day is <10', () => {
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        showLeadingZeros
-        value={9}
-      />
-    );
-
-    const input = component.find('input');
-
-    expect(component.text()).toContain('0');
-    expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
-  });
-
-  it('does not render "0" given showLeadingZeros if day is >=10', () => {
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        showLeadingZeros
-        value={10}
-      />
-    );
-
-    const input = component.find('input');
-
-    expect(component.text()).not.toContain('0');
-    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
-  });
-
-  it('does not render "0" if not given showLeadingZeros', () => {
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        value={9}
-      />
-    );
-
-    const input = component.find('input');
-
-    expect(component.text()).not.toContain('0');
-    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
-  });
-
   it('applies given aria-label properly', () => {
     const dayAriaLabel = 'Day';
 

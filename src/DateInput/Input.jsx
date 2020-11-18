@@ -80,6 +80,7 @@ export default function Input({
 }) {
   const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
   const maxLength = max.toString().length;
+  const getValue = () => (hasLeadingZero ? `0${value}` : value);
 
   return (
     <input
@@ -121,21 +122,25 @@ export default function Input({
       required={required}
       step={step}
       type="number"
-      value={value !== null ? (hasLeadingZero ? `0${value}` : value) : ''}
+      value={value !== null ? getValue() : ''}
     />
   );
 }
 
 Input.propTypes = {
   ariaLabel: PropTypes.string,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
   max: PropTypes.number,
   min: PropTypes.number,
+  name: PropTypes.string,
+  nameForClass: PropTypes.string,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   step: PropTypes.number,
