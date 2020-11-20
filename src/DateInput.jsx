@@ -397,9 +397,9 @@ export default class DateInput extends PureComponent {
       }
 
       const [yearString, monthString, dayString] = value.split('-');
-      const year = parseInt(yearString, 10);
-      const monthIndex = parseInt(monthString, 10) - 1 || 0;
-      const day = parseInt(dayString, 10) || 1;
+      const year = Number(yearString);
+      const monthIndex = Number(monthString) - 1 || 0;
+      const day = Number(dayString) || 1;
 
       const proposedValue = new Date();
       proposedValue.setFullYear(year, monthIndex, day);
@@ -434,9 +434,9 @@ export default class DateInput extends PureComponent {
     } else if (
       formElements.every((formElement) => formElement.value && formElement.validity.valid)
     ) {
-      const year = parseInt(values.year, 10);
-      const monthIndex = parseInt(values.month, 10) - 1 || 0;
-      const day = parseInt(values.day || 1, 10);
+      const year = Number(values.year);
+      const monthIndex = Number(values.month) - 1 || 0;
+      const day = Number(values.day || 1);
 
       const proposedValue = new Date();
       proposedValue.setFullYear(year, monthIndex, day);
