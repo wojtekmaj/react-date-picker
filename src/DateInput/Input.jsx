@@ -133,6 +133,7 @@ export default function Input({
       disabled={disabled}
       inputMode="numeric"
       max={max}
+      maxLength={`${max}`.length}
       min={min}
       name={name}
       onChange={onChange}
