@@ -46,6 +46,38 @@ function updateInputWidthOnFontLoad(element) {
   document.fonts.addEventListener('loadingdone', onLoadingDone);
 }
 
+function addLeadingZero(value, max) {
+  `0${value}`.slice(-(`${max}`.length));
+}
+
+function makeOnKeyDown({ max, min, showLeadingZeros }) {
+  return function onKeyDown(event) {
+    switch (event.key) {
+      case 'ArrowUp':
+      case 'ArrowDown': {
+        event.preventDefault();
+
+        const { target: input } = event;
+        const { value } = input;
+
+        const rawNextValue = Number(value) + (event.key === 'ArrowUp' ? 1 : -1);
+
+        if (rawNextValue < min || rawNextValue > max) {
+          return;
+        }
+
+        const hasLeadingZero = showLeadingZeros && rawNextValue < 10;
+        const nextValue = hasLeadingZero ? addLeadingZero(rawNextValue, max) : rawNextValue;
+
+        input.value = nextValue;
+
+        break;
+      }
+      default:
+    }
+  };
+}
+
 function makeOnKeyPress(max) {
   return function onKeyPress(event) {
     const { key } = event;
@@ -82,6 +114,9 @@ export default function Input({
 }) {
   const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
 
+  const onKeyDownInternal = makeOnKeyDown({ max, min, showLeadingZeros });
+  const onKeyPressInternal = makeOnKeyPress(max);
+
   return [
     (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
     <input
@@ -102,8 +137,14 @@ export default function Input({
       name={name}
       onChange={onChange}
       onFocus={onFocus}
-      onKeyDown={onKeyDown}
-      onKeyPress={makeOnKeyPress(max)}
+      onKeyDown={(event) => {
+        onKeyDownInternal(event);
+
+        if (onKeyDown) {
+          onKeyDown(event);
+        }
+      }}
+      onKeyPress={onKeyPressInternal}
       onKeyUp={(event) => {
         updateInputWidth(event.target);
 
