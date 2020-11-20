@@ -28,7 +28,7 @@ export default function DayInput({
   })();
 
   function isSameMonth(date) {
-    return date && year === getYear(date) && month === getMonthHuman(date);
+    return date && Number(year) === getYear(date) && Number(month) === getMonthHuman(date);
   }
 
   const maxDay = safeMin(currentMonthMaxDays, isSameMonth(maxDate) && getDate(maxDate));
@@ -44,6 +44,8 @@ export default function DayInput({
   );
 }
 
+const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
+
 DayInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
@@ -51,13 +53,13 @@ DayInput.propTypes = {
   itemRef: PropTypes.func,
   maxDate: isMaxDate,
   minDate: isMinDate,
-  month: PropTypes.number,
+  month: isValue,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
-  year: PropTypes.number,
+  value: isValue,
+  year: isValue,
 };

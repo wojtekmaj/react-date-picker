@@ -21,7 +21,7 @@ export default function MonthSelect({
   ...otherProps
 }) {
   function isSameYear(date) {
-    return date && year === getYear(date);
+    return date && Number(year) === getYear(date);
   }
 
   const maxMonth = safeMin(12, isSameYear(maxDate) && getMonthHuman(maxDate));
@@ -70,6 +70,8 @@ export default function MonthSelect({
   );
 }
 
+const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
+
 MonthSelect.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
@@ -84,6 +86,6 @@ MonthSelect.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   short: PropTypes.bool,
-  value: PropTypes.number,
-  year: PropTypes.number,
+  value: isValue,
+  year: isValue,
 };

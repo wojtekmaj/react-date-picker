@@ -192,9 +192,9 @@ export default class DateInput extends PureComponent {
       )
     ) {
       if (nextValue) {
-        nextState.year = getYear(nextValue);
-        nextState.month = getMonthHuman(nextValue);
-        nextState.day = getDate(nextValue);
+        nextState.year = getYear(nextValue).toString();
+        nextState.month = getMonthHuman(nextValue).toString();
+        nextState.day = getDate(nextValue).toString();
       } else {
         nextState.year = null;
         nextState.month = null;
@@ -375,7 +375,7 @@ export default class DateInput extends PureComponent {
     const { name, value } = event.target;
 
     this.setState(
-      { [name]: value ? parseInt(value, 10) : null },
+      { [name]: value },
       this.onChangeExternal,
     );
   }

@@ -112,7 +112,11 @@ export default function Input({
   step,
   value,
 }) {
-  const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
+  const hasLeadingZero = (
+    showLeadingZeros
+    && (value !== null && value !== undefined)
+    && value.toString().length < 2
+  );
 
   const onKeyDownInternal = makeOnKeyDown({ max, min, showLeadingZeros });
   const onKeyPressInternal = makeOnKeyPress(max);
@@ -172,6 +176,8 @@ export default function Input({
   ];
 }
 
+const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
+
 Input.propTypes = {
   ariaLabel: PropTypes.string,
   autoFocus: PropTypes.bool,
@@ -189,5 +195,5 @@ Input.propTypes = {
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   step: PropTypes.number,
-  value: PropTypes.number,
+  value: isValue,
 };
