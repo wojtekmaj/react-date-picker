@@ -130,14 +130,18 @@ export default function Input({
 
 Input.propTypes = {
   ariaLabel: PropTypes.string,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
   max: PropTypes.number,
   min: PropTypes.number,
+  name: PropTypes.string,
+  nameForClass: PropTypes.string,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   step: PropTypes.number,
