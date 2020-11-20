@@ -50,7 +50,9 @@ function addLeadingZero(value, max) {
   `0${value}`.slice(-(`${max}`.length));
 }
 
-function makeOnKeyDown({ max, min, showLeadingZeros }) {
+function makeOnKeyDown({
+  max, min, onChange, showLeadingZeros,
+}) {
   return function onKeyDown(event) {
     switch (event.key) {
       case 'ArrowUp':
@@ -70,6 +72,7 @@ function makeOnKeyDown({ max, min, showLeadingZeros }) {
         const nextValue = hasLeadingZero ? addLeadingZero(rawNextValue, max) : rawNextValue;
 
         input.value = nextValue;
+        onChange(event);
 
         break;
       }
@@ -118,7 +121,9 @@ export default function Input({
     && value.toString().length < 2
   );
 
-  const onKeyDownInternal = makeOnKeyDown({ max, min, showLeadingZeros });
+  const onKeyDownInternal = makeOnKeyDown({
+    max, min, onChange, showLeadingZeros,
+  });
   const onKeyPressInternal = makeOnKeyPress(max);
 
   return [
