@@ -108,6 +108,28 @@ function findInput(element, property) {
   return nextElement;
 }
 
+function isInputValid(input) {
+  if (!input.validity.valid) {
+    return false;
+  }
+
+  const { value } = input;
+
+  if (!value) {
+    return false;
+  }
+
+  const rawValue = Number(value);
+  const min = Number(input.getAttribute('min'));
+  const max = Number(input.getAttribute('max'));
+
+  if (rawValue < min || rawValue > max) {
+    return false;
+  }
+
+  return true;
+}
+
 function focus(element) {
   if (element) {
     element.focus();
@@ -431,9 +453,7 @@ export default class DateInput extends PureComponent {
 
     if (formElements.every((formElement) => !formElement.value)) {
       onChange(null, false);
-    } else if (
-      formElements.every((formElement) => formElement.value && formElement.validity.valid)
-    ) {
+    } else if (formElements.every(isInputValid)) {
       const year = Number(values.year);
       const monthIndex = Number(values.month) - 1 || 0;
       const day = Number(values.day || 1);
