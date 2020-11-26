@@ -8431,8 +8431,8 @@ fsevents@^2.1.2:
     rimraf: ^3.0.0
     update-input-width: ^1.1.1
   peerDependencies:
-    react: ">=16.3"
-    react-dom: ">=16.3"
+    react: ^16.3.0 || ^17.0.0-0
+    react-dom: ^16.3.0 || ^17.0.0-0
   languageName: node
   linkType: soft
 
