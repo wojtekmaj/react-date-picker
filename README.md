@@ -27,12 +27,12 @@ React-Date-Picker will play nicely with [React-Time-Picker](https://github.com/w
 
 ### Compatibility
 
-Your project needs to use React 16 or later. If you use an older version of React, please refer to the table below to find a suitable React-Date-Picker version.
+Your project needs to use React 16.3 or later. If you use an older version of React, please refer to the table below to find a suitable React-Date-Picker version.
 
-|React version|Newest available React-Date-Picker|
-|----|----|
-|>16.0|latest|
-|>15.5|6.7.0|
+| React version | Newest compatible React-Date-Picker version |
+|-------|--------|
+| ≥16.3 | latest |
+| ≥16.0 | 7.x    |
 
 [React-Calendar](https://github.com/wojtekmaj/react-calendar), on which React-Date-Picker relies heavily, uses modern web technologies. That's why it's so fast, lightweight and easy to style. This, however, comes at a cost of [supporting only modern browsers](https://caniuse.com/#feat=internationalization).
 
