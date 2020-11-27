@@ -95,6 +95,7 @@ export default function Input({
       )}
       data-input="true"
       disabled={disabled}
+      inputMode="numeric"
       max={max}
       min={min}
       name={name}
