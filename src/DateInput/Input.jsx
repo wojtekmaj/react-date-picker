@@ -5,7 +5,11 @@ import updateInputWidth, { getFontShorthand } from 'update-input-width';
 
 /* eslint-disable jsx-a11y/no-autofocus */
 
-const isEdgeLegacy = navigator.userAgent.match(/ Edge\/1/);
+const isEdgeLegacy = (
+  typeof window !== 'undefined'
+  && 'navigator' in window
+  && navigator.userAgent.match(/ Edge\/1/)
+);
 
 function onFocus(event) {
   const { target } = event;
