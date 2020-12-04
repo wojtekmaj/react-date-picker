@@ -3,8 +3,6 @@ import { mount } from 'enzyme';
 
 import DayInput from './DayInput';
 
-/* eslint-disable comma-dangle */
-
 describe('DayInput', () => {
   const defaultProps = {
     className: 'className',
@@ -13,7 +11,7 @@ describe('DayInput', () => {
 
   it('renders an input', () => {
     const component = mount(
-      <DayInput {...defaultProps} />
+      <DayInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -27,7 +25,7 @@ describe('DayInput', () => {
         {...defaultProps}
         showLeadingZeros
         value={9}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -42,7 +40,7 @@ describe('DayInput', () => {
         {...defaultProps}
         showLeadingZeros
         value={10}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -56,7 +54,7 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         value={9}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -72,7 +70,7 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         ariaLabel={dayAriaLabel}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -87,7 +85,7 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         placeholder={dayPlaceholder}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -97,7 +95,7 @@ describe('DayInput', () => {
 
   it('has proper name defined', () => {
     const component = mount(
-      <DayInput {...defaultProps} />
+      <DayInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -112,7 +110,7 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         className={className}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -128,7 +126,7 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         value={value}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -138,7 +136,7 @@ describe('DayInput', () => {
 
   it('does not disable input by default', () => {
     const component = mount(
-      <DayInput {...defaultProps} />
+      <DayInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -151,7 +149,7 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         disabled
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -161,7 +159,7 @@ describe('DayInput', () => {
 
   it('is not required input by default', () => {
     const component = mount(
-      <DayInput {...defaultProps} />
+      <DayInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -174,7 +172,7 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         required
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -189,7 +187,7 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         itemRef={itemRef}
-      />
+      />,
     );
 
     expect(itemRef).toHaveBeenCalled();
@@ -198,7 +196,7 @@ describe('DayInput', () => {
 
   it('has min = 1 by default', () => {
     const component = mount(
-      <DayInput {...defaultProps} />
+      <DayInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -213,7 +211,7 @@ describe('DayInput', () => {
         minDate={new Date(2017, 11, 15)}
         month={1}
         year={2018}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -228,7 +226,7 @@ describe('DayInput', () => {
         minDate={new Date(2018, 0, 15)}
         month={1}
         year={2018}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -244,7 +242,7 @@ describe('DayInput', () => {
         {...defaultProps}
         month={1}
         year={2018}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -261,7 +259,7 @@ describe('DayInput', () => {
         maxDate={new Date(2018, 1, 15)}
         month={1}
         year={2018}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -276,7 +274,7 @@ describe('DayInput', () => {
         maxDate={new Date(2018, 0, 15)}
         month={1}
         year={2018}
-      />
+      />,
     );
 
     const input = component.find('input');

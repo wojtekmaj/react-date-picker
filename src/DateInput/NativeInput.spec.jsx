@@ -3,8 +3,6 @@ import { shallow } from 'enzyme';
 
 import NativeInput from './NativeInput';
 
-/* eslint-disable comma-dangle */
-
 describe('NativeInput', () => {
   const defaultProps = {
     onChange: () => {},
@@ -13,7 +11,7 @@ describe('NativeInput', () => {
 
   it('renders an input', () => {
     const component = shallow(
-      <NativeInput {...defaultProps} />
+      <NativeInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -28,7 +26,7 @@ describe('NativeInput', () => {
       <NativeInput
         {...defaultProps}
         ariaLabel={nativeInputAriaLabel}
-      />
+      />,
     );
 
     const select = component.find('input');
@@ -43,7 +41,7 @@ describe('NativeInput', () => {
       <NativeInput
         {...defaultProps}
         name={name}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -68,7 +66,7 @@ describe('NativeInput', () => {
         {...defaultProps}
         value={value}
         valueType={valueType}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -79,7 +77,7 @@ describe('NativeInput', () => {
 
   it('does not disable input by default', () => {
     const component = shallow(
-      <NativeInput {...defaultProps} />
+      <NativeInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -92,7 +90,7 @@ describe('NativeInput', () => {
       <NativeInput
         {...defaultProps}
         disabled
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -102,7 +100,7 @@ describe('NativeInput', () => {
 
   it('is not required input by default', () => {
     const component = shallow(
-      <NativeInput {...defaultProps} />
+      <NativeInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -115,7 +113,7 @@ describe('NativeInput', () => {
       <NativeInput
         {...defaultProps}
         required
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -125,7 +123,7 @@ describe('NativeInput', () => {
 
   it('has no min by default', () => {
     const component = shallow(
-      <NativeInput {...defaultProps} />
+      <NativeInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -141,14 +139,14 @@ describe('NativeInput', () => {
     ${'decade'} | ${'2019'}
   `('has proper min for minDate which is a full year if valueType is $valueType', ({
     valueType,
-    parsedMin
+    parsedMin,
   }) => {
     const component = shallow(
       <NativeInput
         {...defaultProps}
         minDate={new Date(2019, 0, 1)}
         valueType={valueType}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -171,7 +169,7 @@ describe('NativeInput', () => {
         {...defaultProps}
         minDate={new Date(2019, 5, 1)}
         valueType={valueType}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -181,7 +179,7 @@ describe('NativeInput', () => {
 
   it('has no max by default', () => {
     const component = shallow(
-      <NativeInput {...defaultProps} />
+      <NativeInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -204,7 +202,7 @@ describe('NativeInput', () => {
         {...defaultProps}
         maxDate={new Date(2020, 0, 1)}
         valueType={valueType}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -227,7 +225,7 @@ describe('NativeInput', () => {
         {...defaultProps}
         maxDate={new Date(2020, 5, 1)}
         valueType={valueType}
-      />
+      />,
     );
 
     const input = component.find('input');
