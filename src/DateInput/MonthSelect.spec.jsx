@@ -3,8 +3,6 @@ import { mount } from 'enzyme';
 
 import MonthSelect from './MonthSelect';
 
-/* eslint-disable comma-dangle */
-
 describe('MonthSelect', () => {
   const defaultProps = {
     className: 'className',
@@ -13,7 +11,7 @@ describe('MonthSelect', () => {
 
   it('renders a select', () => {
     const component = mount(
-      <MonthSelect {...defaultProps} />
+      <MonthSelect {...defaultProps} />,
     );
 
     const select = component.find('select');
@@ -30,7 +28,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         ariaLabel={monthAriaLabel}
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -40,7 +38,7 @@ describe('MonthSelect', () => {
 
   it('has proper placeholder by default', () => {
     const component = mount(
-      <MonthSelect {...defaultProps} />
+      <MonthSelect {...defaultProps} />,
     );
 
     const options = component.find('option');
@@ -56,7 +54,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         placeholder={monthPlaceholder}
-      />
+      />,
     );
 
     const options = component.find('option');
@@ -67,7 +65,7 @@ describe('MonthSelect', () => {
 
   it('has proper name defined', () => {
     const component = mount(
-      <MonthSelect {...defaultProps} />
+      <MonthSelect {...defaultProps} />,
     );
 
     const select = component.find('select');
@@ -82,7 +80,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         className={className}
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -98,7 +96,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         value={value}
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -108,7 +106,7 @@ describe('MonthSelect', () => {
 
   it('does not disable select by default', () => {
     const component = mount(
-      <MonthSelect {...defaultProps} />
+      <MonthSelect {...defaultProps} />,
     );
 
     const select = component.find('select');
@@ -121,7 +119,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         disabled
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -131,7 +129,7 @@ describe('MonthSelect', () => {
 
   it('is not required select by default', () => {
     const component = mount(
-      <MonthSelect {...defaultProps} />
+      <MonthSelect {...defaultProps} />,
     );
 
     const select = component.find('select');
@@ -144,7 +142,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         required
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -159,7 +157,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         itemRef={itemRef}
-      />
+      />,
     );
 
     expect(itemRef).toHaveBeenCalled();
@@ -168,7 +166,7 @@ describe('MonthSelect', () => {
 
   it('has all options enabled by default', () => {
     const component = mount(
-      <MonthSelect {...defaultProps} />
+      <MonthSelect {...defaultProps} />,
     );
 
     const select = component.find('select');
@@ -185,7 +183,7 @@ describe('MonthSelect', () => {
         {...defaultProps}
         minDate={new Date(2017, 6, 1)}
         year={2018}
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -202,7 +200,7 @@ describe('MonthSelect', () => {
         {...defaultProps}
         minDate={new Date(2018, 6, 1)}
         year={2018}
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -224,7 +222,7 @@ describe('MonthSelect', () => {
         {...defaultProps}
         maxDate={new Date(2019, 6, 1)}
         year={2018}
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -241,7 +239,7 @@ describe('MonthSelect', () => {
         {...defaultProps}
         maxDate={new Date(2018, 6, 1)}
         year={2018}
-      />
+      />,
     );
 
     const select = component.find('select');

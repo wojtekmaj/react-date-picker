@@ -3,12 +3,10 @@ import { mount } from 'enzyme';
 
 import DatePicker from './DatePicker';
 
-/* eslint-disable comma-dangle */
-
 describe('DatePicker', () => {
   it('passes default name to DateInput', () => {
     const component = mount(
-      <DatePicker />
+      <DatePicker />,
     );
 
     const dateInput = component.find('DateInput');
@@ -20,7 +18,7 @@ describe('DatePicker', () => {
     const name = 'testName';
 
     const component = mount(
-      <DatePicker name={name} />
+      <DatePicker name={name} />,
     );
 
     const dateInput = component.find('DateInput');
@@ -30,7 +28,7 @@ describe('DatePicker', () => {
 
   it('passes autoFocus flag to DateInput', () => {
     const component = mount(
-      <DatePicker autoFocus />
+      <DatePicker autoFocus />,
     );
 
     const dateInput = component.find('DateInput');
@@ -40,7 +38,7 @@ describe('DatePicker', () => {
 
   it('passes disabled flag to DateInput', () => {
     const component = mount(
-      <DatePicker disabled />
+      <DatePicker disabled />,
     );
 
     const dateInput = component.find('DateInput');
@@ -52,7 +50,7 @@ describe('DatePicker', () => {
     const format = 'y-MM-dd';
 
     const component = mount(
-      <DatePicker format={format} />
+      <DatePicker format={format} />,
     );
 
     const dateInput = component.find('DateInput');
@@ -71,7 +69,7 @@ describe('DatePicker', () => {
     };
 
     const component = mount(
-      <DatePicker {...ariaLabelProps} />
+      <DatePicker {...ariaLabelProps} />,
     );
 
     const calendarButton = component.find('button.react-date-picker__calendar-button');
@@ -94,7 +92,7 @@ describe('DatePicker', () => {
     };
 
     const component = mount(
-      <DatePicker {...placeholderProps} />
+      <DatePicker {...placeholderProps} />,
     );
 
     const dateInput = component.find('DateInput');
@@ -109,7 +107,7 @@ describe('DatePicker', () => {
       const value = new Date(2019, 0, 1);
 
       const component = mount(
-        <DatePicker value={value} />
+        <DatePicker value={value} />,
       );
 
       const dateInput = component.find('DateInput');
@@ -122,7 +120,7 @@ describe('DatePicker', () => {
       const value2 = new Date(2019, 6, 1);
 
       const component = mount(
-        <DatePicker value={[value1, value2]} />
+        <DatePicker value={[value1, value2]} />,
       );
 
       const dateInput = component.find('DateInput');
@@ -135,7 +133,7 @@ describe('DatePicker', () => {
     const className = 'testClassName';
 
     const component = mount(
-      <DatePicker className={className} />
+      <DatePicker className={className} />,
     );
 
     const wrapperClassName = component.prop('className');
@@ -150,7 +148,7 @@ describe('DatePicker', () => {
       <DatePicker
         calendarClassName={calendarClassName}
         isOpen
-      />
+      />,
     );
 
     const calendar = component.find('Calendar');
@@ -161,7 +159,7 @@ describe('DatePicker', () => {
 
   it('renders DateInput component', () => {
     const component = mount(
-      <DatePicker />
+      <DatePicker />,
     );
 
     const dateInput = component.find('DateInput');
@@ -171,7 +169,7 @@ describe('DatePicker', () => {
 
   it('renders clear button', () => {
     const component = mount(
-      <DatePicker />
+      <DatePicker />,
     );
 
     const clearButton = component.find('button.react-date-picker__clear-button');
@@ -181,7 +179,7 @@ describe('DatePicker', () => {
 
   it('renders calendar button', () => {
     const component = mount(
-      <DatePicker />
+      <DatePicker />,
     );
 
     const calendarButton = component.find('button.react-date-picker__calendar-button');
@@ -191,7 +189,7 @@ describe('DatePicker', () => {
 
   it('renders DateInput and Calendar components when given isOpen flag', () => {
     const component = mount(
-      <DatePicker isOpen />
+      <DatePicker isOpen />,
     );
 
     const dateInput = component.find('DateInput');
@@ -203,7 +201,7 @@ describe('DatePicker', () => {
 
   it('does not render Calendar component when given disableCalendar & isOpen flags', () => {
     const component = mount(
-      <DatePicker disableCalendar isOpen />
+      <DatePicker disableCalendar isOpen />,
     );
 
     const dateInput = component.find('DateInput');
@@ -215,7 +213,7 @@ describe('DatePicker', () => {
 
   it('opens Calendar component when given isOpen flag by changing props', () => {
     const component = mount(
-      <DatePicker />
+      <DatePicker />,
     );
 
     const calendar = component.find('Calendar');
@@ -232,7 +230,7 @@ describe('DatePicker', () => {
 
   it('opens Calendar component when clicking on a button', () => {
     const component = mount(
-      <DatePicker />
+      <DatePicker />,
     );
 
     const calendar = component.find('Calendar');
@@ -250,7 +248,7 @@ describe('DatePicker', () => {
 
   it('opens Calendar component when focusing on an input inside', () => {
     const component = mount(
-      <DatePicker />
+      <DatePicker />,
     );
 
     const calendar = component.find('Calendar');
@@ -272,7 +270,7 @@ describe('DatePicker', () => {
 
     const component = mount(
       <DatePicker isOpen />,
-      { attachTo: root }
+      { attachTo: root },
     );
 
     const event = document.createEvent('MouseEvent');
@@ -289,7 +287,7 @@ describe('DatePicker', () => {
 
     const component = mount(
       <DatePicker isOpen />,
-      { attachTo: root }
+      { attachTo: root },
     );
 
     const event = document.createEvent('FocusEvent');
@@ -306,7 +304,7 @@ describe('DatePicker', () => {
 
     const component = mount(
       <DatePicker isOpen />,
-      { attachTo: root }
+      { attachTo: root },
     );
 
     const event = document.createEvent('TouchEvent');
@@ -319,7 +317,7 @@ describe('DatePicker', () => {
 
   it('does not close Calendar component when focused inside', () => {
     const component = mount(
-      <DatePicker isOpen />
+      <DatePicker isOpen />,
     );
 
     const customInputs = component.find('input[data-input]');
@@ -335,7 +333,7 @@ describe('DatePicker', () => {
 
   it('closes Calendar when calling internal onChange by default', () => {
     const component = mount(
-      <DatePicker isOpen />
+      <DatePicker isOpen />,
     );
 
     const { onChange } = component.instance();
@@ -350,7 +348,7 @@ describe('DatePicker', () => {
       <DatePicker
         closeCalendar={false}
         isOpen
-      />
+      />,
     );
 
     const { onChange } = component.instance();
@@ -362,7 +360,7 @@ describe('DatePicker', () => {
 
   it('does not close Calendar when calling internal onChange with closeCalendar = false', () => {
     const component = mount(
-      <DatePicker isOpen />
+      <DatePicker isOpen />,
     );
 
     const { onChange } = component.instance();
@@ -377,7 +375,7 @@ describe('DatePicker', () => {
     const onChange = jest.fn();
 
     const component = mount(
-      <DatePicker onChange={onChange} />
+      <DatePicker onChange={onChange} />,
     );
 
     const { onChange: onChangeInternal } = component.instance();
@@ -391,7 +389,7 @@ describe('DatePicker', () => {
     const onChange = jest.fn();
 
     const component = mount(
-      <DatePicker onChange={onChange} />
+      <DatePicker onChange={onChange} />,
     );
 
     const calendar = component.find('Calendar');

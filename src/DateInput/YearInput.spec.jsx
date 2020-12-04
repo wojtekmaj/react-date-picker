@@ -3,8 +3,6 @@ import { mount } from 'enzyme';
 
 import YearInput from './YearInput';
 
-/* eslint-disable comma-dangle */
-
 describe('YearInput', () => {
   const defaultProps = {
     className: 'className',
@@ -13,7 +11,7 @@ describe('YearInput', () => {
 
   it('renders an input', () => {
     const component = mount(
-      <YearInput {...defaultProps} />
+      <YearInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -28,7 +26,7 @@ describe('YearInput', () => {
       <YearInput
         {...defaultProps}
         ariaLabel={yearAriaLabel}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -43,7 +41,7 @@ describe('YearInput', () => {
       <YearInput
         {...defaultProps}
         placeholder={yearPlaceholder}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -53,7 +51,7 @@ describe('YearInput', () => {
 
   it('has proper name defined', () => {
     const component = mount(
-      <YearInput {...defaultProps} />
+      <YearInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -68,7 +66,7 @@ describe('YearInput', () => {
       <YearInput
         {...defaultProps}
         className={className}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -84,7 +82,7 @@ describe('YearInput', () => {
       <YearInput
         {...defaultProps}
         value={value}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -94,7 +92,7 @@ describe('YearInput', () => {
 
   it('does not disable input by default', () => {
     const component = mount(
-      <YearInput {...defaultProps} />
+      <YearInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -107,7 +105,7 @@ describe('YearInput', () => {
       <YearInput
         {...defaultProps}
         disabled
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -117,7 +115,7 @@ describe('YearInput', () => {
 
   it('is not required input by default', () => {
     const component = mount(
-      <YearInput {...defaultProps} />
+      <YearInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -130,7 +128,7 @@ describe('YearInput', () => {
       <YearInput
         {...defaultProps}
         required
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -145,7 +143,7 @@ describe('YearInput', () => {
       <YearInput
         {...defaultProps}
         itemRef={itemRef}
-      />
+      />,
     );
 
     expect(itemRef).toHaveBeenCalled();
@@ -154,7 +152,7 @@ describe('YearInput', () => {
 
   it('has min = 1 by default', () => {
     const component = mount(
-      <YearInput {...defaultProps} />
+      <YearInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -167,7 +165,7 @@ describe('YearInput', () => {
       <YearInput
         {...defaultProps}
         minDate={new Date(2018, 6, 1)}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -177,7 +175,7 @@ describe('YearInput', () => {
 
   it('has max = 275760 by default', () => {
     const component = mount(
-      <YearInput {...defaultProps} />
+      <YearInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -190,7 +188,7 @@ describe('YearInput', () => {
       <YearInput
         {...defaultProps}
         maxDate={new Date(2018, 6, 1)}
-      />
+      />,
     );
 
     const input = component.find('input');

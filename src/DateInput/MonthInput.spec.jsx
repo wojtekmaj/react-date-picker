@@ -3,8 +3,6 @@ import { mount } from 'enzyme';
 
 import MonthInput from './MonthInput';
 
-/* eslint-disable comma-dangle */
-
 describe('MonthInput', () => {
   const defaultProps = {
     className: 'className',
@@ -13,7 +11,7 @@ describe('MonthInput', () => {
 
   it('renders an input', () => {
     const component = mount(
-      <MonthInput {...defaultProps} />
+      <MonthInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -27,7 +25,7 @@ describe('MonthInput', () => {
         {...defaultProps}
         showLeadingZeros
         value={9}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -42,7 +40,7 @@ describe('MonthInput', () => {
         {...defaultProps}
         showLeadingZeros
         value={10}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -56,7 +54,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         value={9}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -72,7 +70,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         ariaLabel={monthAriaLabel}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -87,7 +85,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         placeholder={monthPlaceholder}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -97,7 +95,7 @@ describe('MonthInput', () => {
 
   it('has proper name defined', () => {
     const component = mount(
-      <MonthInput {...defaultProps} />
+      <MonthInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -112,7 +110,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         className={className}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -128,7 +126,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         value={value}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -138,7 +136,7 @@ describe('MonthInput', () => {
 
   it('does not disable input by default', () => {
     const component = mount(
-      <MonthInput {...defaultProps} />
+      <MonthInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -151,7 +149,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         disabled
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -161,7 +159,7 @@ describe('MonthInput', () => {
 
   it('is not required input by default', () => {
     const component = mount(
-      <MonthInput {...defaultProps} />
+      <MonthInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -174,7 +172,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         required
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -189,7 +187,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         itemRef={itemRef}
-      />
+      />,
     );
 
     expect(itemRef).toHaveBeenCalled();
@@ -198,7 +196,7 @@ describe('MonthInput', () => {
 
   it('has min = 1 by default', () => {
     const component = mount(
-      <MonthInput {...defaultProps} />
+      <MonthInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -212,7 +210,7 @@ describe('MonthInput', () => {
         {...defaultProps}
         minDate={new Date(2017, 6, 1)}
         year={2018}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -226,7 +224,7 @@ describe('MonthInput', () => {
         {...defaultProps}
         minDate={new Date(2018, 6, 1)}
         year={2018}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -239,7 +237,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         year={2018}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -253,7 +251,7 @@ describe('MonthInput', () => {
         {...defaultProps}
         maxDate={new Date(2019, 6, 1)}
         year={2018}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -267,7 +265,7 @@ describe('MonthInput', () => {
         {...defaultProps}
         maxDate={new Date(2018, 6, 1)}
         year={2018}
-      />
+      />,
     );
 
     const input = component.find('input');
