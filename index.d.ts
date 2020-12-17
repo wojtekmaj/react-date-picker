@@ -19,5 +19,11 @@ declare module "react-date-picker" {
     required?: boolean;
     showLeadingZeros?: boolean;
     yearPlaceholder?: string;
+    calendarAriaLabel?: string;
+    clearAriaLabel?: string;
+    dayAriaLabel?: string;
+    monthAriaLabel?: string;
+    nativeInputAriaLabel?: string;
+    yearAriaLabel?: string
   }
 }
