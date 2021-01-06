@@ -240,7 +240,8 @@ export default class DateInput extends PureComponent {
   }
 
   get divider() {
-    return this.placeholder.match(/[^0-9a-z]/i)[0];
+    const dividers = this.placeholder.match(/[^0-9a-z]/i);
+    return dividers ? dividers[0] : null;
   }
 
   get placeholder() {
