@@ -8,7 +8,7 @@ A date picker for your React app.
 * Supports virtually any language
 * No moment.js needed
 
-## tl;dr
+## Installation
 * Install by executing `npm install react-date-picker` or `yarn add react-date-picker`.
 * Import by adding `import DatePicker from 'react-date-picker'`.
 * Use by adding `<DatePicker />`. Use `onChange` prop for getting new values.
