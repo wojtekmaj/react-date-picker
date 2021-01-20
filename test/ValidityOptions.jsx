@@ -6,18 +6,20 @@ export default function ValidityOptions({
   maxDate,
   minDate,
   required,
-  setState,
+  setMaxDate,
+  setMinDate,
+  setRequired,
 }) {
   function onMinChange(event) {
     const { value } = event.target;
 
-    setState({ minDate: value ? new Date(value) : null });
+    setMinDate(value ? new Date(value) : null);
   }
 
   function onMaxChange(event) {
     const { value } = event.target;
 
-    setState({ maxDate: value ? new Date(value) : null });
+    setMaxDate(value ? new Date(value) : null);
   }
 
   return (
@@ -38,7 +40,7 @@ export default function ValidityOptions({
         />
         &nbsp;
         <button
-          onClick={() => setState({ minDate: null })}
+          onClick={() => setMinDate(null)}
           type="button"
         >
           Clear
@@ -57,7 +59,7 @@ export default function ValidityOptions({
         />
         &nbsp;
         <button
-          onClick={() => setState({ maxDate: null })}
+          onClick={() => setMaxDate(null)}
           type="button"
         >
           Clear
@@ -68,7 +70,7 @@ export default function ValidityOptions({
         <input
           checked={required}
           id="required"
-          onChange={(event) => setState({ required: event.target.checked })}
+          onChange={(event) => setRequired(event.target.checked)}
           type="checkbox"
         />
         <label htmlFor="required">
@@ -83,5 +85,7 @@ ValidityOptions.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   minDate: PropTypes.instanceOf(Date),
   required: PropTypes.bool,
-  setState: PropTypes.func.isRequired,
+  setMaxDate: PropTypes.func.isRequired,
+  setMinDate: PropTypes.func.isRequired,
+  setRequired: PropTypes.func.isRequired,
 };

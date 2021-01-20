@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 
 export default function ViewOptions({
   disabled,
-  setState,
+  setDisabled,
+  setShowLeadingZeros,
+  setShowNeighboringMonth,
+  setShowWeekNumbers,
   showLeadingZeros,
   showNeighboringMonth,
   showWeekNumbers,
@@ -11,25 +14,25 @@ export default function ViewOptions({
   function onDisabledChange(event) {
     const { checked } = event.target;
 
-    setState({ disabled: checked });
+    setDisabled(checked);
   }
 
   function onShowLeadingZerosChange(event) {
     const { checked } = event.target;
 
-    setState({ showLeadingZeros: checked });
+    setShowLeadingZeros(checked);
   }
 
   function onShowWeekNumbersChange(event) {
     const { checked } = event.target;
 
-    setState({ showWeekNumbers: checked });
+    setShowWeekNumbers(checked);
   }
 
   function onShowNeighboringMonthChange(event) {
     const { checked } = event.target;
 
-    setState({ showNeighboringMonth: checked });
+    setShowNeighboringMonth(checked);
   }
 
   return (
@@ -91,7 +94,10 @@ export default function ViewOptions({
 
 ViewOptions.propTypes = {
   disabled: PropTypes.bool.isRequired,
-  setState: PropTypes.func.isRequired,
+  setDisabled: PropTypes.func.isRequired,
+  setShowLeadingZeros: PropTypes.func.isRequired,
+  setShowNeighboringMonth: PropTypes.func.isRequired,
+  setShowWeekNumbers: PropTypes.func.isRequired,
   showLeadingZeros: PropTypes.bool.isRequired,
   showNeighboringMonth: PropTypes.bool.isRequired,
   showWeekNumbers: PropTypes.bool.isRequired,
