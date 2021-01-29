@@ -40,7 +40,7 @@ export default function ValidityOptions({
         />
         &nbsp;
         <button
-          onClick={() => setMinDate(null)}
+          onClick={() => setMinDate(undefined)}
           type="button"
         >
           Clear
@@ -59,7 +59,7 @@ export default function ValidityOptions({
         />
         &nbsp;
         <button
-          onClick={() => setMaxDate(null)}
+          onClick={() => setMaxDate(undefined)}
           type="button"
         >
           Clear
