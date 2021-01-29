@@ -6684,18 +6684,18 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"react-calendar@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "react-calendar@npm:3.0.0"
+"react-calendar@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "react-calendar@npm:3.3.1"
   dependencies:
     "@wojtekmaj/date-utils": ^1.0.2
     get-user-locale: ^1.2.0
     merge-class-names: ^1.1.1
     prop-types: ^15.6.0
   peerDependencies:
-    react: ">=16.3"
-    react-dom: ">=16.3"
-  checksum: 62440872743b4c2278d65b9a4a43e7482b9cbfb32960a2db93b611efcee90213b7c0e13e58f49c90b2cbbe1dd200bb832ebbf16552fcff3c11203c6002ea5d15
+    react: ^16.3.0 || ^17.0.0-0
+    react-dom: ^16.3.0 || ^17.0.0-0
+  checksum: f5e4687f1eb04a82ef87449ca47620c87d73ac09c63a2d128a7785ea611389a1140ec517f39703fae8fc0d5dea23628289dbe82b2cf63e5dc92c021712677f97
   languageName: node
   linkType: hard
 
@@ -6722,7 +6722,7 @@ fsevents@^2.1.2:
     merge-class-names: ^1.1.1
     prop-types: ^15.6.0
     react: ^17.0.0
-    react-calendar: ^3.0.0
+    react-calendar: ^3.3.1
     react-dom: ^17.0.0
     react-fit: ^1.0.3
     rimraf: ^3.0.0
