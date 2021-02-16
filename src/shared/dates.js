@@ -18,7 +18,7 @@ import {
 /**
  * Returns the beginning of a given range.
  *
- * @param {String} rangeType Range type (e.g. 'day')
+ * @param {string} rangeType Range type (e.g. 'day')
  * @param {Date} date Date.
  */
 export function getBegin(rangeType, date) {
@@ -35,7 +35,7 @@ export function getBegin(rangeType, date) {
 /**
  * Returns the end of a given range.
  *
- * @param {String} rangeType Range type (e.g. 'day')
+ * @param {string} rangeType Range type (e.g. 'day')
  * @param {Date} date Date.
  */
 export function getEnd(rangeType, date) {
