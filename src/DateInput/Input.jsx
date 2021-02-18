@@ -54,6 +54,10 @@ function getSelectionString() {
 }
 
 function makeOnKeyPress(maxLength) {
+  /**
+   * Prevents keystrokes that would not produce a number or when value after keystroke would
+   * exceed maxLength.
+   */
   return function onKeyPress(event) {
     const { key, target: input } = event;
     const { value } = input;
