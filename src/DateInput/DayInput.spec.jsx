@@ -24,7 +24,7 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         showLeadingZeros
-        value={9}
+        value="9"
       />,
     );
 
@@ -34,12 +34,27 @@ describe('DayInput', () => {
     expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
+  it('does not render "0" given showLeadingZeros if day is <10 with leading zero already', () => {
+    const component = mount(
+      <DayInput
+        {...defaultProps}
+        showLeadingZeros
+        value="09"
+      />,
+    );
+
+    const input = component.find('input');
+
+    expect(component.text()).not.toContain('0');
+    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+  });
+
   it('does not render "0" given showLeadingZeros if day is >=10', () => {
     const component = mount(
       <DayInput
         {...defaultProps}
         showLeadingZeros
-        value={10}
+        value="10"
       />,
     );
 
@@ -53,7 +68,7 @@ describe('DayInput', () => {
     const component = mount(
       <DayInput
         {...defaultProps}
-        value={9}
+        value="9"
       />,
     );
 
@@ -120,7 +135,7 @@ describe('DayInput', () => {
   });
 
   it('displays given value properly', () => {
-    const value = 11;
+    const value = '11';
 
     const component = mount(
       <DayInput
@@ -209,8 +224,8 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         minDate={new Date(2017, 11, 15)}
-        month={1}
-        year={2018}
+        month="1"
+        year="2018"
       />,
     );
 
@@ -224,8 +239,8 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         minDate={new Date(2018, 0, 15)}
-        month={1}
-        year={2018}
+        month="1"
+        year="2018"
       />,
     );
 
@@ -240,8 +255,8 @@ describe('DayInput', () => {
     const component = mount(
       <DayInput
         {...defaultProps}
-        month={1}
-        year={2018}
+        month="1"
+        year="2018"
       />,
     );
 
@@ -257,8 +272,8 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         maxDate={new Date(2018, 1, 15)}
-        month={1}
-        year={2018}
+        month="1"
+        year="2018"
       />,
     );
 
@@ -272,8 +287,8 @@ describe('DayInput', () => {
       <DayInput
         {...defaultProps}
         maxDate={new Date(2018, 0, 15)}
-        month={1}
-        year={2018}
+        month="1"
+        year="2018"
       />,
     );
 

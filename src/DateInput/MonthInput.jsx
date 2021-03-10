@@ -14,7 +14,7 @@ export default function MonthInput({
   ...otherProps
 }) {
   function isSameYear(date) {
-    return date && year === getYear(date);
+    return date && year === getYear(date).toString();
   }
 
   const maxMonth = safeMin(12, isSameYear(maxDate) && getMonthHuman(maxDate));
@@ -43,6 +43,6 @@ MonthInput.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
-  year: PropTypes.number,
+  value: PropTypes.string,
+  year: PropTypes.string,
 };
