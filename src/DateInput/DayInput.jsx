@@ -28,7 +28,7 @@ export default function DayInput({
   })();
 
   function isSameMonth(date) {
-    return date && year === getYear(date) && month === getMonthHuman(date);
+    return date && year === getYear(date).toString() && month === getMonthHuman(date).toString();
   }
 
   const maxDay = safeMin(currentMonthMaxDays, isSameMonth(maxDate) && getDate(maxDate));
@@ -51,13 +51,13 @@ DayInput.propTypes = {
   itemRef: PropTypes.func,
   maxDate: isMaxDate,
   minDate: isMinDate,
-  month: PropTypes.number,
+  month: PropTypes.string,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
-  year: PropTypes.number,
+  value: PropTypes.string,
+  year: PropTypes.string,
 };

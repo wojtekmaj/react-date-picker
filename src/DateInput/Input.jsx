@@ -92,8 +92,13 @@ export default function Input({
   step,
   value,
 }) {
-  const hasLeadingZero = showLeadingZeros && value !== null && value < 10;
-  const maxLength = max.toString().length;
+  const hasLeadingZero = (
+    showLeadingZeros
+    && value
+    && value < 10
+    && !value.toString().startsWith('0')
+  );
+  const maxLength = max ? max.toString().length : null;
 
   return [
     (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
@@ -160,5 +165,5 @@ Input.propTypes = {
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   step: PropTypes.number,
-  value: PropTypes.number,
+  value: PropTypes.string,
 };

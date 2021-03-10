@@ -76,7 +76,7 @@ describe('YearInput', () => {
   });
 
   it('displays given value properly', () => {
-    const value = 2018;
+    const value = '2018';
 
     const component = mount(
       <YearInput

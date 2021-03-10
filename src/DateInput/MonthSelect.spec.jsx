@@ -90,7 +90,7 @@ describe('MonthSelect', () => {
   });
 
   it('displays given value properly', () => {
-    const value = 11;
+    const value = '11';
 
     const component = mount(
       <MonthSelect
@@ -182,7 +182,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         minDate={new Date(2017, 6, 1)}
-        year={2018}
+        year="2018"
       />,
     );
 
@@ -199,7 +199,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         minDate={new Date(2018, 6, 1)}
-        year={2018}
+        year="2018"
       />,
     );
 
@@ -221,7 +221,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         maxDate={new Date(2019, 6, 1)}
-        year={2018}
+        year="2018"
       />,
     );
 
@@ -238,7 +238,7 @@ describe('MonthSelect', () => {
       <MonthSelect
         {...defaultProps}
         maxDate={new Date(2018, 6, 1)}
-        year={2018}
+        year="2018"
       />,
     );
 

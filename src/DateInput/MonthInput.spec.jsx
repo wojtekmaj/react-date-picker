@@ -19,12 +19,12 @@ describe('MonthInput', () => {
     expect(input).toHaveLength(1);
   });
 
-  it('renders "0" given showLeadingZeros if day is <10', () => {
+  it('renders "0" given showLeadingZeros if month is <10', () => {
     const component = mount(
       <MonthInput
         {...defaultProps}
         showLeadingZeros
-        value={9}
+        value="9"
       />,
     );
 
@@ -34,12 +34,27 @@ describe('MonthInput', () => {
     expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
-  it('does not render "0" given showLeadingZeros if day is >=10', () => {
+  it('does not render "0" given showLeadingZeros if month is <10 with leading zero already', () => {
     const component = mount(
       <MonthInput
         {...defaultProps}
         showLeadingZeros
-        value={10}
+        value="09"
+      />,
+    );
+
+    const input = component.find('input');
+
+    expect(component.text()).not.toContain('0');
+    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+  });
+
+  it('does not render "0" given showLeadingZeros if month is >=10', () => {
+    const component = mount(
+      <MonthInput
+        {...defaultProps}
+        showLeadingZeros
+        value="10"
       />,
     );
 
@@ -53,7 +68,7 @@ describe('MonthInput', () => {
     const component = mount(
       <MonthInput
         {...defaultProps}
-        value={9}
+        value="9"
       />,
     );
 
@@ -120,7 +135,7 @@ describe('MonthInput', () => {
   });
 
   it('displays given value properly', () => {
-    const value = 11;
+    const value = '11';
 
     const component = mount(
       <MonthInput
@@ -209,7 +224,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         minDate={new Date(2017, 6, 1)}
-        year={2018}
+        year="2018"
       />,
     );
 
@@ -223,7 +238,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         minDate={new Date(2018, 6, 1)}
-        year={2018}
+        year="2018"
       />,
     );
 
@@ -236,7 +251,7 @@ describe('MonthInput', () => {
     const component = mount(
       <MonthInput
         {...defaultProps}
-        year={2018}
+        year="2018"
       />,
     );
 
@@ -250,7 +265,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         maxDate={new Date(2019, 6, 1)}
-        year={2018}
+        year="2018"
       />,
     );
 
@@ -264,7 +279,7 @@ describe('MonthInput', () => {
       <MonthInput
         {...defaultProps}
         maxDate={new Date(2018, 6, 1)}
-        year={2018}
+        year="2018"
       />,
     );
 
