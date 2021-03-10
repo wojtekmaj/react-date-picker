@@ -62,14 +62,16 @@ function makeOnKeyDown({
         const { target: input } = event;
         const { value } = input;
 
-        const rawNextValue = Number(value) + (event.key === 'ArrowUp' ? 1 : -1);
+        const numericValue = Number(value);
+        const rawNextValue = numericValue + (event.key === 'ArrowUp' ? 1 : -1);
 
-        if (rawNextValue < min || rawNextValue > max) {
-          return;
-        }
+        const limitedRawNextValue = Math.min(max, Math.max(min, rawNextValue));
 
-        const hasLeadingZero = showLeadingZeros && rawNextValue < 10;
-        const nextValue = hasLeadingZero ? addLeadingZero(rawNextValue, max) : rawNextValue;
+        const hasLeadingZero = showLeadingZeros && limitedRawNextValue < 10;
+        const nextValue = (hasLeadingZero
+          ? addLeadingZero(limitedRawNextValue, max)
+          : limitedRawNextValue
+        );
 
         input.value = nextValue;
         onChange(event);
