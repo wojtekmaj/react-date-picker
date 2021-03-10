@@ -47,7 +47,7 @@ function updateInputWidthOnFontLoad(element) {
 }
 
 function addLeadingZero(value, max) {
-  `0${value}`.slice(-(`${max}`.length));
+  return `0${value}`.slice(-(`${max}`.length));
 }
 
 function makeOnKeyDown({
