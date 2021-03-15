@@ -96,7 +96,7 @@ export default function Input({
     showLeadingZeros
     && value
     && value < 10
-    && !value.toString().startsWith('0')
+    && (value === '0' || !value.toString().startsWith('0'))
   );
   const maxLength = max ? max.toString().length : null;
 
