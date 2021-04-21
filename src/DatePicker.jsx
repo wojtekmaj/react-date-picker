@@ -51,7 +51,12 @@ export default class DatePicker extends PureComponent {
   }
 
   onOutsideAction = (event) => {
-    if (this.wrapper && !this.wrapper.contains(event.target)) {
+    const clickEventsNames = ['mousedown', 'click']
+    if (
+      this.wrapper &&
+      !this.wrapper.contains(event.target) &&
+      clickEventsNames.indexOf(event.type) > -1
+    ) {
       this.closeCalendar();
     }
   }
