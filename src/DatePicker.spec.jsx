@@ -246,22 +246,60 @@ describe('DatePicker', () => {
     expect(calendar2).toHaveLength(1);
   });
 
-  it('opens Calendar component when focusing on an input inside', () => {
-    const component = mount(
-      <DatePicker />,
-    );
+  describe('handles opening Calendar component when focusing on an input inside properly', () => {
+    it('opens Calendar component when focusing on an input inside by default', () => {
+      const component = mount(
+        <DatePicker />,
+      );
 
-    const calendar = component.find('Calendar');
-    const input = component.find('input[name="day"]');
+      const calendar = component.find('Calendar');
+      const input = component.find('input[name="day"]');
 
-    expect(calendar).toHaveLength(0);
+      expect(calendar).toHaveLength(0);
 
-    input.simulate('focus');
-    component.update();
+      input.simulate('focus');
+      component.update();
 
-    const calendar2 = component.find('Calendar');
+      const calendar2 = component.find('Calendar');
 
-    expect(calendar2).toHaveLength(1);
+      expect(calendar2).toHaveLength(1);
+    });
+
+    it('opens Calendar component when focusing on an input inside given openCalendarOnFocus = true', () => {
+      const component = mount(
+        <DatePicker openCalendarOnFocus />,
+      );
+
+      const calendar = component.find('Calendar');
+      const input = component.find('input[name="day"]');
+
+      expect(calendar).toHaveLength(0);
+
+      input.simulate('focus');
+      component.update();
+
+      const calendar2 = component.find('Calendar');
+
+      expect(calendar2).toHaveLength(1);
+    });
+
+    it('does not open Calendar component when focusing on an input inside given openCalendarOnFocus = false', () => {
+      const component = mount(
+        <DatePicker openCalendarOnFocus={false} />,
+      );
+
+      const calendar = component.find('Calendar');
+      const input = component.find('input[name="day"]');
+
+      expect(calendar).toHaveLength(0);
+
+      input.simulate('focus');
+      component.update();
+
+      const calendar2 = component.find('Calendar');
+
+      expect(calendar2).toHaveLength(0);
+    });
   });
 
   it('closes Calendar component when clicked outside', () => {
