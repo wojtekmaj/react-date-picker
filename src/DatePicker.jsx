@@ -164,7 +164,7 @@ export default class DatePicker extends PureComponent {
     return (
       <div
         className={mergeClassNames(
-          `${baseClassName}__wrapper`
+          `${baseClassName}__wrapper`,
           wrapperClassName,
         )}
       >
