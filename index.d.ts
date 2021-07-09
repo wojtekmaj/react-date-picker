@@ -4,6 +4,7 @@ declare module "react-date-picker" {
   export default function DatePicker(props: DatePickerProps): JSX.Element;
 
   export interface DatePickerProps extends CalendarProps {
+    autoFocus?: boolean;
     calendarAriaLabel?: string;
     calendarClassName?: string | string[];
     calendarIcon?: JSX.Element | null;
