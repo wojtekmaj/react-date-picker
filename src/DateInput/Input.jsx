@@ -4,6 +4,8 @@ import mergeClassNames from 'merge-class-names';
 import mergeRefs from 'merge-refs';
 import updateInputWidth, { getFontShorthand } from 'update-input-width';
 
+import { isRef } from '../shared/propTypes';
+
 /* eslint-disable jsx-a11y/no-autofocus */
 
 const isEdgeLegacy = (
@@ -145,7 +147,7 @@ Input.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  inputRef: PropTypes.func,
+  inputRef: isRef,
   max: PropTypes.number,
   min: PropTypes.number,
   name: PropTypes.string,
