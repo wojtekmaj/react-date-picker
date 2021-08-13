@@ -195,18 +195,18 @@ describe('DayInput', () => {
     expect(input.prop('required')).toBeTruthy();
   });
 
-  it('calls itemRef properly', () => {
-    const itemRef = jest.fn();
+  it('calls inputRef properly', () => {
+    const inputRef = jest.fn();
 
     mount(
       <DayInput
         {...defaultProps}
-        itemRef={itemRef}
+        inputRef={inputRef}
       />,
     );
 
-    expect(itemRef).toHaveBeenCalled();
-    expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLInputElement), 'day');
+    expect(inputRef).toHaveBeenCalled();
+    expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLInputElement));
   });
 
   it('has min = 1 by default', () => {

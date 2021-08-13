@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { createRef, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { getYear, getMonthHuman, getDate } from '@wojtekmaj/date-utils';
 
@@ -212,6 +212,12 @@ export default class DateInput extends PureComponent {
     day: null,
   };
 
+  dayInput = createRef();
+
+  monthInput = createRef();
+
+  yearInput = createRef();
+
   get formatDate() {
     const { maxDetail } = this.props;
 
@@ -305,10 +311,6 @@ export default class DateInput extends PureComponent {
       onKeyUp: this.onKeyUp,
       // This is only for showing validity when editing
       required: required || isCalendarOpen,
-      itemRef: (ref, name) => {
-        // Save a reference to each input field
-        this[`${name}Input`] = ref;
-      },
     };
   }
 
@@ -422,7 +424,11 @@ export default class DateInput extends PureComponent {
       return;
     }
 
-    const formElements = [this.dayInput, this.monthInput, this.yearInput].filter(Boolean);
+    const formElements = [
+      this.dayInput.current,
+      this.monthInput.current,
+      this.yearInput.current,
+    ].filter(Boolean);
 
     const values = {};
     formElements.forEach((formElement) => {
@@ -467,6 +473,7 @@ export default class DateInput extends PureComponent {
         {...this.commonInputProps}
         ariaLabel={dayAriaLabel}
         autoFocus={index === 0 && autoFocus}
+        inputRef={this.dayInput}
         month={month}
         placeholder={dayPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
@@ -497,6 +504,7 @@ export default class DateInput extends PureComponent {
           {...this.commonInputProps}
           ariaLabel={monthAriaLabel}
           autoFocus={index === 0 && autoFocus}
+          inputRef={this.monthInput}
           locale={locale}
           placeholder={monthPlaceholder}
           short={currentMatch.length === 3}
@@ -514,6 +522,7 @@ export default class DateInput extends PureComponent {
         {...this.commonInputProps}
         ariaLabel={monthAriaLabel}
         autoFocus={index === 0 && autoFocus}
+        inputRef={this.monthInput}
         placeholder={monthPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={month}
@@ -532,6 +541,7 @@ export default class DateInput extends PureComponent {
         {...this.commonInputProps}
         ariaLabel={yearAriaLabel}
         autoFocus={index === 0 && autoFocus}
+        inputRef={this.yearInput}
         placeholder={yearPlaceholder}
         value={year}
         valueType={this.valueType}

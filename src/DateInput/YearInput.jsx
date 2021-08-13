@@ -4,7 +4,12 @@ import { getYear } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
+import {
+  isMaxDate,
+  isMinDate,
+  isRef,
+  isValueType,
+} from '../shared/propTypes';
 import { safeMax, safeMin } from '../shared/utils';
 
 export default function YearInput({
@@ -41,7 +46,7 @@ YearInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  itemRef: PropTypes.func,
+  inputRef: isRef,
   maxDate: isMaxDate,
   minDate: isMinDate,
   onChange: PropTypes.func,

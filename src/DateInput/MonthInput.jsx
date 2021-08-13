@@ -4,7 +4,7 @@ import { getYear, getMonthHuman } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { isMaxDate, isMinDate } from '../shared/propTypes';
+import { isMaxDate, isMinDate, isRef } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
 export default function MonthInput({
@@ -34,7 +34,7 @@ MonthInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  itemRef: PropTypes.func,
+  inputRef: isRef,
   maxDate: isMaxDate,
   minDate: isMinDate,
   onChange: PropTypes.func,

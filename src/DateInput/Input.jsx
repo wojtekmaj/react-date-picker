@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
+import mergeRefs from 'merge-refs';
 import updateInputWidth, { getFontShorthand } from 'update-input-width';
 
 /* eslint-disable jsx-a11y/no-autofocus */
@@ -78,7 +79,7 @@ export default function Input({
   autoFocus,
   className,
   disabled,
-  itemRef,
+  inputRef,
   max,
   min,
   name,
@@ -130,16 +131,7 @@ export default function Input({
         }
       }}
       placeholder={placeholder}
-      ref={(ref) => {
-        if (ref) {
-          updateInputWidth(ref);
-          updateInputWidthOnFontLoad(ref);
-        }
-
-        if (itemRef) {
-          itemRef(ref, name);
-        }
-      }}
+      ref={mergeRefs(updateInputWidth, updateInputWidthOnFontLoad, inputRef)}
       required={required}
       step={step}
       type="number"
@@ -153,7 +145,7 @@ Input.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  itemRef: PropTypes.func,
+  inputRef: PropTypes.func,
   max: PropTypes.number,
   min: PropTypes.number,
   name: PropTypes.string,

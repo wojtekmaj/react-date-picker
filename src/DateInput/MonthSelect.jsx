@@ -10,7 +10,7 @@ import { safeMin, safeMax } from '../shared/utils';
 export default function MonthSelect({
   ariaLabel,
   className,
-  itemRef,
+  inputRef,
   locale,
   maxDate,
   minDate,
@@ -39,11 +39,7 @@ export default function MonthSelect({
       )}
       data-input="true"
       name={name}
-      ref={(ref) => {
-        if (itemRef) {
-          itemRef(ref, name);
-        }
-      }}
+      ref={inputRef}
       value={value !== null ? value : ''}
       {...otherProps}
     >
@@ -74,7 +70,7 @@ MonthSelect.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  itemRef: PropTypes.func,
+  inputRef: PropTypes.func,
   locale: PropTypes.string,
   maxDate: isMaxDate,
   minDate: isMinDate,

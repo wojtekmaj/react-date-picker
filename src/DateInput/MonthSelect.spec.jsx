@@ -150,18 +150,18 @@ describe('MonthSelect', () => {
     expect(select.prop('required')).toBeTruthy();
   });
 
-  it('calls itemRef properly', () => {
-    const itemRef = jest.fn();
+  it('calls inputRef properly', () => {
+    const inputRef = jest.fn();
 
     mount(
       <MonthSelect
         {...defaultProps}
-        itemRef={itemRef}
+        inputRef={inputRef}
       />,
     );
 
-    expect(itemRef).toHaveBeenCalled();
-    expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLSelectElement), 'month');
+    expect(inputRef).toHaveBeenCalled();
+    expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLSelectElement));
   });
 
   it('has all options enabled by default', () => {
