@@ -8,16 +8,15 @@ import { isRef } from '../shared/propTypes';
 
 /* eslint-disable jsx-a11y/no-autofocus */
 
-const isEdgeLegacy = (
+const isIEOrEdgeLegacy = (
   typeof window !== 'undefined'
-  && 'navigator' in window
-  && navigator.userAgent.match(/ Edge\/1/)
+  && /(MSIE|Trident\/|Edge\/)/.test(window.navigator.userAgent)
 );
 
 function onFocus(event) {
   const { target } = event;
 
-  if (isEdgeLegacy) {
+  if (isIEOrEdgeLegacy) {
     requestAnimationFrame(() => target.select());
   } else {
     target.select();
