@@ -47,12 +47,20 @@ function updateInputWidthOnFontLoad(element) {
   document.fonts.addEventListener('loadingdone', onLoadingDone);
 }
 
-function getSelectionString() {
-  if (typeof window === 'undefined') {
-    return null;
+function getSelectionString(input) {
+  /**
+   * window.getSelection().toString() returns empty string in IE11 and Firefox,
+   * so alternatives come first.
+   */
+  if (input && 'selectionStart' in input && input.selectionStart !== null) {
+    return input.value.slice(input.selectionStart, input.selectionEnd);
   }
 
-  return window.getSelection().toString();
+  if ('getSelection' in window) {
+    return window.getSelection().toString();
+  }
+
+  return null;
 }
 
 function makeOnKeyPress(maxLength) {
@@ -65,7 +73,7 @@ function makeOnKeyPress(maxLength) {
     const { value } = input;
 
     const isNumberKey = !isNaN(parseInt(key, 10));
-    const selection = getSelectionString();
+    const selection = getSelectionString(input);
 
     if (isNumberKey && (selection || value.length < maxLength)) {
       return;
