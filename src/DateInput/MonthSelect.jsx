@@ -38,6 +38,7 @@ export default function MonthSelect({
         `${className}__${name}`,
       )}
       data-input="true"
+      data-select="true"
       name={name}
       ref={inputRef}
       value={value !== null ? value : ''}

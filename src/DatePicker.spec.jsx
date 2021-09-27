@@ -300,6 +300,24 @@ describe('DatePicker', () => {
 
       expect(calendar2).toHaveLength(0);
     });
+
+    it('does not open Calendar component when focusing on a select element', () => {
+      const component = mount(
+        <DatePicker format="dd.MMMM.yyyy" />,
+      );
+
+      const calendar = component.find('Calendar');
+      const select = component.find('select[name="month"]');
+
+      expect(calendar).toHaveLength(0);
+
+      select.simulate('focus');
+      component.update();
+
+      const calendar2 = component.find('Calendar');
+
+      expect(calendar2).toHaveLength(0);
+    });
   });
 
   it('closes Calendar component when clicked outside', () => {
