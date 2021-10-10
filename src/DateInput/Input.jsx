@@ -13,6 +13,11 @@ const isIEOrEdgeLegacy = (
   && /(MSIE|Trident\/|Edge\/)/.test(window.navigator.userAgent)
 );
 
+const isFirefox = (
+  typeof window !== 'undefined'
+  && /Firefox/.test(window.navigator.userAgent)
+);
+
 function onFocus(event) {
   const { target } = event;
 
@@ -69,6 +74,11 @@ function makeOnKeyPress(maxLength) {
    * exceed maxLength.
    */
   return function onKeyPress(event) {
+    if (isFirefox) {
+      // See https://github.com/wojtekmaj/react-time-picker/issues/92
+      return;
+    }
+
     const { key, target: input } = event;
     const { value } = input;
 
