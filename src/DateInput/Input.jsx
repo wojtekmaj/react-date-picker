@@ -72,14 +72,12 @@ function makeOnKeyPress(maxLength) {
     const { key, target: input } = event;
     const { value } = input;
 
-    const isNumberKey = !isNaN(parseInt(key, 10));
+    const isNumberKey = key.length === 1 && /\d/.test(key);
     const selection = getSelectionString(input);
 
-    if (isNumberKey && (selection || value.length < maxLength)) {
-      return;
+    if (!isNumberKey || !(selection || value.length < maxLength)) {
+      event.preventDefault();
     }
-
-    event.preventDefault();
   };
 }
 
