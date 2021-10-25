@@ -21,7 +21,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
-    symlinks: true,
   },
   module: {
     rules: [
