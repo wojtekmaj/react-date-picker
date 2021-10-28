@@ -11,6 +11,7 @@ declare module "react-date-picker" {
     className?: string | string[];
     clearAriaLabel?: string;
     clearIcon?: JSX.Element | null;
+    closeCalendar?:boolean;
     dayAriaLabel?: string;
     dayPlaceholder?: string;
     disabled?: boolean;
