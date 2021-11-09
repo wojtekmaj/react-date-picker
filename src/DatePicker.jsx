@@ -92,6 +92,12 @@ export default class DatePicker extends PureComponent {
     }
   }
 
+  onKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      this.closeCalendar();
+    }
+  }
+
   openCalendar = () => {
     this.setState({ isOpen: true });
   }
@@ -120,6 +126,7 @@ export default class DatePicker extends PureComponent {
     const shouldListenWithFallback = typeof shouldListen !== 'undefined' ? shouldListen : isOpen;
     const fnName = shouldListenWithFallback ? 'addEventListener' : 'removeEventListener';
     outsideActionEvents.forEach((eventName) => document[fnName](eventName, this.onOutsideAction));
+    document[fnName]('keydown', this.onKeyDown);
   }
 
   renderInputs() {
