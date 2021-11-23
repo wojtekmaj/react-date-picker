@@ -287,6 +287,8 @@ export default class DateInput extends PureComponent {
       const datePieceReplacement = datePieceReplacements[index];
       placeholder = placeholder.replace(formattedDatePiece, datePieceReplacement);
     });
+    // See: https://github.com/wojtekmaj/react-date-picker/issues/396
+    placeholder = placeholder.replace('17', 'y');
 
     return placeholder;
   }
