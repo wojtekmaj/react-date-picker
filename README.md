@@ -108,6 +108,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |onCalendarClose|Function called when the calendar closes.|n/a|`() => alert('Calendar closed')`|
 |onCalendarOpen|Function called when the calendar opens.|n/a|`() => alert('Calendar opened')`|
 |onChange|Function called when the user clicks an item on the most detailed view available.|n/a|`(value) => alert('New date is: ', value)`|
+|onInvalidEntry|Function called when the user inputs an invalid date.|n/a|`() => alert('Invalid date entered')`|
 |openCalendarOnFocus|Whether to open the calendar on input focus.|`true`|`false`|
 |required|Whether date input should be required.|`false`|`true`|
 |returnValue|Which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be `"start"`, `"end"` or `"range"`. The latter will cause an array with start and end values to be passed.|`"start"`|`"range"`|

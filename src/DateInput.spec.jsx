@@ -775,4 +775,49 @@ describe('DateInput', () => {
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(null, false);
   });
+  it('triggers onInvalidEntry when modified to invalid input', () => {
+    const onChange = jest.fn();
+    const onInvalidEntry = jest.fn();
+    const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        onChange={onChange}
+        onInvalidEntry={onInvalidEntry}
+        value={date}
+      />,
+    );
+
+    const monthInput = component.find('input[name="month"]');
+
+    monthInput.getDOMNode().value = '13';
+    monthInput.simulate('change');
+
+    expect(onChange).not.toHaveBeenCalled();
+    expect(onInvalidEntry).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not call onInvalidEntry when modified to valid input', () => {
+    const onChange = jest.fn();
+    const onInvalidEntry = jest.fn();
+    const date = new Date(2017, 8, 30);
+
+    const component = mount(
+      <DateInput
+        {...defaultProps}
+        onChange={onChange}
+        onInvalidEntry={onInvalidEntry}
+        value={date}
+      />,
+    );
+
+    const monthInput = component.find('input[name="month"]');
+
+    monthInput.getDOMNode().value = '11';
+    monthInput.simulate('change');
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onInvalidEntry).not.toHaveBeenCalled();
+  });
 });
