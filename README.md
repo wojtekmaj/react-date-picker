@@ -98,8 +98,10 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |isOpen|Whether the calendar should be opened.|`false`|`true`|
 |locale|Locale that should be used by the date picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag).|User's browser settings|`"hu-HU"`|
 |maxDate|Maximum date that the user can select. Periods partially overlapped by maxDate will also be selectable, although React-Date-Picker will ensure that no later date is selected.|n/a|Date: `new Date()`|
+|maxDateCalendar|Maximum date that the calendar can select. Periods partially overlapped by maxDate will also be selectable, although React-Date-Picker will ensure that no later date is selected.|n/a|Date: `new Date()`|
 |maxDetail|The most detailed calendar view that the user shall see. View defined here also becomes the one on which clicking an item in the calendar will select a date and pass it to onChange. Can be `"month"`, `"year"`, `"decade"` or `"century"`.|`"month"`|`"year"`|
 |minDate|Minimum date that the user can select. Periods partially overlapped by minDate will also be selectable, although React-Date-Picker will ensure that no earlier date is selected.|n/a|Date: `new Date()`|
+|minDateCalendar|Minimum date that the calendar can select. Periods partially overlapped by minDate will also be selectable, although React-Date-Picker will ensure that no earlier date is selected.|n/a|Date: `new Date()`|
 |minDetail|The least detailed calendar view that the user shall see. Can be `"month"`, `"year"`, `"decade"` or `"century"`.|`"century"`|`"decade"`|
 |monthAriaLabel|`aria-label` for the month input.|n/a|`"Month"`|
 |monthPlaceholder|`placeholder` for the month input.|`"--"`|`"mm"`|

@@ -236,6 +236,10 @@ export default class DatePicker extends PureComponent {
       className: datePickerClassName, // Unused, here to exclude it from calendarProps
       onChange,
       value,
+      minDate,
+      maxDate,
+      minDateCalendar,
+      maxDateCalendar,
       ...calendarProps
     } = this.props;
 
@@ -249,6 +253,8 @@ export default class DatePicker extends PureComponent {
             onChange={this.onChange}
             value={value || null}
             {...calendarProps}
+            minDate={minDateCalendar || maxDate}
+            maxDate={maxDateCalendar || minDate}
           />
         </div>
       </Fit>
@@ -354,8 +360,10 @@ DatePicker.propTypes = {
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDate: isMaxDate,
+  maxDateCalendar: isMaxDate,
   maxDetail: PropTypes.oneOf(allViews),
   minDate: isMinDate,
+  minDateCalendar: isMinDate,
   monthAriaLabel: PropTypes.string,
   monthPlaceholder: PropTypes.string,
   name: PropTypes.string,
