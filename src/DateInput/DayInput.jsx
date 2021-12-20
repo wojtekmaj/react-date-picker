@@ -58,6 +58,7 @@ DayInput.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
+  tabIndex: PropTypes.number,
   value: PropTypes.string,
   year: PropTypes.string,
 };

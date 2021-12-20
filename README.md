@@ -113,6 +113,7 @@ Displays an input field complete with custom inputs, native input, and a calenda
 |returnValue|Which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be `"start"`, `"end"` or `"range"`. The latter will cause an array with start and end values to be passed.|`"start"`|`"range"`|
 |showLeadingZeros|Whether leading zeros should be rendered in date inputs.|`false`|`true`|
 |value|Input value.|n/a|<ul><li>Date: `new Date()`</li><li>An array of dates: `[new Date(2017, 0, 1), new Date(2017, 7, 1)]`</li></ul>|
+|tabIndex|`tabindex` of the first input|n/a| `42`|
 |yearAriaLabel|`aria-label` for the year input.|n/a|`"Year"`|
 |yearPlaceholder|`aria-label` for the year input.|`"----"`|`"yyyy"`|
 

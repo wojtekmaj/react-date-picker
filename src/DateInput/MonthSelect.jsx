@@ -81,6 +81,7 @@ MonthSelect.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   short: PropTypes.bool,
+  tabIndex: PropTypes.number,
   value: PropTypes.string,
   year: PropTypes.string,
 };
