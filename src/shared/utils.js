@@ -1,3 +1,5 @@
+import { getFormatter } from './dateFormatter';
+
 /**
  * Returns a value no smaller than min and no larger than max.
  *
@@ -13,6 +15,13 @@ export function between(value, min, max) {
     return max;
   }
   return value;
+}
+
+export function getYearOffset(locale) {
+  const now = new Date();
+  return Number(
+    getFormatter({ year: 'numeric' })(locale, now).match(/\d{1,}/)[0],
+  ) - now.getFullYear();
 }
 
 function isValidNumber(num) {
