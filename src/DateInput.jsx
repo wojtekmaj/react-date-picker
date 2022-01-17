@@ -15,7 +15,7 @@ import {
   getEnd,
 } from './shared/dates';
 import { isMaxDate, isMinDate } from './shared/propTypes';
-import { between } from './shared/utils';
+import { between, getYearOffset } from './shared/utils';
 
 const defaultMinDate = new Date();
 defaultMinDate.setFullYear(1, 0, 1);
@@ -377,9 +377,17 @@ export default class DateInput extends PureComponent {
    */
   onChange = (event) => {
     const { name, value } = event.target;
+    const { locale } = this.props;
 
     this.setState(
-      { [name]: value },
+      () => {
+        if (name === 'year') {
+          const offset = getYearOffset(locale);
+          return { [name]: value !== null && value !== '' ? `${value - offset}` : null };
+        }
+
+        return { [name]: value };
+      },
       this.onChangeExternal,
     );
   }
@@ -434,7 +442,8 @@ export default class DateInput extends PureComponent {
 
     const values = {};
     formElements.forEach((formElement) => {
-      values[formElement.name] = formElement.value;
+      const { [formElement.name]: value } = this.state;
+      values[formElement.name] = value;
     });
 
     if (formElements.every((formElement) => !formElement.value)) {
@@ -534,7 +543,9 @@ export default class DateInput extends PureComponent {
   }
 
   renderYear = (currentMatch, index) => {
-    const { autoFocus, yearAriaLabel, yearPlaceholder } = this.props;
+    const {
+      autoFocus, locale, yearAriaLabel, yearPlaceholder,
+    } = this.props;
     const { year } = this.state;
 
     return (
@@ -544,6 +555,7 @@ export default class DateInput extends PureComponent {
         ariaLabel={yearAriaLabel}
         autoFocus={index === 0 && autoFocus}
         inputRef={this.yearInput}
+        locale={locale}
         placeholder={yearPlaceholder}
         value={year}
         valueType={this.valueType}
