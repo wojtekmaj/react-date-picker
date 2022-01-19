@@ -97,11 +97,9 @@
     "semver@7.0.0": "^7.0.0"
   },
   "files": [
-    "LICENSE",
-    "README.md",
-    "index.d.ts",
-    "dist/",
-    "src/"
+    "dist",
+    "src",
+    "index.d.ts"
   ],
   "repository": {
     "type": "git",
