@@ -152,6 +152,7 @@ export default class DatePicker extends PureComponent {
       required,
       returnValue,
       showLeadingZeros,
+      tabIndex,
       value,
       yearAriaLabel,
       yearPlaceholder,
@@ -192,6 +193,7 @@ export default class DatePicker extends PureComponent {
           required={required}
           returnValue={returnValue}
           showLeadingZeros={showLeadingZeros}
+          tabIndex={tabIndex}
           value={valueFrom}
         />
         {clearIcon !== null && (
@@ -376,6 +378,7 @@ DatePicker.propTypes = {
   required: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   showLeadingZeros: PropTypes.bool,
+  tabIndex: PropTypes.number,
   value: PropTypes.oneOfType([
     isValue,
     PropTypes.arrayOf(isValue),

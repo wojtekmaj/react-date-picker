@@ -108,6 +108,7 @@ export default function Input({
   required,
   showLeadingZeros,
   step,
+  tabIndex,
   value,
 }) {
   const hasLeadingZero = (
@@ -151,6 +152,7 @@ export default function Input({
       ref={mergeRefs(updateInputWidth, updateInputWidthOnFontLoad, inputRef)}
       required={required}
       step={step}
+      tabIndex={tabIndex}
       type="number"
       value={value !== null ? value : ''}
     />,
@@ -174,5 +176,6 @@ Input.propTypes = {
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   step: PropTypes.number,
+  tabIndex: PropTypes.number,
   value: PropTypes.string,
 };

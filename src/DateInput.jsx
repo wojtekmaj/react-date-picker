@@ -460,6 +460,7 @@ export default class DateInput extends PureComponent {
       dayAriaLabel,
       dayPlaceholder,
       showLeadingZeros,
+      tabIndex,
     } = this.props;
     const { day, month, year } = this.state;
 
@@ -479,6 +480,7 @@ export default class DateInput extends PureComponent {
         month={month}
         placeholder={dayPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
+        tabIndex={index === 0 ? tabIndex : undefined}
         value={day}
         year={year}
       />
@@ -492,6 +494,7 @@ export default class DateInput extends PureComponent {
       monthAriaLabel,
       monthPlaceholder,
       showLeadingZeros,
+      tabIndex,
     } = this.props;
     const { month, year } = this.state;
 
@@ -511,6 +514,7 @@ export default class DateInput extends PureComponent {
           placeholder={monthPlaceholder}
           short={currentMatch.length === 3}
           value={month}
+          tabIndex={index === 0 ? tabIndex : undefined}
           year={year}
         />
       );
@@ -528,13 +532,19 @@ export default class DateInput extends PureComponent {
         placeholder={monthPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={month}
+        tabIndex={index === 0 ? tabIndex : undefined}
         year={year}
       />
     );
   }
 
   renderYear = (currentMatch, index) => {
-    const { autoFocus, yearAriaLabel, yearPlaceholder } = this.props;
+    const {
+      autoFocus,
+      tabIndex,
+      yearAriaLabel,
+      yearPlaceholder,
+    } = this.props;
     const { year } = this.state;
 
     return (
@@ -545,6 +555,7 @@ export default class DateInput extends PureComponent {
         autoFocus={index === 0 && autoFocus}
         inputRef={this.yearInput}
         placeholder={yearPlaceholder}
+        tabIndex={index === 0 ? tabIndex : undefined}
         value={year}
         valueType={this.valueType}
       />
@@ -640,6 +651,7 @@ DateInput.propTypes = {
   required: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   showLeadingZeros: PropTypes.bool,
+  tabIndex: PropTypes.number,
   value: PropTypes.oneOfType([
     isValue,
     PropTypes.arrayOf(isValue),
