@@ -56,9 +56,8 @@ export default class DatePicker extends PureComponent {
     if (this.wrapper && !this.wrapper.contains(target)) {
       this.closeCalendar();
     }
-  }
+  };
 
-  // eslint-disable-next-line react/destructuring-assignment
   onChange = (value, closeCalendar = this.props.closeCalendar) => {
     const { onChange } = this.props;
 
@@ -69,7 +68,7 @@ export default class DatePicker extends PureComponent {
     if (onChange) {
       onChange(value);
     }
-  }
+  };
 
   onFocus = (event) => {
     const { disabled, onFocus, openCalendarOnFocus } = this.props;
@@ -90,17 +89,17 @@ export default class DatePicker extends PureComponent {
 
       this.openCalendar();
     }
-  }
+  };
 
   onKeyDown = (event) => {
     if (event.key === 'Escape') {
       this.closeCalendar();
     }
-  }
+  };
 
   openCalendar = () => {
     this.setState({ isOpen: true });
-  }
+  };
 
   closeCalendar = () => {
     this.setState((prevState) => {
@@ -110,11 +109,11 @@ export default class DatePicker extends PureComponent {
 
       return { isOpen: false };
     });
-  }
+  };
 
   toggleCalendar = () => {
     this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
-  }
+  };
 
   stopPropagation = (event) => event.stopPropagation();
 
@@ -178,6 +177,7 @@ export default class DatePicker extends PureComponent {
         <DateInput
           {...ariaLabelProps}
           {...placeholderProps}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
@@ -334,23 +334,14 @@ DatePicker.defaultProps = {
   returnValue: 'start',
 };
 
-const isValue = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.instanceOf(Date),
-]);
+const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
 
 DatePicker.propTypes = {
   autoFocus: PropTypes.bool,
   calendarAriaLabel: PropTypes.string,
-  calendarClassName: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
+  calendarClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   calendarIcon: PropTypes.node,
-  className: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   clearAriaLabel: PropTypes.string,
   clearIcon: PropTypes.node,
   closeCalendar: PropTypes.bool,
@@ -376,10 +367,7 @@ DatePicker.propTypes = {
   required: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.oneOfType([
-    isValue,
-    PropTypes.arrayOf(isValue),
-  ]),
+  value: PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]),
   yearAriaLabel: PropTypes.string,
   yearPlaceholder: PropTypes.string,
 };

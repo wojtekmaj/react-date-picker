@@ -4,12 +4,7 @@ import { getYear } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import {
-  isMaxDate,
-  isMinDate,
-  isRef,
-  isValueType,
-} from '../shared/propTypes';
+import { isMaxDate, isMinDate, isRef, isValueType } from '../shared/propTypes';
 import { safeMax, safeMin } from '../shared/utils';
 
 export default function YearInput({

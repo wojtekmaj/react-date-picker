@@ -24,14 +24,10 @@ export default function ValidityOptions({
 
   return (
     <fieldset id="ValidityOptions">
-      <legend htmlFor="ValidityOptions">
-        Minimum and maximum date
-      </legend>
+      <legend htmlFor="ValidityOptions">Minimum and maximum date</legend>
 
       <div>
-        <label htmlFor="minDate">
-          Minimum date
-        </label>
+        <label htmlFor="minDate">Minimum date</label>
         <input
           id="minDate"
           onChange={onMinChange}
@@ -39,18 +35,13 @@ export default function ValidityOptions({
           value={minDate ? getISOLocalDate(minDate) : ''}
         />
         &nbsp;
-        <button
-          onClick={() => setMinDate(undefined)}
-          type="button"
-        >
+        <button onClick={() => setMinDate(undefined)} type="button">
           Clear
         </button>
       </div>
 
       <div>
-        <label htmlFor="maxDate">
-          Maximum date
-        </label>
+        <label htmlFor="maxDate">Maximum date</label>
         <input
           id="maxDate"
           onChange={onMaxChange}
@@ -58,10 +49,7 @@ export default function ValidityOptions({
           value={maxDate ? getISOLocalDate(maxDate) : ''}
         />
         &nbsp;
-        <button
-          onClick={() => setMaxDate(undefined)}
-          type="button"
-        >
+        <button onClick={() => setMaxDate(undefined)} type="button">
           Clear
         </button>
       </div>
@@ -73,9 +61,7 @@ export default function ValidityOptions({
           onChange={(event) => setRequired(event.target.checked)}
           type="checkbox"
         />
-        <label htmlFor="required">
-          Required
-        </label>
+        <label htmlFor="required">Required</label>
       </div>
     </fieldset>
   );

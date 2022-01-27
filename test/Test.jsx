@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-date-picker/src/entry.nostyle';
 import 'react-date-picker/src/DatePicker.less';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-calendar/dist/Calendar.css';
 
 import ValidityOptions from './ValidityOptions';
@@ -42,7 +41,7 @@ export default function Test() {
   const [maxDetail, setMaxDetail] = useState('month');
   const [minDate, setMinDate] = useState(nineteenNinetyFive);
   const [minDetail, setMinDetail] = useState('century');
-  const [returnValue/* , setReturnValue */] = useState('start');
+  const [returnValue /* , setReturnValue */] = useState('start');
   const [required, setRequired] = useState(true);
   const [showLeadingZeros, setShowLeadingZeros] = useState(true);
   const [showNeighboringMonth, setShowNeighboringMonth] = useState(false);
@@ -52,9 +51,7 @@ export default function Test() {
   return (
     <div className="Test">
       <header>
-        <h1>
-          react-date-picker test page
-        </h1>
+        <h1>react-date-picker test page</h1>
       </header>
       <div className="Test__container">
         <aside className="Test__container__options">
@@ -76,14 +73,8 @@ export default function Test() {
             setMinDate={setMinDate}
             setRequired={setRequired}
           />
-          <LocaleOptions
-            locale={locale}
-            setLocale={setLocale}
-          />
-          <ValueOptions
-            setValue={setValue}
-            value={value}
-          />
+          <LocaleOptions locale={locale} setLocale={setLocale} />
+          <ValueOptions setValue={setValue} value={value} />
           <ViewOptions
             disabled={disabled}
             setDisabled={setDisabled}
@@ -128,10 +119,7 @@ export default function Test() {
             />
             <br />
             <br />
-            <button
-              id="submit"
-              type="submit"
-            >
+            <button id="submit" type="submit">
               Submit
             </button>
           </form>

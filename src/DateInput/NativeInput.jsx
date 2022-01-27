@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  getYear,
-  getISOLocalDate,
-  getISOLocalMonth,
-} from '@wojtekmaj/date-utils';
+import { getYear, getISOLocalDate, getISOLocalMonth } from '@wojtekmaj/date-utils';
 
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 
@@ -81,9 +77,6 @@ NativeInput.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Date),
-  ]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   valueType: isValueType,
 };

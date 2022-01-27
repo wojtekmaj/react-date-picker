@@ -52,9 +52,7 @@ describe('DateInput', () => {
   });
 
   it('renders a native input and custom inputs', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-    );
+    const component = mount(<DateInput {...defaultProps} />);
 
     const nativeInput = component.find('input[type="date"]');
     const customInputs = component.find('input[data-input]');
@@ -64,12 +62,7 @@ describe('DateInput', () => {
   });
 
   it('does not render day input when maxDetail is "year" or less', () => {
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        maxDetail="year"
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} maxDetail="year" />);
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.find('input[name="day"]');
@@ -83,12 +76,7 @@ describe('DateInput', () => {
   });
 
   it('does not render day and month inputs when maxDetail is "decade" or less', () => {
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        maxDetail="decade"
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} maxDetail="decade" />);
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.find('input[name="day"]');
@@ -104,12 +92,7 @@ describe('DateInput', () => {
   it('shows a given date in all inputs correctly given Date (12-hour format)', () => {
     const date = new Date(2017, 8, 30);
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} value={date} />);
 
     const nativeInput = component.find('input[type="date"]');
     const customInputs = component.find('input[data-input]');
@@ -123,12 +106,7 @@ describe('DateInput', () => {
   it('shows a given date in all inputs correctly given array of Date objects (12-hour format)', () => {
     const date = [new Date(2017, 8, 30), new Date(2017, 8, 31, 0, 0, 0, -1)];
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} value={date} />);
 
     const nativeInput = component.find('input[type="date"]');
     const customInputs = component.find('input[data-input]');
@@ -142,12 +120,7 @@ describe('DateInput', () => {
   it('shows a given date in all inputs correctly given ISO string (12-hour format)', () => {
     const date = '2017-09-30T00:00:00.000';
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} value={date} />);
 
     const nativeInput = component.find('input[type="date"]');
     const customInputs = component.find('input[data-input]');
@@ -161,13 +134,7 @@ describe('DateInput', () => {
   itIfFullICU('shows a given date in all inputs correctly given Date (24-hour format)', () => {
     const date = new Date(2017, 8, 30);
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        locale="de-DE"
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} locale="de-DE" value={date} />);
 
     const nativeInput = component.find('input[type="date"]');
     const customInputs = component.find('input[data-input]');
@@ -178,53 +145,42 @@ describe('DateInput', () => {
     expect(customInputs.at(2).prop('value')).toBe('30');
   });
 
-  itIfFullICU('shows a given date in all inputs correctly given array of Date objects (24-hour format)', () => {
-    const date = [new Date(2017, 8, 30), new Date(2017, 8, 31, 0, 0, 0, -1)];
+  itIfFullICU(
+    'shows a given date in all inputs correctly given array of Date objects (24-hour format)',
+    () => {
+      const date = [new Date(2017, 8, 30), new Date(2017, 8, 31, 0, 0, 0, -1)];
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        locale="de-DE"
-        value={date}
-      />,
-    );
+      const component = mount(<DateInput {...defaultProps} locale="de-DE" value={date} />);
 
-    const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[data-input]');
+      const nativeInput = component.find('input[type="date"]');
+      const customInputs = component.find('input[data-input]');
 
-    expect(nativeInput.prop('value')).toBe('2017-09-30');
-    expect(customInputs.at(0).prop('value')).toBe('2017');
-    expect(customInputs.at(1).prop('value')).toBe('9');
-    expect(customInputs.at(2).prop('value')).toBe('30');
-  });
+      expect(nativeInput.prop('value')).toBe('2017-09-30');
+      expect(customInputs.at(0).prop('value')).toBe('2017');
+      expect(customInputs.at(1).prop('value')).toBe('9');
+      expect(customInputs.at(2).prop('value')).toBe('30');
+    },
+  );
 
-  itIfFullICU('shows a given date in all inputs correctly given ISO string (24-hour format)', () => {
-    const date = '2017-09-30T00:00:00.000';
+  itIfFullICU(
+    'shows a given date in all inputs correctly given ISO string (24-hour format)',
+    () => {
+      const date = '2017-09-30T00:00:00.000';
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        locale="de-DE"
-        value={date}
-      />,
-    );
+      const component = mount(<DateInput {...defaultProps} locale="de-DE" value={date} />);
 
-    const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[data-input]');
+      const nativeInput = component.find('input[type="date"]');
+      const customInputs = component.find('input[data-input]');
 
-    expect(nativeInput.prop('value')).toBe('2017-09-30');
-    expect(customInputs.at(0).prop('value')).toBe('2017');
-    expect(customInputs.at(1).prop('value')).toBe('9');
-    expect(customInputs.at(2).prop('value')).toBe('30');
-  });
+      expect(nativeInput.prop('value')).toBe('2017-09-30');
+      expect(customInputs.at(0).prop('value')).toBe('2017');
+      expect(customInputs.at(1).prop('value')).toBe('9');
+      expect(customInputs.at(2).prop('value')).toBe('30');
+    },
+  );
 
   it('shows empty value in all inputs correctly given null', () => {
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        value={null}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} value={null} />);
 
     const nativeInput = component.find('input[type="date"]');
     const customInputs = component.find('input[data-input]');
@@ -236,12 +192,7 @@ describe('DateInput', () => {
   });
 
   it('shows empty value in all inputs correctly given an array of nulls', () => {
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        value={[null, null]}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} value={[null, null]} />);
 
     const nativeInput = component.find('input[type="date"]');
     const customInputs = component.find('input[data-input]');
@@ -255,12 +206,7 @@ describe('DateInput', () => {
   it('clears the value correctly', () => {
     const date = new Date(2017, 8, 30);
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} value={date} />);
 
     component.setProps({ value: null });
 
@@ -274,9 +220,7 @@ describe('DateInput', () => {
   });
 
   it('renders custom inputs in a proper order (12-hour format)', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-    );
+    const component = mount(<DateInput {...defaultProps} />);
 
     const customInputs = component.find('input[data-input]');
 
@@ -286,12 +230,7 @@ describe('DateInput', () => {
   });
 
   itIfFullICU('renders custom inputs in a proper order (24-hour format)', () => {
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        locale="de-DE"
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} locale="de-DE" />);
 
     const customInputs = component.find('input[data-input]');
 
@@ -302,12 +241,7 @@ describe('DateInput', () => {
 
   describe('renders custom inputs in a proper order given format', () => {
     it('renders "y" properly', () => {
-      const component = mount(
-        <DateInput
-          {...defaultProps}
-          format="y"
-        />,
-      );
+      const component = mount(<DateInput {...defaultProps} format="y" />);
 
       const componentInput = component.find('YearInput');
       const customInputs = component.find('input[data-input]');
@@ -317,12 +251,7 @@ describe('DateInput', () => {
     });
 
     it('renders "yyyy" properly', () => {
-      const component = mount(
-        <DateInput
-          {...defaultProps}
-          format="yyyy"
-        />,
-      );
+      const component = mount(<DateInput {...defaultProps} format="yyyy" />);
 
       const componentInput = component.find('YearInput');
       const customInputs = component.find('input[data-input]');
@@ -332,12 +261,7 @@ describe('DateInput', () => {
     });
 
     it('renders "M" properly', () => {
-      const component = mount(
-        <DateInput
-          {...defaultProps}
-          format="M"
-        />,
-      );
+      const component = mount(<DateInput {...defaultProps} format="M" />);
 
       const componentInput = component.find('MonthInput');
       const customInputs = component.find('input[data-input]');
@@ -347,12 +271,7 @@ describe('DateInput', () => {
     });
 
     it('renders "MM" properly', () => {
-      const component = mount(
-        <DateInput
-          {...defaultProps}
-          format="MM"
-        />,
-      );
+      const component = mount(<DateInput {...defaultProps} format="MM" />);
 
       const componentInput = component.find('MonthInput');
       const customInputs = component.find('input[data-input]');
@@ -363,12 +282,7 @@ describe('DateInput', () => {
     });
 
     it('renders "MMM" properly', () => {
-      const component = mount(
-        <DateInput
-          {...defaultProps}
-          format="MMM"
-        />,
-      );
+      const component = mount(<DateInput {...defaultProps} format="MMM" />);
 
       const componentSelect = component.find('MonthSelect');
       const customInputs = component.find('select');
@@ -379,12 +293,7 @@ describe('DateInput', () => {
     });
 
     it('renders "MMMM" properly', () => {
-      const component = mount(
-        <DateInput
-          {...defaultProps}
-          format="MMMM"
-        />,
-      );
+      const component = mount(<DateInput {...defaultProps} format="MMMM" />);
 
       const componentSelect = component.find('MonthSelect');
       const customInputs = component.find('select');
@@ -395,12 +304,7 @@ describe('DateInput', () => {
     });
 
     it('renders "d" properly', () => {
-      const component = mount(
-        <DateInput
-          {...defaultProps}
-          format="d"
-        />,
-      );
+      const component = mount(<DateInput {...defaultProps} format="d" />);
 
       const componentInput = component.find('DayInput');
       const customInputs = component.find('input[data-input]');
@@ -410,12 +314,7 @@ describe('DateInput', () => {
     });
 
     it('renders "dd" properly', () => {
-      const component = mount(
-        <DateInput
-          {...defaultProps}
-          format="dd"
-        />,
-      );
+      const component = mount(<DateInput {...defaultProps} format="dd" />);
 
       const componentInput = component.find('DayInput');
       const customInputs = component.find('input[data-input]');
@@ -428,12 +327,7 @@ describe('DateInput', () => {
     it('throws error for "ddd"', () => {
       muteConsole();
 
-      const renderComponent = () => mount(
-        <DateInput
-          {...defaultProps}
-          format="ddd"
-        />,
-      );
+      const renderComponent = () => mount(<DateInput {...defaultProps} format="ddd" />);
 
       expect(renderComponent).toThrow('Unsupported token: ddd');
 
@@ -441,12 +335,7 @@ describe('DateInput', () => {
     });
 
     it('renders "yyyy-MM-dd" properly', () => {
-      const component = mount(
-        <DateInput
-          {...defaultProps}
-          format="yyyy-MM-d"
-        />,
-      );
+      const component = mount(<DateInput {...defaultProps} format="yyyy-MM-d" />);
 
       const monthInput = component.find('MonthInput');
       const dayInput = component.find('DayInput');
@@ -464,9 +353,7 @@ describe('DateInput', () => {
   });
 
   it('renders proper input separators', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-    );
+    const component = mount(<DateInput {...defaultProps} />);
 
     const separators = component.find('.react-date-picker__inputGroup__divider');
 
@@ -475,12 +362,7 @@ describe('DateInput', () => {
   });
 
   it('renders proper amount of separators', () => {
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        maxDetail="year"
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} maxDetail="year" />);
 
     const separators = component.find('.react-date-picker__inputGroup__divider');
     const customInputs = component.find('input[data-input]');
@@ -489,10 +371,7 @@ describe('DateInput', () => {
   });
 
   it('jumps to the next field when right arrow is pressed', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-      { attachTo: container },
-    );
+    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
@@ -508,10 +387,7 @@ describe('DateInput', () => {
   });
 
   it('jumps to the next field when separator key is pressed', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-      { attachTo: container },
-    );
+    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
@@ -529,10 +405,7 @@ describe('DateInput', () => {
   });
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-      { attachTo: container },
-    );
+    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
 
     const customInputs = component.find('input[data-input]');
     const yearInput = customInputs.at(2);
@@ -547,10 +420,7 @@ describe('DateInput', () => {
   });
 
   it('jumps to the previous field when left arrow is pressed', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-      { attachTo: container },
-    );
+    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
@@ -566,10 +436,7 @@ describe('DateInput', () => {
   });
 
   it('does not jump to the previous field when left arrow is pressed when the first input is focused', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-      { attachTo: container },
-    );
+    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
@@ -583,11 +450,8 @@ describe('DateInput', () => {
     expect(document.activeElement).toBe(dayInput.getDOMNode());
   });
 
-  it('jumps to the next field when a value which can\'t be extended to another valid value is entered', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-      { attachTo: container },
-    );
+  it("jumps to the next field when a value which can't be extended to another valid value is entered", () => {
+    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
@@ -602,10 +466,7 @@ describe('DateInput', () => {
   });
 
   it('jumps to the next field when a value as long as the length of maximum value is entered', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-      { attachTo: container },
-    );
+    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
@@ -620,10 +481,7 @@ describe('DateInput', () => {
   });
 
   it('does not jump the next field when a value which can be extended to another valid value is entered', () => {
-    const component = mount(
-      <DateInput {...defaultProps} />,
-      { attachTo: container },
-    );
+    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(0);
@@ -640,13 +498,7 @@ describe('DateInput', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        onChange={onChange}
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(1);
@@ -664,13 +516,7 @@ describe('DateInput', () => {
     date.setFullYear(19, 8, 30);
     date.setHours(0, 0, 0, 0);
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        onChange={onChange}
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
     const customInputs = component.find('input[data-input]');
     const dayInput = customInputs.at(1);
@@ -690,18 +536,12 @@ describe('DateInput', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        onChange={onChange}
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
     const customInputs = component.find('input[data-input]');
 
     customInputs.forEach((customInput) => {
-      customInput.getDOMNode().value = ''; // eslint-disable-line no-param-reassign
+      customInput.getDOMNode().value = '';
       customInput.simulate('change');
     });
 
@@ -713,13 +553,7 @@ describe('DateInput', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        onChange={onChange}
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
     const nativeInput = component.find('input[type="date"]');
 
@@ -734,13 +568,7 @@ describe('DateInput', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        onChange={onChange}
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
     const nativeInput = component.find('input[type="date"]');
 
@@ -759,13 +587,7 @@ describe('DateInput', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(
-      <DateInput
-        {...defaultProps}
-        onChange={onChange}
-        value={date}
-      />,
-    );
+    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
     const nativeInput = component.find('input[type="date"]');
 

@@ -8,15 +8,10 @@ import { isRef } from '../shared/propTypes';
 
 /* eslint-disable jsx-a11y/no-autofocus */
 
-const isIEOrEdgeLegacy = (
-  typeof window !== 'undefined'
-  && /(MSIE|Trident\/|Edge\/)/.test(window.navigator.userAgent)
-);
+const isIEOrEdgeLegacy =
+  typeof window !== 'undefined' && /(MSIE|Trident\/|Edge\/)/.test(window.navigator.userAgent);
 
-const isFirefox = (
-  typeof window !== 'undefined'
-  && /Firefox/.test(window.navigator.userAgent)
-);
+const isFirefox = typeof window !== 'undefined' && /Firefox/.test(window.navigator.userAgent);
 
 function onFocus(event) {
   const { target } = event;
@@ -110,16 +105,16 @@ export default function Input({
   step,
   value,
 }) {
-  const hasLeadingZero = (
-    showLeadingZeros
-    && value
-    && value < 10
-    && (value === '0' || !value.toString().startsWith('0'))
-  );
+  const hasLeadingZero =
+    showLeadingZeros && value && value < 10 && (value === '0' || !value.toString().startsWith('0'));
   const maxLength = max ? max.toString().length : null;
 
   return [
-    (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
+    hasLeadingZero && (
+      <span key="leadingZero" className={`${className}__leadingZero`}>
+        0
+      </span>
+    ),
     <input
       key="input"
       aria-label={ariaLabel}

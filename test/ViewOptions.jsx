@@ -37,20 +37,11 @@ export default function ViewOptions({
 
   return (
     <fieldset id="viewoptions">
-      <legend htmlFor="viewoptions">
-        View options
-      </legend>
+      <legend htmlFor="viewoptions">View options</legend>
 
       <div>
-        <input
-          checked={disabled}
-          id="disabled"
-          onChange={onDisabledChange}
-          type="checkbox"
-        />
-        <label htmlFor="disabled">
-          Disabled
-        </label>
+        <input checked={disabled} id="disabled" onChange={onDisabledChange} type="checkbox" />
+        <label htmlFor="disabled">Disabled</label>
       </div>
 
       <div>
@@ -60,9 +51,7 @@ export default function ViewOptions({
           onChange={onShowLeadingZerosChange}
           type="checkbox"
         />
-        <label htmlFor="showLeadingZeros">
-          Show leading zeros
-        </label>
+        <label htmlFor="showLeadingZeros">Show leading zeros</label>
       </div>
 
       <div>
@@ -72,9 +61,7 @@ export default function ViewOptions({
           onChange={onShowWeekNumbersChange}
           type="checkbox"
         />
-        <label htmlFor="showWeekNumbers">
-          Show week numbers
-        </label>
+        <label htmlFor="showWeekNumbers">Show week numbers</label>
       </div>
 
       <div>
@@ -84,9 +71,7 @@ export default function ViewOptions({
           onChange={onShowNeighboringMonthChange}
           type="checkbox"
         />
-        <label htmlFor="showNeighboringMonth">
-          {'Show neighboring month\'s days'}
-        </label>
+        <label htmlFor="showNeighboringMonth">{"Show neighboring month's days"}</label>
       </div>
     </fieldset>
   );

@@ -1,6 +1,6 @@
-import { CalendarProps } from "react-calendar";
+import { CalendarProps } from 'react-calendar';
 
-declare module "react-date-picker" {
+declare module 'react-date-picker' {
   export default function DatePicker(props: DatePickerProps): JSX.Element;
 
   export interface DatePickerProps extends CalendarProps {
@@ -27,7 +27,7 @@ declare module "react-date-picker" {
     openCalendarOnFocus?: boolean;
     required?: boolean;
     showLeadingZeros?: boolean;
-    yearAriaLabel?: string
+    yearAriaLabel?: string;
     yearPlaceholder?: string;
   }
 }

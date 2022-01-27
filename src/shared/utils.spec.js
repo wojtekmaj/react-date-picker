@@ -1,8 +1,4 @@
-import {
-  between,
-  safeMin,
-  safeMax,
-} from './utils';
+import { between, safeMin, safeMax } from './utils';
 
 describe('between', () => {
   it('returns value when value is within set boundaries', () => {

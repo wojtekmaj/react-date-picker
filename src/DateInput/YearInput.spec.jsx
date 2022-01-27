@@ -10,9 +10,7 @@ describe('YearInput', () => {
   };
 
   it('renders an input', () => {
-    const component = mount(
-      <YearInput {...defaultProps} />,
-    );
+    const component = mount(<YearInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -22,12 +20,7 @@ describe('YearInput', () => {
   it('applies given aria-label properly', () => {
     const yearAriaLabel = 'Year';
 
-    const component = mount(
-      <YearInput
-        {...defaultProps}
-        ariaLabel={yearAriaLabel}
-      />,
-    );
+    const component = mount(<YearInput {...defaultProps} ariaLabel={yearAriaLabel} />);
 
     const input = component.find('input');
 
@@ -37,12 +30,7 @@ describe('YearInput', () => {
   it('applies given placeholder properly', () => {
     const yearPlaceholder = 'Year';
 
-    const component = mount(
-      <YearInput
-        {...defaultProps}
-        placeholder={yearPlaceholder}
-      />,
-    );
+    const component = mount(<YearInput {...defaultProps} placeholder={yearPlaceholder} />);
 
     const input = component.find('input');
 
@@ -50,9 +38,7 @@ describe('YearInput', () => {
   });
 
   it('has proper name defined', () => {
-    const component = mount(
-      <YearInput {...defaultProps} />,
-    );
+    const component = mount(<YearInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -62,12 +48,7 @@ describe('YearInput', () => {
   it('has proper className defined', () => {
     const className = 'react-date-picker';
 
-    const component = mount(
-      <YearInput
-        {...defaultProps}
-        className={className}
-      />,
-    );
+    const component = mount(<YearInput {...defaultProps} className={className} />);
 
     const input = component.find('input');
 
@@ -78,12 +59,7 @@ describe('YearInput', () => {
   it('displays given value properly', () => {
     const value = '2018';
 
-    const component = mount(
-      <YearInput
-        {...defaultProps}
-        value={value}
-      />,
-    );
+    const component = mount(<YearInput {...defaultProps} value={value} />);
 
     const input = component.find('input');
 
@@ -91,9 +67,7 @@ describe('YearInput', () => {
   });
 
   it('does not disable input by default', () => {
-    const component = mount(
-      <YearInput {...defaultProps} />,
-    );
+    const component = mount(<YearInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -101,12 +75,7 @@ describe('YearInput', () => {
   });
 
   it('disables input given disabled flag', () => {
-    const component = mount(
-      <YearInput
-        {...defaultProps}
-        disabled
-      />,
-    );
+    const component = mount(<YearInput {...defaultProps} disabled />);
 
     const input = component.find('input');
 
@@ -114,9 +83,7 @@ describe('YearInput', () => {
   });
 
   it('is not required input by default', () => {
-    const component = mount(
-      <YearInput {...defaultProps} />,
-    );
+    const component = mount(<YearInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -124,12 +91,7 @@ describe('YearInput', () => {
   });
 
   it('required input given required flag', () => {
-    const component = mount(
-      <YearInput
-        {...defaultProps}
-        required
-      />,
-    );
+    const component = mount(<YearInput {...defaultProps} required />);
 
     const input = component.find('input');
 
@@ -139,21 +101,14 @@ describe('YearInput', () => {
   it('calls inputRef properly', () => {
     const inputRef = jest.fn();
 
-    mount(
-      <YearInput
-        {...defaultProps}
-        inputRef={inputRef}
-      />,
-    );
+    mount(<YearInput {...defaultProps} inputRef={inputRef} />);
 
     expect(inputRef).toHaveBeenCalled();
     expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLInputElement));
   });
 
   it('has min = 1 by default', () => {
-    const component = mount(
-      <YearInput {...defaultProps} />,
-    );
+    const component = mount(<YearInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -161,12 +116,7 @@ describe('YearInput', () => {
   });
 
   it('has min = (year in minDate) given minDate', () => {
-    const component = mount(
-      <YearInput
-        {...defaultProps}
-        minDate={new Date(2018, 6, 1)}
-      />,
-    );
+    const component = mount(<YearInput {...defaultProps} minDate={new Date(2018, 6, 1)} />);
 
     const input = component.find('input');
 
@@ -174,9 +124,7 @@ describe('YearInput', () => {
   });
 
   it('has max = 275760 by default', () => {
-    const component = mount(
-      <YearInput {...defaultProps} />,
-    );
+    const component = mount(<YearInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -184,12 +132,7 @@ describe('YearInput', () => {
   });
 
   it('has max = (year in maxDate) given maxDate', () => {
-    const component = mount(
-      <YearInput
-        {...defaultProps}
-        maxDate={new Date(2018, 6, 1)}
-      />,
-    );
+    const component = mount(<YearInput {...defaultProps} maxDate={new Date(2018, 6, 1)} />);
 
     const input = component.find('input');
 

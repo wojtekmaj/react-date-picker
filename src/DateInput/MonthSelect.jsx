@@ -33,10 +33,7 @@ export default function MonthSelect({
   return (
     <select
       aria-label={ariaLabel}
-      className={mergeClassNames(
-        `${className}__input`,
-        `${className}__${name}`,
-      )}
+      className={mergeClassNames(`${className}__input`, `${className}__${name}`)}
       data-input="true"
       data-select="true"
       name={name}
@@ -44,21 +41,13 @@ export default function MonthSelect({
       value={value !== null ? value : ''}
       {...otherProps}
     >
-      {!value && (
-        <option value="">
-          {placeholder}
-        </option>
-      )}
+      {!value && <option value="">{placeholder}</option>}
       {dates.map((date) => {
         const month = getMonthHuman(date);
         const disabled = month < minMonth || month > maxMonth;
 
         return (
-          <option
-            key={month}
-            disabled={disabled}
-            value={month}
-          >
+          <option key={month} disabled={disabled} value={month}>
             {formatter(locale, date)}
           </option>
         );

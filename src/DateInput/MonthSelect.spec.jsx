@@ -10,9 +10,7 @@ describe('MonthSelect', () => {
   };
 
   it('renders a select', () => {
-    const component = mount(
-      <MonthSelect {...defaultProps} />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} />);
 
     const select = component.find('select');
     const options = select.find('option');
@@ -24,12 +22,7 @@ describe('MonthSelect', () => {
   it('applies given aria-label properly', () => {
     const monthAriaLabel = 'Month';
 
-    const component = mount(
-      <MonthSelect
-        {...defaultProps}
-        ariaLabel={monthAriaLabel}
-      />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} ariaLabel={monthAriaLabel} />);
 
     const select = component.find('select');
 
@@ -37,9 +30,7 @@ describe('MonthSelect', () => {
   });
 
   it('has proper placeholder by default', () => {
-    const component = mount(
-      <MonthSelect {...defaultProps} />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} />);
 
     const options = component.find('option');
     const firstOption = options.first();
@@ -50,12 +41,7 @@ describe('MonthSelect', () => {
   it('displays given placeholder properly', () => {
     const monthPlaceholder = 'mm';
 
-    const component = mount(
-      <MonthSelect
-        {...defaultProps}
-        placeholder={monthPlaceholder}
-      />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} placeholder={monthPlaceholder} />);
 
     const options = component.find('option');
     const firstOption = options.first();
@@ -64,9 +50,7 @@ describe('MonthSelect', () => {
   });
 
   it('has proper name defined', () => {
-    const component = mount(
-      <MonthSelect {...defaultProps} />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} />);
 
     const select = component.find('select');
 
@@ -76,12 +60,7 @@ describe('MonthSelect', () => {
   it('has proper className defined', () => {
     const className = 'react-date-picker';
 
-    const component = mount(
-      <MonthSelect
-        {...defaultProps}
-        className={className}
-      />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} className={className} />);
 
     const select = component.find('select');
 
@@ -92,12 +71,7 @@ describe('MonthSelect', () => {
   it('displays given value properly', () => {
     const value = '11';
 
-    const component = mount(
-      <MonthSelect
-        {...defaultProps}
-        value={value}
-      />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} value={value} />);
 
     const select = component.find('select');
 
@@ -105,9 +79,7 @@ describe('MonthSelect', () => {
   });
 
   it('does not disable select by default', () => {
-    const component = mount(
-      <MonthSelect {...defaultProps} />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} />);
 
     const select = component.find('select');
 
@@ -115,12 +87,7 @@ describe('MonthSelect', () => {
   });
 
   it('disables select given disabled flag', () => {
-    const component = mount(
-      <MonthSelect
-        {...defaultProps}
-        disabled
-      />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} disabled />);
 
     const select = component.find('select');
 
@@ -128,9 +95,7 @@ describe('MonthSelect', () => {
   });
 
   it('is not required select by default', () => {
-    const component = mount(
-      <MonthSelect {...defaultProps} />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} />);
 
     const select = component.find('select');
 
@@ -138,12 +103,7 @@ describe('MonthSelect', () => {
   });
 
   it('required select given required flag', () => {
-    const component = mount(
-      <MonthSelect
-        {...defaultProps}
-        required
-      />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} required />);
 
     const select = component.find('select');
 
@@ -153,21 +113,14 @@ describe('MonthSelect', () => {
   it('calls inputRef properly', () => {
     const inputRef = jest.fn();
 
-    mount(
-      <MonthSelect
-        {...defaultProps}
-        inputRef={inputRef}
-      />,
-    );
+    mount(<MonthSelect {...defaultProps} inputRef={inputRef} />);
 
     expect(inputRef).toHaveBeenCalled();
     expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLSelectElement));
   });
 
   it('has all options enabled by default', () => {
-    const component = mount(
-      <MonthSelect {...defaultProps} />,
-    );
+    const component = mount(<MonthSelect {...defaultProps} />);
 
     const select = component.find('select');
     const options = select.find('option');
@@ -179,11 +132,7 @@ describe('MonthSelect', () => {
 
   it('has all options enabled given minDate in a past year', () => {
     const component = mount(
-      <MonthSelect
-        {...defaultProps}
-        minDate={new Date(2017, 6, 1)}
-        year="2018"
-      />,
+      <MonthSelect {...defaultProps} minDate={new Date(2017, 6, 1)} year="2018" />,
     );
 
     const select = component.find('select');
@@ -196,11 +145,7 @@ describe('MonthSelect', () => {
 
   it('has first (month in minDate) options disabled given minDate in a current year', () => {
     const component = mount(
-      <MonthSelect
-        {...defaultProps}
-        minDate={new Date(2018, 6, 1)}
-        year="2018"
-      />,
+      <MonthSelect {...defaultProps} minDate={new Date(2018, 6, 1)} year="2018" />,
     );
 
     const select = component.find('select');
@@ -218,11 +163,7 @@ describe('MonthSelect', () => {
 
   it('has all options enabled given maxDate in a future year', () => {
     const component = mount(
-      <MonthSelect
-        {...defaultProps}
-        maxDate={new Date(2019, 6, 1)}
-        year="2018"
-      />,
+      <MonthSelect {...defaultProps} maxDate={new Date(2019, 6, 1)} year="2018" />,
     );
 
     const select = component.find('select');
@@ -235,11 +176,7 @@ describe('MonthSelect', () => {
 
   it('has last (month in maxDate) options disabled given maxDate in a current year', () => {
     const component = mount(
-      <MonthSelect
-        {...defaultProps}
-        maxDate={new Date(2018, 6, 1)}
-        year="2018"
-      />,
+      <MonthSelect {...defaultProps} maxDate={new Date(2018, 6, 1)} year="2018" />,
     );
 
     const select = component.find('select');

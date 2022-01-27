@@ -1,7 +1,4 @@
-import {
-  getBegin,
-  getEnd,
-} from './dates';
+import { getBegin, getEnd } from './dates';
 
 describe('getBegin', () => {
   it('returns proper beginning of the century', () => {

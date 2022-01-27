@@ -10,9 +10,7 @@ describe('DayInput', () => {
   };
 
   it('renders an input', () => {
-    const component = mount(
-      <DayInput {...defaultProps} />,
-    );
+    const component = mount(<DayInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -20,13 +18,7 @@ describe('DayInput', () => {
   });
 
   it('renders "0" given showLeadingZeros if day is <10', () => {
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        showLeadingZeros
-        value="9"
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} showLeadingZeros value="9" />);
 
     const input = component.find('input');
 
@@ -35,58 +27,42 @@ describe('DayInput', () => {
   });
 
   it('does not render "0" given showLeadingZeros if day is <10 with leading zero already', () => {
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        showLeadingZeros
-        value="09"
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} showLeadingZeros value="09" />);
 
     const input = component.find('input');
 
     expect(component.text()).not.toContain('0');
-    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+    expect(input.prop('className')).not.toContain(
+      `${defaultProps.className}__input--hasLeadingZero`,
+    );
   });
 
   it('does not render "0" given showLeadingZeros if day is >=10', () => {
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        showLeadingZeros
-        value="10"
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} showLeadingZeros value="10" />);
 
     const input = component.find('input');
 
     expect(component.text()).not.toContain('0');
-    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+    expect(input.prop('className')).not.toContain(
+      `${defaultProps.className}__input--hasLeadingZero`,
+    );
   });
 
   it('does not render "0" if not given showLeadingZeros', () => {
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        value="9"
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} value="9" />);
 
     const input = component.find('input');
 
     expect(component.text()).not.toContain('0');
-    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+    expect(input.prop('className')).not.toContain(
+      `${defaultProps.className}__input--hasLeadingZero`,
+    );
   });
 
   it('applies given aria-label properly', () => {
     const dayAriaLabel = 'Day';
 
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        ariaLabel={dayAriaLabel}
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} ariaLabel={dayAriaLabel} />);
 
     const input = component.find('input');
 
@@ -96,12 +72,7 @@ describe('DayInput', () => {
   it('applies given placeholder properly', () => {
     const dayPlaceholder = 'dd';
 
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        placeholder={dayPlaceholder}
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} placeholder={dayPlaceholder} />);
 
     const input = component.find('input');
 
@@ -109,9 +80,7 @@ describe('DayInput', () => {
   });
 
   it('has proper name defined', () => {
-    const component = mount(
-      <DayInput {...defaultProps} />,
-    );
+    const component = mount(<DayInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -121,12 +90,7 @@ describe('DayInput', () => {
   it('has proper className defined', () => {
     const className = 'react-date-picker';
 
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        className={className}
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} className={className} />);
 
     const input = component.find('input');
 
@@ -137,12 +101,7 @@ describe('DayInput', () => {
   it('displays given value properly', () => {
     const value = '11';
 
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        value={value}
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} value={value} />);
 
     const input = component.find('input');
 
@@ -150,9 +109,7 @@ describe('DayInput', () => {
   });
 
   it('does not disable input by default', () => {
-    const component = mount(
-      <DayInput {...defaultProps} />,
-    );
+    const component = mount(<DayInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -160,12 +117,7 @@ describe('DayInput', () => {
   });
 
   it('disables input given disabled flag', () => {
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        disabled
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} disabled />);
 
     const input = component.find('input');
 
@@ -173,9 +125,7 @@ describe('DayInput', () => {
   });
 
   it('is not required input by default', () => {
-    const component = mount(
-      <DayInput {...defaultProps} />,
-    );
+    const component = mount(<DayInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -183,12 +133,7 @@ describe('DayInput', () => {
   });
 
   it('required input given required flag', () => {
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        required
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} required />);
 
     const input = component.find('input');
 
@@ -198,21 +143,14 @@ describe('DayInput', () => {
   it('calls inputRef properly', () => {
     const inputRef = jest.fn();
 
-    mount(
-      <DayInput
-        {...defaultProps}
-        inputRef={inputRef}
-      />,
-    );
+    mount(<DayInput {...defaultProps} inputRef={inputRef} />);
 
     expect(inputRef).toHaveBeenCalled();
     expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLInputElement));
   });
 
   it('has min = 1 by default', () => {
-    const component = mount(
-      <DayInput {...defaultProps} />,
-    );
+    const component = mount(<DayInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -221,12 +159,7 @@ describe('DayInput', () => {
 
   it('has min = 1 given minDate in a past month', () => {
     const component = mount(
-      <DayInput
-        {...defaultProps}
-        minDate={new Date(2017, 11, 15)}
-        month="1"
-        year="2018"
-      />,
+      <DayInput {...defaultProps} minDate={new Date(2017, 11, 15)} month="1" year="2018" />,
     );
 
     const input = component.find('input');
@@ -236,12 +169,7 @@ describe('DayInput', () => {
 
   it('has min = (day in minDate) given minDate in a current month', () => {
     const component = mount(
-      <DayInput
-        {...defaultProps}
-        minDate={new Date(2018, 0, 15)}
-        month="1"
-        year="2018"
-      />,
+      <DayInput {...defaultProps} minDate={new Date(2018, 0, 15)} month="1" year="2018" />,
     );
 
     const input = component.find('input');
@@ -252,13 +180,7 @@ describe('DayInput', () => {
   it('has max = (number of days in current month) by default', () => {
     const numberOfDaysInJanuary2018 = new Date(2018, 1, 0).getDate();
 
-    const component = mount(
-      <DayInput
-        {...defaultProps}
-        month="1"
-        year="2018"
-      />,
-    );
+    const component = mount(<DayInput {...defaultProps} month="1" year="2018" />);
 
     const input = component.find('input');
 
@@ -269,12 +191,7 @@ describe('DayInput', () => {
     const numberOfDaysInJanuary2018 = new Date(2018, 1, 0).getDate();
 
     const component = mount(
-      <DayInput
-        {...defaultProps}
-        maxDate={new Date(2018, 1, 15)}
-        month="1"
-        year="2018"
-      />,
+      <DayInput {...defaultProps} maxDate={new Date(2018, 1, 15)} month="1" year="2018" />,
     );
 
     const input = component.find('input');
@@ -284,12 +201,7 @@ describe('DayInput', () => {
 
   it('has max = (day in maxDate) given maxDate in a current month', () => {
     const component = mount(
-      <DayInput
-        {...defaultProps}
-        maxDate={new Date(2018, 0, 15)}
-        month="1"
-        year="2018"
-      />,
+      <DayInput {...defaultProps} maxDate={new Date(2018, 0, 15)} month="1" year="2018" />,
     );
 
     const input = component.find('input');
