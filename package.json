@@ -70,7 +70,7 @@
     "merge-class-names": "^1.1.1",
     "merge-refs": "^1.0.0",
     "prop-types": "^15.6.0",
-    "react-calendar": "^3.3.1",
+    "react-calendar": "^3.7.0",
     "react-fit": "^1.4.0",
     "update-input-width": "^1.2.2"
   },
