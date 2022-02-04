@@ -1,6 +1,6 @@
 {
   "name": "react-date-picker",
-  "version": "8.3.6",
+  "version": "8.4.0",
   "description": "A date picker for your React app.",
   "main": "dist/entry.js",
   "source": "src/entry.js",
