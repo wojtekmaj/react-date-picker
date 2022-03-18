@@ -70,6 +70,10 @@ If you don't want to use default React-Date-Picker and React-Calendar styles, yo
 
 Styles loaded by the default entry file are `react-date-picker/dist/DatePicker.css` and `react-calendar/dist/Calendar.css`. You can copy them to your project to build your own upon them.
 
+### Next.js and Vite
+
+Next.js and Vite do not allow components from `node_modules` to import styles. You'll need to follow instructions from [Custom styling](#custom-styling) to get going.
+
 ## User guide
 
 ### DatePicker
