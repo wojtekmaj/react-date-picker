@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { createRef, PureComponent } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import makeEventProps from 'make-event-props';
@@ -28,6 +28,10 @@ export default class DatePicker extends PureComponent {
 
   state = {};
 
+  wrapper = createRef();
+
+  calendarWrapper = createRef();
+
   componentDidMount() {
     this.handleOutsideActionListeners();
   }
@@ -52,9 +56,16 @@ export default class DatePicker extends PureComponent {
   }
 
   onOutsideAction = (event) => {
+    const { wrapper, calendarWrapper } = this;
+
     // Try event.composedPath first to handle clicks inside a Shadow DOM.
     const target = 'composedPath' in event ? event.composedPath()[0] : event.target;
-    if (this.wrapper && !this.wrapper.contains(target)) {
+
+    if (
+      wrapper.current &&
+      !wrapper.current.contains(target) &&
+      (!calendarWrapper.current || !calendarWrapper.current.contains(target))
+    ) {
       this.closeCalendar();
     }
   };
@@ -254,7 +265,12 @@ export default class DatePicker extends PureComponent {
     );
 
     return portalContainer ? (
-      createPortal(<div className={classNames}>{calendar}</div>, portalContainer)
+      createPortal(
+        <div ref={this.calendarWrapper} className={classNames}>
+          {calendar}
+        </div>,
+        portalContainer,
+      )
     ) : (
       <Fit>
         <div
@@ -288,13 +304,7 @@ export default class DatePicker extends PureComponent {
         )}
         {...eventPropsWithoutOnChange}
         onFocus={this.onFocus}
-        ref={(ref) => {
-          if (!ref) {
-            return;
-          }
-
-          this.wrapper = ref;
-        }}
+        ref={this.wrapper}
       >
         {this.renderInputs()}
         {this.renderCalendar()}
