@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import DatePicker from 'react-date-picker/src/entry.nostyle';
 import 'react-date-picker/src/DatePicker.less';
 import 'react-calendar/dist/Calendar.css';
@@ -35,12 +35,14 @@ const nineteenNinetyFive = new Date(1995, now.getUTCMonth() + 1, 15, 12);
 const fifteenthOfNextMonth = new Date(now.getUTCFullYear(), now.getUTCMonth() + 1, 15, 12);
 
 export default function Test() {
+  const portalContainer = useRef();
   const [disabled, setDisabled] = useState(false);
   const [locale, setLocale] = useState(null);
   const [maxDate, setMaxDate] = useState(fifteenthOfNextMonth);
   const [maxDetail, setMaxDetail] = useState('month');
   const [minDate, setMinDate] = useState(nineteenNinetyFive);
   const [minDetail, setMinDetail] = useState('century');
+  const [renderInPortal, setRenderInPortal] = useState(false);
   const [returnValue /* , setReturnValue */] = useState('start');
   const [required, setRequired] = useState(true);
   const [showLeadingZeros, setShowLeadingZeros] = useState(true);
@@ -77,7 +79,9 @@ export default function Test() {
           <ValueOptions setValue={setValue} value={value} />
           <ViewOptions
             disabled={disabled}
+            renderInPortal={renderInPortal}
             setDisabled={setDisabled}
+            setRenderInPortal={setRenderInPortal}
             setShowLeadingZeros={setShowLeadingZeros}
             setShowNeighboringMonth={setShowNeighboringMonth}
             setShowWeekNumbers={setShowWeekNumbers}
@@ -110,6 +114,7 @@ export default function Test() {
               onCalendarClose={() => console.log('Calendar closed')}
               onCalendarOpen={() => console.log('Calendar opened')}
               onChange={setValue}
+              portalContainer={renderInPortal ? portalContainer.current : undefined}
               required={required}
               returnValue={returnValue}
               showLeadingZeros={showLeadingZeros}
@@ -117,6 +122,7 @@ export default function Test() {
               showWeekNumbers={showWeekNumbers}
               value={value}
             />
+            <div ref={portalContainer} />
             <br />
             <br />
             <button id="submit" type="submit">

@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 export default function ViewOptions({
   disabled,
+  renderInPortal,
   setDisabled,
+  setRenderInPortal,
   setShowLeadingZeros,
   setShowNeighboringMonth,
   setShowWeekNumbers,
@@ -33,6 +35,12 @@ export default function ViewOptions({
     const { checked } = event.target;
 
     setShowNeighboringMonth(checked);
+  }
+
+  function onRenderInPortalChange(event) {
+    const { checked } = event.target;
+
+    setRenderInPortal(checked);
   }
 
   return (
@@ -73,13 +81,25 @@ export default function ViewOptions({
         />
         <label htmlFor="showNeighboringMonth">{"Show neighboring month's days"}</label>
       </div>
+
+      <div>
+        <input
+          checked={renderInPortal}
+          id="renderInPortal"
+          onChange={onRenderInPortalChange}
+          type="checkbox"
+        />
+        <label htmlFor="renderInPortal">Render in portal</label>
+      </div>
     </fieldset>
   );
 }
 
 ViewOptions.propTypes = {
   disabled: PropTypes.bool.isRequired,
+  renderInPortal: PropTypes.bool.isRequired,
   setDisabled: PropTypes.func.isRequired,
+  setRenderInPortal: PropTypes.func.isRequired,
   setShowLeadingZeros: PropTypes.func.isRequired,
   setShowNeighboringMonth: PropTypes.func.isRequired,
   setShowWeekNumbers: PropTypes.func.isRequired,
