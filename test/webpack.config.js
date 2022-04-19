@@ -7,12 +7,14 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevelopment = !isProduction;
 
+const usePreact = process.env.PREACT === 'true';
+
 module.exports = {
   mode: isProduction ? 'production' : 'development',
   bail: isProduction,
   context: path.join(__dirname),
   entry: {
-    src: './index.jsx',
+    src: [usePreact ? 'preact/debug' : null, './index.jsx'].filter(Boolean),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -20,8 +22,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      react: require.resolve('react'),
-      'react-dom': require.resolve('react-dom'),
+      react: require.resolve(usePreact ? 'preact/compat' : 'react'),
+      'react-dom': require.resolve(usePreact ? 'preact/compat' : 'react-dom'),
     },
     extensions: ['.js', '.jsx'],
   },

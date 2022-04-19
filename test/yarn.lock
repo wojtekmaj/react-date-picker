@@ -5299,6 +5299,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"preact@npm:^10.11.0":
+  version: 10.11.0
+  resolution: "preact@npm:10.11.0"
+  checksum: 1e3f8e6fe88f26a2896826f69121b70eb69c63a46bfc1160da8672b37618fcfd294128979ed27e37499604df90c1505c30545f75683f23d8f7e6ac0693d2ff14
+  languageName: node
+  linkType: hard
+
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
@@ -5448,6 +5455,7 @@ __metadata:
     less: ^4.0.0
     less-loader: ^10.0.0
     mini-css-extract-plugin: ^2.0.0
+    preact: ^10.11.0
     prop-types: ^15.6.0
     react: ^17.0.0
     react-date-picker: "portal:../"
