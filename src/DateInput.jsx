@@ -94,7 +94,7 @@ const getDetailValueArray = (args) => {
 };
 
 function isInternalInput(element) {
-  return element.getAttribute('data-input') === 'true';
+  return element.dataset.input === 'true';
 }
 
 function findInput(element, property) {

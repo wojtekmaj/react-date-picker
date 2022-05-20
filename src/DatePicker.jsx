@@ -95,7 +95,7 @@ export default class DatePicker extends PureComponent {
     }
 
     if (openCalendarOnFocus) {
-      if (event.target.getAttribute('data-select') === 'true') {
+      if (event.target.dataset.select === 'true') {
         return;
       }
 
