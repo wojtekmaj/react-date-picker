@@ -1,7 +1,8 @@
+import React from 'react';
 import { CalendarProps } from 'react-calendar';
 
 declare module 'react-date-picker' {
-  export default function DatePicker(props: DatePickerProps): JSX.Element;
+  export class DatePicker extends React.PureComponent<DatePickerProps, { isOpen: boolean }> {}
 
   export interface DatePickerProps extends CalendarProps {
     autoFocus?: boolean;
