@@ -25,6 +25,7 @@ declare module 'react-date-picker' {
     onCalendarClose?: () => void;
     onCalendarOpen?: () => void;
     openCalendarOnFocus?: boolean;
+    portalContainer?: HTMLElement;
     required?: boolean;
     showLeadingZeros?: boolean;
     yearAriaLabel?: string;
