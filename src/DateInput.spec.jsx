@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { fireEvent, render } from '@testing-library/react';
 
 import DateInput from './DateInput';
 
@@ -38,111 +38,98 @@ describe('DateInput', () => {
     className: 'react-date-picker__inputGroup',
   };
 
-  let container;
-
-  beforeEach(() => {
-    container = document.createElement('div');
-    container.id = 'container';
-    document.body.appendChild(container);
-  });
-
-  afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
-  });
-
   it('renders a native input and custom inputs', () => {
-    const component = mount(<DateInput {...defaultProps} />);
+    const { container } = render(<DateInput {...defaultProps} />);
 
-    const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[data-input]');
+    const nativeInput = container.querySelector('input[type="date"]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
-    expect(nativeInput).toHaveLength(1);
+    expect(nativeInput).toBeInTheDocument();
     expect(customInputs).toHaveLength(3);
   });
 
   it('does not render day input when maxDetail is "year" or less', () => {
-    const component = mount(<DateInput {...defaultProps} maxDetail="year" />);
+    const { container } = render(<DateInput {...defaultProps} maxDetail="year" />);
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.find('input[name="day"]');
-    const monthInput = customInputs.find('input[name="month"]');
-    const yearInput = customInputs.find('input[name="year"]');
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = container.querySelector('input[name="day"]');
+    const monthInput = container.querySelector('input[name="month"]');
+    const yearInput = container.querySelector('input[name="year"]');
 
     expect(customInputs).toHaveLength(2);
-    expect(dayInput).toHaveLength(0);
-    expect(monthInput).toHaveLength(1);
-    expect(yearInput).toHaveLength(1);
+    expect(dayInput).toBeFalsy();
+    expect(monthInput).toBeInTheDocument();
+    expect(yearInput).toBeInTheDocument();
   });
 
   it('does not render day and month inputs when maxDetail is "decade" or less', () => {
-    const component = mount(<DateInput {...defaultProps} maxDetail="decade" />);
+    const { container } = render(<DateInput {...defaultProps} maxDetail="decade" />);
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.find('input[name="day"]');
-    const monthInput = customInputs.find('input[name="month"]');
-    const yearInput = customInputs.find('input[name="year"]');
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = container.querySelector('input[name="day"]');
+    const monthInput = container.querySelector('input[name="month"]');
+    const yearInput = container.querySelector('input[name="year"]');
 
     expect(customInputs).toHaveLength(1);
-    expect(dayInput).toHaveLength(0);
-    expect(monthInput).toHaveLength(0);
-    expect(yearInput).toHaveLength(1);
+    expect(dayInput).toBeFalsy();
+    expect(monthInput).toBeFalsy();
+    expect(yearInput).toBeInTheDocument();
   });
 
   it('shows a given date in all inputs correctly given Date (12-hour format)', () => {
     const date = new Date(2017, 8, 30);
 
-    const component = mount(<DateInput {...defaultProps} value={date} />);
+    const { container } = render(<DateInput {...defaultProps} value={date} />);
 
-    const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[data-input]');
+    const nativeInput = container.querySelector('input[type="date"]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
-    expect(nativeInput.prop('value')).toBe('2017-09-30');
-    expect(customInputs.at(0).prop('value')).toBe('9');
-    expect(customInputs.at(1).prop('value')).toBe('30');
-    expect(customInputs.at(2).prop('value')).toBe('2017');
+    expect(nativeInput).toHaveValue('2017-09-30');
+    expect(customInputs[0]).toHaveValue(9);
+    expect(customInputs[1]).toHaveValue(30);
+    expect(customInputs[2]).toHaveValue(2017);
   });
 
   it('shows a given date in all inputs correctly given array of Date objects (12-hour format)', () => {
     const date = [new Date(2017, 8, 30), new Date(2017, 8, 31, 0, 0, 0, -1)];
 
-    const component = mount(<DateInput {...defaultProps} value={date} />);
+    const { container } = render(<DateInput {...defaultProps} value={date} />);
 
-    const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[data-input]');
+    const nativeInput = container.querySelector('input[type="date"]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
-    expect(nativeInput.prop('value')).toBe('2017-09-30');
-    expect(customInputs.at(0).prop('value')).toBe('9');
-    expect(customInputs.at(1).prop('value')).toBe('30');
-    expect(customInputs.at(2).prop('value')).toBe('2017');
+    expect(nativeInput).toHaveValue('2017-09-30');
+    expect(customInputs[0]).toHaveValue(9);
+    expect(customInputs[1]).toHaveValue(30);
+    expect(customInputs[2]).toHaveValue(2017);
   });
 
   it('shows a given date in all inputs correctly given ISO string (12-hour format)', () => {
     const date = '2017-09-30T00:00:00.000';
 
-    const component = mount(<DateInput {...defaultProps} value={date} />);
+    const { container } = render(<DateInput {...defaultProps} value={date} />);
 
-    const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[data-input]');
+    const nativeInput = container.querySelector('input[type="date"]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
-    expect(nativeInput.prop('value')).toBe('2017-09-30');
-    expect(customInputs.at(0).prop('value')).toBe('9');
-    expect(customInputs.at(1).prop('value')).toBe('30');
-    expect(customInputs.at(2).prop('value')).toBe('2017');
+    expect(nativeInput).toHaveValue('2017-09-30');
+    expect(customInputs[0]).toHaveValue(9);
+    expect(customInputs[1]).toHaveValue(30);
+    expect(customInputs[2]).toHaveValue(2017);
   });
 
   itIfFullICU('shows a given date in all inputs correctly given Date (24-hour format)', () => {
     const date = new Date(2017, 8, 30);
 
-    const component = mount(<DateInput {...defaultProps} locale="de-DE" value={date} />);
+    const { container } = render(<DateInput {...defaultProps} locale="de-DE" value={date} />);
 
-    const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[data-input]');
+    const nativeInput = container.querySelector('input[type="date"]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
-    expect(nativeInput.prop('value')).toBe('2017-09-30');
-    expect(customInputs.at(0).prop('value')).toBe('2017');
-    expect(customInputs.at(1).prop('value')).toBe('9');
-    expect(customInputs.at(2).prop('value')).toBe('30');
+    expect(nativeInput).toHaveValue('2017-09-30');
+    expect(customInputs[0]).toHaveValue('2017');
+    expect(customInputs[1]).toHaveValue('9');
+    expect(customInputs[2]).toHaveValue('30');
   });
 
   itIfFullICU(
@@ -150,15 +137,15 @@ describe('DateInput', () => {
     () => {
       const date = [new Date(2017, 8, 30), new Date(2017, 8, 31, 0, 0, 0, -1)];
 
-      const component = mount(<DateInput {...defaultProps} locale="de-DE" value={date} />);
+      const { container } = render(<DateInput {...defaultProps} locale="de-DE" value={date} />);
 
-      const nativeInput = component.find('input[type="date"]');
-      const customInputs = component.find('input[data-input]');
+      const nativeInput = container.querySelector('input[type="date"]');
+      const customInputs = container.querySelectorAll('input[data-input]');
 
-      expect(nativeInput.prop('value')).toBe('2017-09-30');
-      expect(customInputs.at(0).prop('value')).toBe('2017');
-      expect(customInputs.at(1).prop('value')).toBe('9');
-      expect(customInputs.at(2).prop('value')).toBe('30');
+      expect(nativeInput).toHaveValue('2017-09-30');
+      expect(customInputs[0]).toHaveValue('2017');
+      expect(customInputs[1]).toHaveValue('9');
+      expect(customInputs[2]).toHaveValue('30');
     },
   );
 
@@ -167,167 +154,163 @@ describe('DateInput', () => {
     () => {
       const date = '2017-09-30T00:00:00.000';
 
-      const component = mount(<DateInput {...defaultProps} locale="de-DE" value={date} />);
+      const { container } = render(<DateInput {...defaultProps} locale="de-DE" value={date} />);
 
-      const nativeInput = component.find('input[type="date"]');
-      const customInputs = component.find('input[data-input]');
+      const nativeInput = container.querySelector('input[type="date"]');
+      const customInputs = container.querySelectorAll('input[data-input]');
 
-      expect(nativeInput.prop('value')).toBe('2017-09-30');
-      expect(customInputs.at(0).prop('value')).toBe('2017');
-      expect(customInputs.at(1).prop('value')).toBe('9');
-      expect(customInputs.at(2).prop('value')).toBe('30');
+      expect(nativeInput).toHaveValue('2017-09-30');
+      expect(customInputs[0]).toHaveValue('2017');
+      expect(customInputs[1]).toHaveValue('9');
+      expect(customInputs[2]).toHaveValue('30');
     },
   );
 
   it('shows empty value in all inputs correctly given null', () => {
-    const component = mount(<DateInput {...defaultProps} value={null} />);
+    const { container } = render(<DateInput {...defaultProps} value={null} />);
 
-    const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[data-input]');
+    const nativeInput = container.querySelector('input[type="date"]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
-    expect(nativeInput.prop('value')).toBeFalsy();
-    expect(customInputs.at(0).prop('value')).toBeFalsy();
-    expect(customInputs.at(1).prop('value')).toBeFalsy();
-    expect(customInputs.at(2).prop('value')).toBeFalsy();
+    expect(nativeInput).toHaveAttribute('value', '');
+    expect(customInputs[0]).toHaveAttribute('value', '');
+    expect(customInputs[1]).toHaveAttribute('value', '');
+    expect(customInputs[2]).toHaveAttribute('value', '');
   });
 
   it('shows empty value in all inputs correctly given an array of nulls', () => {
-    const component = mount(<DateInput {...defaultProps} value={[null, null]} />);
+    const { container } = render(<DateInput {...defaultProps} value={[null, null]} />);
 
-    const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[data-input]');
+    const nativeInput = container.querySelector('input[type="date"]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
-    expect(nativeInput.prop('value')).toBeFalsy();
-    expect(customInputs.at(0).prop('value')).toBeFalsy();
-    expect(customInputs.at(1).prop('value')).toBeFalsy();
-    expect(customInputs.at(2).prop('value')).toBeFalsy();
+    expect(nativeInput).toHaveAttribute('value', '');
+    expect(customInputs[0]).toHaveAttribute('value', '');
+    expect(customInputs[1]).toHaveAttribute('value', '');
+    expect(customInputs[2]).toHaveAttribute('value', '');
   });
 
   it('clears the value correctly', () => {
     const date = new Date(2017, 8, 30);
 
-    const component = mount(<DateInput {...defaultProps} value={date} />);
+    const { container, rerender } = render(<DateInput {...defaultProps} value={date} />);
 
-    component.setProps({ value: null });
+    rerender(<DateInput {...defaultProps} value={null} />);
 
-    const nativeInput = component.find('input[type="date"]');
-    const customInputs = component.find('input[data-input]');
+    const nativeInput = container.querySelector('input[type="date"]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
-    expect(nativeInput.prop('value')).toBeFalsy();
-    expect(customInputs.at(0).prop('value')).toBeFalsy();
-    expect(customInputs.at(1).prop('value')).toBeFalsy();
-    expect(customInputs.at(2).prop('value')).toBeFalsy();
+    expect(nativeInput).toHaveAttribute('value', '');
+    expect(customInputs[0]).toHaveAttribute('value', '');
+    expect(customInputs[1]).toHaveAttribute('value', '');
+    expect(customInputs[2]).toHaveAttribute('value', '');
   });
 
   it('renders custom inputs in a proper order (12-hour format)', () => {
-    const component = mount(<DateInput {...defaultProps} />);
+    const { container } = render(<DateInput {...defaultProps} />);
 
-    const customInputs = component.find('input[data-input]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
-    expect(customInputs.at(0).prop('name')).toBe('month');
-    expect(customInputs.at(1).prop('name')).toBe('day');
-    expect(customInputs.at(2).prop('name')).toBe('year');
+    expect(customInputs[0]).toHaveAttribute('name', 'month');
+    expect(customInputs[1]).toHaveAttribute('name', 'day');
+    expect(customInputs[2]).toHaveAttribute('name', 'year');
   });
 
   itIfFullICU('renders custom inputs in a proper order (24-hour format)', () => {
-    const component = mount(<DateInput {...defaultProps} locale="de-DE" />);
+    const { container } = render(<DateInput {...defaultProps} locale="de-DE" />);
 
-    const customInputs = component.find('input[data-input]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
-    expect(customInputs.at(0).prop('name')).toBe('year');
-    expect(customInputs.at(1).prop('name')).toBe('month');
-    expect(customInputs.at(2).prop('name')).toBe('day');
+    expect(customInputs[0]).toHaveAttribute('name', 'year');
+    expect(customInputs[1]).toHaveAttribute('name', 'month');
+    expect(customInputs[2]).toHaveAttribute('name', 'day');
   });
 
   describe('renders custom inputs in a proper order given format', () => {
     it('renders "y" properly', () => {
-      const component = mount(<DateInput {...defaultProps} format="y" />);
+      const { container } = render(<DateInput {...defaultProps} format="y" />);
 
-      const componentInput = component.find('YearInput');
-      const customInputs = component.find('input[data-input]');
+      const componentInput = container.querySelector('input[name="year"]');
+      const customInputs = container.querySelectorAll('input[data-input]');
 
-      expect(componentInput).toHaveLength(1);
+      expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "yyyy" properly', () => {
-      const component = mount(<DateInput {...defaultProps} format="yyyy" />);
+      const { container } = render(<DateInput {...defaultProps} format="yyyy" />);
 
-      const componentInput = component.find('YearInput');
-      const customInputs = component.find('input[data-input]');
+      const componentInput = container.querySelector('input[name="year"]');
+      const customInputs = container.querySelectorAll('input[data-input]');
 
-      expect(componentInput).toHaveLength(1);
+      expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "M" properly', () => {
-      const component = mount(<DateInput {...defaultProps} format="M" />);
+      const { container } = render(<DateInput {...defaultProps} format="M" />);
 
-      const componentInput = component.find('MonthInput');
-      const customInputs = component.find('input[data-input]');
+      const componentInput = container.querySelector('input[name="month"]');
+      const customInputs = container.querySelectorAll('input[data-input]');
 
-      expect(componentInput).toHaveLength(1);
+      expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "MM" properly', () => {
-      const component = mount(<DateInput {...defaultProps} format="MM" />);
+      const { container } = render(<DateInput {...defaultProps} format="MM" />);
 
-      const componentInput = component.find('MonthInput');
-      const customInputs = component.find('input[data-input]');
+      const componentInput = container.querySelector('input[name="month"]');
+      const customInputs = container.querySelectorAll('input[data-input]');
 
-      expect(componentInput).toHaveLength(1);
+      expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
-      expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
     });
 
     it('renders "MMM" properly', () => {
-      const component = mount(<DateInput {...defaultProps} format="MMM" />);
+      const { container } = render(<DateInput {...defaultProps} format="MMM" />);
 
-      const componentSelect = component.find('MonthSelect');
-      const customInputs = component.find('select');
+      const componentSelect = container.querySelector('select[name="month"]');
+      const customInputs = container.querySelectorAll('select');
 
-      expect(componentSelect).toHaveLength(1);
-      expect(componentSelect.prop('short')).toBeTruthy();
+      expect(componentSelect).toBeInTheDocument(1);
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "MMMM" properly', () => {
-      const component = mount(<DateInput {...defaultProps} format="MMMM" />);
+      const { container } = render(<DateInput {...defaultProps} format="MMMM" />);
 
-      const componentSelect = component.find('MonthSelect');
-      const customInputs = component.find('select');
+      const componentSelect = container.querySelector('select[name="month"]');
+      const customInputs = container.querySelectorAll('select');
 
-      expect(componentSelect).toHaveLength(1);
-      expect(componentSelect.prop('short')).toBeFalsy();
+      expect(componentSelect).toBeInTheDocument(1);
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "d" properly', () => {
-      const component = mount(<DateInput {...defaultProps} format="d" />);
+      const { container } = render(<DateInput {...defaultProps} format="d" />);
 
-      const componentInput = component.find('DayInput');
-      const customInputs = component.find('input[data-input]');
+      const componentInput = container.querySelector('input[name="day"]');
+      const customInputs = container.querySelectorAll('input[data-input]');
 
-      expect(componentInput).toHaveLength(1);
+      expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "dd" properly', () => {
-      const component = mount(<DateInput {...defaultProps} format="dd" />);
+      const { container } = render(<DateInput {...defaultProps} format="dd" />);
 
-      const componentInput = component.find('DayInput');
-      const customInputs = component.find('input[data-input]');
+      const componentInput = container.querySelector('input[name="day"]');
+      const customInputs = container.querySelectorAll('input[data-input]');
 
-      expect(componentInput).toHaveLength(1);
+      expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
-      expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
     });
 
     it('throws error for "ddd"', () => {
       muteConsole();
 
-      const renderComponent = () => mount(<DateInput {...defaultProps} format="ddd" />);
+      const renderComponent = () => render(<DateInput {...defaultProps} format="ddd" />);
 
       expect(renderComponent).toThrow('Unsupported token: ddd');
 
@@ -335,176 +318,180 @@ describe('DateInput', () => {
     });
 
     it('renders "yyyy-MM-dd" properly', () => {
-      const component = mount(<DateInput {...defaultProps} format="yyyy-MM-d" />);
+      const { container } = render(<DateInput {...defaultProps} format="yyyy-MM-d" />);
 
-      const monthInput = component.find('MonthInput');
-      const dayInput = component.find('DayInput');
-      const customInputs = component.find('input[data-input]');
+      const monthInput = container.querySelector('input[name="month"]');
+      const dayInput = container.querySelector('input[name="day"]');
+      const customInputs = container.querySelectorAll('input[data-input]');
 
-      expect(monthInput).toHaveLength(1);
-      expect(dayInput).toHaveLength(1);
+      expect(monthInput).toBeInTheDocument();
+      expect(dayInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(3);
-      expect(customInputs.at(0).prop('name')).toBe('year');
-      expect(customInputs.at(1).prop('name')).toBe('month');
-      expect(customInputs.at(2).prop('name')).toBe('day');
-      expect(monthInput.prop('showLeadingZeros')).toBeTruthy();
-      expect(dayInput.prop('showLeadingZeros')).toBeFalsy();
+      expect(customInputs[0]).toHaveAttribute('name', 'year');
+      expect(customInputs[1]).toHaveAttribute('name', 'month');
+      expect(customInputs[2]).toHaveAttribute('name', 'day');
     });
   });
 
   it('renders proper input separators', () => {
-    const component = mount(<DateInput {...defaultProps} />);
+    const { container } = render(<DateInput {...defaultProps} />);
 
-    const separators = component.find('.react-date-picker__inputGroup__divider');
+    const separators = container.querySelectorAll('.react-date-picker__inputGroup__divider');
 
     expect(separators).toHaveLength(2);
-    expect(separators.at(0).text()).toBe('/');
+    expect(separators[0]).toHaveTextContent('/');
+    expect(separators[1]).toHaveTextContent('/');
   });
 
   it('renders proper amount of separators', () => {
-    const component = mount(<DateInput {...defaultProps} maxDetail="year" />);
+    const { container } = render(<DateInput {...defaultProps} maxDetail="year" />);
 
-    const separators = component.find('.react-date-picker__inputGroup__divider');
-    const customInputs = component.find('input[data-input]');
+    const separators = container.querySelectorAll('.react-date-picker__inputGroup__divider');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
     expect(separators).toHaveLength(customInputs.length - 1);
   });
 
   it('jumps to the next field when right arrow is pressed', () => {
-    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<DateInput {...defaultProps} />, { attachTo: container });
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.at(0);
-    const monthInput = customInputs.at(1);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = customInputs[0];
+    const monthInput = customInputs[1];
 
-    dayInput.getDOMNode().focus();
+    fireEvent.focus(dayInput);
+    dayInput.focus();
 
-    expect(document.activeElement).toBe(dayInput.getDOMNode());
+    expect(dayInput).toHaveFocus();
 
-    dayInput.simulate('keydown', getKey('ArrowRight'));
+    fireEvent.keyDown(dayInput, getKey('ArrowRight'));
 
-    expect(document.activeElement).toBe(monthInput.getDOMNode());
+    expect(monthInput).toHaveFocus();
   });
 
   it('jumps to the next field when separator key is pressed', () => {
-    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<DateInput {...defaultProps} />, { attachTo: container });
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.at(0);
-    const monthInput = customInputs.at(1);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = customInputs[0];
+    const monthInput = customInputs[1];
 
-    dayInput.getDOMNode().focus();
+    fireEvent.focus(dayInput);
+    dayInput.focus();
 
-    expect(document.activeElement).toBe(dayInput.getDOMNode());
+    expect(dayInput).toHaveFocus();
 
-    const separators = component.find('.react-date-picker__inputGroup__divider');
-    const separatorKey = separators.at(0).text();
-    dayInput.simulate('keydown', getKey(separatorKey));
+    const separators = container.querySelectorAll('.react-date-picker__inputGroup__divider');
+    const separatorKey = separators[0].textContent;
+    fireEvent.keyDown(dayInput, getKey(separatorKey));
 
-    expect(document.activeElement).toBe(monthInput.getDOMNode());
+    expect(monthInput).toHaveFocus();
   });
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
-    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<DateInput {...defaultProps} />, { attachTo: container });
 
-    const customInputs = component.find('input[data-input]');
-    const yearInput = customInputs.at(2);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const yearInput = customInputs[2];
 
-    yearInput.getDOMNode().focus();
+    fireEvent.focus(yearInput);
+    yearInput.focus();
 
-    expect(document.activeElement).toBe(yearInput.getDOMNode());
+    expect(yearInput).toHaveFocus();
 
-    yearInput.simulate('keydown', getKey('ArrowRight'));
+    fireEvent.keyDown(yearInput, getKey('ArrowRight'));
 
-    expect(document.activeElement).toBe(yearInput.getDOMNode());
+    expect(yearInput).toHaveFocus();
   });
 
   it('jumps to the previous field when left arrow is pressed', () => {
-    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<DateInput {...defaultProps} />, { attachTo: container });
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.at(0);
-    const monthInput = customInputs.at(1);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = customInputs[0];
+    const monthInput = customInputs[1];
 
-    monthInput.getDOMNode().focus();
+    fireEvent.focus(monthInput);
+    monthInput.focus();
 
-    expect(document.activeElement).toBe(monthInput.getDOMNode());
+    expect(monthInput).toHaveFocus();
 
-    monthInput.simulate('keydown', getKey('ArrowLeft'));
+    fireEvent.keyDown(monthInput, getKey('ArrowLeft'));
 
-    expect(document.activeElement).toBe(dayInput.getDOMNode());
+    expect(dayInput).toHaveFocus();
   });
 
   it('does not jump to the previous field when left arrow is pressed when the first input is focused', () => {
-    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<DateInput {...defaultProps} />, { attachTo: container });
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.at(0);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = customInputs[0];
 
-    dayInput.getDOMNode().focus();
+    fireEvent.focus(dayInput);
+    dayInput.focus();
 
-    expect(document.activeElement).toBe(dayInput.getDOMNode());
+    expect(dayInput).toHaveFocus();
 
-    dayInput.simulate('keydown', getKey('ArrowLeft'));
+    fireEvent.keyDown(dayInput, getKey('ArrowLeft'));
 
-    expect(document.activeElement).toBe(dayInput.getDOMNode());
+    expect(dayInput).toHaveFocus();
   });
 
   it("jumps to the next field when a value which can't be extended to another valid value is entered", () => {
-    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<DateInput {...defaultProps} />, { attachTo: container });
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.at(0);
-    const monthInput = customInputs.at(1);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = customInputs[0];
+    const monthInput = customInputs[1];
 
-    dayInput.getDOMNode().focus();
-    dayInput.getDOMNode().value = '4';
+    fireEvent.focus(dayInput);
 
-    dayInput.simulate('keyup', { target: dayInput.getDOMNode(), key: '4' });
+    dayInput.value = '4';
+    fireEvent.keyUp(dayInput, { key: '4' });
 
-    expect(document.activeElement).toBe(monthInput.getDOMNode());
+    expect(monthInput).toHaveFocus();
   });
 
   it('jumps to the next field when a value as long as the length of maximum value is entered', () => {
-    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<DateInput {...defaultProps} />, { attachTo: container });
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.at(0);
-    const monthInput = customInputs.at(1);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = customInputs[0];
+    const monthInput = customInputs[1];
 
-    dayInput.getDOMNode().focus();
-    dayInput.getDOMNode().value = '03';
+    fireEvent.focus(dayInput);
 
-    dayInput.simulate('keyup', { target: dayInput.getDOMNode(), key: '3' });
+    dayInput.value = '03';
+    fireEvent.keyUp(dayInput, { key: '3' });
 
-    expect(document.activeElement).toBe(monthInput.getDOMNode());
+    expect(monthInput).toHaveFocus();
   });
 
   it('does not jump the next field when a value which can be extended to another valid value is entered', () => {
-    const component = mount(<DateInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<DateInput {...defaultProps} />, { attachTo: container });
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.at(0);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = customInputs[0];
 
-    dayInput.getDOMNode().focus();
-    dayInput.getDOMNode().value = '1';
+    fireEvent.focus(dayInput);
+    dayInput.focus();
 
-    dayInput.simulate('keyup', { target: dayInput.getDOMNode(), key: '1' });
+    dayInput.value = '1';
+    fireEvent.keyUp(dayInput, { key: '1' });
 
-    expect(document.activeElement).toBe(dayInput.getDOMNode());
+    expect(dayInput).toHaveFocus();
   });
 
   it('triggers onChange correctly when changed custom input', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.at(1);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = customInputs[1];
 
-    dayInput.getDOMNode().value = '20';
-    dayInput.simulate('change');
+    fireEvent.change(dayInput, { target: { value: '20' } });
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
@@ -516,13 +503,12 @@ describe('DateInput', () => {
     date.setFullYear(19, 8, 30);
     date.setHours(0, 0, 0, 0);
 
-    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.at(1);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = customInputs[1];
 
-    dayInput.getDOMNode().value = '20';
-    dayInput.simulate('change');
+    fireEvent.change(dayInput, { target: { value: '20' } });
 
     const nextDate = new Date();
     nextDate.setFullYear(19, 8, 20);
@@ -536,15 +522,14 @@ describe('DateInput', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(
+    const { container } = render(
       <DateInput {...defaultProps} format="dd.MM" onChange={onChange} value={date} />,
     );
 
-    const customInputs = component.find('input[data-input]');
-    const dayInput = customInputs.at(0);
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const dayInput = customInputs[0];
 
-    dayInput.getDOMNode().value = '20';
-    dayInput.simulate('change');
+    fireEvent.change(dayInput, { target: { value: '20' } });
 
     const currentYear = new Date().getFullYear();
 
@@ -556,13 +541,12 @@ describe('DateInput', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const customInputs = component.find('input[data-input]');
+    const customInputs = container.querySelectorAll('input[data-input]');
 
     customInputs.forEach((customInput) => {
-      customInput.getDOMNode().value = '';
-      customInput.simulate('change');
+      fireEvent.change(customInput, { target: { value: '' } });
     });
 
     expect(onChange).toHaveBeenCalledTimes(1);
@@ -573,12 +557,11 @@ describe('DateInput', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const nativeInput = component.find('input[type="date"]');
+    const nativeInput = container.querySelector('input[type="date"]');
 
-    nativeInput.getDOMNode().value = '2017-09-20';
-    nativeInput.simulate('change');
+    fireEvent.change(nativeInput, { target: { value: '2017-09-20' } });
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
@@ -588,12 +571,11 @@ describe('DateInput', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const nativeInput = component.find('input[type="date"]');
+    const nativeInput = container.querySelector('input[type="date"]');
 
-    nativeInput.getDOMNode().value = '0019-09-20';
-    nativeInput.simulate('change');
+    fireEvent.change(nativeInput, { target: { value: '0019-09-20' } });
 
     const nextDate = new Date();
     nextDate.setFullYear(19, 8, 20);
@@ -607,12 +589,11 @@ describe('DateInput', () => {
     const onChange = jest.fn();
     const date = new Date(2017, 8, 30);
 
-    const component = mount(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const nativeInput = component.find('input[type="date"]');
+    const nativeInput = container.querySelector('input[type="date"]');
 
-    nativeInput.getDOMNode().value = '';
-    nativeInput.simulate('change');
+    fireEvent.change(nativeInput, { target: { value: '' } });
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(null, false);

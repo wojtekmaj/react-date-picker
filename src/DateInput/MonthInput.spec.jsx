@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import MonthInput from './MonthInput';
 
@@ -10,198 +10,192 @@ describe('MonthInput', () => {
   };
 
   it('renders an input', () => {
-    const component = mount(<MonthInput {...defaultProps} />);
+    const { container } = render(<MonthInput {...defaultProps} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input).toHaveLength(1);
+    expect(input).toBeInTheDocument();
   });
 
   it('renders "0" given showLeadingZeros if month is <10', () => {
-    const component = mount(<MonthInput {...defaultProps} showLeadingZeros value="9" />);
+    const { container } = render(<MonthInput {...defaultProps} showLeadingZeros value="9" />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(component.text()).toContain('0');
-    expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
+    expect(container).toHaveTextContent('0');
+    expect(input).toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
   it('does not render "0" given showLeadingZeros if month is <10 with leading zero already', () => {
-    const component = mount(<MonthInput {...defaultProps} showLeadingZeros value="09" />);
+    const { container } = render(<MonthInput {...defaultProps} showLeadingZeros value="09" />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(component.text()).not.toContain('0');
-    expect(input.prop('className')).not.toContain(
-      `${defaultProps.className}__input--hasLeadingZero`,
-    );
+    expect(container).not.toHaveTextContent('0');
+    expect(input).not.toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
   it('does not render "0" given showLeadingZeros if month is >=10', () => {
-    const component = mount(<MonthInput {...defaultProps} showLeadingZeros value="10" />);
+    const { container } = render(<MonthInput {...defaultProps} showLeadingZeros value="10" />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(component.text()).not.toContain('0');
-    expect(input.prop('className')).not.toContain(
-      `${defaultProps.className}__input--hasLeadingZero`,
-    );
+    expect(container).not.toHaveTextContent('0');
+    expect(input).not.toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
   it('does not render "0" if not given showLeadingZeros', () => {
-    const component = mount(<MonthInput {...defaultProps} value="9" />);
+    const { container } = render(<MonthInput {...defaultProps} value="9" />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(component.text()).not.toContain('0');
-    expect(input.prop('className')).not.toContain(
-      `${defaultProps.className}__input--hasLeadingZero`,
-    );
+    expect(container).not.toHaveTextContent('0');
+    expect(input).not.toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
   it('applies given aria-label properly', () => {
     const monthAriaLabel = 'Month';
 
-    const component = mount(<MonthInput {...defaultProps} ariaLabel={monthAriaLabel} />);
+    const { container } = render(<MonthInput {...defaultProps} ariaLabel={monthAriaLabel} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('aria-label')).toBe(monthAriaLabel);
+    expect(input).toHaveAttribute('aria-label', monthAriaLabel);
   });
 
   it('applies given placeholder properly', () => {
     const monthPlaceholder = 'mm';
 
-    const component = mount(<MonthInput {...defaultProps} placeholder={monthPlaceholder} />);
+    const { container } = render(<MonthInput {...defaultProps} placeholder={monthPlaceholder} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('placeholder')).toBe(monthPlaceholder);
+    expect(input).toHaveAttribute('placeholder', monthPlaceholder);
   });
 
   it('has proper name defined', () => {
-    const component = mount(<MonthInput {...defaultProps} />);
+    const { container } = render(<MonthInput {...defaultProps} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('name')).toBe('month');
+    expect(input).toHaveAttribute('name', 'month');
   });
 
   it('has proper className defined', () => {
     const className = 'react-date-picker';
 
-    const component = mount(<MonthInput {...defaultProps} className={className} />);
+    const { container } = render(<MonthInput {...defaultProps} className={className} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.hasClass('react-date-picker__input')).toBe(true);
-    expect(input.hasClass('react-date-picker__month')).toBe(true);
+    expect(input).toHaveClass('react-date-picker__input');
+    expect(input).toHaveClass('react-date-picker__month');
   });
 
   it('displays given value properly', () => {
     const value = '11';
 
-    const component = mount(<MonthInput {...defaultProps} value={value} />);
+    const { container } = render(<MonthInput {...defaultProps} value={value} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('value')).toBe(value);
+    expect(input).toHaveValue(Number(value));
   });
 
   it('does not disable input by default', () => {
-    const component = mount(<MonthInput {...defaultProps} />);
+    const { container } = render(<MonthInput {...defaultProps} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('disabled')).toBeFalsy();
+    expect(input).not.toBeDisabled();
   });
 
   it('disables input given disabled flag', () => {
-    const component = mount(<MonthInput {...defaultProps} disabled />);
+    const { container } = render(<MonthInput {...defaultProps} disabled />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('disabled')).toBeTruthy();
+    expect(input).toBeDisabled();
   });
 
   it('is not required input by default', () => {
-    const component = mount(<MonthInput {...defaultProps} />);
+    const { container } = render(<MonthInput {...defaultProps} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('required')).toBeFalsy();
+    expect(input).not.toBeRequired();
   });
 
   it('required input given required flag', () => {
-    const component = mount(<MonthInput {...defaultProps} required />);
+    const { container } = render(<MonthInput {...defaultProps} required />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('required')).toBeTruthy();
+    expect(input).toBeRequired();
   });
 
   it('calls inputRef properly', () => {
     const inputRef = jest.fn();
 
-    mount(<MonthInput {...defaultProps} inputRef={inputRef} />);
+    render(<MonthInput {...defaultProps} inputRef={inputRef} />);
 
     expect(inputRef).toHaveBeenCalled();
     expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLInputElement));
   });
 
-  it('has min = 1 by default', () => {
-    const component = mount(<MonthInput {...defaultProps} />);
+  it('has min = "1" by default', () => {
+    const { container } = render(<MonthInput {...defaultProps} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('min')).toBe(1);
+    expect(input).toHaveAttribute('min', '1');
   });
 
-  it('has min = 1 given minDate in a past year', () => {
-    const component = mount(
+  it('has min = "1" given minDate in a past year', () => {
+    const { container } = render(
       <MonthInput {...defaultProps} minDate={new Date(2017, 6, 1)} year="2018" />,
     );
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('min')).toBe(1);
+    expect(input).toHaveAttribute('min', '1');
   });
 
   it('has min = (month in minDate) given minDate in a current year', () => {
-    const component = mount(
+    const { container } = render(
       <MonthInput {...defaultProps} minDate={new Date(2018, 6, 1)} year="2018" />,
     );
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('min')).toBe(7);
+    expect(input).toHaveAttribute('min', '7');
   });
 
-  it('has max = 12 by default', () => {
-    const component = mount(<MonthInput {...defaultProps} year="2018" />);
+  it('has max = "12" by default', () => {
+    const { container } = render(<MonthInput {...defaultProps} year="2018" />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('max')).toBe(12);
+    expect(input).toHaveAttribute('max', '12');
   });
 
-  it('has max = 12 given maxDate in a future year', () => {
-    const component = mount(
+  it('has max = "12" given maxDate in a future year', () => {
+    const { container } = render(
       <MonthInput {...defaultProps} maxDate={new Date(2019, 6, 1)} year="2018" />,
     );
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('max')).toBe(12);
+    expect(input).toHaveAttribute('max', '12');
   });
 
   it('has max = (month in maxDate) given maxDate in a current year', () => {
-    const component = mount(
+    const { container } = render(
       <MonthInput {...defaultProps} maxDate={new Date(2018, 6, 1)} year="2018" />,
     );
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('max')).toBe(7);
+    expect(input).toHaveAttribute('max', '7');
   });
 });
