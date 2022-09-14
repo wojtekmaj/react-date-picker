@@ -5177,13 +5177,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"merge-refs@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "merge-refs@npm:1.0.0"
-  checksum: 3b4ea1a178c52349a0e725281aa34b130fb6819d22f8e616ae30da6f4da223d9c3a53f6e1a427c5ba56bf6b162c98de95a53f76e01a343e10162823fee33f64a
-  languageName: node
-  linkType: hard
-
 "merge-stream@npm:^2.0.0":
   version: 2.0.0
   resolution: "merge-stream@npm:2.0.0"
@@ -5957,7 +5950,6 @@ __metadata:
     less: ^4.0.0
     make-event-props: ^1.1.0
     merge-class-names: ^1.1.1
-    merge-refs: ^1.0.0
     prettier: ^2.5.0
     pretty-quick: ^3.1.0
     prop-types: ^15.6.0
