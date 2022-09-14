@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
-import mergeRefs from 'merge-refs';
 import updateInputWidth, { getFontShorthand } from 'update-input-width';
 
 import { isRef } from '../shared/propTypes';
@@ -105,6 +104,15 @@ export default function Input({
   step,
   value,
 }) {
+  useLayoutEffect(() => {
+    if (!inputRef || !inputRef.current) {
+      return;
+    }
+
+    updateInputWidth(inputRef.current);
+    updateInputWidthOnFontLoad(inputRef.current);
+  }, [inputRef, value]);
+
   const hasLeadingZero =
     showLeadingZeros && value && value < 10 && (value === '0' || !value.toString().startsWith('0'));
   const maxLength = max ? max.toString().length : null;
@@ -143,7 +151,7 @@ export default function Input({
         }
       }}
       placeholder={placeholder}
-      ref={mergeRefs(updateInputWidth, updateInputWidthOnFontLoad, inputRef)}
+      ref={inputRef}
       required={required}
       step={step}
       type="number"
