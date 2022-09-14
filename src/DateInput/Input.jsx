@@ -22,6 +22,18 @@ function onFocus(event) {
   }
 }
 
+function updateInputWidthOnLoad(element) {
+  if (document.readyState === 'complete') {
+    return;
+  }
+
+  function onLoad() {
+    updateInputWidth(element);
+  }
+
+  window.addEventListener('load', onLoad);
+}
+
 function updateInputWidthOnFontLoad(element) {
   if (!document.fonts) {
     return;
@@ -110,6 +122,7 @@ export default function Input({
     }
 
     updateInputWidth(inputRef.current);
+    updateInputWidthOnLoad(inputRef.current);
     updateInputWidthOnFontLoad(inputRef.current);
   }, [inputRef, value]);
 
