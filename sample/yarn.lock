@@ -4161,13 +4161,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"merge-refs@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "merge-refs@npm:1.0.0"
-  checksum: 3b4ea1a178c52349a0e725281aa34b130fb6819d22f8e616ae30da6f4da223d9c3a53f6e1a427c5ba56bf6b162c98de95a53f76e01a343e10162823fee33f64a
-  languageName: node
-  linkType: hard
-
 "merge-stream@npm:^2.0.0":
   version: 2.0.0
   resolution: "merge-stream@npm:2.0.0"
@@ -4951,18 +4944,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-calendar@npm:^3.3.1":
-  version: 3.6.0
-  resolution: "react-calendar@npm:3.6.0"
+"react-calendar@npm:^3.7.0":
+  version: 3.8.0
+  resolution: "react-calendar@npm:3.8.0"
   dependencies:
     "@wojtekmaj/date-utils": ^1.0.2
     get-user-locale: ^1.2.0
     merge-class-names: ^1.1.1
     prop-types: ^15.6.0
   peerDependencies:
-    react: ^16.3.0 || ^17.0.0-0
-    react-dom: ^16.3.0 || ^17.0.0-0
-  checksum: 4499e26a5d000e6a6d9decb6ccc0ec4895197943aa3ba8024f9dbf5c597a442471df3ab686a1d46a2543c34ac31bd83c26bcbc5a7c952a02b98a03846339decb
+    react: ^16.3.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.3.0 || ^17.0.0 || ^18.0.0
+  checksum: 58321d27416a475f2e34797552807b33f4bf8220fa8ff9eaf6459086083f630016fa665cdc9f302b9fd5564ae6d7f01b77541ae8a02d36eb4c12547fa93aeaa8
   languageName: node
   linkType: hard
 
@@ -4990,23 +4983,22 @@ __metadata:
   linkType: soft
 
 "react-date-picker@npm:latest":
-  version: 8.3.6
-  resolution: "react-date-picker@npm:8.3.6"
+  version: 9.0.0
+  resolution: "react-date-picker@npm:9.0.0"
   dependencies:
     "@types/react-calendar": ^3.0.0
     "@wojtekmaj/date-utils": ^1.0.3
     get-user-locale: ^1.2.0
     make-event-props: ^1.1.0
     merge-class-names: ^1.1.1
-    merge-refs: ^1.0.0
     prop-types: ^15.6.0
-    react-calendar: ^3.3.1
-    react-fit: ^1.0.3
+    react-calendar: ^3.7.0
+    react-fit: ^1.4.0
     update-input-width: ^1.2.2
   peerDependencies:
-    react: ^16.3.0 || ^17.0.0-0
-    react-dom: ^16.3.0 || ^17.0.0-0
-  checksum: f2c8e8a0e91c0499783ec2ca1896dec4ef1cc649fcc43c3f70073888545f4ff3176cbf1d42131f5052f1f5532d8743028e701c3a6ca2e6f01d8dcc66b7bd79d6
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: f0eec40992ab8682976b904edae35368561664355861ed52e4f720fd7f86744f4075dc28025aff02b94c7037ff38187d1606bdf8c49714813fa2719346e9d7f5
   languageName: node
   linkType: hard
 
@@ -5023,7 +5015,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-fit@npm:^1.0.3":
+"react-fit@npm:^1.4.0":
   version: 1.4.0
   resolution: "react-fit@npm:1.4.0"
   dependencies:
