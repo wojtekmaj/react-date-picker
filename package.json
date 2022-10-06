@@ -30,38 +30,6 @@
     "name": "Wojciech Maj",
     "email": "kontakt@wojtekmaj.pl"
   },
-  "contributors": [
-    {
-      "name": "Andrzej Kopeć",
-      "email": "andrzej.kopec@outlook.com"
-    },
-    {
-      "name": "Joe Bourne",
-      "email": "josephbourne14@gmail.com"
-    },
-    {
-      "name": "Juan Caicedo",
-      "email": "juan.caicedo@alumni.ubc.ca"
-    },
-    {
-      "name": "Pier-Luc Gendreau"
-    },
-    {
-      "name": "Kevin Kipp",
-      "email": "kevin.kipp@gmail.com"
-    },
-    {
-      "name": "Linus Marco"
-    },
-    {
-      "name": "Marco Fugaro",
-      "email": "marco.fugaro@gmail.com"
-    },
-    {
-      "name": "Matt Gandley",
-      "email": "mgandley@gmail.com"
-    }
-  ],
   "license": "MIT",
   "dependencies": {
     "@types/react-calendar": "^3.0.0",
