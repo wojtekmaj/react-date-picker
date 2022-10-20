@@ -17,7 +17,7 @@
     "prop-types": "^15.6.0",
     "react": "^17.0.0",
     "react-date-picker": "portal:../",
-    "react-dom": "^17.0.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
