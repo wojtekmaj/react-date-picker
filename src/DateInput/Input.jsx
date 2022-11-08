@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import updateInputWidth, { getFontShorthand } from 'update-input-width';
@@ -7,10 +7,13 @@ import { isRef } from '../shared/propTypes';
 
 /* eslint-disable jsx-a11y/no-autofocus */
 
-const isIEOrEdgeLegacy =
-  typeof window !== 'undefined' && /(MSIE|Trident\/|Edge\/)/.test(window.navigator.userAgent);
+const isBrowser = typeof window !== 'undefined';
 
-const isFirefox = typeof window !== 'undefined' && /Firefox/.test(window.navigator.userAgent);
+const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
+
+const isIEOrEdgeLegacy = isBrowser && /(MSIE|Trident\/|Edge\/)/.test(window.navigator.userAgent);
+
+const isFirefox = isBrowser && /Firefox/.test(window.navigator.userAgent);
 
 function onFocus(event) {
   const { target } = event;
@@ -116,7 +119,7 @@ export default function Input({
   step,
   value,
 }) {
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!inputRef || !inputRef.current) {
       return;
     }
