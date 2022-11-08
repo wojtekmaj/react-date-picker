@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
-import mergeClassNames from 'merge-class-names';
+import clsx from 'clsx';
 import updateInputWidth, { getFontShorthand } from 'update-input-width';
 
 import { isRef } from '../shared/propTypes';
@@ -141,7 +141,7 @@ export default function Input({
       aria-label={ariaLabel}
       autoComplete="off"
       autoFocus={autoFocus}
-      className={mergeClassNames(
+      className={clsx(
         `${className}__input`,
         `${className}__${nameForClass || name}`,
         hasLeadingZero && `${className}__input--hasLeadingZero`,
