@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import mergeClassNames from 'merge-class-names';
+import clsx from 'clsx';
 import { getYear, getMonthHuman } from '@wojtekmaj/date-utils';
 
 import { formatMonth, formatShortMonth } from '../shared/dateFormatter';
@@ -33,7 +33,7 @@ export default function MonthSelect({
   return (
     <select
       aria-label={ariaLabel}
-      className={mergeClassNames(`${className}__input`, `${className}__${name}`)}
+      className={clsx(`${className}__input`, `${className}__${name}`)}
       data-input="true"
       data-select="true"
       name={name}

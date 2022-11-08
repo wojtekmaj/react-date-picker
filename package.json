@@ -34,9 +34,9 @@
   "dependencies": {
     "@types/react-calendar": "^3.0.0",
     "@wojtekmaj/date-utils": "^1.0.3",
+    "clsx": "^1.2.1",
     "get-user-locale": "^1.2.0",
     "make-event-props": "^1.1.0",
-    "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
     "react-calendar": "^3.7.0",
     "react-fit": "^1.4.0",
