@@ -1,5 +1,5 @@
 import React, { createRef } from 'react';
-import { fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react';
 
 import DatePicker from './DatePicker';
 
@@ -331,9 +331,11 @@ describe('DatePicker', () => {
 
     const { container } = render(<DatePicker isOpen ref={instance} />);
 
-    const { onChange } = instance.current;
+    const { onChange: onChangeInternal } = instance.current;
 
-    onChange(new Date());
+    act(() => {
+      onChangeInternal(new Date());
+    });
 
     waitForElementToBeRemoved(() => container.querySelector('.react-calendar'));
   });
@@ -343,9 +345,11 @@ describe('DatePicker', () => {
 
     const { container } = render(<DatePicker closeCalendar={false} isOpen ref={instance} />);
 
-    const { onChange } = instance.current;
+    const { onChange: onChangeInternal } = instance.current;
 
-    onChange(new Date());
+    act(() => {
+      onChangeInternal(new Date());
+    });
 
     const calendar = container.querySelector('.react-calendar');
 
@@ -357,9 +361,11 @@ describe('DatePicker', () => {
 
     const { container } = render(<DatePicker isOpen ref={instance} />);
 
-    const { onChange } = instance.current;
+    const { onChange: onChangeInternal } = instance.current;
 
-    onChange(new Date(), false);
+    act(() => {
+      onChangeInternal(new Date(), false);
+    });
 
     const calendar = container.querySelector('.react-calendar');
 
@@ -375,7 +381,9 @@ describe('DatePicker', () => {
 
     const { onChange: onChangeInternal } = instance.current;
 
-    onChangeInternal(nextValue);
+    act(() => {
+      onChangeInternal(nextValue);
+    });
 
     expect(onChange).toHaveBeenCalledWith(nextValue);
   });
