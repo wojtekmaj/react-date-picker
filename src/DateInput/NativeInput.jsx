@@ -52,6 +52,7 @@ export default function NativeInput({
     <input
       aria-label={ariaLabel}
       disabled={disabled}
+      hidden
       max={maxDate ? nativeValueParser(maxDate) : null}
       min={minDate ? nativeValueParser(minDate) : null}
       name={name}
