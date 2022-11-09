@@ -83,15 +83,10 @@ export default class DatePicker extends PureComponent {
   };
 
   onFocus = (event) => {
-    const { disabled, onFocus, openCalendarOnFocus } = this.props;
+    const { onFocus, openCalendarOnFocus } = this.props;
 
     if (onFocus) {
       onFocus(event);
-    }
-
-    // Internet Explorer still fires onFocus on disabled elements
-    if (disabled) {
-      return;
     }
 
     if (openCalendarOnFocus) {

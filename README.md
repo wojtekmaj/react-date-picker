@@ -39,7 +39,7 @@ Your project needs to use React 16.3 or later. If you use an older version of Re
 
 #### Legacy browsers
 
-If you need to support legacy browsers like Internet Explorer 10, you will need to use [Intl.js](https://github.com/andyearnshaw/Intl.js/) or another Intl polyfill along with React-Date-Picker.
+If you need to support Internet Explorer 11, you will need to use React-Date-Picker v9.
 
 ### Installation
 

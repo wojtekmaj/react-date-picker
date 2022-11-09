@@ -11,14 +11,14 @@ const isBrowser = typeof window !== 'undefined';
 
 const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
 
-const isIEOrEdgeLegacy = isBrowser && /(MSIE|Trident\/|Edge\/)/.test(window.navigator.userAgent);
+const isEdgeLegacy = isBrowser && /Edge\//.test(window.navigator.userAgent);
 
 const isFirefox = isBrowser && /Firefox/.test(window.navigator.userAgent);
 
 function onFocus(event) {
   const { target } = event;
 
-  if (isIEOrEdgeLegacy) {
+  if (isEdgeLegacy) {
     requestAnimationFrame(() => target.select());
   } else {
     target.select();
@@ -63,7 +63,7 @@ function updateInputWidthOnFontLoad(element) {
 
 function getSelectionString(input) {
   /**
-   * window.getSelection().toString() returns empty string in IE11 and Firefox,
+   * window.getSelection().toString() returns empty string in Firefox,
    * so alternatives come first.
    */
   if (input && 'selectionStart' in input && input.selectionStart !== null) {
