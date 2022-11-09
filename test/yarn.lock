@@ -3564,6 +3564,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"get-user-locale@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "get-user-locale@npm:2.0.0"
+  dependencies:
+    lodash.memoize: ^4.1.1
+  checksum: edb82aa04c4eb4490dbed7e1d9ef689cc570c0a8b4db7d2ad881670c92c6957984115d5fa7f67ad4f3f7b503e5a350857382eed3b98054875eb5e14825c23ea7
+  languageName: node
+  linkType: hard
+
 "glob-parent@npm:^6.0.2":
   version: 6.0.2
   resolution: "glob-parent@npm:6.0.2"
@@ -5309,7 +5318,7 @@ __metadata:
     "@types/react-calendar": ^3.0.0
     "@wojtekmaj/date-utils": ^1.0.3
     clsx: ^1.2.1
-    get-user-locale: ^1.2.0
+    get-user-locale: ^2.0.0
     make-event-props: ^1.1.0
     prop-types: ^15.6.0
     react-calendar: ^4.0.0
