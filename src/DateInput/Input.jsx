@@ -7,13 +7,13 @@ import { isRef } from '../shared/propTypes';
 
 /* eslint-disable jsx-a11y/no-autofocus */
 
-const isBrowser = typeof window !== 'undefined';
+const isBrowser = typeof document !== 'undefined';
 
 const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
 
-const isIEOrEdgeLegacy = isBrowser && /(MSIE|Trident\/|Edge\/)/.test(window.navigator.userAgent);
+const isIEOrEdgeLegacy = isBrowser && /(MSIE|Trident\/|Edge\/)/.test(navigator.userAgent);
 
-const isFirefox = isBrowser && /Firefox/.test(window.navigator.userAgent);
+const isFirefox = isBrowser && /Firefox/.test(navigator.userAgent);
 
 function onFocus(event) {
   const { target } = event;
