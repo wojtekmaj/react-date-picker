@@ -30,7 +30,7 @@
     "html-webpack-plugin": "^5.1.0",
     "less": "^4.0.0",
     "less-loader": "^11.0.0",
-    "mini-css-extract-plugin": "^2.0.0",
+    "mini-css-extract-plugin": "^2.7.1",
     "react-refresh": "^0.14.0",
     "style-loader": "^3.0.0",
     "webpack": "^5.20.0",
