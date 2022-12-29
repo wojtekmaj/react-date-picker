@@ -2043,11 +2043,11 @@ __metadata:
   linkType: hard
 
 "@types/react-calendar@npm:^3.0.0":
-  version: 3.5.3
-  resolution: "@types/react-calendar@npm:3.5.3"
+  version: 3.9.0
+  resolution: "@types/react-calendar@npm:3.9.0"
   dependencies:
     "@types/react": "*"
-  checksum: 4d488a9aff324be0383ebb5ab345ead5eb956d82620176f923be5353a0f38cf52d5fac524ec8e045fb3403959830a374f5a2a2c16fede2f7cec14fc7cd27a65b
+  checksum: cddb6951c29c9adf96c38db2631d7b9d157aa65f5e4a45ba5bfc5657413839dfd7045a2e06b98e890b2285013a4777ca1e8317f6ee52c28284f1e47e58e0f8dd
   languageName: node
   linkType: hard
 
