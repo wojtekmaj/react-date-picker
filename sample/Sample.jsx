@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-date-picker';
 
-import './Sample.less';
+import './Sample.css';
 
 export default function Sample() {
   const [value, onChange] = useState(new Date());

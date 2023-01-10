@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import DatePicker from 'react-date-picker/src/entry.nostyle';
-import 'react-date-picker/src/DatePicker.less';
+import 'react-date-picker/src/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 
 import ValidityOptions from './ValidityOptions';
@@ -10,7 +10,7 @@ import LocaleOptions from './LocaleOptions';
 import ValueOptions from './ValueOptions';
 import ViewOptions from './ViewOptions';
 
-import './Test.less';
+import './Test.css';
 
 const now = new Date();
 
