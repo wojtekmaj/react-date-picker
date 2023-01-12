@@ -104,6 +104,7 @@ export default function Test() {
               {...placeholderProps}
               calendarClassName="myCustomCalendarClassName"
               className="myCustomDatePickerClassName"
+              data-testid="myCustomDatePicker"
               disabled={disabled}
               locale={locale}
               maxDate={maxDate}

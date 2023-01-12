@@ -289,7 +289,7 @@ export default class DatePicker extends PureComponent {
 
   render() {
     const { eventProps } = this;
-    const { className, disabled } = this.props;
+    const { className, 'data-testid': dataTestid, disabled } = this.props;
     const { isOpen } = this.state;
 
     const { onChange, ...eventPropsWithoutOnChange } = eventProps;
@@ -302,6 +302,7 @@ export default class DatePicker extends PureComponent {
           `${baseClassName}--${disabled ? 'disabled' : 'enabled'}`,
           className,
         )}
+        data-testid={dataTestid}
         {...eventPropsWithoutOnChange}
         onFocus={this.onFocus}
         ref={this.wrapper}
@@ -363,6 +364,7 @@ DatePicker.propTypes = {
   clearAriaLabel: PropTypes.string,
   clearIcon: PropTypes.node,
   closeCalendar: PropTypes.bool,
+  'data-testid': PropTypes.string,
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,
   disableCalendar: PropTypes.bool,
