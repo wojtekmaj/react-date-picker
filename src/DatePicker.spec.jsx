@@ -170,20 +170,92 @@ describe('DatePicker', () => {
     expect(nativeInput).toBeInTheDocument();
   });
 
-  it('renders clear button', () => {
-    const { container } = render(<DatePicker />);
+  describe('renders clear button properly', () => {
+    it('renders clear button', () => {
+      const { container } = render(<DatePicker />);
 
-    const clearButton = container.querySelector('button.react-date-picker__clear-button');
+      const clearButton = container.querySelector('button.react-date-picker__clear-button');
 
-    expect(clearButton).toBeInTheDocument();
+      expect(clearButton).toBeInTheDocument();
+    });
+
+    it('renders clear icon by default when clearIcon is not given', () => {
+      const { container } = render(<DatePicker />);
+
+      const clearButton = container.querySelector('button.react-date-picker__clear-button');
+
+      const clearIcon = clearButton.querySelector('svg');
+
+      expect(clearIcon).toBeInTheDocument();
+    });
+
+    it('renders clear icon when given clearIcon as a React element', () => {
+      function ClearIcon() {
+        return '❌';
+      }
+
+      const { container } = render(<DatePicker clearIcon={<ClearIcon />} />);
+
+      const clearButton = container.querySelector('button.react-date-picker__clear-button');
+
+      expect(clearButton).toHaveTextContent('❌');
+    });
+
+    it('renders clear icon when given clearIcon as a function', () => {
+      function ClearIcon() {
+        return '❌';
+      }
+
+      const { container } = render(<DatePicker clearIcon={ClearIcon} />);
+
+      const clearButton = container.querySelector('button.react-date-picker__clear-button');
+
+      expect(clearButton).toHaveTextContent('❌');
+    });
   });
 
-  it('renders calendar button', () => {
-    const { container } = render(<DatePicker />);
+  describe('renders calendar button properly', () => {
+    it('renders calendar button', () => {
+      const { container } = render(<DatePicker />);
 
-    const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
+      const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
 
-    expect(calendarButton).toBeInTheDocument();
+      expect(calendarButton).toBeInTheDocument();
+    });
+
+    it('renders calendar icon by default when calendarIcon is not given', () => {
+      const { container } = render(<DatePicker />);
+
+      const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
+
+      const calendarIcon = calendarButton.querySelector('svg');
+
+      expect(calendarIcon).toBeInTheDocument();
+    });
+
+    it('renders calendar icon when given calendarIcon as a React element', () => {
+      function CalendarIcon() {
+        return '📅';
+      }
+
+      const { container } = render(<DatePicker calendarIcon={<CalendarIcon />} />);
+
+      const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
+
+      expect(calendarButton).toHaveTextContent('📅');
+    });
+
+    it('renders calendar icon when given calendarIcon as a function', () => {
+      function CalendarIcon() {
+        return '📅';
+      }
+
+      const { container } = render(<DatePicker calendarIcon={CalendarIcon} />);
+
+      const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
+
+      expect(calendarButton).toHaveTextContent('📅');
+    });
   });
 
   it('renders Calendar component when given isOpen flag', () => {

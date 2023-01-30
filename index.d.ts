@@ -7,10 +7,10 @@ declare module 'react-date-picker' {
     autoFocus?: boolean;
     calendarAriaLabel?: string;
     calendarClassName?: string | string[];
-    calendarIcon?: JSX.Element | null;
+    calendarIcon?: JSX.Element | ((props: Record<string, never>) => JSX.Element) | null;
     className?: string | string[];
     clearAriaLabel?: string;
-    clearIcon?: JSX.Element | null;
+    clearIcon?: JSX.Element | ((props: Record<string, never>) => JSX.Element) | null;
     closeCalendar?: boolean;
     dayAriaLabel?: string;
     dayPlaceholder?: string;
