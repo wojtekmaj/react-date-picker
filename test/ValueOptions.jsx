@@ -11,8 +11,8 @@ export default function ValueOptions({ setValue, value }) {
   }
 
   return (
-    <fieldset id="valueOptions">
-      <legend htmlFor="valueOptions">Set date externally</legend>
+    <fieldset>
+      <legend>Set date externally</legend>
 
       <div>
         <label htmlFor="date">Date</label>

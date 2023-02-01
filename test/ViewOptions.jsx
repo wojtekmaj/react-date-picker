@@ -44,8 +44,8 @@ export default function ViewOptions({
   }
 
   return (
-    <fieldset id="viewoptions">
-      <legend htmlFor="viewoptions">View options</legend>
+    <fieldset>
+      <legend>View options</legend>
 
       <div>
         <input checked={disabled} id="disabled" onChange={onDisabledChange} type="checkbox" />

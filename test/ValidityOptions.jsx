@@ -23,8 +23,8 @@ export default function ValidityOptions({
   }
 
   return (
-    <fieldset id="ValidityOptions">
-      <legend htmlFor="ValidityOptions">Minimum and maximum date</legend>
+    <fieldset>
+      <legend>Minimum and maximum date</legend>
 
       <div>
         <label htmlFor="minDate">Minimum date</label>
