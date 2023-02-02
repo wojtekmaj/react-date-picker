@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 fs.copyFile('entry.nostyle.d.ts', 'dist/entry.nostyle.d.ts', (error) => {
   if (error) {
