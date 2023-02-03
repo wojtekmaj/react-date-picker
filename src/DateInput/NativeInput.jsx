@@ -25,7 +25,7 @@ export default function NativeInput({
       case 'day':
         return 'date';
       default:
-        throw new Error('Invalid valueType.');
+        throw new Error('Invalid valueType');
     }
   })();
 
@@ -40,7 +40,7 @@ export default function NativeInput({
       case 'day':
         return getISOLocalDate;
       default:
-        throw new Error('Invalid valueType.');
+        throw new Error('Invalid valueType');
     }
   })();
 
