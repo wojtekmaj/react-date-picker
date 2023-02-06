@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@wojtekmaj/date-utils": "^1.0.2",
+    "@wojtekmaj/date-utils": "^1.1.2",
     "prop-types": "^15.6.0",
     "react": "^18.2.0",
     "react-date-picker": "portal:../",
