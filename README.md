@@ -66,9 +66,12 @@ function MyApp() {
 
 ### Custom styling
 
-If you don't want to use default React-Date-Picker and React-Calendar styles, you can import React-Date-Picker without them by using `import DatePicker from 'react-date-picker/dist/entry.nostyle';` instead.
+If you want to use default React-Date-Picker and React-Calendar styling to build upon it, you can import them by using:
 
-Styles loaded by the default entry file are `react-date-picker/dist/DatePicker.css` and `react-calendar/dist/Calendar.css`. You can copy them to your project to build your own upon them.
+```js
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
+```
 
 ### Next.js and Vite
 
