@@ -6,7 +6,9 @@ import DayInput from './DayInput';
 describe('DayInput', () => {
   const defaultProps = {
     className: 'className',
-    onChange: () => {},
+    onChange: () => {
+      // Intentionally empty
+    },
   };
 
   it('renders an input', () => {

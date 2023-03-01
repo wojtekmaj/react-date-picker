@@ -6,7 +6,9 @@ import MonthSelect from './MonthSelect';
 describe('MonthSelect', () => {
   const defaultProps = {
     className: 'className',
-    onChange: () => {},
+    onChange: () => {
+      // Intentionally empty
+    },
   };
 
   it('renders a select', () => {

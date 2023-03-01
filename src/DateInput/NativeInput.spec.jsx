@@ -5,7 +5,9 @@ import NativeInput from './NativeInput';
 
 describe('NativeInput', () => {
   const defaultProps = {
-    onChange: () => {},
+    onChange: () => {
+      // Intentionally empty
+    },
     valueType: 'day',
   };
 

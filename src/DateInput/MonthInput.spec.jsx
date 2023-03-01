@@ -6,7 +6,9 @@ import MonthInput from './MonthInput';
 describe('MonthInput', () => {
   const defaultProps = {
     className: 'className',
-    onChange: () => {},
+    onChange: () => {
+      // Intentionally empty
+    },
   };
 
   it('renders an input', () => {

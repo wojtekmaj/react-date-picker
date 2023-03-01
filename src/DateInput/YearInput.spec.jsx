@@ -6,7 +6,9 @@ import YearInput from './YearInput';
 describe('YearInput', () => {
   const defaultProps = {
     className: 'className',
-    onChange: () => {},
+    onChange: () => {
+      // Intentionally empty
+    },
   };
 
   it('renders an input', () => {
