@@ -139,7 +139,7 @@ describe('DatePicker', () => {
 
     const { container } = render(<DatePicker className={className} />);
 
-    const wrapper = container.firstChild;
+    const wrapper = container.firstElementChild;
 
     expect(wrapper).toHaveClass(className);
   });
@@ -147,7 +147,7 @@ describe('DatePicker', () => {
   it('applies "--open" className to its wrapper when given isOpen flag', () => {
     const { container } = render(<DatePicker isOpen />);
 
-    const wrapper = container.firstChild;
+    const wrapper = container.firstElementChild;
 
     expect(wrapper).toHaveClass('react-date-picker--open');
   });
