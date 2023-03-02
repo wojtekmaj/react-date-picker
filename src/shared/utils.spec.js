@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { between, safeMin, safeMax } from './utils';
 
 describe('between', () => {
