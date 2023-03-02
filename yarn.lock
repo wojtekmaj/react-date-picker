@@ -2069,12 +2069,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.0":
-  version: 18.0.10
-  resolution: "@types/react-dom@npm:18.0.10"
+"@types/react-dom@npm:*, @types/react-dom@npm:^18.0.0":
+  version: 18.0.11
+  resolution: "@types/react-dom@npm:18.0.11"
   dependencies:
     "@types/react": "*"
-  checksum: ff8282d5005a0b1cd95fb65bf79d3d8485e4cfe2aaf052129033a178684b940014a3f4536bc20d573f8a01cf4c6f4770c74988cef7c2b5cac3041d9f172647e3
+  checksum: 579691e4d5ec09688087568037c35edf8cfb1ab3e07f6c60029280733ee7b5c06d66df6fcc90786702c93ac8cb13bc7ff16c79ddfc75d082938fbaa36e1cdbf4
   languageName: node
   linkType: hard
 
@@ -3181,10 +3181,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-element-overflow@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "detect-element-overflow@npm:1.2.0"
-  checksum: 89999c89f28e61fdc6ed61105b5fdbb1e6910d14dfae7da3b33f72dc94c28dc43f399b3e2ed41a784f07c7066d8637090a6fd05b2fde7d4b0d1350de06c8f8e4
+"detect-element-overflow@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "detect-element-overflow@npm:1.3.1"
+  checksum: ac75af4967b148379e4ef618c63dde954e0964f61bd430fe574beaa5307cce0411edd5fe51000b4907e134c4c794fad183fc66ea86f7837fa3cc4f1889bd2185
   languageName: node
   linkType: hard
 
@@ -6270,16 +6270,18 @@ __metadata:
   linkType: hard
 
 "react-fit@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "react-fit@npm:1.4.0"
+  version: 1.5.0
+  resolution: "react-fit@npm:1.5.0"
   dependencies:
-    detect-element-overflow: ^1.2.0
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    detect-element-overflow: ^1.3.1
     prop-types: ^15.6.0
     tiny-warning: ^1.0.0
   peerDependencies:
-    react: ^15.5.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^15.5.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: c645e6b6a023cf2fcb88d9a0e4c929e37cda2b76576921f70bb35cb2fc33ed5177e694fbaf36612a642e61914d0270c629606646bbf82f3576e116fc9dd94d5d
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: d4a8418d751a5f12f940e00a862b2a4a6d7a4d633faf7c67b7e79b2cdca1617324286fa6e36df4ba960500b1cd7e85612a79b99c46c48d3bd26a6b307108d696
   languageName: node
   linkType: hard
 
