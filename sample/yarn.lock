@@ -1620,8 +1620,8 @@ __metadata:
   linkType: soft
 
 "react-date-picker@npm:latest":
-  version: 9.1.0
-  resolution: "react-date-picker@npm:9.1.0"
+  version: 9.2.0
+  resolution: "react-date-picker@npm:9.2.0"
   dependencies:
     "@types/react-calendar": ^3.0.0
     "@wojtekmaj/date-utils": ^1.0.3
@@ -1635,7 +1635,7 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 03aab326d0d826796601744c8111f8374480d708ab6a3cb7a1918d57c02f2a55fb8f43ab08c81a016746996a51e279aedf80156b85ab33fccb11d03969812a81
+  checksum: 2573a71ef4b36adbb627f63ea835ade436ad04e827f488572da899ac66a9f85b8db2fa7c007fbdf6a505ab014d520514f6bcf4bcc771bd57976a7c901644ebd6
   languageName: node
   linkType: hard
 
