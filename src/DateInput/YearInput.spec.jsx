@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from 'vitest';
 import React from 'react';
 import { render } from '@testing-library/react';
 
@@ -101,7 +102,7 @@ describe('YearInput', () => {
   });
 
   it('calls inputRef properly', () => {
-    const inputRef = jest.fn();
+    const inputRef = vi.fn();
 
     render(<YearInput {...defaultProps} inputRef={inputRef} />);
 

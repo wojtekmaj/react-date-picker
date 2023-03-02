@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from 'vitest';
 import React from 'react';
 import { render } from '@testing-library/react';
 
@@ -113,7 +114,7 @@ describe('MonthSelect', () => {
   });
 
   it('calls inputRef properly', () => {
-    const inputRef = jest.fn();
+    const inputRef = vi.fn();
 
     render(<MonthSelect {...defaultProps} inputRef={inputRef} />);
 

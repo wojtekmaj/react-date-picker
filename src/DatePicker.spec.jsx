@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from 'vitest';
 import React, { createRef } from 'react';
 import { act, fireEvent, render, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -470,7 +471,7 @@ describe('DatePicker', () => {
   it('calls onChange callback when calling internal onChange', () => {
     const instance = createRef();
     const nextValue = new Date(2019, 0, 1);
-    const onChange = jest.fn();
+    const onChange = vi.fn();
 
     render(<DatePicker onChange={onChange} ref={instance} />);
 
@@ -484,7 +485,7 @@ describe('DatePicker', () => {
   });
 
   it('clears the value when clicking on a button', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
 
     const { container } = render(<DatePicker onChange={onChange} />);
 

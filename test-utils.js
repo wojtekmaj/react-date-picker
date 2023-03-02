@@ -1,19 +1,19 @@
-/* eslint-env jest */
+import { vi } from 'vitest';
 
 export function muteConsole() {
-  jest.spyOn(global.console, 'log').mockImplementation(() => {
+  vi.spyOn(global.console, 'log').mockImplementation(() => {
     // Intentionally empty
   });
-  jest.spyOn(global.console, 'error').mockImplementation(() => {
+  vi.spyOn(global.console, 'error').mockImplementation(() => {
     // Intentionally empty
   });
-  jest.spyOn(global.console, 'warn').mockImplementation(() => {
+  vi.spyOn(global.console, 'warn').mockImplementation(() => {
     // Intentionally empty
   });
 }
 
 export function restoreConsole() {
-  global.console.log.mockRestore();
-  global.console.error.mockRestore();
-  global.console.warn.mockRestore();
+  vi.mocked(global.console.log).mockRestore();
+  vi.mocked(global.console.error).mockRestore();
+  vi.mocked(global.console.warn).mockRestore();
 }

@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from 'vitest';
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
@@ -483,7 +484,7 @@ describe('DateInput', () => {
   });
 
   it('triggers onChange correctly when changed custom input', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
@@ -498,7 +499,7 @@ describe('DateInput', () => {
   });
 
   it('triggers onChange correctly when changed custom input with year < 100', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = new Date();
     date.setFullYear(19, 8, 30);
     date.setHours(0, 0, 0, 0);
@@ -519,7 +520,7 @@ describe('DateInput', () => {
   });
 
   it('triggers onChange correctly when changed custom input with no year', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
     const { container } = render(
@@ -538,7 +539,7 @@ describe('DateInput', () => {
   });
 
   it('triggers onChange correctly when cleared custom inputs', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
@@ -554,7 +555,7 @@ describe('DateInput', () => {
   });
 
   it('triggers onChange correctly when changed native input', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
@@ -568,7 +569,7 @@ describe('DateInput', () => {
   });
 
   it('triggers onChange correctly when changed native input with year < 100', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
@@ -586,7 +587,7 @@ describe('DateInput', () => {
   });
 
   it('triggers onChange correctly when cleared native input', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
