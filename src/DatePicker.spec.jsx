@@ -499,4 +499,38 @@ describe('DatePicker', () => {
 
     expect(onChange).toHaveBeenCalledWith(null);
   });
+
+  it('focuses on first custom input when clicking on divider', () => {
+    const date = new Date(2017, 8, 30);
+    let customInput;
+    let divider;
+
+    const { container, rerender } = render(<DatePicker />);
+
+    customInput = container.querySelector('input[data-input]');
+    divider = container.querySelector('.react-date-picker__inputGroup__divider');
+
+    fireEvent.click(divider);
+    expect(customInput).toHaveFocus();
+
+    rerender(<DatePicker value={date} />);
+
+    customInput = container.querySelector('input[data-input]');
+    divider = container.querySelector('.react-date-picker__inputGroup__divider');
+
+    fireEvent.click(divider);
+    expect(customInput).toHaveFocus();
+  });
+
+  it('focuses on first custom input when clicking on leading zero', () => {
+    const date = new Date(2017, 8, 30);
+
+    const { container } = render(<DatePicker showLeadingZeros value={date} />);
+
+    const customInput = container.querySelector('input[data-input]');
+    const leadingZero = container.querySelector('.react-date-picker__inputGroup__leadingZero');
+
+    fireEvent.click(leadingZero);
+    expect(customInput).toHaveFocus();
+  });
 });

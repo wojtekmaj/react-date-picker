@@ -347,9 +347,13 @@ export default class DateInput extends PureComponent {
   }
 
   onClick = (event) => {
-    if (event.target === event.currentTarget) {
+    if (
+      event.target !== this.dayInput.current &&
+      event.target !== this.monthInput.current &&
+      event.target !== this.yearInput.current
+    ) {
       // Wrapper was directly clicked
-      const firstInput = event.target.children[1];
+      const firstInput = event.currentTarget.querySelector('input[data-input]');
       focus(firstInput);
     }
   };
