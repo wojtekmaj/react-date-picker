@@ -493,7 +493,10 @@ export default class DateInput extends PureComponent {
 
     const values = {};
     formElements.forEach((formElement) => {
-      values[formElement.name] = formElement.value;
+      values[formElement.name] =
+        'valueAsNumber' in formElement
+          ? formElement.valueAsNumber
+          : parseInt(formElement.value, 10);
     });
 
     if (formElements.every((formElement) => !formElement.value)) {
@@ -501,9 +504,9 @@ export default class DateInput extends PureComponent {
     } else if (
       formElements.every((formElement) => formElement.value && formElement.validity.valid)
     ) {
-      const year = parseInt(values.year, 10) || new Date().getFullYear();
-      const monthIndex = parseInt(values.month || 1, 10) - 1;
-      const day = parseInt(values.day || 1, 10);
+      const year = values.year || new Date().getFullYear();
+      const monthIndex = (values.month || 1) - 1;
+      const day = values.day || 1;
 
       const proposedValue = new Date();
       proposedValue.setFullYear(year, monthIndex, day);
