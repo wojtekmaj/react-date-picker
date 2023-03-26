@@ -347,9 +347,13 @@ export default class DateInput extends PureComponent {
 
     let placeholder = formattedDate;
     datePieces.forEach((datePiece, index) => {
-      const formattedDatePiece = formatDatePiece(datePiece, date);
-      const datePieceReplacement = datePieceReplacements[index];
-      placeholder = placeholder.replace(formattedDatePiece, datePieceReplacement);
+      const match = formatDatePiece(datePiece, date);
+
+      if (match) {
+        const formattedDatePiece = match[0];
+        const datePieceReplacement = datePieceReplacements[index];
+        placeholder = placeholder.replace(formattedDatePiece, datePieceReplacement);
+      }
     });
     // See: https://github.com/wojtekmaj/react-date-picker/issues/396
     placeholder = placeholder.replace('17', 'y');
