@@ -519,15 +519,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-calendar@npm:^3.0.0":
-  version: 3.9.0
-  resolution: "@types/react-calendar@npm:3.9.0"
-  dependencies:
-    "@types/react": "*"
-  checksum: cddb6951c29c9adf96c38db2631d7b9d157aa65f5e4a45ba5bfc5657413839dfd7045a2e06b98e890b2285013a4777ca1e8317f6ee52c28284f1e47e58e0f8dd
-  languageName: node
-  linkType: hard
-
 "@types/react-dom@npm:*, @types/react-dom@npm:^18.0.0":
   version: 18.0.11
   resolution: "@types/react-dom@npm:18.0.11"
@@ -3979,7 +3970,6 @@ __metadata:
     "@testing-library/jest-dom": ^5.15.0
     "@testing-library/react": ^14.0.0
     "@testing-library/user-event": ^14.4.0
-    "@types/react-calendar": ^3.0.0
     "@wojtekmaj/date-utils": ^1.1.3
     clsx: ^1.2.1
     eslint: ^8.26.0
