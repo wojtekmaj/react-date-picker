@@ -335,7 +335,7 @@ export default class DateInput extends PureComponent {
       const formatterOptions =
         getFormatterOptionsCache[name] ||
         (() => {
-          const options = { useGrouping: false, [name]: 'numeric' };
+          const options = { [name]: 'numeric' };
 
           getFormatterOptionsCache[name] = options;
 
