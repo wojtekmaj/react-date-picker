@@ -149,7 +149,40 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
   }, []);
 }
 
+const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
+
 export default class DateInput extends PureComponent {
+  static defaultProps = {
+    maxDetail: 'month',
+    name: 'date',
+    returnValue: 'start',
+  };
+
+  static propTypes = {
+    autoFocus: PropTypes.bool,
+    className: PropTypes.string.isRequired,
+    dayAriaLabel: PropTypes.string,
+    dayPlaceholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    format: PropTypes.string,
+    isCalendarOpen: PropTypes.bool,
+    locale: PropTypes.string,
+    maxDate: isMaxDate,
+    maxDetail: PropTypes.oneOf(allViews),
+    minDate: isMinDate,
+    monthAriaLabel: PropTypes.string,
+    monthPlaceholder: PropTypes.string,
+    name: PropTypes.string,
+    nativeInputAriaLabel: PropTypes.string,
+    onChange: PropTypes.func,
+    required: PropTypes.bool,
+    returnValue: PropTypes.oneOf(['start', 'end', 'range']),
+    showLeadingZeros: PropTypes.bool,
+    value: PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]),
+    yearAriaLabel: PropTypes.string,
+    yearPlaceholder: PropTypes.string,
+  };
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const { minDate, maxDate, maxDetail } = nextProps;
 
@@ -613,36 +646,3 @@ export default class DateInput extends PureComponent {
     );
   }
 }
-
-DateInput.defaultProps = {
-  maxDetail: 'month',
-  name: 'date',
-  returnValue: 'start',
-};
-
-const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
-
-DateInput.propTypes = {
-  autoFocus: PropTypes.bool,
-  className: PropTypes.string.isRequired,
-  dayAriaLabel: PropTypes.string,
-  dayPlaceholder: PropTypes.string,
-  disabled: PropTypes.bool,
-  format: PropTypes.string,
-  isCalendarOpen: PropTypes.bool,
-  locale: PropTypes.string,
-  maxDate: isMaxDate,
-  maxDetail: PropTypes.oneOf(allViews),
-  minDate: isMinDate,
-  monthAriaLabel: PropTypes.string,
-  monthPlaceholder: PropTypes.string,
-  name: PropTypes.string,
-  nativeInputAriaLabel: PropTypes.string,
-  onChange: PropTypes.func,
-  required: PropTypes.bool,
-  returnValue: PropTypes.oneOf(['start', 'end', 'range']),
-  showLeadingZeros: PropTypes.bool,
-  value: PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]),
-  yearAriaLabel: PropTypes.string,
-  yearPlaceholder: PropTypes.string,
-};
