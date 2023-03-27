@@ -4009,8 +4009,8 @@ __metadata:
   linkType: hard
 
 "react-fit@npm:^1.4.0":
-  version: 1.5.0
-  resolution: "react-fit@npm:1.5.0"
+  version: 1.5.1
+  resolution: "react-fit@npm:1.5.1"
   dependencies:
     "@types/react": "*"
     "@types/react-dom": "*"
@@ -4020,7 +4020,7 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: d4a8418d751a5f12f940e00a862b2a4a6d7a4d633faf7c67b7e79b2cdca1617324286fa6e36df4ba960500b1cd7e85612a79b99c46c48d3bd26a6b307108d696
+  checksum: 40cf34d353748576d348d59d70686e0107298553c2d43cbb1ba4f62541124c7b3e23162165176432fb13617f6673285ab7123e29ec4929d7d5ba57a3d1c3824c
   languageName: node
   linkType: hard
 
