@@ -244,6 +244,7 @@ export default class DatePicker extends PureComponent {
       returnValue,
       showLeadingZeros,
       value,
+      wrapperClassName,
       yearAriaLabel,
       yearPlaceholder,
     } = this.props;
@@ -265,7 +266,12 @@ export default class DatePicker extends PureComponent {
     };
 
     return (
-      <div className={`${baseClassName}__wrapper`}>
+      <div
+        className={mergeClassNames(
+          `${baseClassName}__wrapper`,
+          wrapperClassName,
+        )}
+      >
         <DateInput
           {...ariaLabelProps}
           {...placeholderProps}
