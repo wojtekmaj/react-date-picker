@@ -10,9 +10,11 @@ import DateInput from './DateInput';
 
 import { isMaxDate, isMinDate } from './shared/propTypes';
 
+import type { ClassName, Detail, LooseValue } from './shared/types';
+
 const baseClassName = 'react-date-picker';
-const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'];
-const allViews = ['century', 'decade', 'year', 'month'];
+const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
+const allViews = ['century', 'decade', 'year', 'month'] as const;
 
 const iconProps = {
   xmlns: 'http://www.w3.org/2000/svg',
@@ -44,7 +46,50 @@ const ClearIcon = (
   </svg>
 );
 
-export default function DatePicker(props) {
+type Icon = React.ReactElement | string;
+
+type IconOrRenderFunction = Icon | React.ComponentType | React.ReactElement;
+
+type DatePickerProps = {
+  autoFocus?: boolean;
+  calendarAriaLabel?: string;
+  calendarClassName?: ClassName;
+  calendarIcon?: IconOrRenderFunction;
+  className?: ClassName;
+  clearAriaLabel?: string;
+  clearIcon?: IconOrRenderFunction;
+  closeCalendar?: boolean;
+  'data-testid'?: string;
+  dayAriaLabel?: string;
+  dayPlaceholder?: string;
+  disableCalendar?: boolean;
+  disabled?: boolean;
+  format?: string;
+  id?: string;
+  isOpen?: boolean;
+  locale?: string;
+  maxDate?: Date;
+  maxDetail?: Detail;
+  minDate?: Date;
+  monthAriaLabel?: string;
+  monthPlaceholder?: string;
+  name?: string;
+  nativeInputAriaLabel?: string;
+  onCalendarClose?: () => void;
+  onCalendarOpen?: () => void;
+  onChange?: (value: Date | null | (Date | null)[]) => void;
+  onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
+  openCalendarOnFocus?: boolean;
+  portalContainer?: HTMLElement;
+  required?: boolean;
+  returnValue?: 'start' | 'end' | 'range';
+  showLeadingZeros?: boolean;
+  value?: LooseValue;
+  yearAriaLabel?: string;
+  yearPlaceholder?: string;
+};
+
+export default function DatePicker(props: DatePickerProps) {
   const {
     autoFocus,
     calendarAriaLabel,
@@ -83,9 +128,9 @@ export default function DatePicker(props) {
     ...otherProps
   } = props;
 
-  const [isOpen, setIsOpen] = useState(isOpenProps);
-  const wrapper = useRef();
-  const calendarWrapper = useRef();
+  const [isOpen, setIsOpen] = useState<boolean | null>(isOpenProps);
+  const wrapper = useRef<HTMLDivElement>(null);
+  const calendarWrapper = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsOpen(isOpenProps);
@@ -115,7 +160,10 @@ export default function DatePicker(props) {
     }
   }
 
-  function onChange(value, shouldCloseCalendar = shouldCloseCalendarProps) {
+  function onChange(
+    value: Date | null | (Date | null)[],
+    shouldCloseCalendar: boolean = shouldCloseCalendarProps,
+  ) {
     if (shouldCloseCalendar) {
       closeCalendar();
     }
@@ -125,7 +173,7 @@ export default function DatePicker(props) {
     }
   }
 
-  function onFocus(event) {
+  function onFocus(event: React.FocusEvent<HTMLInputElement>) {
     if (onFocusProps) {
       onFocusProps(event);
     }
@@ -144,7 +192,7 @@ export default function DatePicker(props) {
   }
 
   const onKeyDown = useCallback(
-    (event) => {
+    (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         closeCalendar();
       }
@@ -156,17 +204,19 @@ export default function DatePicker(props) {
     onChange(null);
   }
 
-  function stopPropagation(event) {
+  function stopPropagation(event: React.FocusEvent) {
     event.stopPropagation();
   }
 
   const onOutsideAction = useCallback(
-    (event) => {
+    (event: Event) => {
       const { current: wrapperEl } = wrapper;
       const { current: calendarWrapperEl } = calendarWrapper;
 
       // Try event.composedPath first to handle clicks inside a Shadow DOM.
-      const target = 'composedPath' in event ? event.composedPath()[0] : event.target;
+      const target = (
+        'composedPath' in event ? event.composedPath()[0] : (event as Event).target
+      ) as HTMLElement;
 
       if (
         target &&
@@ -182,13 +232,19 @@ export default function DatePicker(props) {
 
   const handleOutsideActionListeners = useCallback(
     (shouldListen = isOpen) => {
-      const action = shouldListen ? 'addEventListener' : 'removeEventListener';
-
       outsideActionEvents.forEach((event) => {
-        document[action](event, onOutsideAction);
+        if (shouldListen) {
+          document.addEventListener(event, onOutsideAction);
+        } else {
+          document.removeEventListener(event, onOutsideAction);
+        }
       });
 
-      document[action]('keydown', onKeyDown);
+      if (shouldListen) {
+        document.addEventListener('keydown', onKeyDown);
+      } else {
+        document.removeEventListener('keydown', onKeyDown);
+      }
     },
     [isOpen, onOutsideAction, onKeyDown],
   );
@@ -202,7 +258,7 @@ export default function DatePicker(props) {
   }, [handleOutsideActionListeners]);
 
   function renderInputs() {
-    const [valueFrom] = [].concat(value);
+    const [valueFrom] = Array.isArray(value) ? value : [value];
 
     const ariaLabelProps = {
       dayAriaLabel,
@@ -288,7 +344,7 @@ export default function DatePicker(props) {
       <Calendar
         className={calendarClassName}
         onChange={(value) => onChange(value)}
-        value={value || null}
+        value={value}
         {...calendarProps}
       />
     );

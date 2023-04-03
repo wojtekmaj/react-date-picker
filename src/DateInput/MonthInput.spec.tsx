@@ -10,7 +10,7 @@ describe('MonthInput', () => {
     onChange: () => {
       // Intentionally empty
     },
-  };
+  } satisfies React.ComponentProps<typeof MonthInput>;
 
   it('renders an input', () => {
     const { container } = render(<MonthInput {...defaultProps} />);
@@ -138,7 +138,7 @@ describe('MonthInput', () => {
   });
 
   it('handles inputRef properly', () => {
-    const inputRef = createRef();
+    const inputRef = createRef<HTMLInputElement>();
 
     render(<MonthInput {...defaultProps} inputRef={inputRef} />);
 

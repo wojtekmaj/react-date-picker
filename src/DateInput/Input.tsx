@@ -7,6 +7,26 @@ import { isRef } from '../shared/propTypes';
 
 /* eslint-disable jsx-a11y/no-autofocus */
 
+type InputProps = {
+  ariaLabel?: string;
+  autoFocus?: boolean;
+  className?: string;
+  disabled?: boolean;
+  inputRef?: React.RefObject<HTMLInputElement>;
+  max: number;
+  min: number;
+  name: string;
+  nameForClass?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement> & { target: HTMLInputElement }) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement }) => void;
+  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement }) => void;
+  placeholder?: string;
+  required?: boolean;
+  showLeadingZeros?: boolean;
+  step?: number;
+  value?: string | null;
+};
+
 const isBrowser = typeof document !== 'undefined';
 
 const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
@@ -15,7 +35,7 @@ const isIEOrEdgeLegacy = isBrowser && /(MSIE|Trident\/|Edge\/)/.test(navigator.u
 
 const isFirefox = isBrowser && /Firefox/.test(navigator.userAgent);
 
-function onFocus(event) {
+function onFocus(event: React.FocusEvent<HTMLInputElement>) {
   const { target } = event;
 
   if (isIEOrEdgeLegacy) {
@@ -25,7 +45,7 @@ function onFocus(event) {
   }
 }
 
-function updateInputWidthOnLoad(element) {
+function updateInputWidthOnLoad(element: HTMLInputElement) {
   if (document.readyState === 'complete') {
     return;
   }
@@ -37,7 +57,7 @@ function updateInputWidthOnLoad(element) {
   window.addEventListener('load', onLoad);
 }
 
-function updateInputWidthOnFontLoad(element) {
+function updateInputWidthOnFontLoad(element: HTMLInputElement) {
   if (!document.fonts) {
     return;
   }
@@ -61,28 +81,41 @@ function updateInputWidthOnFontLoad(element) {
   document.fonts.addEventListener('loadingdone', onLoadingDone);
 }
 
-function getSelectionString(input) {
+function getSelectionString(input: HTMLInputElement) {
   /**
    * window.getSelection().toString() returns empty string in IE11 and Firefox,
    * so alternatives come first.
    */
-  if (input && 'selectionStart' in input && input.selectionStart !== null) {
+  if (
+    input &&
+    'selectionStart' in input &&
+    input.selectionStart !== null &&
+    'selectionEnd' in input &&
+    input.selectionEnd !== null
+  ) {
     return input.value.slice(input.selectionStart, input.selectionEnd);
   }
 
   if ('getSelection' in window) {
-    return window.getSelection().toString();
+    const selection = window.getSelection();
+    return selection && selection.toString();
   }
 
   return null;
 }
 
-function makeOnKeyPress(maxLength) {
+function makeOnKeyPress(maxLength: number | null) {
+  if (maxLength === null) {
+    return undefined;
+  }
+
   /**
    * Prevents keystrokes that would not produce a number or when value after keystroke would
    * exceed maxLength.
    */
-  return function onKeyPress(event) {
+  return function onKeyPress(
+    event: React.KeyboardEvent<HTMLInputElement> & { key: string; target: HTMLInputElement },
+  ) {
     if (isFirefox) {
       // See https://github.com/wojtekmaj/react-time-picker/issues/92
       return;
@@ -118,7 +151,7 @@ export default function Input({
   showLeadingZeros,
   step,
   value,
-}) {
+}: InputProps) {
   useIsomorphicLayoutEffect(() => {
     if (!inputRef || !inputRef.current) {
       return;
@@ -130,7 +163,10 @@ export default function Input({
   }, [inputRef, value]);
 
   const hasLeadingZero =
-    showLeadingZeros && value && value < 10 && (value === '0' || !value.toString().startsWith('0'));
+    showLeadingZeros &&
+    value &&
+    Number(value) < 10 &&
+    (value === '0' || !value.toString().startsWith('0'));
   const maxLength = max ? max.toString().length : null;
 
   return (
@@ -155,7 +191,9 @@ export default function Input({
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         onKeyPress={makeOnKeyPress(maxLength)}
-        onKeyUp={(event) => {
+        onKeyUp={(
+          event: React.KeyboardEvent<HTMLInputElement> & { key: string; target: HTMLInputElement },
+        ) => {
           updateInputWidth(event.target);
 
           if (onKeyUp) {

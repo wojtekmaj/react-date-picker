@@ -26,7 +26,7 @@ describe('DateInput', () => {
     className: 'react-date-picker__inputGroup',
   };
 
-  let user;
+  let user: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     user = userEvent.setup({
       advanceTimers: vi.advanceTimersByTime.bind(vi),
@@ -308,7 +308,7 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0];
+    const monthInput = customInputs[0] as HTMLInputElement;
     const dayInput = customInputs[1];
 
     await user.type(monthInput, '{arrowright}');
@@ -320,11 +320,13 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0];
+    const monthInput = customInputs[0] as HTMLInputElement;
     const dayInput = customInputs[1];
 
-    const separator = container.querySelector('.react-date-picker__inputGroup__divider');
-    const separatorKey = separator.textContent;
+    const separator = container.querySelector(
+      '.react-date-picker__inputGroup__divider',
+    ) as HTMLSpanElement;
+    const separatorKey = separator.textContent as string;
 
     await user.type(monthInput, separatorKey);
 
@@ -335,7 +337,7 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const yearInput = customInputs[2];
+    const yearInput = customInputs[2] as HTMLInputElement;
 
     await user.type(yearInput, '{arrowright}');
 
@@ -347,7 +349,7 @@ describe('DateInput', () => {
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const monthInput = customInputs[0];
-    const dayInput = customInputs[1];
+    const dayInput = customInputs[1] as HTMLInputElement;
 
     await user.type(dayInput, '{arrowleft}');
 
@@ -358,7 +360,7 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0];
+    const monthInput = customInputs[0] as HTMLInputElement;
 
     await user.type(monthInput, '{arrowleft}');
 
@@ -369,7 +371,7 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0];
+    const monthInput = customInputs[0] as HTMLInputElement;
     const dayInput = customInputs[1];
 
     await user.type(monthInput, '4');
@@ -381,7 +383,7 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0];
+    const monthInput = customInputs[0] as HTMLInputElement;
     const dayInput = customInputs[1];
 
     await user.type(monthInput, '03');
@@ -393,7 +395,7 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0];
+    const monthInput = customInputs[0] as HTMLInputElement;
 
     await user.type(monthInput, '1');
 
@@ -407,7 +409,7 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[1];
+    const dayInput = customInputs[1] as HTMLInputElement;
 
     fireEvent.change(dayInput, { target: { value: '20' } });
 
@@ -424,7 +426,7 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[1];
+    const dayInput = customInputs[1] as HTMLInputElement;
 
     fireEvent.change(dayInput, { target: { value: '20' } });
 
@@ -445,7 +447,7 @@ describe('DateInput', () => {
     );
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[0];
+    const dayInput = customInputs[0] as HTMLInputElement;
 
     fireEvent.change(dayInput, { target: { value: '20' } });
 
@@ -477,7 +479,7 @@ describe('DateInput', () => {
 
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const nativeInput = container.querySelector('input[type="date"]');
+    const nativeInput = container.querySelector('input[type="date"]') as HTMLInputElement;
 
     fireEvent.change(nativeInput, { target: { value: '2017-09-20' } });
 
@@ -491,7 +493,7 @@ describe('DateInput', () => {
 
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const nativeInput = container.querySelector('input[type="date"]');
+    const nativeInput = container.querySelector('input[type="date"]') as HTMLInputElement;
 
     fireEvent.change(nativeInput, { target: { value: '0019-09-20' } });
 
@@ -509,7 +511,7 @@ describe('DateInput', () => {
 
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const nativeInput = container.querySelector('input[type="date"]');
+    const nativeInput = container.querySelector('input[type="date"]') as HTMLInputElement;
 
     fireEvent.change(nativeInput, { target: { value: '' } });
 

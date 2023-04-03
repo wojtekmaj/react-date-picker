@@ -7,13 +7,20 @@ import Input from './Input';
 import { isMaxDate, isMinDate, isRef, isValueType } from '../shared/propTypes';
 import { safeMax, safeMin } from '../shared/utils';
 
+type YearInputProps = {
+  maxDate?: Date;
+  minDate?: Date;
+  placeholder?: string;
+  valueType?: 'century' | 'decade' | 'year' | 'month' | 'day';
+} & Omit<React.ComponentProps<typeof Input>, 'max' | 'min' | 'name'>;
+
 export default function YearInput({
   maxDate,
   minDate,
   placeholder = '----',
   valueType,
   ...otherProps
-}) {
+}: YearInputProps) {
   const maxYear = safeMin(275760, maxDate && getYear(maxDate));
   const minYear = safeMax(1, minDate && getYear(minDate));
 

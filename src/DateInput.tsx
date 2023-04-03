@@ -14,16 +14,18 @@ import { getBegin, getEnd } from './shared/dates';
 import { isMaxDate, isMinDate } from './shared/propTypes';
 import { between } from './shared/utils';
 
-const getFormatterOptionsCache = {};
+import type { Detail } from './shared/types';
+
+const getFormatterOptionsCache: Record<string, Intl.DateTimeFormatOptions> = {};
 
 const defaultMinDate = new Date();
 defaultMinDate.setFullYear(1, 0, 1);
 defaultMinDate.setHours(0, 0, 0, 0);
 const defaultMaxDate = new Date(8.64e15);
-const allViews = ['century', 'decade', 'year', 'month'];
-const allValueTypes = [...allViews.slice(1), 'day'];
+const allViews = ['century', 'decade', 'year', 'month'] as const;
+const allValueTypes = [...allViews.slice(1), 'day'] as const;
 
-function toDate(value) {
+function toDate(value: Date | string): Date {
   if (value instanceof Date) {
     return value;
   }
@@ -34,16 +36,17 @@ function toDate(value) {
 /**
  * Returns value type that can be returned with currently applied settings.
  */
-function getValueType(maxDetail) {
-  return allValueTypes[allViews.indexOf(maxDetail)];
+function getValueType<T extends number>(view: (typeof allViews)[T]): (typeof allValueTypes)[T] {
+  const index = allViews.indexOf(view) as T;
+
+  return allValueTypes[index];
 }
 
-function getValue(value, index) {
-  if (!value) {
-    return null;
-  }
-
-  const rawValue = Array.isArray(value) && value.length === 2 ? value[index] : value;
+function getValue(
+  value: string | Date | null | undefined | (string | Date | null | undefined)[],
+  index: 0 | 1,
+): Date | null {
+  const rawValue = Array.isArray(value) ? value[index] : value;
 
   if (!rawValue) {
     return null;
@@ -58,7 +61,17 @@ function getValue(value, index) {
   return valueDate;
 }
 
-function getDetailValue({ value, minDate, maxDate, maxDetail }, index) {
+type DetailArgs = {
+  value?: string | Date | null;
+  minDate?: Date;
+  maxDate?: Date;
+  maxDetail: Detail;
+};
+
+function getDetailValue(
+  { value, minDate, maxDate, maxDetail }: DetailArgs,
+  index: 0 | 1,
+): Date | null {
   const valuePiece = getValue(value, index);
 
   if (!valuePiece) {
@@ -66,37 +79,57 @@ function getDetailValue({ value, minDate, maxDate, maxDetail }, index) {
   }
 
   const valueType = getValueType(maxDetail);
-  const detailValueFrom = [getBegin, getEnd][index](valueType, valuePiece);
+
+  const detailValueFrom = (() => {
+    switch (index) {
+      case 0:
+        return getBegin(valueType, valuePiece);
+      case 1:
+        return getEnd(valueType, valuePiece);
+      default:
+        throw new Error(`Invalid index value: ${index}`);
+    }
+  })();
 
   return between(detailValueFrom, minDate, maxDate);
 }
 
-const getDetailValueFrom = (args) => getDetailValue(args, 0);
+const getDetailValueFrom = (args: DetailArgs) => getDetailValue(args, 0);
 
-const getDetailValueTo = (args) => getDetailValue(args, 1);
+const getDetailValueTo = (args: DetailArgs) => getDetailValue(args, 1);
 
-const getDetailValueArray = (args) => [getDetailValueFrom, getDetailValueTo].map((fn) => fn(args));
+const getDetailValueArray = (args: DetailArgs) =>
+  [getDetailValueFrom, getDetailValueTo].map((fn) => fn(args));
 
-function isInternalInput(element) {
+function isInternalInput(element: HTMLElement) {
   return element.dataset.input === 'true';
 }
 
-function findInput(element, property) {
-  let nextElement = element;
+function findInput(
+  element: HTMLElement,
+  property: 'previousElementSibling' | 'nextElementSibling',
+) {
+  let nextElement: HTMLElement | null = element;
   do {
-    nextElement = nextElement[property];
+    nextElement = nextElement[property] as HTMLElement | null;
   } while (nextElement && !isInternalInput(nextElement));
   return nextElement;
 }
 
-function focus(element) {
+function focus(element?: HTMLElement | null) {
   if (element) {
     element.focus();
   }
 }
 
-function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstances) {
-  const usedFunctions = [];
+type RenderFunction = (match: string, index: number) => React.ReactNode;
+
+function renderCustomInputs(
+  placeholder: string,
+  elementFunctions: Record<string, RenderFunction>,
+  allowMultipleInstances: boolean,
+) {
+  const usedFunctions: RenderFunction[] = [];
   const pattern = new RegExp(
     Object.keys(elementFunctions)
       .map((el) => `${el}+`)
@@ -105,7 +138,7 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
   );
   const matches = placeholder.match(pattern);
 
-  return placeholder.split(pattern).reduce((arr, element, index) => {
+  return placeholder.split(pattern).reduce<React.ReactNode[]>((arr, element, index) => {
     const divider = element && (
       // eslint-disable-next-line react/no-array-index-key
       <Divider key={`separator_${index}`}>{element}</Divider>
@@ -119,7 +152,7 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
         elementFunctions[
           Object.keys(elementFunctions).find((elementFunction) =>
             currentMatch.match(elementFunction),
-          )
+          ) as string
         ];
 
       if (!renderFunction) {
@@ -137,6 +170,31 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
     return res;
   }, []);
 }
+
+type DateInputProps = {
+  autoFocus?: boolean;
+  className: string;
+  dayAriaLabel?: string;
+  dayPlaceholder?: string;
+  disabled?: boolean;
+  format?: string;
+  isCalendarOpen?: boolean | null;
+  locale?: string;
+  maxDate?: Date;
+  maxDetail?: Detail;
+  minDate?: Date;
+  monthAriaLabel?: string;
+  monthPlaceholder?: string;
+  name?: string;
+  nativeInputAriaLabel?: string;
+  onChange?: (value: Date | null | (Date | null)[], shouldCloseCalendar: boolean) => void;
+  required?: boolean;
+  returnValue?: 'start' | 'end' | 'range';
+  showLeadingZeros?: boolean;
+  value?: string | Date | null;
+  yearAriaLabel?: string;
+  yearPlaceholder?: string;
+};
 
 export default function DateInput({
   autoFocus,
@@ -161,15 +219,15 @@ export default function DateInput({
   value: valueProps,
   yearAriaLabel,
   yearPlaceholder,
-}) {
-  const [year, setYear] = useState(null);
-  const [month, setMonth] = useState(null);
-  const [day, setDay] = useState(null);
-  const [value, setValue] = useState(null);
-  const yearInput = useRef();
-  const monthInput = useRef();
-  const monthSelect = useRef();
-  const dayInput = useRef();
+}: DateInputProps) {
+  const [year, setYear] = useState<string | null>(null);
+  const [month, setMonth] = useState<string | null>(null);
+  const [day, setDay] = useState<string | null>(null);
+  const [value, setValue] = useState<Date | null>(null);
+  const yearInput = useRef<HTMLInputElement>(null);
+  const monthInput = useRef<HTMLInputElement>(null);
+  const monthSelect = useRef<HTMLSelectElement>(null);
+  const dayInput = useRef<HTMLInputElement>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(isCalendarOpenProps);
 
   useEffect(() => {
@@ -188,12 +246,13 @@ export default function DateInput({
       setYear(getYear(nextValue).toString());
       setMonth(getMonthHuman(nextValue).toString());
       setDay(getDate(nextValue).toString());
+      setValue(nextValue);
     } else {
       setYear(null);
       setMonth(null);
       setDay(null);
+      setValue(null);
     }
-    setValue(nextValue);
   }, [
     valueProps,
     minDate,
@@ -210,7 +269,7 @@ export default function DateInput({
     const formatterOptions =
       getFormatterOptionsCache[level] ||
       (() => {
-        const options = { year: 'numeric' };
+        const options: Intl.DateTimeFormatOptions = { year: 'numeric' };
         if (level >= 2) {
           options.month = 'numeric';
         }
@@ -229,7 +288,7 @@ export default function DateInput({
   /**
    * Gets current value in a desired format.
    */
-  function getProcessedValue(value) {
+  function getProcessedValue(value: Date) {
     const processFunction = (() => {
       switch (returnValue) {
         case 'start':
@@ -261,10 +320,10 @@ export default function DateInput({
       const date = new Date(year, monthIndex, day);
       const formattedDate = formatDate(locale, date);
 
-      const datePieces = ['year', 'month', 'day'];
+      const datePieces = ['year', 'month', 'day'] as const;
       const datePieceReplacements = ['y', 'M', 'd'];
 
-      function formatDatePiece(name, dateToFormat) {
+      function formatDatePiece(name: keyof Intl.DateTimeFormatOptions, dateToFormat: Date) {
         const formatterOptions =
           getFormatterOptionsCache[name] ||
           (() => {
@@ -284,7 +343,7 @@ export default function DateInput({
 
         if (match) {
           const formattedDatePiece = match[0];
-          const datePieceReplacement = datePieceReplacements[index];
+          const datePieceReplacement = datePieceReplacements[index] as string;
           placeholder = placeholder.replace(formattedDatePiece, datePieceReplacement);
         }
       });
@@ -299,15 +358,19 @@ export default function DateInput({
     return dividers ? dividers[0] : null;
   })();
 
-  function onClick(event) {
+  function onClick(event: React.MouseEvent<HTMLDivElement> & { target: HTMLDivElement }) {
     if (event.target === event.currentTarget) {
       // Wrapper was directly clicked
-      const firstInput = event.target.children[1];
+      const firstInput = event.target.children[1] as HTMLInputElement;
       focus(firstInput);
     }
   }
 
-  function onKeyDown(event) {
+  function onKeyDown(
+    event:
+      | (React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement })
+      | (React.KeyboardEvent<HTMLSelectElement> & { target: HTMLSelectElement }),
+  ) {
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowRight':
@@ -325,7 +388,7 @@ export default function DateInput({
     }
   }
 
-  function onKeyUp(event) {
+  function onKeyUp(event: React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement }) {
     const { key, target: input } = event;
 
     const isNumberKey = !isNaN(Number(key));
@@ -364,17 +427,25 @@ export default function DateInput({
       return;
     }
 
+    type NonFalsy<T> = T extends false | 0 | '' | null | undefined | 0n ? never : T;
+
+    function filterBoolean<T>(value: T): value is NonFalsy<typeof value> {
+      return Boolean(value);
+    }
+
     const formElements = [
       dayInput.current,
       monthInput.current,
       monthSelect.current,
       yearInput.current,
-    ].filter(Boolean);
+    ].filter(filterBoolean);
 
-    const values = {};
+    const values: Record<string, number> = {};
     formElements.forEach((formElement) => {
       values[formElement.name] =
-        'valueAsNumber' in formElement ? formElement.valueAsNumber : Number(formElement.value);
+        'valueAsNumber' in formElement
+          ? formElement.valueAsNumber
+          : Number((formElement as unknown as HTMLInputElement).value);
     });
 
     if (formElements.every((formElement) => !formElement.value)) {
@@ -398,7 +469,9 @@ export default function DateInput({
   /**
    * Called when non-native date input is changed.
    */
-  function onChange(event) {
+  function onChange(
+    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
+  ) {
     const { name, value } = event.target;
 
     switch (name) {
@@ -419,7 +492,7 @@ export default function DateInput({
   /**
    * Called when native date input is changed.
    */
-  function onChangeNative(event) {
+  function onChangeNative(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
 
     if (!onChangeProps) {
@@ -431,7 +504,7 @@ export default function DateInput({
         return null;
       }
 
-      const [yearString, monthString, dayString] = value.split('-');
+      const [yearString, monthString, dayString] = value.split('-') as [string, string, string];
       const year = Number(yearString);
       const monthIndex = Number(monthString) - 1 || 0;
       const day = Number(dayString) || 1;
@@ -458,7 +531,7 @@ export default function DateInput({
     required: Boolean(required || isCalendarOpen),
   };
 
-  function renderDay(currentMatch, index) {
+  function renderDay(currentMatch: string, index: number) {
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
@@ -482,7 +555,7 @@ export default function DateInput({
     );
   }
 
-  function renderMonth(currentMatch, index) {
+  function renderMonth(currentMatch: string, index: number) {
     if (currentMatch && currentMatch.length > 4) {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
@@ -523,7 +596,7 @@ export default function DateInput({
     );
   }
 
-  function renderYear(currentMatch, index) {
+  function renderYear(currentMatch: string, index: number) {
     return (
       <YearInput
         key="year"
