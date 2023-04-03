@@ -178,6 +178,7 @@ export default function DateInput({
   const [value, setValue] = useState(null);
   const yearInput = useRef();
   const monthInput = useRef();
+  const monthSelect = useRef();
   const dayInput = useRef();
   const [isCalendarOpen, setIsCalendarOpen] = useState(isCalendarOpenProps);
 
@@ -368,7 +369,12 @@ export default function DateInput({
       return;
     }
 
-    const formElements = [dayInput.current, monthInput.current, yearInput.current].filter(Boolean);
+    const formElements = [
+      dayInput.current,
+      monthInput.current,
+      monthSelect.current,
+      yearInput.current,
+    ].filter(Boolean);
 
     const values = {};
     formElements.forEach((formElement) => {
@@ -496,7 +502,7 @@ export default function DateInput({
           ariaLabel={monthAriaLabel}
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={index === 0 && autoFocus}
-          inputRef={monthInput}
+          inputRef={monthSelect}
           locale={locale}
           placeholder={monthPlaceholder}
           short={currentMatch.length === 3}
