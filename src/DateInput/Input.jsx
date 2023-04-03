@@ -133,47 +133,44 @@ export default function Input({
     showLeadingZeros && value && value < 10 && (value === '0' || !value.toString().startsWith('0'));
   const maxLength = max ? max.toString().length : null;
 
-  return [
-    hasLeadingZero && (
-      <span key="leadingZero" className={`${className}__leadingZero`}>
-        0
-      </span>
-    ),
-    <input
-      key="input"
-      aria-label={ariaLabel}
-      autoComplete="off"
-      autoFocus={autoFocus}
-      className={clsx(
-        `${className}__input`,
-        `${className}__${nameForClass || name}`,
-        hasLeadingZero && `${className}__input--hasLeadingZero`,
-      )}
-      data-input="true"
-      disabled={disabled}
-      inputMode="numeric"
-      max={max}
-      min={min}
-      name={name}
-      onChange={onChange}
-      onFocus={onFocus}
-      onKeyDown={onKeyDown}
-      onKeyPress={makeOnKeyPress(maxLength)}
-      onKeyUp={(event) => {
-        updateInputWidth(event.target);
+  return (
+    <>
+      {hasLeadingZero ? <span className={`${className}__leadingZero`}>0</span> : null}
+      <input
+        aria-label={ariaLabel}
+        autoComplete="off"
+        autoFocus={autoFocus}
+        className={clsx(
+          `${className}__input`,
+          `${className}__${nameForClass || name}`,
+          hasLeadingZero && `${className}__input--hasLeadingZero`,
+        )}
+        data-input="true"
+        disabled={disabled}
+        inputMode="numeric"
+        max={max}
+        min={min}
+        name={name}
+        onChange={onChange}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+        onKeyPress={makeOnKeyPress(maxLength)}
+        onKeyUp={(event) => {
+          updateInputWidth(event.target);
 
-        if (onKeyUp) {
-          onKeyUp(event);
-        }
-      }}
-      placeholder={placeholder}
-      ref={inputRef}
-      required={required}
-      step={step}
-      type="number"
-      value={value !== null ? value : ''}
-    />,
-  ];
+          if (onKeyUp) {
+            onKeyUp(event);
+          }
+        }}
+        placeholder={placeholder}
+        ref={inputRef}
+        required={required}
+        step={step}
+        type="number"
+        value={value !== null ? value : ''}
+      />
+    </>
+  );
 }
 
 Input.propTypes = {
