@@ -1,5 +1,5 @@
-import { describe, expect, it, vi } from 'vitest';
-import React from 'react';
+import { describe, expect, it } from 'vitest';
+import React, { createRef } from 'react';
 import { render } from '@testing-library/react';
 
 import MonthSelect from './MonthSelect';
@@ -113,13 +113,12 @@ describe('MonthSelect', () => {
     expect(select).toBeRequired();
   });
 
-  it('calls inputRef properly', () => {
-    const inputRef = vi.fn();
+  it('handles inputRef properly', () => {
+    const inputRef = createRef();
 
     render(<MonthSelect {...defaultProps} inputRef={inputRef} />);
 
-    expect(inputRef).toHaveBeenCalled();
-    expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLSelectElement));
+    expect(inputRef.current).toBeInstanceOf(HTMLSelectElement);
   });
 
   it('has all options enabled by default', () => {

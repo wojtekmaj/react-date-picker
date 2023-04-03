@@ -1,5 +1,5 @@
-import { describe, expect, it, vi } from 'vitest';
-import React from 'react';
+import { describe, expect, it } from 'vitest';
+import React, { createRef } from 'react';
 import { render } from '@testing-library/react';
 
 import MonthInput from './MonthInput';
@@ -137,13 +137,12 @@ describe('MonthInput', () => {
     expect(input).toBeRequired();
   });
 
-  it('calls inputRef properly', () => {
-    const inputRef = vi.fn();
+  it('handles inputRef properly', () => {
+    const inputRef = createRef();
 
     render(<MonthInput {...defaultProps} inputRef={inputRef} />);
 
-    expect(inputRef).toHaveBeenCalled();
-    expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLInputElement));
+    expect(inputRef.current).toBeInstanceOf(HTMLInputElement);
   });
 
   it('has min = "1" by default', () => {
