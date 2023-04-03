@@ -169,6 +169,7 @@ export default function DatePicker(props) {
       const target = 'composedPath' in event ? event.composedPath()[0] : event.target;
 
       if (
+        target &&
         wrapperEl &&
         !wrapperEl.contains(target) &&
         (!calendarWrapperEl || !calendarWrapperEl.contains(target))
