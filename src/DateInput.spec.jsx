@@ -357,36 +357,36 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[0];
-    const monthInput = customInputs[1];
+    const monthInput = customInputs[0];
+    const dayInput = customInputs[1];
 
-    fireEvent.focus(dayInput);
-    dayInput.focus();
-
-    expect(dayInput).toHaveFocus();
-
-    fireEvent.keyDown(dayInput, getKey('ArrowRight'));
+    fireEvent.focus(monthInput);
+    monthInput.focus();
 
     expect(monthInput).toHaveFocus();
+
+    fireEvent.keyDown(monthInput, getKey('ArrowRight'));
+
+    expect(dayInput).toHaveFocus();
   });
 
   it('jumps to the next field when separator key is pressed', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[0];
-    const monthInput = customInputs[1];
+    const monthInput = customInputs[0];
+    const dayInput = customInputs[1];
 
-    fireEvent.focus(dayInput);
-    dayInput.focus();
+    fireEvent.focus(monthInput);
+    monthInput.focus();
 
-    expect(dayInput).toHaveFocus();
+    expect(monthInput).toHaveFocus();
 
     const separators = container.querySelectorAll('.react-date-picker__inputGroup__divider');
     const separatorKey = separators[0].textContent;
-    fireEvent.keyDown(dayInput, getKey(separatorKey));
+    fireEvent.keyDown(monthInput, getKey(separatorKey));
 
-    expect(monthInput).toHaveFocus();
+    expect(dayInput).toHaveFocus();
   });
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
@@ -409,24 +409,8 @@ describe('DateInput', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[0];
-    const monthInput = customInputs[1];
-
-    fireEvent.focus(monthInput);
-    monthInput.focus();
-
-    expect(monthInput).toHaveFocus();
-
-    fireEvent.keyDown(monthInput, getKey('ArrowLeft'));
-
-    expect(dayInput).toHaveFocus();
-  });
-
-  it('does not jump to the previous field when left arrow is pressed when the first input is focused', () => {
-    const { container } = render(<DateInput {...defaultProps} />);
-
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[0];
+    const monthInput = customInputs[0];
+    const dayInput = customInputs[1];
 
     fireEvent.focus(dayInput);
     dayInput.focus();
@@ -435,52 +419,68 @@ describe('DateInput', () => {
 
     fireEvent.keyDown(dayInput, getKey('ArrowLeft'));
 
-    expect(dayInput).toHaveFocus();
+    expect(monthInput).toHaveFocus();
+  });
+
+  it('does not jump to the previous field when left arrow is pressed when the first input is focused', () => {
+    const { container } = render(<DateInput {...defaultProps} />);
+
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const monthInput = customInputs[0];
+
+    fireEvent.focus(monthInput);
+    monthInput.focus();
+
+    expect(monthInput).toHaveFocus();
+
+    fireEvent.keyDown(monthInput, getKey('ArrowLeft'));
+
+    expect(monthInput).toHaveFocus();
   });
 
   it("jumps to the next field when a value which can't be extended to another valid value is entered", () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[0];
-    const monthInput = customInputs[1];
+    const monthInput = customInputs[0];
+    const dayInput = customInputs[1];
 
-    fireEvent.focus(dayInput);
+    fireEvent.focus(monthInput);
 
-    dayInput.value = '4';
-    fireEvent.keyUp(dayInput, { key: '4' });
+    monthInput.value = '4';
+    fireEvent.keyUp(monthInput, { key: '4' });
 
-    expect(monthInput).toHaveFocus();
+    expect(dayInput).toHaveFocus();
   });
 
   it('jumps to the next field when a value as long as the length of maximum value is entered', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[0];
-    const monthInput = customInputs[1];
+    const monthInput = customInputs[0];
+    const dayInput = customInputs[1];
 
-    fireEvent.focus(dayInput);
+    fireEvent.focus(monthInput);
 
-    dayInput.value = '03';
-    fireEvent.keyUp(dayInput, { key: '3' });
+    monthInput.value = '03';
+    fireEvent.keyUp(monthInput, { key: '3' });
 
-    expect(monthInput).toHaveFocus();
+    expect(dayInput).toHaveFocus();
   });
 
   it('does not jump the next field when a value which can be extended to another valid value is entered', () => {
     const { container } = render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[0];
+    const monthInput = customInputs[0];
 
-    fireEvent.focus(dayInput);
-    dayInput.focus();
+    fireEvent.focus(monthInput);
+    monthInput.focus();
 
-    dayInput.value = '1';
-    fireEvent.keyUp(dayInput, { key: '1' });
+    monthInput.value = '1';
+    fireEvent.keyUp(monthInput, { key: '1' });
 
-    expect(dayInput).toHaveFocus();
+    expect(monthInput).toHaveFocus();
   });
 
   it('triggers onChange correctly when changed custom input', () => {
