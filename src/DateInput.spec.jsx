@@ -323,8 +323,8 @@ describe('DateInput', () => {
     const monthInput = customInputs[0];
     const dayInput = customInputs[1];
 
-    const separators = container.querySelectorAll('.react-date-picker__inputGroup__divider');
-    const separatorKey = separators[0].textContent;
+    const separator = container.querySelector('.react-date-picker__inputGroup__divider');
+    const separatorKey = separator.textContent;
 
     await user.type(monthInput, separatorKey);
 
