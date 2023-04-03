@@ -150,18 +150,18 @@ export default function DateInput({
   dayPlaceholder,
   disabled,
   format,
-  isCalendarOpen: isCalendarOpenProps,
+  isCalendarOpen: isCalendarOpenProps = null,
   locale,
   maxDate,
-  maxDetail,
+  maxDetail = 'month',
   minDate,
   monthAriaLabel,
   monthPlaceholder,
-  name,
+  name = 'date',
   nativeInputAriaLabel,
   onChange: onChangeProps,
   required,
-  returnValue,
+  returnValue = 'start',
   showLeadingZeros,
   value: valueProps,
   yearAriaLabel,
@@ -571,12 +571,6 @@ export default function DateInput({
     </div>
   );
 }
-
-DateInput.defaultProps = {
-  maxDetail: 'month',
-  name: 'date',
-  returnValue: 'start',
-};
 
 DateInput.propTypes = {
   autoFocus: PropTypes.bool,

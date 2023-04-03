@@ -48,11 +48,11 @@ export default function DatePicker(props) {
   const {
     autoFocus,
     calendarAriaLabel,
-    calendarIcon,
+    calendarIcon = CalendarIcon,
     className,
     clearAriaLabel,
-    clearIcon,
-    closeCalendar: shouldCloseCalendarProps,
+    clearIcon = ClearIcon,
+    closeCalendar: shouldCloseCalendarProps = true,
     'data-testid': dataTestid,
     dayAriaLabel,
     dayPlaceholder,
@@ -60,22 +60,22 @@ export default function DatePicker(props) {
     disabled,
     format,
     id,
-    isOpen: isOpenProps,
+    isOpen: isOpenProps = null,
     locale,
     maxDate,
-    maxDetail,
+    maxDetail = 'month',
     minDate,
     monthAriaLabel,
     monthPlaceholder,
-    name,
+    name = 'date',
     nativeInputAriaLabel,
     onCalendarClose,
     onCalendarOpen,
     onChange: onChangeProps,
     onFocus: onFocusProps,
-    openCalendarOnFocus,
+    openCalendarOnFocus = true,
     required,
-    returnValue,
+    returnValue = 'start',
     showLeadingZeros,
     value,
     yearAriaLabel,
@@ -341,15 +341,6 @@ export default function DatePicker(props) {
     </div>
   );
 }
-
-DatePicker.defaultProps = {
-  calendarIcon: CalendarIcon,
-  clearIcon: ClearIcon,
-  closeCalendar: true,
-  isOpen: null,
-  openCalendarOnFocus: true,
-  returnValue: 'start',
-};
 
 const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
 
