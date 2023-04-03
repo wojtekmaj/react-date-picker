@@ -608,7 +608,7 @@ DateInput.propTypes = {
   required: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end', 'range']),
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]),
+  value: isValue,
   yearAriaLabel: PropTypes.string,
   yearPlaceholder: PropTypes.string,
 };
