@@ -511,22 +511,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash.memoize@npm:^4.1.7":
-  version: 4.1.7
-  resolution: "@types/lodash.memoize@npm:4.1.7"
-  dependencies:
-    "@types/lodash": "*"
-  checksum: 85f128b6606ab0545c11194208cf844536f981859221dff0032b1043dd4e02ee5aa1b96020d1e02a24db31be7493f2e9ff45836d2e3c35cf973fc6488f129eed
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:*":
-  version: 4.14.192
-  resolution: "@types/lodash@npm:4.14.192"
-  checksum: 31e1f0543a04158d2c429c45efd7c77882736630d0652f82eb337d6159ec0c249c5d175c0af731537b53271e665ff8d76f43221d75d03646d31cb4bd6f0056b1
-  languageName: node
-  linkType: hard
-
 "@types/prop-types@npm:*":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
@@ -585,7 +569,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wojtekmaj/date-utils@npm:^1.0.3, @wojtekmaj/date-utils@npm:^1.1.3":
+"@wojtekmaj/date-utils@npm:^1.0.2, @wojtekmaj/date-utils@npm:^1.0.3":
   version: 1.1.3
   resolution: "@wojtekmaj/date-utils@npm:1.1.3"
   checksum: 4ae0eba0876b8c156720c249ddd665efd8da0c42a02bbf037475b8a30554e02fa642e6f1d81d1fffdc02c6d816fb73590ee03c003ac976d91380745533dbf327
@@ -1052,16 +1036,6 @@ __metadata:
   dependencies:
     lodash.memoize: ^4.1.1
   checksum: 4ab9ae83264c8b4f376b7690578ee3b332808d40f49e500469d476b832d4fddcf8477b7a01b60a242fd232b5a2ae8f6b7620f731d67350e89fd17ddd91fc8a0e
-  languageName: node
-  linkType: hard
-
-"get-user-locale@npm:^2.1.3":
-  version: 2.2.1
-  resolution: "get-user-locale@npm:2.2.1"
-  dependencies:
-    "@types/lodash.memoize": ^4.1.7
-    lodash.memoize: ^4.1.1
-  checksum: 929e368d120795295a9fb98724b1f236ea42fe570fa710a8c6d5ecf03f32d11a57966ab7cef38f416523fdf57178d888e835919bc52321696236d74092d06dbc
   languageName: node
   linkType: hard
 
@@ -1627,19 +1601,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-calendar@npm:^4.0.0":
-  version: 4.1.0
-  resolution: "react-calendar@npm:4.1.0"
+"react-calendar@npm:~4.0.0":
+  version: 4.0.0
+  resolution: "react-calendar@npm:4.0.0"
   dependencies:
-    "@types/react": "*"
-    "@wojtekmaj/date-utils": ^1.1.3
+    "@wojtekmaj/date-utils": ^1.0.2
     clsx: ^1.2.1
-    get-user-locale: ^2.1.3
+    get-user-locale: ^1.2.0
     prop-types: ^15.6.0
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 9ec265dd927797fcb2370f8b2ca520e2c7ac6716f53b0ba7bc68578b247b8a67950ae2a20a1dbc6579a5c38cb25ae2fa6a55afc02bd1589de23868c5d336421a
+  checksum: a470ea1eab914cda9f76245060e15129a220c30f2942a28c20b3cb999fd994d0c0fadae849184ba123b3b78541fbb3301c5ac0c44e0bd2ab156bfba8cc587593
   languageName: node
   linkType: hard
 
@@ -1657,8 +1630,8 @@ __metadata:
   linkType: soft
 
 "react-date-picker@npm:latest":
-  version: 9.2.0
-  resolution: "react-date-picker@npm:9.2.0"
+  version: 9.2.1
+  resolution: "react-date-picker@npm:9.2.1"
   dependencies:
     "@types/react-calendar": ^3.0.0
     "@wojtekmaj/date-utils": ^1.0.3
@@ -1666,13 +1639,13 @@ __metadata:
     get-user-locale: ^1.2.0
     make-event-props: ^1.1.0
     prop-types: ^15.6.0
-    react-calendar: ^4.0.0
+    react-calendar: ~4.0.0
     react-fit: ^1.4.0
     update-input-width: ^1.2.2
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 2573a71ef4b36adbb627f63ea835ade436ad04e827f488572da899ac66a9f85b8db2fa7c007fbdf6a505ab014d520514f6bcf4bcc771bd57976a7c901644ebd6
+  checksum: 7abc4a293420d6c610b712c2d306089148859c3862c0b32a1cf5e25a4ddf8839e5749b7af8fbb2158e57b645577e8cc333453fcbf1240d8c3956f1770e28386d
   languageName: node
   linkType: hard
 
