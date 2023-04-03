@@ -2,15 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { getBegin, getEnd } from './dates';
 
 describe('getBegin', () => {
-  it('returns proper beginning of the century', () => {
-    const date = new Date(2017, 0, 1);
-    const beginOfCenturyDate = new Date(2001, 0, 1);
-
-    const beginOfCentury = getBegin('century', date);
-
-    expect(beginOfCentury).toEqual(beginOfCenturyDate);
-  });
-
   it('returns proper beginning of the decade', () => {
     const date = new Date(2017, 0, 1);
     const beginOfDecadeDate = new Date(2011, 0, 1);
@@ -55,15 +46,6 @@ describe('getBegin', () => {
 });
 
 describe('getEnd', () => {
-  it('returns proper end of the century', () => {
-    const date = new Date(2017, 0, 1);
-    const endOfCenturyDate = new Date(2100, 11, 31, 23, 59, 59, 999);
-
-    const endOfCentury = getEnd('century', date);
-
-    expect(endOfCentury).toEqual(endOfCenturyDate);
-  });
-
   it('returns proper end of the decade', () => {
     const date = new Date(2017, 0, 1);
     const endOfDecadeDate = new Date(2020, 11, 31, 23, 59, 59, 999);

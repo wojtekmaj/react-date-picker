@@ -31,7 +31,6 @@ export default function NativeInput({
 
   const nativeValueParser = (() => {
     switch (valueType) {
-      case 'century':
       case 'decade':
       case 'year':
         return getYear;

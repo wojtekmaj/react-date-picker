@@ -1,6 +1,4 @@
 import {
-  getCenturyStart,
-  getCenturyEnd,
   getDecadeStart,
   getDecadeEnd,
   getYearStart,
@@ -19,8 +17,6 @@ import {
  */
 export function getBegin(rangeType, date) {
   switch (rangeType) {
-    case 'century':
-      return getCenturyStart(date);
     case 'decade':
       return getDecadeStart(date);
     case 'year':
@@ -42,8 +38,6 @@ export function getBegin(rangeType, date) {
  */
 export function getEnd(rangeType, date) {
   switch (rangeType) {
-    case 'century':
-      return getCenturyEnd(date);
     case 'decade':
       return getDecadeEnd(date);
     case 'year':
