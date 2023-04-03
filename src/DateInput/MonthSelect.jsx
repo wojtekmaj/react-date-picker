@@ -7,18 +7,24 @@ import { formatMonth, formatShortMonth } from '../shared/dateFormatter';
 import { isMaxDate, isMinDate, isRef } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
+/* eslint-disable jsx-a11y/no-autofocus */
+
 export default function MonthSelect({
   ariaLabel,
+  autoFocus,
   className,
+  disabled,
   inputRef,
   locale,
   maxDate,
   minDate,
+  onChange,
+  onKeyDown,
   placeholder = '--',
+  required,
   short,
   value,
   year,
-  ...otherProps
 }) {
   function isSameYear(date) {
     return date && year === getYear(date).toString();
@@ -33,13 +39,17 @@ export default function MonthSelect({
   return (
     <select
       aria-label={ariaLabel}
+      autoFocus={autoFocus}
       className={clsx(`${className}__input`, `${className}__${name}`)}
       data-input="true"
       data-select="true"
+      disabled={disabled}
       name={name}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
       ref={inputRef}
+      required={required}
       value={value !== null ? value : ''}
-      {...otherProps}
     >
       {!value && <option value="">{placeholder}</option>}
       {dates.map((date) => {
@@ -58,6 +68,7 @@ export default function MonthSelect({
 
 MonthSelect.propTypes = {
   ariaLabel: PropTypes.string,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   inputRef: isRef,
@@ -66,7 +77,6 @@ MonthSelect.propTypes = {
   minDate: isMinDate,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
-  onKeyUp: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   short: PropTypes.bool,
