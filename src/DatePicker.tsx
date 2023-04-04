@@ -10,7 +10,7 @@ import DateInput from './DateInput';
 
 import { isMaxDate, isMinDate } from './shared/propTypes';
 
-import type { ClassName, Detail, LooseValue } from './shared/types';
+import type { ClassName, Detail, LooseValue, Value } from './shared/types';
 
 const baseClassName = 'react-date-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
@@ -77,7 +77,7 @@ type DatePickerProps = {
   nativeInputAriaLabel?: string;
   onCalendarClose?: () => void;
   onCalendarOpen?: () => void;
-  onChange?: (value: Date | null | (Date | null)[]) => void;
+  onChange?: (value: Value) => void;
   onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
   openCalendarOnFocus?: boolean;
   portalContainer?: HTMLElement;
@@ -160,10 +160,7 @@ export default function DatePicker(props: DatePickerProps) {
     }
   }
 
-  function onChange(
-    value: Date | null | (Date | null)[],
-    shouldCloseCalendar: boolean = shouldCloseCalendarProps,
-  ) {
+  function onChange(value: Value, shouldCloseCalendar: boolean = shouldCloseCalendarProps) {
     if (shouldCloseCalendar) {
       closeCalendar();
     }

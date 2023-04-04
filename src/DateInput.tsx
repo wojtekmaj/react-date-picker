@@ -14,7 +14,7 @@ import { getBegin, getEnd } from './shared/dates';
 import { isMaxDate, isMinDate } from './shared/propTypes';
 import { between } from './shared/utils';
 
-import type { Detail } from './shared/types';
+import type { Detail, LooseValuePiece, Value } from './shared/types';
 
 const getFormatterOptionsCache: Record<string, Intl.DateTimeFormatOptions> = {};
 
@@ -62,7 +62,7 @@ function getValue(
 }
 
 type DetailArgs = {
-  value?: string | Date | null;
+  value?: LooseValuePiece;
   minDate?: Date;
   maxDate?: Date;
   maxDetail: Detail;
@@ -99,7 +99,10 @@ const getDetailValueFrom = (args: DetailArgs) => getDetailValue(args, 0);
 const getDetailValueTo = (args: DetailArgs) => getDetailValue(args, 1);
 
 const getDetailValueArray = (args: DetailArgs) =>
-  [getDetailValueFrom, getDetailValueTo].map((fn) => fn(args));
+  [getDetailValueFrom, getDetailValueTo].map((fn) => fn(args)) as [
+    ReturnType<typeof getDetailValueFrom>,
+    ReturnType<typeof getDetailValueTo>,
+  ];
 
 function isInternalInput(element: HTMLElement) {
   return element.dataset.input === 'true';
@@ -187,11 +190,11 @@ type DateInputProps = {
   monthPlaceholder?: string;
   name?: string;
   nativeInputAriaLabel?: string;
-  onChange?: (value: Date | null | (Date | null)[], shouldCloseCalendar: boolean) => void;
+  onChange?: (value: Value, shouldCloseCalendar: boolean) => void;
   required?: boolean;
   returnValue?: 'start' | 'end' | 'range';
   showLeadingZeros?: boolean;
-  value?: string | Date | null;
+  value?: LooseValuePiece;
   yearAriaLabel?: string;
   yearPlaceholder?: string;
 };
