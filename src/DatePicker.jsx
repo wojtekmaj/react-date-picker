@@ -318,11 +318,6 @@ export default function DatePicker(props) {
 
   const eventProps = useMemo(() => makeEventProps(otherProps), [otherProps]);
 
-  const {
-    onChange: onChangeEventProps, // Unused, here to exclude it from eventPropsWithoutOnChange
-    ...eventPropsWithoutOnChange
-  } = eventProps;
-
   return (
     <div
       className={clsx(
@@ -333,7 +328,7 @@ export default function DatePicker(props) {
       )}
       data-testid={dataTestid}
       id={id}
-      {...eventPropsWithoutOnChange}
+      {...eventProps}
       onFocus={onFocus}
       ref={wrapper}
     >
