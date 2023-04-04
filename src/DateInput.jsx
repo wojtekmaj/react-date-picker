@@ -75,15 +75,7 @@ const getDetailValueFrom = (args) => getDetailValue(args, 0);
 
 const getDetailValueTo = (args) => getDetailValue(args, 1);
 
-const getDetailValueArray = (args) => {
-  const { value } = args;
-
-  if (Array.isArray(value)) {
-    return value;
-  }
-
-  return [getDetailValueFrom, getDetailValueTo].map((fn) => fn(args));
-};
+const getDetailValueArray = (args) => [getDetailValueFrom, getDetailValueTo].map((fn) => fn(args));
 
 function isInternalInput(element) {
   return element.dataset.input === 'true';
