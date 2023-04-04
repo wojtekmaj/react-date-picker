@@ -2,6 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getISOLocalDate } from '@wojtekmaj/date-utils';
 
+type ValidityOptionsProps = {
+  maxDate?: Date;
+  minDate?: Date;
+  required?: boolean;
+  setMaxDate: (maxDate: Date | undefined) => void;
+  setMinDate: (minDate: Date | undefined) => void;
+  setRequired: (required: boolean) => void;
+};
+
 export default function ValidityOptions({
   maxDate,
   minDate,
@@ -9,17 +18,17 @@ export default function ValidityOptions({
   setMaxDate,
   setMinDate,
   setRequired,
-}) {
-  function onMinChange(event) {
+}: ValidityOptionsProps) {
+  function onMinChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
 
-    setMinDate(value ? new Date(value) : null);
+    setMinDate(value ? new Date(value) : undefined);
   }
 
-  function onMaxChange(event) {
+  function onMaxChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
 
-    setMaxDate(value ? new Date(value) : null);
+    setMaxDate(value ? new Date(value) : undefined);
   }
 
   return (

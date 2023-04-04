@@ -1,6 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+type ViewOptionsProps = {
+  disabled: boolean;
+  renderInPortal: boolean;
+  setDisabled: (disabled: boolean) => void;
+  setRenderInPortal: (renderInPortal: boolean) => void;
+  setShowLeadingZeros: (showLeadingZeros: boolean) => void;
+  setShowNeighboringMonth: (showNeighboringMonth: boolean) => void;
+  setShowWeekNumbers: (showWeekNumbers: boolean) => void;
+  showLeadingZeros: boolean;
+  showNeighboringMonth: boolean;
+  showWeekNumbers: boolean;
+};
+
 export default function ViewOptions({
   disabled,
   renderInPortal,
@@ -12,32 +25,32 @@ export default function ViewOptions({
   showLeadingZeros,
   showNeighboringMonth,
   showWeekNumbers,
-}) {
-  function onDisabledChange(event) {
+}: ViewOptionsProps) {
+  function onDisabledChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target;
 
     setDisabled(checked);
   }
 
-  function onShowLeadingZerosChange(event) {
+  function onShowLeadingZerosChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target;
 
     setShowLeadingZeros(checked);
   }
 
-  function onShowWeekNumbersChange(event) {
+  function onShowWeekNumbersChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target;
 
     setShowWeekNumbers(checked);
   }
 
-  function onShowNeighboringMonthChange(event) {
+  function onShowNeighboringMonthChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target;
 
     setShowNeighboringMonth(checked);
   }
 
-  function onRenderInPortalChange(event) {
+  function onRenderInPortalChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target;
 
     setRenderInPortal(checked);
