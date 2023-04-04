@@ -330,7 +330,7 @@ export default function DateInput({
   function onKeyUp(event) {
     const { key, target: input } = event;
 
-    const isNumberKey = !isNaN(parseInt(key, 10));
+    const isNumberKey = !isNaN(Number(key));
 
     if (!isNumberKey) {
       return;
@@ -376,9 +376,7 @@ export default function DateInput({
     const values = {};
     formElements.forEach((formElement) => {
       values[formElement.name] =
-        'valueAsNumber' in formElement
-          ? formElement.valueAsNumber
-          : parseInt(formElement.value, 10);
+        'valueAsNumber' in formElement ? formElement.valueAsNumber : Number(formElement.value);
     });
 
     if (formElements.every((formElement) => !formElement.value)) {
@@ -386,9 +384,9 @@ export default function DateInput({
     } else if (
       formElements.every((formElement) => formElement.value && formElement.validity.valid)
     ) {
-      const year = values.year || new Date().getFullYear();
-      const monthIndex = (values.month || 1) - 1;
-      const day = values.day || 1;
+      const year = Number(values.year || new Date().getFullYear());
+      const monthIndex = Number(values.month || 1) - 1;
+      const day = Number(values.day || 1);
 
       const proposedValue = new Date();
       proposedValue.setFullYear(year, monthIndex, day);
@@ -436,9 +434,9 @@ export default function DateInput({
       }
 
       const [yearString, monthString, dayString] = value.split('-');
-      const year = parseInt(yearString, 10);
-      const monthIndex = parseInt(monthString, 10) - 1 || 0;
-      const day = parseInt(dayString, 10) || 1;
+      const year = Number(yearString);
+      const monthIndex = Number(monthString) - 1 || 0;
+      const day = Number(dayString) || 1;
 
       const proposedValue = new Date();
       proposedValue.setFullYear(year, monthIndex, day);
@@ -459,7 +457,7 @@ export default function DateInput({
     onKeyDown,
     onKeyUp,
     // This is only for showing validity when editing
-    required: required || isCalendarOpen,
+    required: Boolean(required || isCalendarOpen),
   };
 
   function renderDay(currentMatch, index) {
