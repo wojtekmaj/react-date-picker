@@ -2,8 +2,10 @@ import getUserLocale from 'get-user-locale';
 
 const formatterCache = new Map();
 
-export function getFormatter(options) {
-  return (locale, date) => {
+export function getFormatter(
+  options: Intl.DateTimeFormatOptions,
+): (locale: string | undefined, date: Date) => string {
+  return function formatter(locale: string | undefined, date: Date): string {
     const localeWithDefault = locale || getUserLocale();
 
     if (!formatterCache.has(localeWithDefault)) {
@@ -13,7 +15,10 @@ export function getFormatter(options) {
     const formatterCacheLocale = formatterCache.get(localeWithDefault);
 
     if (!formatterCacheLocale.has(options)) {
-      formatterCacheLocale.set(options, new Intl.DateTimeFormat(localeWithDefault, options).format);
+      formatterCacheLocale.set(
+        options,
+        new Intl.DateTimeFormat(localeWithDefault || undefined, options).format,
+      );
     }
 
     return formatterCacheLocale.get(options)(date);
@@ -28,18 +33,21 @@ export function getFormatter(options) {
  * https://bugzilla.mozilla.org/show_bug.cgi?id=1385643
  *
  * @param {Date} date Date.
+ * @returns {Date} Date with hour set to 12.
  */
-function toSafeHour(date) {
+function toSafeHour(date: Date): Date {
   const safeDate = new Date(date);
   return new Date(safeDate.setHours(12));
 }
 
-function getSafeFormatter(options) {
+function getSafeFormatter(
+  options: Intl.DateTimeFormatOptions,
+): (locale: string | undefined, date: Date) => string {
   return (locale, date) => getFormatter(options)(locale, toSafeHour(date));
 }
 
-const formatMonthOptions = { month: 'long' };
-const formatShortMonthOptions = { month: 'short' };
+const formatMonthOptions = { month: 'long' } satisfies Intl.DateTimeFormatOptions;
+const formatShortMonthOptions = { month: 'short' } satisfies Intl.DateTimeFormatOptions;
 
 export const formatMonth = getSafeFormatter(formatMonthOptions);
 export const formatShortMonth = getSafeFormatter(formatShortMonthOptions);

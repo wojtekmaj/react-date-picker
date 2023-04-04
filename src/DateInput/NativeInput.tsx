@@ -4,6 +4,18 @@ import { getYear, getISOLocalDate, getISOLocalMonth } from '@wojtekmaj/date-util
 
 import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 
+type NativeInputProps = {
+  ariaLabel?: string;
+  disabled?: boolean;
+  maxDate?: Date;
+  minDate?: Date;
+  name?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  value?: Date | null;
+  valueType: 'century' | 'decade' | 'year' | 'month' | 'day';
+};
+
 export default function NativeInput({
   ariaLabel,
   disabled,
@@ -14,7 +26,7 @@ export default function NativeInput({
   required,
   value,
   valueType,
-}) {
+}: NativeInputProps) {
   const nativeInputType = (() => {
     switch (valueType) {
       case 'decade':
@@ -43,7 +55,7 @@ export default function NativeInput({
     }
   })();
 
-  function stopPropagation(event) {
+  function stopPropagation(event: React.FocusEvent<HTMLInputElement>) {
     event.stopPropagation();
   }
 
@@ -52,8 +64,8 @@ export default function NativeInput({
       aria-label={ariaLabel}
       disabled={disabled}
       hidden
-      max={maxDate ? nativeValueParser(maxDate) : null}
-      min={minDate ? nativeValueParser(minDate) : null}
+      max={maxDate ? nativeValueParser(maxDate) : undefined}
+      min={minDate ? nativeValueParser(minDate) : undefined}
       name={name}
       onChange={onChange}
       onFocus={stopPropagation}
@@ -77,6 +89,6 @@ NativeInput.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  value: PropTypes.instanceOf(Date),
   valueType: isValueType,
 };

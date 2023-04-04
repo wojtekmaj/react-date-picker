@@ -41,6 +41,7 @@ describe('getBegin', () => {
   it('throws an error when given unrecognized range type', () => {
     const date = new Date(2017, 0, 1);
 
+    // @ts-expect-error-next-line
     expect(() => getBegin('hamster', date)).toThrow();
   });
 });
@@ -85,6 +86,7 @@ describe('getEnd', () => {
   it('throws an error when given unrecognized range type', () => {
     const date = new Date(2017, 0, 1);
 
+    // @ts-expect-error-next-line
     expect(() => getEnd('hamster', date)).toThrow();
   });
 });

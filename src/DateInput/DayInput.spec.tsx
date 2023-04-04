@@ -10,7 +10,7 @@ describe('DayInput', () => {
     onChange: () => {
       // Intentionally empty
     },
-  };
+  } satisfies React.ComponentProps<typeof DayInput>;
 
   it('renders an input', () => {
     const { container } = render(<DayInput {...defaultProps} />);
@@ -138,7 +138,7 @@ describe('DayInput', () => {
   });
 
   it('handles inputRef properly', () => {
-    const inputRef = createRef();
+    const inputRef = createRef<HTMLInputElement>();
 
     render(<DayInput {...defaultProps} inputRef={inputRef} />);
 

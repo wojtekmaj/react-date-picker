@@ -10,7 +10,7 @@ describe('YearInput', () => {
     onChange: () => {
       // Intentionally empty
     },
-  };
+  } satisfies React.ComponentProps<typeof YearInput>;
 
   it('renders an input', () => {
     const { container } = render(<YearInput {...defaultProps} />);
@@ -102,7 +102,7 @@ describe('YearInput', () => {
   });
 
   it('handles inputRef properly', () => {
-    const inputRef = createRef();
+    const inputRef = createRef<HTMLInputElement>();
 
     render(<YearInput {...defaultProps} inputRef={inputRef} />);
 

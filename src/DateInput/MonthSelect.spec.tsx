@@ -10,12 +10,12 @@ describe('MonthSelect', () => {
     onChange: () => {
       // Intentionally empty
     },
-  };
+  } satisfies React.ComponentProps<typeof MonthSelect>;
 
   it('renders a select', () => {
     const { container } = render(<MonthSelect {...defaultProps} />);
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     expect(select).toBeInTheDocument();
 
     const options = select.querySelectorAll('option');
@@ -114,7 +114,7 @@ describe('MonthSelect', () => {
   });
 
   it('handles inputRef properly', () => {
-    const inputRef = createRef();
+    const inputRef = createRef<HTMLSelectElement>();
 
     render(<MonthSelect {...defaultProps} inputRef={inputRef} />);
 
@@ -124,7 +124,7 @@ describe('MonthSelect', () => {
   it('has all options enabled by default', () => {
     const { container } = render(<MonthSelect {...defaultProps} />);
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     const options = select.querySelectorAll('option');
 
     options.forEach((option) => {
@@ -137,7 +137,7 @@ describe('MonthSelect', () => {
       <MonthSelect {...defaultProps} minDate={new Date(2017, 6, 1)} year="2018" />,
     );
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     const options = select.querySelectorAll('option[value]');
 
     options.forEach((option) => {
@@ -150,7 +150,7 @@ describe('MonthSelect', () => {
       <MonthSelect {...defaultProps} minDate={new Date(2018, 6, 1)} year="2018" />,
     );
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     const options = Array.from(select.querySelectorAll('option')).slice(1); // Getting rid of "--" option
 
     // January - June
@@ -168,7 +168,7 @@ describe('MonthSelect', () => {
       <MonthSelect {...defaultProps} maxDate={new Date(2019, 6, 1)} year="2018" />,
     );
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     const options = Array.from(select.querySelectorAll('option')).slice(1); // Getting rid of "--" option
 
     options.forEach((option) => {
@@ -181,7 +181,7 @@ describe('MonthSelect', () => {
       <MonthSelect {...defaultProps} maxDate={new Date(2018, 6, 1)} year="2018" />,
     );
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     const options = Array.from(select.querySelectorAll('option')).slice(1); // Getting rid of "--" option
 
     // January - July

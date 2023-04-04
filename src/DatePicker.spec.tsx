@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import DatePicker from './DatePicker';
 
-async function waitForElementToBeRemovedOrHidden(callback) {
+async function waitForElementToBeRemovedOrHidden(callback: () => HTMLElement | null) {
   const element = callback();
 
   if (element) {
@@ -183,7 +183,9 @@ describe('DatePicker', () => {
     it('renders clear icon by default when clearIcon is not given', () => {
       const { container } = render(<DatePicker />);
 
-      const clearButton = container.querySelector('button.react-date-picker__clear-button');
+      const clearButton = container.querySelector(
+        'button.react-date-picker__clear-button',
+      ) as HTMLButtonElement;
 
       const clearIcon = clearButton.querySelector('svg');
 
@@ -200,7 +202,7 @@ describe('DatePicker', () => {
 
     it('renders clear icon when given clearIcon as a React element', () => {
       function ClearIcon() {
-        return '❌';
+        return <>❌</>;
       }
 
       const { container } = render(<DatePicker clearIcon={<ClearIcon />} />);
@@ -212,7 +214,7 @@ describe('DatePicker', () => {
 
     it('renders clear icon when given clearIcon as a function', () => {
       function ClearIcon() {
-        return '❌';
+        return <>❌</>;
       }
 
       const { container } = render(<DatePicker clearIcon={ClearIcon} />);
@@ -235,7 +237,9 @@ describe('DatePicker', () => {
     it('renders calendar icon by default when calendarIcon is not given', () => {
       const { container } = render(<DatePicker />);
 
-      const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
+      const calendarButton = container.querySelector(
+        'button.react-date-picker__calendar-button',
+      ) as HTMLButtonElement;
 
       const calendarIcon = calendarButton.querySelector('svg');
 
@@ -252,7 +256,7 @@ describe('DatePicker', () => {
 
     it('renders calendar icon when given calendarIcon as a React element', () => {
       function CalendarIcon() {
-        return '📅';
+        return <>📅</>;
       }
 
       const { container } = render(<DatePicker calendarIcon={<CalendarIcon />} />);
@@ -264,7 +268,7 @@ describe('DatePicker', () => {
 
     it('renders calendar icon when given calendarIcon as a function', () => {
       function CalendarIcon() {
-        return '📅';
+        return <>📅</>;
       }
 
       const { container } = render(<DatePicker calendarIcon={CalendarIcon} />);
@@ -312,7 +316,9 @@ describe('DatePicker', () => {
 
     expect(calendar).toBeFalsy();
 
-    const button = container.querySelector('button.react-date-picker__calendar-button');
+    const button = container.querySelector(
+      'button.react-date-picker__calendar-button',
+    ) as HTMLButtonElement;
     fireEvent.click(button);
 
     const calendar2 = container.querySelector('.react-calendar');
@@ -328,7 +334,7 @@ describe('DatePicker', () => {
 
       expect(calendar).toBeFalsy();
 
-      const input = container.querySelector('input[name="day"]');
+      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
       fireEvent.focus(input);
 
       const calendar2 = container.querySelector('.react-calendar');
@@ -343,7 +349,7 @@ describe('DatePicker', () => {
 
       expect(calendar).toBeFalsy();
 
-      const input = container.querySelector('input[name="day"]');
+      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
       fireEvent.focus(input);
 
       const calendar2 = container.querySelector('.react-calendar');
@@ -358,7 +364,7 @@ describe('DatePicker', () => {
 
       expect(calendar).toBeFalsy();
 
-      const input = container.querySelector('input[name="day"]');
+      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
       fireEvent.focus(input);
 
       const calendar2 = container.querySelector('.react-calendar');
@@ -373,7 +379,7 @@ describe('DatePicker', () => {
 
       expect(calendar).toBeFalsy();
 
-      const select = container.querySelector('select[name="month"]');
+      const select = container.querySelector('select[name="month"]') as HTMLSelectElement;
       fireEvent.focus(select);
 
       const calendar2 = container.querySelector('.react-calendar');
@@ -416,8 +422,8 @@ describe('DatePicker', () => {
     const { container } = render(<DatePicker isOpen />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0];
-    const dayInput = customInputs[1];
+    const monthInput = customInputs[0] as HTMLInputElement;
+    const dayInput = customInputs[1] as HTMLInputElement;
 
     fireEvent.blur(monthInput);
     fireEvent.focus(dayInput);
@@ -430,7 +436,7 @@ describe('DatePicker', () => {
   it('closes Calendar when changing value by default', async () => {
     const { container } = render(<DatePicker isOpen />);
 
-    const firstTile = container.querySelector('.react-calendar__tile');
+    const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 
     act(() => {
       fireEvent.click(firstTile);
@@ -444,7 +450,7 @@ describe('DatePicker', () => {
   it('closes Calendar when changing value with prop closeCalendar = true', async () => {
     const { container } = render(<DatePicker closeCalendar isOpen />);
 
-    const firstTile = container.querySelector('.react-calendar__tile');
+    const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 
     act(() => {
       fireEvent.click(firstTile);
@@ -458,7 +464,7 @@ describe('DatePicker', () => {
   it('does not close Calendar when changing value with prop closeCalendar = false', () => {
     const { container } = render(<DatePicker closeCalendar={false} isOpen />);
 
-    const firstTile = container.querySelector('.react-calendar__tile');
+    const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 
     act(() => {
       fireEvent.click(firstTile);
@@ -472,7 +478,7 @@ describe('DatePicker', () => {
   it('does not close Calendar when changing value using inputs', () => {
     const { container } = render(<DatePicker isOpen />);
 
-    const dayInput = container.querySelector('input[name="day"]');
+    const dayInput = container.querySelector('input[name="day"]') as HTMLInputElement;
 
     act(() => {
       fireEvent.change(dayInput, { target: { value: '1' } });
@@ -489,7 +495,7 @@ describe('DatePicker', () => {
 
     const { container } = render(<DatePicker onChange={onChange} value={value} />);
 
-    const dayInput = container.querySelector('input[name="day"]');
+    const dayInput = container.querySelector('input[name="day"]') as HTMLInputElement;
 
     act(() => {
       fireEvent.change(dayInput, { target: { value: '1' } });
@@ -507,7 +513,9 @@ describe('DatePicker', () => {
 
     expect(calendar).toBeFalsy();
 
-    const button = container.querySelector('button.react-date-picker__clear-button');
+    const button = container.querySelector(
+      'button.react-date-picker__clear-button',
+    ) as HTMLButtonElement;
 
     fireEvent.click(button);
 

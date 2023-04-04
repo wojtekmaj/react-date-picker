@@ -9,13 +9,15 @@ import {
   getDayEnd,
 } from '@wojtekmaj/date-utils';
 
+import type { RangeType } from './types';
+
 /**
  * Returns the beginning of a given range.
  *
- * @param {string} rangeType Range type (e.g. 'day')
+ * @param {RangeType} rangeType Range type (e.g. 'day')
  * @param {Date} date Date.
  */
-export function getBegin(rangeType, date) {
+export function getBegin(rangeType: RangeType, date: Date) {
   switch (rangeType) {
     case 'decade':
       return getDecadeStart(date);
@@ -33,10 +35,10 @@ export function getBegin(rangeType, date) {
 /**
  * Returns the end of a given range.
  *
- * @param {string} rangeType Range type (e.g. 'day')
+ * @param {RangeType} rangeType Range type (e.g. 'day')
  * @param {Date} date Date.
  */
-export function getEnd(rangeType, date) {
+export function getEnd(rangeType: RangeType, date: Date) {
   switch (rangeType) {
     case 'decade':
       return getDecadeEnd(date);

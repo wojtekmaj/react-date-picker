@@ -10,7 +10,7 @@ describe('NativeInput', () => {
       // Intentionally empty
     },
     valueType: 'day',
-  };
+  } satisfies React.ComponentProps<typeof NativeInput>;
 
   it('renders an input', () => {
     const { container } = render(<NativeInput {...defaultProps} />);

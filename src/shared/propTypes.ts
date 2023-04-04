@@ -5,7 +5,7 @@ const allValueTypes = [...allViews.slice(1), 'day'];
 
 export const isValueType = PropTypes.oneOf(allValueTypes);
 
-export function isMinDate(props, propName, componentName) {
+export function isMinDate(props: Record<string, unknown>, propName: string, componentName: string) {
   const { [propName]: minDate } = props;
 
   if (!minDate) {
@@ -29,7 +29,7 @@ export function isMinDate(props, propName, componentName) {
   return null;
 }
 
-export function isMaxDate(props, propName, componentName) {
+export function isMaxDate(props: Record<string, unknown>, propName: string, componentName: string) {
   const { [propName]: maxDate } = props;
 
   if (!maxDate) {
