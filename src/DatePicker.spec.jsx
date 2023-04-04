@@ -190,6 +190,14 @@ describe('DatePicker', () => {
       expect(clearIcon).toBeInTheDocument();
     });
 
+    it('renders clear icon when given clearIcon as a string', () => {
+      const { container } = render(<DatePicker clearIcon="❌" />);
+
+      const clearButton = container.querySelector('button.react-date-picker__clear-button');
+
+      expect(clearButton).toHaveTextContent('❌');
+    });
+
     it('renders clear icon when given clearIcon as a React element', () => {
       function ClearIcon() {
         return '❌';
@@ -232,6 +240,14 @@ describe('DatePicker', () => {
       const calendarIcon = calendarButton.querySelector('svg');
 
       expect(calendarIcon).toBeInTheDocument();
+    });
+
+    it('renders calendar icon when given calendarIcon as a string', () => {
+      const { container } = render(<DatePicker calendarIcon="📅" />);
+
+      const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
+
+      expect(calendarButton).toHaveTextContent('📅');
     });
 
     it('renders calendar icon when given calendarIcon as a React element', () => {
