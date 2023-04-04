@@ -87,7 +87,10 @@ type DatePickerProps = {
   value?: LooseValue;
   yearAriaLabel?: string;
   yearPlaceholder?: string;
-};
+} & Omit<
+  React.ComponentPropsWithoutRef<typeof Calendar>,
+  'className' | 'maxDetail' | 'minDetail' | 'onChange'
+>;
 
 export default function DatePicker(props: DatePickerProps) {
   const {
