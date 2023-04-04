@@ -138,8 +138,6 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
   }, []);
 }
 
-const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
-
 export default function DateInput({
   autoFocus,
   className,
@@ -577,6 +575,8 @@ export default function DateInput({
     </div>
   );
 }
+
+const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
 
 DateInput.propTypes = {
   autoFocus: PropTypes.bool,
