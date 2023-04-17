@@ -50,6 +50,13 @@ type Icon = React.ReactElement | string;
 
 type IconOrRenderFunction = Icon | React.ComponentType | React.ReactElement;
 
+type CalendarProps = Omit<
+  React.ComponentPropsWithoutRef<typeof Calendar>,
+  'className' | 'maxDetail' | 'onChange'
+>;
+
+type EventProps = ReturnType<typeof makeEventProps>;
+
 type DatePickerProps = {
   autoFocus?: boolean;
   calendarAriaLabel?: string;
@@ -87,7 +94,8 @@ type DatePickerProps = {
   value?: LooseValue;
   yearAriaLabel?: string;
   yearPlaceholder?: string;
-} & Omit<React.ComponentPropsWithoutRef<typeof Calendar>, 'className' | 'maxDetail' | 'onChange'>;
+} & CalendarProps &
+  EventProps;
 
 export default function DatePicker(props: DatePickerProps) {
   const {
