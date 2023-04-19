@@ -114,7 +114,7 @@ function makeOnKeyPress(maxLength: number | null) {
    * exceed maxLength.
    */
   return function onKeyPress(
-    event: React.KeyboardEvent<HTMLInputElement> & { key: string; target: HTMLInputElement },
+    event: React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement },
   ) {
     if (isFirefox) {
       // See https://github.com/wojtekmaj/react-time-picker/issues/92
@@ -191,9 +191,7 @@ export default function Input({
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         onKeyPress={makeOnKeyPress(maxLength)}
-        onKeyUp={(
-          event: React.KeyboardEvent<HTMLInputElement> & { key: string; target: HTMLInputElement },
-        ) => {
+        onKeyUp={(event: React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement }) => {
           updateInputWidth(event.target);
 
           if (onKeyUp) {
