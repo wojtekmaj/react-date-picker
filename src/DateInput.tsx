@@ -232,6 +232,7 @@ export default function DateInput({
   const monthSelect = useRef<HTMLSelectElement>(null);
   const dayInput = useRef<HTMLInputElement>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(isCalendarOpenProps);
+  const lastPressedKey = useRef<KeyboardEvent['key']>();
 
   useEffect(() => {
     setIsCalendarOpen(isCalendarOpenProps);
@@ -374,6 +375,8 @@ export default function DateInput({
       | (React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement })
       | (React.KeyboardEvent<HTMLSelectElement> & { target: HTMLSelectElement }),
   ) {
+    lastPressedKey.current = event.key;
+
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowRight':
@@ -393,6 +396,12 @@ export default function DateInput({
 
   function onKeyUp(event: React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement }) {
     const { key, target: input } = event;
+
+    const isLastPressedKey = lastPressedKey.current === key;
+
+    if (!isLastPressedKey) {
+      return;
+    }
 
     const isNumberKey = !isNaN(Number(key));
 
