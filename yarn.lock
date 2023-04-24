@@ -3226,9 +3226,9 @@ __metadata:
   linkType: hard
 
 "make-event-props@npm:^1.4.2":
-  version: 1.4.2
-  resolution: "make-event-props@npm:1.4.2"
-  checksum: 3da247c14a6a2974db96e53058842dd781db2b68daab8a99cd6d988795579481f6ec032696ebf59f500d2848f3c8496e4896dabdf9b172081b593d0064486b9e
+  version: 1.5.0
+  resolution: "make-event-props@npm:1.5.0"
+  checksum: 5acfe0401c88f5b5431dd7d00874ed53acdfdd481870d362818bc309c657ab72208cdb50dac6b78e410b7f66472a1d53805eb218b3cbdf8b686a755c64c9ac8f
   languageName: node
   linkType: hard
 
