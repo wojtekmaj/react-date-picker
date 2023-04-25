@@ -422,8 +422,9 @@ export default function DateInput({
      * 10 would be a valid value given max = 12, so we won't jump to the next input.
      * However, given 2, smallers possible number would be 20, and thus keeping the focus in
      * this field doesn't make sense.
+     * if the value is 0 don't focus the next field.
      */
-    if (Number(value) * 10 > Number(max) || value.length >= max.length) {
+    if (Number(value) && (Number(value) * 10 > Number(max) || value.length >= max.length)) {
       const property = 'nextElementSibling';
       const nextInput = findInput(input, property);
       focus(nextInput);
