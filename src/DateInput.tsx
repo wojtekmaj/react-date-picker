@@ -485,7 +485,7 @@ export default function DateInput({
     event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
   ) {
     const { name, value } = event.target;
-    const correctedValue = value && parseInt(value, 10).toString()
+    const correctedValue = value && parseInt(value, 10).toString();
 
     switch (name) {
       case 'year':
