@@ -331,10 +331,10 @@ describe('DatePicker', () => {
       const { container } = render(<DatePicker />);
 
       const calendar = container.querySelector('.react-calendar');
+      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
 
       expect(calendar).toBeFalsy();
 
-      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
       fireEvent.focus(input);
 
       const calendar2 = container.querySelector('.react-calendar');
@@ -346,10 +346,10 @@ describe('DatePicker', () => {
       const { container } = render(<DatePicker openCalendarOnFocus />);
 
       const calendar = container.querySelector('.react-calendar');
+      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
 
       expect(calendar).toBeFalsy();
 
-      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
       fireEvent.focus(input);
 
       const calendar2 = container.querySelector('.react-calendar');
@@ -361,10 +361,10 @@ describe('DatePicker', () => {
       const { container } = render(<DatePicker openCalendarOnFocus={false} />);
 
       const calendar = container.querySelector('.react-calendar');
+      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
 
       expect(calendar).toBeFalsy();
 
-      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
       fireEvent.focus(input);
 
       const calendar2 = container.querySelector('.react-calendar');
