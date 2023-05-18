@@ -372,6 +372,23 @@ describe('DatePicker', () => {
       expect(calendar2).toBeFalsy();
     });
 
+    it('does not open Calendar when focusing on an input inside given shouldOpenCalendar function returning false', () => {
+      const shouldOpenCalendar = () => false;
+
+      const { container } = render(<DatePicker shouldOpenCalendar={shouldOpenCalendar} />);
+
+      const calendar = container.querySelector('.react-calendar');
+      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
+
+      expect(calendar).toBeFalsy();
+
+      fireEvent.focus(input);
+
+      const calendar2 = container.querySelector('.react-calendar');
+
+      expect(calendar2).toBeFalsy();
+    });
+
     it('does not open Calendar component when focusing on a select element', () => {
       const { container } = render(<DatePicker format="dd.MMMM.yyyy" />);
 
@@ -463,6 +480,22 @@ describe('DatePicker', () => {
 
   it('does not close Calendar when changing value with prop closeCalendar = false', () => {
     const { container } = render(<DatePicker closeCalendar={false} isOpen />);
+
+    const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
+
+    act(() => {
+      fireEvent.click(firstTile);
+    });
+
+    const calendar = container.querySelector('.react-calendar');
+
+    expect(calendar).toBeInTheDocument();
+  });
+
+  it('does not close Calendar when changing value with shouldCloseCalendar function returning false', () => {
+    const shouldCloseCalendar = () => false;
+
+    const { container } = render(<DatePicker isOpen shouldCloseCalendar={shouldCloseCalendar} />);
 
     const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 

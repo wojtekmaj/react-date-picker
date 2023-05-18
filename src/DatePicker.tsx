@@ -10,7 +10,7 @@ import DateInput from './DateInput';
 
 import { isMaxDate, isMinDate } from './shared/propTypes';
 
-import type { ClassName, Detail, LooseValue, Value } from './shared/types';
+import type { ClassName, CloseReason, Detail, LooseValue, OpenReason, Value } from './shared/types';
 
 const baseClassName = 'react-date-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
@@ -90,6 +90,8 @@ type DatePickerProps = {
   portalContainer?: HTMLElement | null;
   required?: boolean;
   returnValue?: 'start' | 'end' | 'range';
+  shouldCloseCalendar?: (props: { reason: CloseReason }) => boolean;
+  shouldOpenCalendar?: (props: { reason: OpenReason }) => boolean;
   showLeadingZeros?: boolean;
   value?: LooseValue;
   yearAriaLabel?: string;
@@ -105,7 +107,7 @@ export default function DatePicker(props: DatePickerProps) {
     className,
     clearAriaLabel,
     clearIcon = ClearIcon,
-    closeCalendar: shouldCloseCalendarProps = true,
+    closeCalendar: shouldCloseCalendarOnSelect = true,
     'data-testid': dataTestid,
     dayAriaLabel,
     dayPlaceholder,
@@ -129,6 +131,8 @@ export default function DatePicker(props: DatePickerProps) {
     openCalendarOnFocus = true,
     required,
     returnValue = 'start',
+    shouldCloseCalendar,
+    shouldOpenCalendar,
     showLeadingZeros,
     value,
     yearAriaLabel,
@@ -144,7 +148,13 @@ export default function DatePicker(props: DatePickerProps) {
     setIsOpen(isOpenProps);
   }, [isOpenProps]);
 
-  function openCalendar() {
+  function openCalendar({ reason }: { reason: OpenReason }) {
+    if (shouldOpenCalendar) {
+      if (!shouldOpenCalendar({ reason })) {
+        return;
+      }
+    }
+
     setIsOpen(true);
 
     if (onCalendarOpen) {
@@ -152,25 +162,34 @@ export default function DatePicker(props: DatePickerProps) {
     }
   }
 
-  const closeCalendar = useCallback(() => {
-    setIsOpen(false);
+  const closeCalendar = useCallback(
+    ({ reason }: { reason: CloseReason }) => {
+      if (shouldCloseCalendar) {
+        if (!shouldCloseCalendar({ reason })) {
+          return;
+        }
+      }
 
-    if (onCalendarClose) {
-      onCalendarClose();
-    }
-  }, [onCalendarClose]);
+      setIsOpen(false);
+
+      if (onCalendarClose) {
+        onCalendarClose();
+      }
+    },
+    [onCalendarClose, shouldCloseCalendar],
+  );
 
   function toggleCalendar() {
     if (isOpen) {
-      closeCalendar();
+      closeCalendar({ reason: 'buttonClick' });
     } else {
-      openCalendar();
+      openCalendar({ reason: 'buttonClick' });
     }
   }
 
-  function onChange(value: Value, shouldCloseCalendar: boolean = shouldCloseCalendarProps) {
+  function onChange(value: Value, shouldCloseCalendar: boolean = shouldCloseCalendarOnSelect) {
     if (shouldCloseCalendar) {
-      closeCalendar();
+      closeCalendar({ reason: 'select' });
     }
 
     if (onChangeProps) {
@@ -193,13 +212,13 @@ export default function DatePicker(props: DatePickerProps) {
       return;
     }
 
-    openCalendar();
+    openCalendar({ reason: 'focus' });
   }
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        closeCalendar();
+        closeCalendar({ reason: 'escape' });
       }
     },
     [closeCalendar],
@@ -229,7 +248,7 @@ export default function DatePicker(props: DatePickerProps) {
         !wrapperEl.contains(target) &&
         (!calendarWrapperEl || !calendarWrapperEl.contains(target))
       ) {
-        closeCalendar();
+        closeCalendar({ reason: 'outsideAction' });
       }
     },
     [calendarWrapper, closeCalendar, wrapper],
