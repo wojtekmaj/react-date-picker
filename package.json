@@ -1,6 +1,6 @@
 {
   "name": "react-date-picker",
-  "version": "10.1.0",
+  "version": "10.2.0",
   "description": "A date picker for your React app.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
