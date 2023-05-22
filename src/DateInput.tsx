@@ -460,11 +460,17 @@ export default function DateInput({
           : Number((formElement as unknown as HTMLInputElement).value);
     });
 
-    if (formElements.every((formElement) => !formElement.value)) {
+    const isEveryValueEmpty = formElements.every((formElement) => !formElement.value);
+
+    if (isEveryValueEmpty) {
       onChangeProps(null, false);
-    } else if (
-      formElements.every((formElement) => formElement.value && formElement.validity.valid)
-    ) {
+      return;
+    }
+
+    const isEveryValueFilled = formElements.every((formElement) => formElement.value);
+    const isEveryValueValid = formElements.every((formElement) => formElement.validity.valid);
+
+    if (isEveryValueFilled && isEveryValueValid) {
       const year = Number(values.year || new Date().getFullYear());
       const monthIndex = Number(values.month || 1) - 1;
       const day = Number(values.day || 1);
@@ -475,6 +481,7 @@ export default function DateInput({
 
       const processedValue = getProcessedValue(proposedValue);
       onChangeProps(processedValue, false);
+      return;
     }
   }
 
