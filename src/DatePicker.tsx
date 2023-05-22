@@ -86,6 +86,7 @@ export type DatePickerProps = {
   onCalendarOpen?: () => void;
   onChange?: (value: Value) => void;
   onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
+  onInvalidChange?: () => void;
   openCalendarOnFocus?: boolean;
   portalContainer?: HTMLElement | null;
   required?: boolean;
@@ -128,6 +129,7 @@ export default function DatePicker(props: DatePickerProps) {
     onCalendarOpen,
     onChange: onChangeProps,
     onFocus: onFocusProps,
+    onInvalidChange,
     openCalendarOnFocus = true,
     required,
     returnValue = 'start',
@@ -314,6 +316,7 @@ export default function DatePicker(props: DatePickerProps) {
           minDate={minDate}
           name={name}
           onChange={onChange}
+          onInvalidChange={onInvalidChange}
           required={required}
           returnValue={returnValue}
           showLeadingZeros={showLeadingZeros}

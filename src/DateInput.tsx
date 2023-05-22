@@ -191,6 +191,7 @@ type DateInputProps = {
   name?: string;
   nativeInputAriaLabel?: string;
   onChange?: (value: Value, shouldCloseCalendar: boolean) => void;
+  onInvalidChange?: () => void;
   required?: boolean;
   returnValue?: 'start' | 'end' | 'range';
   showLeadingZeros?: boolean;
@@ -216,6 +217,7 @@ export default function DateInput({
   name = 'date',
   nativeInputAriaLabel,
   onChange: onChangeProps,
+  onInvalidChange,
   required,
   returnValue = 'start',
   showLeadingZeros,
@@ -483,6 +485,12 @@ export default function DateInput({
       onChangeProps(processedValue, false);
       return;
     }
+
+    if (!onInvalidChange) {
+      return;
+    }
+
+    onInvalidChange();
   }
 
   /**
