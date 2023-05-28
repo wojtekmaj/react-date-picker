@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
-import type { Validator } from 'prop-types';
+import type { Requireable, Validator } from 'prop-types';
+import type { Range } from './types';
 
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
@@ -69,3 +70,7 @@ export const isRef = PropTypes.oneOfType([
     current: PropTypes.any,
   }),
 ]);
+
+export const rangeOf = <T>(type: Requireable<T>): Requireable<Range<T>> => {
+  return PropTypes.arrayOf(type) as Requireable<Range<T>>;
+};

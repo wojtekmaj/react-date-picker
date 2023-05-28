@@ -1,4 +1,4 @@
-type Range<T> = [T, T];
+export type Range<T> = [T, T];
 
 export type ClassName = string | null | undefined | (string | null | undefined)[];
 
