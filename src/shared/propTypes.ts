@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types';
 
+import type { Validator } from 'prop-types';
+
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
 
 export const isValueType = PropTypes.oneOf(allValueTypes);
 
-export function isMinDate(props: Record<string, unknown>, propName: string, componentName: string) {
+export const isMinDate: Validator<Date | null | undefined> = function isMinDate(
+  props,
+  propName,
+  componentName,
+) {
   const { [propName]: minDate } = props;
 
   if (!minDate) {
@@ -27,9 +33,13 @@ export function isMinDate(props: Record<string, unknown>, propName: string, comp
   }
 
   return null;
-}
+};
 
-export function isMaxDate(props: Record<string, unknown>, propName: string, componentName: string) {
+export const isMaxDate: Validator<Date | null | undefined> = function isMaxDate(
+  props,
+  propName,
+  componentName,
+) {
   const { [propName]: maxDate } = props;
 
   if (!maxDate) {
@@ -51,7 +61,7 @@ export function isMaxDate(props: Record<string, unknown>, propName: string, comp
   }
 
   return null;
-}
+};
 
 export const isRef = PropTypes.oneOfType([
   PropTypes.func,
