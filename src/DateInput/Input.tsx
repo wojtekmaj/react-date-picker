@@ -12,7 +12,8 @@ type InputProps = {
   autoFocus?: boolean;
   className?: string;
   disabled?: boolean;
-  inputRef?: React.RefObject<HTMLInputElement>;
+  firstInputRef?: React.MutableRefObject<HTMLInputElement | HTMLSelectElement | null>;
+  inputRef?: React.MutableRefObject<HTMLInputElement | null>;
   max: number;
   min: number;
   name: string;
@@ -138,6 +139,7 @@ export default function Input({
   autoFocus,
   className,
   disabled,
+  firstInputRef,
   inputRef,
   max,
   min,
@@ -199,7 +201,14 @@ export default function Input({
           }
         }}
         placeholder={placeholder}
-        ref={inputRef}
+        ref={(el) => {
+          if (inputRef) {
+            inputRef.current = el;
+          }
+          if (firstInputRef) {
+            firstInputRef.current = el;
+          }
+        }}
         required={required}
         step={step}
         type="number"
@@ -214,6 +223,7 @@ Input.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  firstInputRef: isRef,
   inputRef: isRef,
   max: PropTypes.number,
   min: PropTypes.number,

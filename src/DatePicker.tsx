@@ -8,7 +8,7 @@ import Fit from 'react-fit';
 
 import DateInput from './DateInput';
 
-import { isMaxDate, isMinDate, rangeOf } from './shared/propTypes';
+import { isMaxDate, isMinDate, rangeOf, isRef } from './shared/propTypes';
 
 import type { ClassName, CloseReason, Detail, LooseValue, OpenReason, Value } from './shared/types';
 
@@ -71,6 +71,7 @@ export type DatePickerProps = {
   dayPlaceholder?: string;
   disableCalendar?: boolean;
   disabled?: boolean;
+  firstInputRef?: React.MutableRefObject<HTMLInputElement | HTMLSelectElement | null>;
   format?: string;
   id?: string;
   isOpen?: boolean;
@@ -114,6 +115,7 @@ export default function DatePicker(props: DatePickerProps) {
     dayPlaceholder,
     disableCalendar,
     disabled,
+    firstInputRef,
     format,
     id,
     isOpen: isOpenProps = null,
@@ -308,6 +310,7 @@ export default function DatePicker(props: DatePickerProps) {
           autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
+          firstInputRef={firstInputRef}
           format={format}
           isCalendarOpen={isOpen}
           locale={locale}
@@ -439,6 +442,7 @@ DatePicker.propTypes = {
   dayPlaceholder: PropTypes.string,
   disableCalendar: PropTypes.bool,
   disabled: PropTypes.bool,
+  firstInputRef: isRef,
   format: PropTypes.string,
   id: PropTypes.string,
   isOpen: PropTypes.bool,

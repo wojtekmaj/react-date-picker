@@ -11,7 +11,7 @@ import NativeInput from './DateInput/NativeInput';
 
 import { getFormatter } from './shared/dateFormatter';
 import { getBegin, getEnd } from './shared/dates';
-import { isMaxDate, isMinDate } from './shared/propTypes';
+import { isMaxDate, isMinDate, isRef } from './shared/propTypes';
 import { between } from './shared/utils';
 
 import type { Detail, LooseValuePiece, Value } from './shared/types';
@@ -179,6 +179,7 @@ type DateInputProps = {
   className: string;
   dayAriaLabel?: string;
   dayPlaceholder?: string;
+  firstInputRef?: React.MutableRefObject<HTMLInputElement | HTMLSelectElement | null>;
   disabled?: boolean;
   format?: string;
   isCalendarOpen?: boolean | null;
@@ -206,6 +207,7 @@ export default function DateInput({
   dayAriaLabel,
   dayPlaceholder,
   disabled,
+  firstInputRef,
   format,
   isCalendarOpen: isCalendarOpenProps = null,
   locale,
@@ -573,6 +575,7 @@ export default function DateInput({
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         inputRef={dayInput}
+        {...(index === 0 && firstInputRef && { firstInputRef })}
         month={month}
         placeholder={dayPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
@@ -596,6 +599,7 @@ export default function DateInput({
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={index === 0 && autoFocus}
           inputRef={monthSelect}
+          {...(index === 0 && firstInputRef && { firstInputRef })}
           locale={locale}
           placeholder={monthPlaceholder}
           short={currentMatch.length === 3}
@@ -615,6 +619,7 @@ export default function DateInput({
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         inputRef={monthInput}
+        {...(index === 0 && firstInputRef && { firstInputRef })}
         placeholder={monthPlaceholder}
         showLeadingZeros={showLeadingZerosFromFormat || showLeadingZeros}
         value={month}
@@ -632,6 +637,7 @@ export default function DateInput({
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         inputRef={yearInput}
+        {...(index === 0 && firstInputRef && { firstInputRef })}
         placeholder={yearPlaceholder}
         value={year}
         valueType={valueType}
@@ -684,6 +690,7 @@ DateInput.propTypes = {
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
+  firstInputRef: isRef,
   format: PropTypes.string,
   isCalendarOpen: PropTypes.bool,
   locale: PropTypes.string,
