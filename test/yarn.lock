@@ -792,10 +792,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "clsx@npm:1.2.1"
-  checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
+"clsx@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "clsx@npm:2.0.0"
+  checksum: a2cfb2351b254611acf92faa0daf15220f4cd648bdf96ce369d729813b85336993871a4bf6978ddea2b81b5a130478339c20d9d0b5c6fc287e5147f0c059276e
   languageName: node
   linkType: hard
 
@@ -1618,19 +1618,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-calendar@npm:^4.2.1":
-  version: 4.2.1
-  resolution: "react-calendar@npm:4.2.1"
+"react-calendar@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "react-calendar@npm:4.4.0"
   dependencies:
     "@types/react": "*"
     "@wojtekmaj/date-utils": ^1.1.3
-    clsx: ^1.2.1
+    clsx: ^2.0.0
     get-user-locale: ^2.2.1
     prop-types: ^15.6.0
+    tiny-warning: ^1.0.0
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: a14ce00249b867d44ace3c1766f2af41347883c5e594fa10aeeb0eaf4034da9b9a2434df0b666ff736efa7d25c029b65a4008482df9b61a4b7f81e1751a1da27
+  checksum: 0f8e692bef46f45408a30daf27a9d647193381e5fd5627cef003307b9a9d7111ad019f8a2647c2df4b5c7b2454060418f5ae3df8bf8b62d8f148e4494f07b2d7
   languageName: node
   linkType: hard
 
@@ -1655,11 +1656,11 @@ __metadata:
   resolution: "react-date-picker@portal:../::locator=react-date-picker-test-page%40workspace%3A."
   dependencies:
     "@wojtekmaj/date-utils": ^1.1.3
-    clsx: ^1.2.1
+    clsx: ^2.0.0
     get-user-locale: ^2.2.1
     make-event-props: ^1.4.2
     prop-types: ^15.6.0
-    react-calendar: ^4.2.1
+    react-calendar: ^4.4.0
     react-fit: ^1.5.1
     update-input-width: ^1.3.1
   peerDependencies:
