@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getYear, getMonthHuman, getDate } from '@wojtekmaj/date-utils';
