@@ -4331,20 +4331,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-calendar@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "react-calendar@npm:4.4.0"
+"react-calendar@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "react-calendar@npm:4.5.0"
   dependencies:
-    "@types/react": "*"
     "@wojtekmaj/date-utils": ^1.1.3
     clsx: ^2.0.0
     get-user-locale: ^2.2.1
     prop-types: ^15.6.0
     tiny-warning: ^1.0.0
   peerDependencies:
+    "@types/react": ^16.8.0 || ^17.0.0 || ^18.0.0
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 0f8e692bef46f45408a30daf27a9d647193381e5fd5627cef003307b9a9d7111ad019f8a2647c2df4b5c7b2454060418f5ae3df8bf8b62d8f148e4494f07b2d7
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: afd42c7487df681fdd90e7a6ac898288ef9b5a684bf331cd6bbeec8316362fc2d7e87e9f5b6188c339329397ce2abb9875fcb992aefc3e54df8b3f2e6de0f348
   languageName: node
   linkType: hard
 
@@ -4370,7 +4373,7 @@ __metadata:
     pretty-quick: ^3.1.0
     prop-types: ^15.6.0
     react: ^18.2.0
-    react-calendar: ^4.4.0
+    react-calendar: ^4.5.0
     react-dom: ^18.2.0
     react-fit: ^1.5.1
     rimraf: ^3.0.0
