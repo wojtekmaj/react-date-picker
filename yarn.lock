@@ -616,7 +616,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:*, @types/react-dom@npm:^18.0.0":
+"@types/react-dom@npm:^18.0.0":
   version: 18.0.11
   resolution: "@types/react-dom@npm:18.0.11"
   dependencies:
@@ -4375,7 +4375,7 @@ __metadata:
     react: ^18.2.0
     react-calendar: ^4.5.0
     react-dom: ^18.2.0
-    react-fit: ^1.5.1
+    react-fit: ^1.6.0
     rimraf: ^3.0.0
     ts-node: ^10.9.1
     typescript: ^5.0.0
@@ -4404,19 +4404,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-fit@npm:^1.5.1":
-  version: 1.5.1
-  resolution: "react-fit@npm:1.5.1"
+"react-fit@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "react-fit@npm:1.6.0"
   dependencies:
-    "@types/react": "*"
-    "@types/react-dom": "*"
     detect-element-overflow: ^1.3.1
     prop-types: ^15.6.0
     tiny-warning: ^1.0.0
   peerDependencies:
+    "@types/react": ^16.8.0 || ^17.0.0 || ^18.0.0
+    "@types/react-dom": ^16.8.0 || ^17.0.0 || ^18.0.0
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 40cf34d353748576d348d59d70686e0107298553c2d43cbb1ba4f62541124c7b3e23162165176432fb13617f6673285ab7123e29ec4929d7d5ba57a3d1c3824c
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 0a798517c2e7b90ae18dd20548e806af112d0fc0f1093ff35f6d875887b04a2b21e2c171e6ecbb59b4c2df5ca6cf8172fa4c653bb4e2e2defd0cfb8c8c7bcf60
   languageName: node
   linkType: hard
 
