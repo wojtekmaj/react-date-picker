@@ -698,7 +698,7 @@ DateInput.propTypes = {
   nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
-  returnValue: PropTypes.oneOf(['start', 'end', 'range']),
+  returnValue: PropTypes.oneOf(['start', 'end', 'range'] as const),
   showLeadingZeros: PropTypes.bool,
   value: isValue,
   yearAriaLabel: PropTypes.string,
