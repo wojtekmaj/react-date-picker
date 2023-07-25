@@ -458,7 +458,7 @@ DatePicker.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   openCalendarOnFocus: PropTypes.bool,
-  portalContainer: PropTypes.object,
+  portalContainer: PropTypes.instanceOf(HTMLElement),
   required: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end', 'range'] as const),
   showLeadingZeros: PropTypes.bool,
