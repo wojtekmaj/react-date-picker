@@ -1,8 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { getYear, getISOLocalDate, getISOLocalMonth } from '@wojtekmaj/date-utils';
-
-import { isMaxDate, isMinDate, isValueType } from '../shared/propTypes';
 
 type NativeInputProps = {
   ariaLabel?: string;
@@ -80,15 +77,3 @@ export default function NativeInput({
     />
   );
 }
-
-NativeInput.propTypes = {
-  ariaLabel: PropTypes.string,
-  disabled: PropTypes.bool,
-  maxDate: isMaxDate,
-  minDate: isMinDate,
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  required: PropTypes.bool,
-  value: PropTypes.instanceOf(Date),
-  valueType: isValueType,
-};

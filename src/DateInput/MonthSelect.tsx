@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { getYear, getMonthHuman } from '@wojtekmaj/date-utils';
 
 import { formatMonth, formatShortMonth } from '../shared/dateFormatter';
-import { isMaxDate, isMinDate, isRef } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
 /* eslint-disable jsx-a11y/no-autofocus */
@@ -85,21 +83,3 @@ export default function MonthSelect({
     </select>
   );
 }
-
-MonthSelect.propTypes = {
-  ariaLabel: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  className: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  inputRef: isRef,
-  locale: PropTypes.string,
-  maxDate: isMaxDate,
-  minDate: isMinDate,
-  onChange: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  short: PropTypes.bool,
-  value: PropTypes.string,
-  year: PropTypes.string,
-};

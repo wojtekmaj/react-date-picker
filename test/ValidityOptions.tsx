@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { getISOLocalDate } from '@wojtekmaj/date-utils';
 
 type ValidityOptionsProps = {
@@ -75,12 +74,3 @@ export default function ValidityOptions({
     </fieldset>
   );
 }
-
-ValidityOptions.propTypes = {
-  maxDate: PropTypes.instanceOf(Date),
-  minDate: PropTypes.instanceOf(Date),
-  required: PropTypes.bool,
-  setMaxDate: PropTypes.func.isRequired,
-  setMinDate: PropTypes.func.isRequired,
-  setRequired: PropTypes.func.isRequired,
-};

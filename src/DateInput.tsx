@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import { getYear, getMonthHuman, getDate } from '@wojtekmaj/date-utils';
 
 import Divider from './Divider';
@@ -13,7 +12,6 @@ import NativeInput from './DateInput/NativeInput';
 
 import { getFormatter } from './shared/dateFormatter';
 import { getBegin, getEnd } from './shared/dates';
-import { isMaxDate, isMinDate } from './shared/propTypes';
 import { between } from './shared/utils';
 
 import type { Detail, LooseValuePiece, Value } from './shared/types';
@@ -677,30 +675,3 @@ export default function DateInput({
     </div>
   );
 }
-
-const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
-
-DateInput.propTypes = {
-  autoFocus: PropTypes.bool,
-  className: PropTypes.string.isRequired,
-  dayAriaLabel: PropTypes.string,
-  dayPlaceholder: PropTypes.string,
-  disabled: PropTypes.bool,
-  format: PropTypes.string,
-  isCalendarOpen: PropTypes.bool,
-  locale: PropTypes.string,
-  maxDate: isMaxDate,
-  maxDetail: PropTypes.oneOf(allViews),
-  minDate: isMinDate,
-  monthAriaLabel: PropTypes.string,
-  monthPlaceholder: PropTypes.string,
-  name: PropTypes.string,
-  nativeInputAriaLabel: PropTypes.string,
-  onChange: PropTypes.func,
-  required: PropTypes.bool,
-  returnValue: PropTypes.oneOf(['start', 'end', 'range'] as const),
-  showLeadingZeros: PropTypes.bool,
-  value: isValue,
-  yearAriaLabel: PropTypes.string,
-  yearPlaceholder: PropTypes.string,
-};

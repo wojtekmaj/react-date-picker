@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { getYear, getMonthHuman, getDate, getDaysInMonth } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { isMaxDate, isMinDate, isRef } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
 type DayInputProps = {
@@ -32,21 +30,3 @@ export default function DayInput({ maxDate, minDate, month, year, ...otherProps 
 
   return <Input max={maxDay} min={minDay} name="day" {...otherProps} />;
 }
-
-DayInput.propTypes = {
-  ariaLabel: PropTypes.string,
-  className: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  inputRef: isRef,
-  maxDate: isMaxDate,
-  minDate: isMinDate,
-  month: PropTypes.string,
-  onChange: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  onKeyUp: PropTypes.func,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  showLeadingZeros: PropTypes.bool,
-  value: PropTypes.string,
-  year: PropTypes.string,
-};

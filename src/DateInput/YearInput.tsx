@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { getYear } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { isMaxDate, isMinDate, isRef, isValueType } from '../shared/propTypes';
 import { safeMax, safeMin } from '../shared/utils';
 
 type YearInputProps = {
@@ -43,19 +41,3 @@ export default function YearInput({
     />
   );
 }
-
-YearInput.propTypes = {
-  ariaLabel: PropTypes.string,
-  className: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  inputRef: isRef,
-  maxDate: isMaxDate,
-  minDate: isMinDate,
-  onChange: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  onKeyUp: PropTypes.func,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  value: PropTypes.string,
-  valueType: isValueType,
-};

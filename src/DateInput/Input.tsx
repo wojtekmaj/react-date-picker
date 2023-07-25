@@ -1,9 +1,6 @@
 import React, { useEffect, useLayoutEffect } from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import updateInputWidth, { getFontShorthand } from 'update-input-width';
-
-import { isRef } from '../shared/propTypes';
 
 /* eslint-disable jsx-a11y/no-autofocus */
 
@@ -208,23 +205,3 @@ export default function Input({
     </>
   );
 }
-
-Input.propTypes = {
-  ariaLabel: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  className: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  inputRef: isRef,
-  max: PropTypes.number,
-  min: PropTypes.number,
-  name: PropTypes.string,
-  nameForClass: PropTypes.string,
-  onChange: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  onKeyUp: PropTypes.func,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  showLeadingZeros: PropTypes.bool,
-  step: PropTypes.number,
-  value: PropTypes.string,
-};
