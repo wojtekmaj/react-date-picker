@@ -113,6 +113,14 @@ describe('MonthSelect', () => {
     expect(select).toBeRequired();
   });
 
+  it('handles firstInputRef properly', () => {
+    const firstInputRef = createRef<HTMLSelectElement>();
+
+    render(<MonthSelect {...defaultProps} firstInputRef={firstInputRef} />);
+
+    expect(firstInputRef.current).toBeInstanceOf(HTMLSelectElement);
+  });
+
   it('handles inputRef properly', () => {
     const inputRef = createRef<HTMLSelectElement>();
 

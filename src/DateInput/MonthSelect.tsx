@@ -14,7 +14,8 @@ type MonthSelectProps = {
   autoFocus?: boolean;
   className: string;
   disabled?: boolean;
-  inputRef?: React.RefObject<HTMLSelectElement>;
+  firstInputRef?: React.MutableRefObject<HTMLInputElement | HTMLSelectElement | null>;
+  inputRef?: React.MutableRefObject<HTMLSelectElement | null>;
   locale?: string;
   maxDate?: Date;
   minDate?: Date;
@@ -34,6 +35,7 @@ export default function MonthSelect({
   autoFocus,
   className,
   disabled,
+  firstInputRef,
   inputRef,
   locale,
   maxDate,
@@ -67,7 +69,14 @@ export default function MonthSelect({
       name={name}
       onChange={onChange}
       onKeyDown={onKeyDown}
-      ref={inputRef}
+      ref={(el) => {
+        if (inputRef) {
+          inputRef.current = el;
+        }
+        if (firstInputRef) {
+          firstInputRef.current = el;
+        }
+      }}
       required={required}
       value={value !== null ? value : ''}
     >
@@ -91,6 +100,7 @@ MonthSelect.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  firstInputRef: isRef,
   inputRef: isRef,
   locale: PropTypes.string,
   maxDate: isMaxDate,

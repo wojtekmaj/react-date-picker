@@ -137,6 +137,14 @@ describe('DayInput', () => {
     expect(input).toBeRequired();
   });
 
+  it('handles firstInputRef properly', () => {
+    const firstInputRef = createRef<HTMLInputElement>();
+
+    render(<DayInput {...defaultProps} firstInputRef={firstInputRef} />);
+
+    expect(firstInputRef.current).toBeInstanceOf(HTMLInputElement);
+  });
+
   it('handles inputRef properly', () => {
     const inputRef = createRef<HTMLInputElement>();
 

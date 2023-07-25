@@ -90,3 +90,12 @@ body {
   flex-grow: 100;
   align-items: stretch;
 }
+
+.Test__container__content__label {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+}

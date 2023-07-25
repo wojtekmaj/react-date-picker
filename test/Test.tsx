@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, type MouseEvent } from 'react';
 import DatePicker from 'react-date-picker/src';
 import 'react-date-picker/src/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
@@ -53,6 +53,14 @@ export default function Test() {
   const [showNeighboringMonth, setShowNeighboringMonth] = useState(false);
   const [showWeekNumbers, setShowWeekNumbers] = useState(false);
   const [value, setValue] = useState<LooseValue>(now);
+  const firstInputRef = useRef<HTMLInputElement | null>(null);
+
+  const focusDatePicker = (e: MouseEvent) => {
+    e.preventDefault();
+    if (firstInputRef.current instanceof HTMLInputElement) {
+      firstInputRef.current.focus();
+    }
+  };
 
   return (
     <div className="Test">
@@ -103,6 +111,13 @@ export default function Test() {
               console.log(event);
             }}
           >
+            <button
+              type="button"
+              className="Test__container__content__label"
+              onClick={focusDatePicker}
+            >
+              Date picker
+            </button>
             <DatePicker
               {...ariaLabelProps}
               {...placeholderProps}
@@ -110,6 +125,7 @@ export default function Test() {
               className="myCustomDatePickerClassName"
               data-testid="myCustomDatePicker"
               disabled={disabled}
+              firstInputRef={firstInputRef}
               locale={locale}
               maxDate={maxDate}
               maxDetail={maxDetail}
