@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 type DividerProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export default function Divider({ children }: DividerProps) {

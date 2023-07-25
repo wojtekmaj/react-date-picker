@@ -459,7 +459,7 @@ DatePicker.propTypes = {
   openCalendarOnFocus: PropTypes.bool,
   portalContainer: PropTypes.object,
   required: PropTypes.bool,
-  returnValue: PropTypes.oneOf(['start', 'end', 'range']),
+  returnValue: PropTypes.oneOf(['start', 'end', 'range'] as const),
   showLeadingZeros: PropTypes.bool,
   value: isValueOrValueArray,
   yearAriaLabel: PropTypes.string,
