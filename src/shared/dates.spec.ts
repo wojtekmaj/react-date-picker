@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getBegin, getEnd } from './dates';
+import { getBegin, getEnd } from './dates.js';
 
 describe('getBegin', () => {
   it('returns proper beginning of the decade', () => {

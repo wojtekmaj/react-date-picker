@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import React, { createRef } from 'react';
 import { render } from '@testing-library/react';
 
-import MonthInput from './MonthInput';
+import MonthInput from './MonthInput.js';
 
 describe('MonthInput', () => {
   const defaultProps = {

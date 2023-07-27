@@ -2,8 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import { getYear, getMonthHuman } from '@wojtekmaj/date-utils';
 
-import { formatMonth, formatShortMonth } from '../shared/dateFormatter';
-import { safeMin, safeMax } from '../shared/utils';
+import { formatMonth, formatShortMonth } from '../shared/dateFormatter.js';
+import { safeMin, safeMax } from '../shared/utils.js';
 
 /* eslint-disable jsx-a11y/no-autofocus */
 

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import NativeInput from './NativeInput';
+import NativeInput from './NativeInput.js';
 
 describe('NativeInput', () => {
   const defaultProps = {

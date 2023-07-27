@@ -3,18 +3,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getYear, getMonthHuman, getDate } from '@wojtekmaj/date-utils';
 
-import Divider from './Divider';
-import DayInput from './DateInput/DayInput';
-import MonthInput from './DateInput/MonthInput';
-import MonthSelect from './DateInput/MonthSelect';
-import YearInput from './DateInput/YearInput';
-import NativeInput from './DateInput/NativeInput';
+import Divider from './Divider.js';
+import DayInput from './DateInput/DayInput.js';
+import MonthInput from './DateInput/MonthInput.js';
+import MonthSelect from './DateInput/MonthSelect.js';
+import YearInput from './DateInput/YearInput.js';
+import NativeInput from './DateInput/NativeInput.js';
 
-import { getFormatter } from './shared/dateFormatter';
-import { getBegin, getEnd } from './shared/dates';
-import { between } from './shared/utils';
+import { getFormatter } from './shared/dateFormatter.js';
+import { getBegin, getEnd } from './shared/dates.js';
+import { between } from './shared/utils.js';
 
-import type { Detail, LooseValuePiece, Value } from './shared/types';
+import type { Detail, LooseValuePiece, Value } from './shared/types.js';
 
 const getFormatterOptionsCache: Record<string, Intl.DateTimeFormatOptions> = {};
 
