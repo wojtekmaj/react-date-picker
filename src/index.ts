@@ -1,6 +1,6 @@
-import DatePicker from './DatePicker';
+import DatePicker from './DatePicker.js';
 
-export type { DatePickerProps } from './DatePicker';
+export type { DatePickerProps } from './DatePicker.js';
 
 export { DatePicker };
 

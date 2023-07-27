@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import React, { createRef } from 'react';
 import { render } from '@testing-library/react';
 
-import DayInput from './DayInput';
+import DayInput from './DayInput.js';
 
 describe('DayInput', () => {
   const defaultProps = {

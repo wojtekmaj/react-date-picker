@@ -1,9 +1,9 @@
 import React from 'react';
 import { getYear } from '@wojtekmaj/date-utils';
 
-import Input from './Input';
+import Input from './Input.js';
 
-import { safeMax, safeMin } from '../shared/utils';
+import { safeMax, safeMin } from '../shared/utils.js';
 
 type YearInputProps = {
   maxDate?: Date;

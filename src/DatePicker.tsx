@@ -8,12 +8,19 @@ import clsx from 'clsx';
 import Calendar from 'react-calendar';
 import Fit from 'react-fit';
 
-import DateInput from './DateInput';
+import DateInput from './DateInput.js';
 
-import { isMaxDate, isMinDate, rangeOf } from './shared/propTypes';
+import { isMaxDate, isMinDate, rangeOf } from './shared/propTypes.js';
 
 import type { ReactNodeArray } from 'prop-types';
-import type { ClassName, CloseReason, Detail, LooseValue, OpenReason, Value } from './shared/types';
+import type {
+  ClassName,
+  CloseReason,
+  Detail,
+  LooseValue,
+  OpenReason,
+  Value,
+} from './shared/types.js';
 
 const baseClassName = 'react-date-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;

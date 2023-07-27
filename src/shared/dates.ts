@@ -9,7 +9,7 @@ import {
   getDayEnd,
 } from '@wojtekmaj/date-utils';
 
-import type { RangeType } from './types';
+import type { RangeType } from './types.js';
 
 /**
  * Returns the beginning of a given range.
