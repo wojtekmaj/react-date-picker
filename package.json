@@ -41,7 +41,7 @@
     "@wojtekmaj/date-utils": "^1.1.3",
     "clsx": "^2.0.0",
     "get-user-locale": "^2.2.1",
-    "make-event-props": "^1.4.2",
+    "make-event-props": "^1.6.0",
     "prop-types": "^15.6.0",
     "react-calendar": "^4.5.0",
     "react-fit": "^1.6.0",
