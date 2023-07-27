@@ -15,6 +15,46 @@
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
     },
+    "./dist/DateInput": {
+      "import": "./dist/esm/DateInput.js",
+      "require": "./dist/cjs/DateInput.js"
+    },
+    "./dist/DateInput.js": {
+      "import": "./dist/esm/DateInput.js",
+      "require": "./dist/cjs/DateInput.js"
+    },
+    "./dist/DateInput/DayInput": {
+      "import": "./dist/esm/DateInput/DayInput.js",
+      "require": "./dist/cjs/DateInput/DayInput.js"
+    },
+    "./dist/DateInput/DayInput.js": {
+      "import": "./dist/esm/DateInput/DayInput.js",
+      "require": "./dist/cjs/DateInput/DayInput.js"
+    },
+    "./dist/DateInput/MonthInput": {
+      "import": "./dist/esm/DateInput/MonthInput.js",
+      "require": "./dist/cjs/DateInput/MonthInput.js"
+    },
+    "./dist/DateInput/MonthInput.js": {
+      "import": "./dist/esm/DateInput/MonthInput.js",
+      "require": "./dist/cjs/DateInput/MonthInput.js"
+    },
+    "./dist/DateInput/MonthSelect": {
+      "import": "./dist/esm/DateInput/MonthSelect.js",
+      "require": "./dist/cjs/DateInput/MonthSelect.js"
+    },
+    "./dist/DateInput/MonthSelect.js": {
+      "import": "./dist/esm/DateInput/MonthSelect.js",
+      "require": "./dist/cjs/DateInput/MonthSelect.js"
+    },
+    "./dist/DateInput/YearInput": {
+      "import": "./dist/esm/DateInput/YearInput.js",
+      "require": "./dist/cjs/DateInput/YearInput.js"
+    },
+    "./dist/DateInput/YearInput.js": {
+      "import": "./dist/esm/DateInput/YearInput.js",
+      "require": "./dist/cjs/DateInput/YearInput.js"
+    },
     "./dist/cjs/DateInput": "./dist/cjs/DateInput.js",
     "./dist/cjs/DateInput.js": "./dist/cjs/DateInput.js",
     "./dist/cjs/DateInput/DayInput": "./dist/cjs/DateInput/DayInput.js",
