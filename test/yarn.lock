@@ -1577,9 +1577,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-calendar@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "react-calendar@npm:4.5.0"
+"react-calendar@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "react-calendar@npm:4.6.0"
   dependencies:
     "@wojtekmaj/date-utils": ^1.1.3
     clsx: ^2.0.0
@@ -1593,7 +1593,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: afd42c7487df681fdd90e7a6ac898288ef9b5a684bf331cd6bbeec8316362fc2d7e87e9f5b6188c339329397ce2abb9875fcb992aefc3e54df8b3f2e6de0f348
+  checksum: 2832d2a468a8f3a533e9f59a969774c6d608e9a2c60afa9fa599b3bbbbd23d5bc9fa1ca6dca4ac8809a4524bdb6095d8c743977a6d6a132e43f9cbbd460d1c62
   languageName: node
   linkType: hard
 
@@ -1621,7 +1621,7 @@ __metadata:
     get-user-locale: ^2.2.1
     make-event-props: ^1.6.0
     prop-types: ^15.6.0
-    react-calendar: ^4.5.0
+    react-calendar: ^4.6.0
     react-fit: ^1.6.0
     update-input-width: ^1.3.1
   peerDependencies:
