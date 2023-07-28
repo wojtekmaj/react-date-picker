@@ -22,6 +22,8 @@ import type {
   Value,
 } from './shared/types.js';
 
+const isBrowser = typeof document !== 'undefined';
+
 const baseClassName = 'react-date-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
 const allViews = ['century', 'decade', 'year', 'month'] as const;
@@ -465,7 +467,7 @@ DatePicker.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   openCalendarOnFocus: PropTypes.bool,
-  portalContainer: PropTypes.instanceOf(HTMLElement),
+  portalContainer: isBrowser ? PropTypes.instanceOf(HTMLElement) : undefined,
   required: PropTypes.bool,
   returnValue: PropTypes.oneOf(['start', 'end', 'range'] as const),
   showLeadingZeros: PropTypes.bool,
