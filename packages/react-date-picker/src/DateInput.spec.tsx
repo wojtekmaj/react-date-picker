@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import DateInput from './DateInput.js';
 
-import { muteConsole, restoreConsole } from '../test-utils.js';
+import { muteConsole, restoreConsole } from '../../../test-utils.js';
 
 vi.useFakeTimers();
 
