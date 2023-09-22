@@ -1,4 +1,3 @@
-import React from 'react';
 import { getISOLocalDate } from '@wojtekmaj/date-utils';
 
 import type { LooseValue } from './shared/types.js';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 type ViewOptionsProps = {
   disabled: boolean;
   renderInPortal: boolean;
