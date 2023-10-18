@@ -1,6 +1,6 @@
 {
   "name": "react-date-picker",
-  "version": "10.5.1",
+  "version": "10.5.2",
   "description": "A date picker for your React app.",
   "type": "module",
   "sideEffects": [
