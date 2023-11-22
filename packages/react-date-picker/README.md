@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/react-date-picker.svg)](https://www.npmjs.com/package/react-date-picker) ![downloads](https://img.shields.io/npm/dt/react-date-picker.svg) [![CI](https://github.com/wojtekmaj/react-date-picker/workflows/CI/badge.svg)](https://github.com/wojtekmaj/react-date-picker/actions)
+[![npm](https://img.shields.io/npm/v/react-date-picker.svg)](https://www.npmjs.com/package/react-date-picker) ![downloads](https://img.shields.io/npm/dt/react-date-picker.svg) [![CI](https://github.com/wojtekmaj/react-date-picker/actions/workflows/ci.yml/badge.svg)](https://github.com/wojtekmaj/react-date-picker/actions)
 
 # React-Date-Picker
 
