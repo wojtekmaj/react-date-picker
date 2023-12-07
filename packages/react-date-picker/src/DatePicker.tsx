@@ -121,7 +121,7 @@ export type DatePickerProps = {
   /**
    * Whether to close the calendar on value selection.
    *
-   * **Note**: It's recommended to use shouldCloseCalendar function instead.
+   * **Note**: It's recommended to use `shouldCloseCalendar` function instead.
    *
    * @default true
    * @example false
