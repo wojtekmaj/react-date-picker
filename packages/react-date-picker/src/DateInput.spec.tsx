@@ -19,7 +19,7 @@ const hasFullICU = (() => {
   }
 })();
 
-const itIfFullICU = hasFullICU ? it : it.skip;
+const itIfFullICU = it.skipIf(!hasFullICU);
 
 describe('DateInput', () => {
   const defaultProps = {
