@@ -146,7 +146,7 @@ function renderCustomInputs(
       // eslint-disable-next-line react/no-array-index-key
       <Divider key={`separator_${index}`}>{element}</Divider>
     );
-    const res = [...arr, divider];
+    arr.push(divider);
     const currentMatch = matches && matches[index];
 
     if (currentMatch) {
@@ -159,18 +159,18 @@ function renderCustomInputs(
         ];
 
       if (!renderFunction) {
-        return res;
+        return arr;
       }
 
       if (!allowMultipleInstances && usedFunctions.includes(renderFunction)) {
-        res.push(currentMatch);
+        arr.push(currentMatch);
       } else {
-        res.push(renderFunction(currentMatch, index));
+        arr.push(renderFunction(currentMatch, index));
         usedFunctions.push(renderFunction);
       }
     }
 
-    return res;
+    return arr;
   }, []);
 }
 
