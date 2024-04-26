@@ -234,7 +234,7 @@ export default function DateInput({
   const monthSelect = useRef<HTMLSelectElement>(null);
   const dayInput = useRef<HTMLInputElement>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(isCalendarOpenProps);
-  const lastPressedKey = useRef<KeyboardEvent['key']>();
+  const lastPressedKey = useRef<KeyboardEvent['key'] | undefined>(undefined);
 
   useEffect(() => {
     setIsCalendarOpen(isCalendarOpenProps);
