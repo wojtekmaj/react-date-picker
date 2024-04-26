@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import clsx from 'clsx';
 import updateInputWidth, { getFontShorthand } from 'update-input-width';
 

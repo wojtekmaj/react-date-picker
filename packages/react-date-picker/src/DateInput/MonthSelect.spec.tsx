@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import React, { createRef } from 'react';
+import { createRef } from 'react';
 import { render } from '@testing-library/react';
 
 import MonthSelect from './MonthSelect.js';

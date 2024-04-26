@@ -1,4 +1,3 @@
-import React from 'react';
 import { getYear, getISOLocalDate, getISOLocalMonth } from '@wojtekmaj/date-utils';
 
 type NativeInputProps = {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { getYear, getMonthHuman, getDate, getDaysInMonth } from '@wojtekmaj/date-utils';
 
 import Input from './Input.js';

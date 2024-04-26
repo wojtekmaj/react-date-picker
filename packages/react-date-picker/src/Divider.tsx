@@ -1,5 +1,3 @@
-import React from 'react';
-
 type DividerProps = {
   children?: React.ReactNode;
 };
