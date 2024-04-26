@@ -4176,7 +4176,6 @@ __metadata:
     make-event-props: "npm:^1.6.0"
     nodemon: "npm:^3.0.0"
     prettier: "npm:^3.2.0"
-    prop-types: "npm:^15.6.0"
     react: "npm:^18.2.0"
     react-calendar: "npm:^4.6.0"
     react-dom: "npm:^18.2.0"

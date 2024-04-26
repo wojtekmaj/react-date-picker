@@ -2,7 +2,6 @@
 
 import { createElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
 import makeEventProps from 'make-event-props';
 import clsx from 'clsx';
 import Calendar from 'react-calendar';
@@ -10,9 +9,6 @@ import Fit from 'react-fit';
 
 import DateInput from './DateInput.js';
 
-import { isMaxDate, isMinDate, rangeOf } from './shared/propTypes.js';
-
-import type { ReactNodeArray } from 'prop-types';
 import type {
   ClassName,
   CloseReason,
@@ -22,11 +18,8 @@ import type {
   Value,
 } from './shared/types.js';
 
-const isBrowser = typeof document !== 'undefined';
-
 const baseClassName = 'react-date-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
-const allViews = ['century', 'decade', 'year', 'month'] as const;
 
 const iconProps = {
   xmlns: 'http://www.w3.org/2000/svg',
@@ -58,7 +51,9 @@ const ClearIcon = (
   </svg>
 );
 
-type Icon = React.ReactElement | ReactNodeArray | null | string | number | boolean;
+type ReactNodeLike = React.ReactNode | string | number | boolean | null | undefined;
+
+type Icon = ReactNodeLike | ReactNodeLike[];
 
 type IconOrRenderFunction = Icon | React.ComponentType | React.ReactElement;
 
@@ -654,51 +649,5 @@ const DatePicker: React.FC<DatePickerProps> = function DatePicker(props) {
     </div>
   );
 };
-
-const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
-
-const isValueOrValueArray = PropTypes.oneOfType([isValue, rangeOf(isValue)]);
-
-DatePicker.propTypes = {
-  autoFocus: PropTypes.bool,
-  calendarAriaLabel: PropTypes.string,
-  calendarClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  calendarIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  clearAriaLabel: PropTypes.string,
-  clearIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  closeCalendar: PropTypes.bool,
-  'data-testid': PropTypes.string,
-  dayAriaLabel: PropTypes.string,
-  dayPlaceholder: PropTypes.string,
-  disableCalendar: PropTypes.bool,
-  disabled: PropTypes.bool,
-  format: PropTypes.string,
-  id: PropTypes.string,
-  isOpen: PropTypes.bool,
-  locale: PropTypes.string,
-  maxDate: isMaxDate,
-  maxDetail: PropTypes.oneOf(allViews),
-  minDate: isMinDate,
-  monthAriaLabel: PropTypes.string,
-  monthPlaceholder: PropTypes.string,
-  name: PropTypes.string,
-  nativeInputAriaLabel: PropTypes.string,
-  onCalendarClose: PropTypes.func,
-  onCalendarOpen: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  openCalendarOnFocus: PropTypes.bool,
-  required: PropTypes.bool,
-  returnValue: PropTypes.oneOf(['start', 'end', 'range'] as const),
-  showLeadingZeros: PropTypes.bool,
-  value: isValueOrValueArray,
-  yearAriaLabel: PropTypes.string,
-  yearPlaceholder: PropTypes.string,
-};
-
-if (isBrowser) {
-  DatePicker.propTypes.portalContainer = PropTypes.instanceOf(HTMLElement);
-}
 
 export default DatePicker;
