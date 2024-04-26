@@ -328,7 +328,7 @@ export type DatePickerProps = {
 } & CalendarProps &
   Omit<EventProps, 'onChange' | 'onFocus'>;
 
-const DatePicker: React.FC<DatePickerProps> = function DatePicker(props) {
+export default function DatePicker(props: DatePickerProps) {
   const {
     autoFocus,
     calendarAriaLabel,
@@ -648,6 +648,4 @@ const DatePicker: React.FC<DatePickerProps> = function DatePicker(props) {
       {renderCalendar()}
     </div>
   );
-};
-
-export default DatePicker;
+}
