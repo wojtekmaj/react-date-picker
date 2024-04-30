@@ -9,7 +9,7 @@ type InputProps = {
   autoFocus?: boolean;
   className?: string;
   disabled?: boolean;
-  inputRef?: React.RefObject<HTMLInputElement>;
+  inputRef?: React.RefObject<HTMLInputElement | null>;
   max: number;
   min: number;
   name: string;
@@ -196,7 +196,8 @@ export default function Input({
           }
         }}
         placeholder={placeholder}
-        ref={inputRef}
+        // Assertion is needed for React 18 compatibility
+        ref={inputRef as React.RefObject<HTMLInputElement>}
         required={required}
         step={step}
         type="number"
