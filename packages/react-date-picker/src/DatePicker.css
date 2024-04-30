@@ -39,6 +39,7 @@
 .react-date-picker__inputGroup__divider,
 .react-date-picker__inputGroup__leadingZero {
   display: inline-block;
+  font: inherit;
 }
 
 .react-date-picker__inputGroup__input {
