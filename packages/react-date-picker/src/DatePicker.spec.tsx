@@ -151,10 +151,12 @@ describe('DatePicker', () => {
     expect(wrapper).toHaveClass('react-date-picker--open');
   });
 
-  it('applies calendarClassName to the calendar when given a string', () => {
+  it('applies calendar className to the calendar when given a string', () => {
     const calendarClassName = 'testClassName';
 
-    const { container } = render(<DatePicker calendarClassName={calendarClassName} isOpen />);
+    const { container } = render(
+      <DatePicker calendarProps={{ className: calendarClassName }} isOpen />,
+    );
 
     const calendar = container.querySelector('.react-calendar');
 
