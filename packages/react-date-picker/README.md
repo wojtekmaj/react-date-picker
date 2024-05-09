@@ -40,7 +40,8 @@ Your project needs to use React 16.3 or later. If you use an older version of Re
 
 | React version | Newest compatible React-Date-Picker version |
 | ------------- | ------------------------------------------- |
-| ≥16.3         | latest                                      |
+| ≥16.8         | latest                                      |
+| ≥16.3         | 8.x                                         |
 | ≥16.0         | 7.x                                         |
 
 [React-Calendar](https://github.com/wojtekmaj/react-calendar), on which React-Date-Picker relies heavily, uses modern web technologies. That's why it's so fast, lightweight and easy to style. This, however, comes at a cost of [supporting only modern browsers](https://caniuse.com/#feat=internationalization).
