@@ -637,7 +637,7 @@ export default function DatePicker(props: DatePickerProps) {
       ref={wrapper}
     >
       {renderInputs()}
-      {renderCalendar()}
+      {isOpen ? renderCalendar() : null}
     </div>
   );
 }
