@@ -41,7 +41,7 @@ describe('safeMin', () => {
   it('returns Infinity given no values', () => {
     const result = safeMin();
 
-    expect(result).toBe(Infinity);
+    expect(result).toBe(Number.POSITIVE_INFINITY);
   });
 
   it('returns the smallest value given valid numbers', () => {
@@ -79,7 +79,7 @@ describe('safeMax', () => {
   it('returns -Infinity given no values', () => {
     const result = safeMax();
 
-    expect(result).toBe(-Infinity);
+    expect(result).toBe(Number.NEGATIVE_INFINITY);
   });
 
   it('returns the largest value given valid numbers', () => {

@@ -95,7 +95,7 @@ function getSelectionString(input: HTMLInputElement) {
 
   if ('getSelection' in window) {
     const selection = window.getSelection();
-    return selection && selection.toString();
+    return selection?.toString();
   }
 
   return null;

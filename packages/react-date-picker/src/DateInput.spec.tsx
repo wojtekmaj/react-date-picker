@@ -499,11 +499,11 @@ describe('DateInput', () => {
 
     const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = Array.from(container.querySelectorAll('input[data-input]'));
 
-    customInputs.forEach((customInput) => {
+    for (const customInput of customInputs) {
       fireEvent.change(customInput, { target: { value: '' } });
-    });
+    }
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith(null, false);
