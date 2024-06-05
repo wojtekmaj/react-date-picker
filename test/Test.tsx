@@ -34,8 +34,6 @@ const placeholderProps = {
 const nineteenNinetyFive = new Date(1995, now.getUTCMonth() + 1, 15, 12);
 const fifteenthOfNextMonth = new Date(now.getUTCFullYear(), now.getUTCMonth() + 1, 15, 12);
 
-/* eslint-disable no-console */
-
 type ReturnValue = 'start' | 'end' | 'range';
 
 export default function Test() {

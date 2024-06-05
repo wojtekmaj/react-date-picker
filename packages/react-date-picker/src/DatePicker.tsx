@@ -31,6 +31,7 @@ const iconProps = {
 };
 
 const CalendarIcon = (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: Purely decorative icon
   <svg
     {...iconProps}
     className={`${baseClassName}__calendar-button__icon ${baseClassName}__button__icon`}
@@ -42,6 +43,7 @@ const CalendarIcon = (
 );
 
 const ClearIcon = (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: Purely decorative icon
   <svg
     {...iconProps}
     className={`${baseClassName}__clear-button__icon ${baseClassName}__button__icon`}
@@ -528,7 +530,6 @@ export default function DatePicker(props: DatePickerProps) {
         <DateInput
           {...ariaLabelProps}
           {...placeholderProps}
-          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
@@ -620,7 +621,11 @@ export default function DatePicker(props: DatePickerProps) {
     );
   }
 
-  const eventProps = useMemo(() => makeEventProps(otherProps), [otherProps]);
+  const eventProps = useMemo(
+    () => makeEventProps(otherProps),
+    // biome-ignore lint/correctness/useExhaustiveDependencies: FIXME
+    [otherProps],
+  );
 
   return (
     <div

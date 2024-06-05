@@ -143,7 +143,7 @@ function renderCustomInputs(
 
   return placeholder.split(pattern).reduce<React.ReactNode[]>((arr, element, index) => {
     const divider = element && (
-      // eslint-disable-next-line react/no-array-index-key
+      // biome-ignore lint/suspicious/noArrayIndexKey: index is stable here
       <Divider key={`separator_${index}`}>{element}</Divider>
     );
     arr.push(divider);
@@ -240,6 +240,7 @@ export default function DateInput({
     setIsCalendarOpen(isCalendarOpenProps);
   }, [isCalendarOpenProps]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: useEffect intentionally triggered on props change
   useEffect(() => {
     const nextValue = getDetailValueFrom({
       value: valueProps,
@@ -568,7 +569,6 @@ export default function DateInput({
         key="day"
         {...commonInputProps}
         ariaLabel={dayAriaLabel}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         inputRef={dayInput}
         month={month}
@@ -591,7 +591,6 @@ export default function DateInput({
           key="month"
           {...commonInputProps}
           ariaLabel={monthAriaLabel}
-          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={index === 0 && autoFocus}
           inputRef={monthSelect}
           locale={locale}
@@ -610,7 +609,6 @@ export default function DateInput({
         key="month"
         {...commonInputProps}
         ariaLabel={monthAriaLabel}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         inputRef={monthInput}
         placeholder={monthPlaceholder}
@@ -627,7 +625,6 @@ export default function DateInput({
         key="year"
         {...commonInputProps}
         ariaLabel={yearAriaLabel}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         inputRef={yearInput}
         placeholder={yearPlaceholder}
@@ -666,7 +663,7 @@ export default function DateInput({
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    // biome-ignore lint/a11y/useKeyWithClickEvents: This interaction is designed for mouse users only
     <div className={className} onClick={onClick}>
       {renderNativeInput()}
       {renderCustomInputsInternal()}
