@@ -4,8 +4,6 @@ import { getYear, getMonthHuman } from '@wojtekmaj/date-utils';
 import { formatMonth, formatShortMonth } from '../shared/dateFormatter.js';
 import { safeMin, safeMax } from '../shared/utils.js';
 
-/* eslint-disable jsx-a11y/no-autofocus */
-
 type MonthSelectProps = {
   ariaLabel?: string;
   autoFocus?: boolean;
@@ -56,6 +54,7 @@ export default function MonthSelect({
   return (
     <select
       aria-label={ariaLabel}
+      // biome-ignore lint/a11y/noAutofocus: This is up to developers' decision
       autoFocus={autoFocus}
       className={clsx(`${className}__input`, `${className}__${name}`)}
       data-input="true"

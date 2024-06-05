@@ -2,8 +2,6 @@ import { useEffect, useLayoutEffect } from 'react';
 import clsx from 'clsx';
 import updateInputWidth, { getFontShorthand } from 'update-input-width';
 
-/* eslint-disable jsx-a11y/no-autofocus */
-
 type InputProps = {
   ariaLabel?: string;
   autoFocus?: boolean;
@@ -95,7 +93,7 @@ function getSelectionString(input: HTMLInputElement) {
 
   if ('getSelection' in window) {
     const selection = window.getSelection();
-    return selection && selection.toString();
+    return selection?.toString();
   }
 
   return null;
@@ -172,6 +170,7 @@ export default function Input({
       <input
         aria-label={ariaLabel}
         autoComplete="off"
+        // biome-ignore lint/a11y/noAutofocus: This is up to developers' decision
         autoFocus={autoFocus}
         className={clsx(
           `${className}__input`,

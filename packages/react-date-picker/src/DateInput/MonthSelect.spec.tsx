@@ -125,11 +125,11 @@ describe('MonthSelect', () => {
     const { container } = render(<MonthSelect {...defaultProps} />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
-    const options = select.querySelectorAll('option');
+    const options = Array.from(select.querySelectorAll('option'));
 
-    options.forEach((option) => {
+    for (const option of options) {
       expect(option).not.toBeDisabled();
-    });
+    }
   });
 
   it('has all options enabled given minDate in a past year', () => {
@@ -138,11 +138,11 @@ describe('MonthSelect', () => {
     );
 
     const select = container.querySelector('select') as HTMLSelectElement;
-    const options = select.querySelectorAll('option[value]');
+    const options = Array.from(select.querySelectorAll('option[value]'));
 
-    options.forEach((option) => {
+    for (const option of options) {
       expect(option).not.toBeDisabled();
-    });
+    }
   });
 
   it('has first (month in minDate) options disabled given minDate in a current year', () => {
@@ -154,13 +154,13 @@ describe('MonthSelect', () => {
     const options = Array.from(select.querySelectorAll('option')).slice(1); // Getting rid of "--" option
 
     // January - June
-    options.slice(0, 6).forEach((option) => {
+    for (const option of options.slice(0, 6)) {
       expect(option).toBeDisabled();
-    });
+    }
     // July - December
-    options.slice(6).forEach((option) => {
+    for (const option of options.slice(6)) {
       expect(option).not.toBeDisabled();
-    });
+    }
   });
 
   it('has all options enabled given maxDate in a future year', () => {
@@ -171,9 +171,9 @@ describe('MonthSelect', () => {
     const select = container.querySelector('select') as HTMLSelectElement;
     const options = Array.from(select.querySelectorAll('option')).slice(1); // Getting rid of "--" option
 
-    options.forEach((option) => {
+    for (const option of options) {
       expect(option).not.toBeDisabled();
-    });
+    }
   });
 
   it('has last (month in maxDate) options disabled given maxDate in a current year', () => {
@@ -185,12 +185,12 @@ describe('MonthSelect', () => {
     const options = Array.from(select.querySelectorAll('option')).slice(1); // Getting rid of "--" option
 
     // January - July
-    options.slice(0, 7).forEach((option) => {
+    for (const option of options.slice(0, 7)) {
       expect(option).not.toBeDisabled();
-    });
+    }
     // August - December
-    options.slice(7).forEach((option) => {
+    for (const option of options.slice(7)) {
       expect(option).toBeDisabled();
-    });
+    }
   });
 });
