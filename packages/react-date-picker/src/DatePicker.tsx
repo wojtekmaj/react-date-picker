@@ -31,9 +31,9 @@ const iconProps = {
 };
 
 const CalendarIcon = (
-  // biome-ignore lint/a11y/noSvgWithoutTitle: Purely decorative icon
   <svg
     {...iconProps}
+    aria-hidden="true"
     className={`${baseClassName}__calendar-button__icon ${baseClassName}__button__icon`}
   >
     <rect fill="none" height="15" width="15" x="2" y="2" />
@@ -43,9 +43,9 @@ const CalendarIcon = (
 );
 
 const ClearIcon = (
-  // biome-ignore lint/a11y/noSvgWithoutTitle: Purely decorative icon
   <svg
     {...iconProps}
+    aria-hidden="true"
     className={`${baseClassName}__clear-button__icon ${baseClassName}__button__icon`}
   >
     <line x1="4" x2="15" y1="4" y2="15" />
