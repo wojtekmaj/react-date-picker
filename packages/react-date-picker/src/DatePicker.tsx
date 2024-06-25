@@ -470,6 +470,7 @@ export default function DatePicker(props: DatePickerProps) {
 
       if (
         target &&
+        (!target.id || !target.id.startsWith('radix-')) &&
         wrapperEl &&
         !wrapperEl.contains(target) &&
         (!calendarWrapperEl || !calendarWrapperEl.contains(target))
