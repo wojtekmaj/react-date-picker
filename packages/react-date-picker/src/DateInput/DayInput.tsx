@@ -11,7 +11,13 @@ type DayInputProps = {
   year?: string | null;
 } & Omit<React.ComponentProps<typeof Input>, 'max' | 'min' | 'name'>;
 
-export default function DayInput({ maxDate, minDate, month, year, ...otherProps }: DayInputProps) {
+export default function DayInput({
+  maxDate,
+  minDate,
+  month,
+  year,
+  ...otherProps
+}: DayInputProps): React.ReactElement {
   const currentMonthMaxDays = (() => {
     if (!month) {
       return 31;

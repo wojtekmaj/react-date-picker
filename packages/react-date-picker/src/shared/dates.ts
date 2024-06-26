@@ -17,7 +17,7 @@ import type { RangeType } from './types.js';
  * @param {RangeType} rangeType Range type (e.g. 'day')
  * @param {Date} date Date.
  */
-export function getBegin(rangeType: RangeType, date: Date) {
+export function getBegin(rangeType: RangeType, date: Date): Date {
   switch (rangeType) {
     case 'decade':
       return getDecadeStart(date);
@@ -38,7 +38,7 @@ export function getBegin(rangeType: RangeType, date: Date) {
  * @param {RangeType} rangeType Range type (e.g. 'day')
  * @param {Date} date Date.
  */
-export function getEnd(rangeType: RangeType, date: Date) {
+export function getEnd(rangeType: RangeType, date: Date): Date {
   switch (rangeType) {
     case 'decade':
       return getDecadeEnd(date);

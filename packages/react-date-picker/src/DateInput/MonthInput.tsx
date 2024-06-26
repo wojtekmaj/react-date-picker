@@ -10,7 +10,12 @@ type MonthInputProps = {
   year?: string | null;
 } & Omit<React.ComponentProps<typeof Input>, 'max' | 'min' | 'name'>;
 
-export default function MonthInput({ maxDate, minDate, year, ...otherProps }: MonthInputProps) {
+export default function MonthInput({
+  maxDate,
+  minDate,
+  year,
+  ...otherProps
+}: MonthInputProps): React.ReactElement {
   function isSameYear(date: Date) {
     return date && year === getYear(date).toString();
   }

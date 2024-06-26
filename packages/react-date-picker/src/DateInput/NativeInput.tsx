@@ -22,7 +22,7 @@ export default function NativeInput({
   required,
   value,
   valueType,
-}: NativeInputProps) {
+}: NativeInputProps): React.ReactElement {
   const nativeInputType = (() => {
     switch (valueType) {
       case 'decade':

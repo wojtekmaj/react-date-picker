@@ -326,7 +326,7 @@ export type DatePickerProps = {
   yearPlaceholder?: string;
 } & Omit<EventProps, 'onChange' | 'onFocus'>;
 
-export default function DatePicker(props: DatePickerProps) {
+export default function DatePicker(props: DatePickerProps): React.ReactElement {
   const {
     autoFocus,
     calendarAriaLabel,

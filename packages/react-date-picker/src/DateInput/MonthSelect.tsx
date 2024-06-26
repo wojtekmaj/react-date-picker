@@ -40,7 +40,7 @@ export default function MonthSelect({
   short,
   value,
   year,
-}: MonthSelectProps) {
+}: MonthSelectProps): React.ReactElement {
   function isSameYear(date: Date) {
     return date && year === getYear(date).toString();
   }

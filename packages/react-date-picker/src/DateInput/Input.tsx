@@ -146,7 +146,7 @@ export default function Input({
   showLeadingZeros,
   step,
   value,
-}: InputProps) {
+}: InputProps): React.ReactElement {
   useIsomorphicLayoutEffect(() => {
     if (!inputRef || !inputRef.current) {
       return;

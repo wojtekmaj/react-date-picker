@@ -224,7 +224,7 @@ export default function DateInput({
   value: valueProps,
   yearAriaLabel,
   yearPlaceholder,
-}: DateInputProps) {
+}: DateInputProps): React.ReactElement {
   const [year, setYear] = useState<string | null>(null);
   const [month, setMonth] = useState<string | null>(null);
   const [day, setDay] = useState<string | null>(null);

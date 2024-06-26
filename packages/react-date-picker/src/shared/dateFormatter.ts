@@ -49,5 +49,7 @@ function getSafeFormatter(
 const formatMonthOptions = { month: 'long' } satisfies Intl.DateTimeFormatOptions;
 const formatShortMonthOptions = { month: 'short' } satisfies Intl.DateTimeFormatOptions;
 
-export const formatMonth = getSafeFormatter(formatMonthOptions);
-export const formatShortMonth = getSafeFormatter(formatShortMonthOptions);
+export const formatMonth: (locale: string | undefined, date: Date) => string =
+  getSafeFormatter(formatMonthOptions);
+export const formatShortMonth: (locale: string | undefined, date: Date) => string =
+  getSafeFormatter(formatShortMonthOptions);

@@ -17,7 +17,7 @@ export default function YearInput({
   placeholder = '----',
   valueType,
   ...otherProps
-}: YearInputProps) {
+}: YearInputProps): React.ReactElement {
   const maxYear = safeMin(275760, maxDate && getYear(maxDate));
   const minYear = safeMax(1, minDate && getYear(minDate));
 
