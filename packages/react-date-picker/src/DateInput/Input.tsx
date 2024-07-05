@@ -22,7 +22,7 @@ type InputProps = {
   value?: string | null;
 };
 
-const isBrowser = typeof document !== 'undefined';
+const isBrowser = typeof window !== 'undefined';
 
 const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
 
