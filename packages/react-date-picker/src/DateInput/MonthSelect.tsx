@@ -47,7 +47,7 @@ export default function MonthSelect({
 
   const maxMonth = safeMin(12, maxDate && isSameYear(maxDate) && getMonthHuman(maxDate));
   const minMonth = safeMax(1, minDate && isSameYear(minDate) && getMonthHuman(minDate));
-  const dates = [...Array(12)].map((el, index) => new Date(2019, index, 1));
+  const dates = [...Array(12)].map((_el, index) => new Date(2019, index, 1));
   const name = 'month';
   const formatter = short ? formatShortMonth : formatMonth;
 

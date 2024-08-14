@@ -13,7 +13,7 @@ const hasFullICU = (() => {
     const date = new Date(2018, 0, 1, 21);
     const formatter = new Intl.DateTimeFormat('de-DE', { hour: 'numeric' });
     return formatter.format(date).includes('21');
-  } catch (err) {
+  } catch {
     return false;
   }
 })();

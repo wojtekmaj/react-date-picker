@@ -12,7 +12,7 @@ async function waitForElementToBeRemovedOrHidden(callback: () => HTMLElement | n
       await waitFor(() =>
         expect(element).toHaveAttribute('class', expect.stringContaining('--closed')),
       );
-    } catch (error) {
+    } catch {
       await waitForElementToBeRemoved(element);
     }
   }

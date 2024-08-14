@@ -619,7 +619,7 @@ export default function DateInput({
     );
   }
 
-  function renderYear(currentMatch: string, index: number) {
+  function renderYear(_currentMatch: string, index: number) {
     return (
       <YearInput
         key="year"
