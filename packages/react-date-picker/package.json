@@ -56,26 +56,16 @@
       "require": "./dist/cjs/DateInput/YearInput.js"
     },
     "./dist/cjs/DateInput": "./dist/cjs/DateInput.js",
-    "./dist/cjs/DateInput.js": "./dist/cjs/DateInput.js",
     "./dist/cjs/DateInput/DayInput": "./dist/cjs/DateInput/DayInput.js",
-    "./dist/cjs/DateInput/DayInput.js": "./dist/cjs/DateInput/DayInput.js",
     "./dist/cjs/DateInput/MonthInput": "./dist/cjs/DateInput/MonthInput.js",
-    "./dist/cjs/DateInput/MonthInput.js": "./dist/cjs/DateInput/MonthInput.js",
     "./dist/cjs/DateInput/MonthSelect": "./dist/cjs/DateInput/MonthSelect.js",
-    "./dist/cjs/DateInput/MonthSelect.js": "./dist/cjs/DateInput/MonthSelect.js",
     "./dist/cjs/DateInput/YearInput": "./dist/cjs/DateInput/YearInput.js",
-    "./dist/cjs/DateInput/YearInput.js": "./dist/cjs/DateInput/YearInput.js",
     "./dist/esm/DateInput": "./dist/esm/DateInput.js",
-    "./dist/esm/DateInput.js": "./dist/esm/DateInput.js",
     "./dist/esm/DateInput/DayInput": "./dist/esm/DateInput/DayInput.js",
-    "./dist/esm/DateInput/DayInput.js": "./dist/esm/DateInput/DayInput.js",
     "./dist/esm/DateInput/MonthInput": "./dist/esm/DateInput/MonthInput.js",
-    "./dist/esm/DateInput/MonthInput.js": "./dist/esm/DateInput/MonthInput.js",
     "./dist/esm/DateInput/MonthSelect": "./dist/esm/DateInput/MonthSelect.js",
-    "./dist/esm/DateInput/MonthSelect.js": "./dist/esm/DateInput/MonthSelect.js",
     "./dist/esm/DateInput/YearInput": "./dist/esm/DateInput/YearInput.js",
-    "./dist/esm/DateInput/YearInput.js": "./dist/esm/DateInput/YearInput.js",
-    "./dist/DatePicker.css": "./dist/DatePicker.css"
+    "./*": "./*"
   },
   "scripts": {
     "build": "yarn build-js && yarn copy-styles",
