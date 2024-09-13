@@ -89,7 +89,7 @@ export default function ViewOptions({
           onChange={onShowNeighboringMonthChange}
           type="checkbox"
         />
-        <label htmlFor="showNeighboringMonth">{"Show neighboring month's days"}</label>
+        <label htmlFor="showNeighboringMonth">Show neighboring month's days</label>
       </div>
 
       <div>
