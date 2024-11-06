@@ -114,7 +114,7 @@
     "@types/react": "*",
     "@types/react-dom": "*",
     "cpy-cli": "^5.0.0",
-    "happy-dom": "^12.6.0",
+    "happy-dom": "^15.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^6.0.0",
