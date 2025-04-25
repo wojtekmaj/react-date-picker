@@ -1,6 +1,6 @@
-import { describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
 
 import DatePicker from './DatePicker.js';
 
@@ -589,5 +589,150 @@ describe('DatePicker', () => {
     fireEvent.touchStart(wrapper);
 
     expect(onTouchStart).toHaveBeenCalled();
+  });
+
+  it('handles leap year date input correctly when minDate is a 4-digit year', () => {
+    const onChange = vi.fn();
+    const onInvalidChange = vi.fn();
+
+    const { container } = render(
+      <DatePicker
+        onChange={onChange}
+        onInvalidChange={onInvalidChange}
+        format="dd.MM.yyyy"
+        minDate={new Date(1000, 0, 1)}
+      />,
+    );
+
+    const dayInput = container.querySelector('input[name="day"]') as HTMLInputElement;
+    const monthInput = container.querySelector('input[name="month"]') as HTMLInputElement;
+    const yearInput = container.querySelector('input[name="year"]') as HTMLInputElement;
+
+    // Initial state - incomplete date should call onInvalidChange
+    act(() => {
+      fireEvent.change(dayInput, { target: { value: '29' } });
+    });
+    expect(onInvalidChange).toHaveBeenCalled();
+    onInvalidChange.mockClear();
+
+    act(() => {
+      fireEvent.change(monthInput, { target: { value: '02' } });
+    });
+    expect(onInvalidChange).toHaveBeenCalled();
+    onInvalidChange.mockClear();
+
+    // Enter year digit by digit to test intermediate states
+    act(() => {
+      fireEvent.change(yearInput, { target: { value: '2' } });
+    });
+    expect(onInvalidChange).toHaveBeenCalled();
+    onInvalidChange.mockClear();
+
+    act(() => {
+      fireEvent.change(yearInput, { target: { value: '20' } });
+    });
+    expect(onInvalidChange).toHaveBeenCalled();
+    onInvalidChange.mockClear();
+
+    act(() => {
+      fireEvent.change(yearInput, { target: { value: '202' } });
+    });
+    expect(onInvalidChange).toHaveBeenCalled();
+    expect(onChange).not.toHaveBeenCalled();
+    onInvalidChange.mockClear();
+
+    // Complete with leap year - should be valid
+    act(() => {
+      fireEvent.change(yearInput, { target: { value: '2024' } });
+    });
+    expect(onChange).toHaveBeenLastCalledWith(new Date(2024, 1, 29));
+    expect(onInvalidChange).not.toHaveBeenCalled();
+    onChange.mockClear();
+
+    // Try changing day to 30 in February - should be invalid
+    act(() => {
+      fireEvent.change(dayInput, { target: { value: '30' } });
+    });
+    expect(onInvalidChange).toHaveBeenCalled();
+    expect(onChange).not.toHaveBeenCalled();
+    onInvalidChange.mockClear();
+
+    // Change to March
+    act(() => {
+      fireEvent.change(monthInput, { target: { value: '03' } });
+    });
+    // This now preserves the 30 day input from last step
+    expect(onChange).toHaveBeenLastCalledWith(new Date(2024, 2, 30));
+    expect(onInvalidChange).not.toHaveBeenCalled();
+    onChange.mockClear();
+
+    // Change to 2023 (non-leap year)
+    act(() => {
+      fireEvent.change(yearInput, { target: { value: '2023' } });
+    });
+    expect(onChange).toHaveBeenLastCalledWith(new Date(2023, 2, 30));
+    expect(onInvalidChange).not.toHaveBeenCalled();
+    onChange.mockClear();
+
+    // Change to day 29
+    act(() => {
+      fireEvent.change(dayInput, { target: { value: '29' } });
+    });
+    expect(onChange).toHaveBeenLastCalledWith(new Date(2023, 2, 29));
+    expect(onInvalidChange).not.toHaveBeenCalled();
+    onChange.mockClear();
+
+    // Change to February month, causing Febrary 29, 2023 to be invalid
+    act(() => {
+      fireEvent.change(monthInput, { target: { value: '02' } });
+    });
+    expect(onInvalidChange).toHaveBeenCalled();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('handles leap year date input correctly when minDate is a 2-digit year', () => {
+    const onChange = vi.fn();
+    const onInvalidChange = vi.fn();
+
+    const { container } = render(
+      <DatePicker
+        onChange={onChange}
+        onInvalidChange={onInvalidChange}
+        format="dd.MM.yyyy"
+        minDate={new Date('0010-01-01')}
+      />,
+    );
+
+    const dayInput = container.querySelector('input[name="day"]') as HTMLInputElement;
+    const monthInput = container.querySelector('input[name="month"]') as HTMLInputElement;
+    const yearInput = container.querySelector('input[name="year"]') as HTMLInputElement;
+
+    act(() => {
+      fireEvent.change(dayInput, { target: { value: '29' } });
+    });
+    expect(onInvalidChange).toHaveBeenCalled();
+    onInvalidChange.mockClear();
+
+    act(() => {
+      fireEvent.change(monthInput, { target: { value: '02' } });
+    });
+    expect(onInvalidChange).toHaveBeenCalled();
+    onInvalidChange.mockClear();
+
+    act(() => {
+      fireEvent.change(yearInput, { target: { value: '2' } });
+    });
+    expect(onInvalidChange).toHaveBeenCalled();
+    onInvalidChange.mockClear();
+
+    act(() => {
+      fireEvent.change(yearInput, { target: { value: '20' } });
+    });
+    expect(onInvalidChange).not.toHaveBeenCalled();
+    onInvalidChange.mockClear();
+
+    const expectedDate = new Date(2020, 1, 29);
+    expectedDate.setFullYear(20);
+    expect(onChange).toHaveBeenLastCalledWith(expectedDate);
   });
 });
