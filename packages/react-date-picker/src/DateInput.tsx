@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getYear, getMonthHuman, getDate } from '@wojtekmaj/date-utils';
 
 import Divider from './Divider.js';
-import DayInput from './DateInput/DayInput.js';
+import DayInput, { checkDayInputValidity } from './DateInput/DayInput.js';
 import MonthInput from './DateInput/MonthInput.js';
 import MonthSelect from './DateInput/MonthSelect.js';
 import YearInput from './DateInput/YearInput.js';
@@ -469,7 +469,32 @@ export default function DateInput({
     }
 
     const isEveryValueFilled = formElements.every((formElement) => formElement.value);
-    const isEveryValueValid = formElements.every((formElement) => formElement.validity.valid);
+    const isEveryValueValid = formElements.every((formElement) => {
+      if (formElement.name === 'day') {
+        // We do this special day validation check due to this bug: https://github.com/wojtekmaj/react-date-picker/issues/659
+        // The main reason for this bug is that in the current react render cycle,
+        // the dayInput ref is still using the previous input values of the safeMin and safeMax days,
+        // which were calculated based on the previous month and year values.
+        // So for instance when the year 202 was not a leap year, the dayinput field is invalid for a value of 29,
+        // but at the time when the user inputs 2024 in the year field, the dayInput field is actually supposed to be valid,
+        // but input validity check does not yet know about the new year input value, and so it returns false.
+        // A workaround is to just use a new instance of a DOM input field that emulates what the real input field should do,
+        // and check this validity value instead, which will be correct using the current updated values.
+        // The real input field values will become valid next render cycle.
+        // Ironic to make another "shadow DOM" inside react, but at least it works.
+        const isDayInputValid = checkDayInputValidity(
+          {
+            minDate,
+            maxDate,
+            month: values.month?.toString() || null,
+            year: values.year?.toString() || null,
+          },
+          values.day?.toString() || undefined,
+        );
+        return isDayInputValid;
+      }
+      return formElement.validity.valid;
+    });
 
     if (isEveryValueFilled && isEveryValueValid) {
       const year = Number(values.year || new Date().getFullYear());
