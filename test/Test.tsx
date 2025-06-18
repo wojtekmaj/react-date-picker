@@ -130,9 +130,7 @@ export default function Test() {
             <div ref={portalContainer} />
             <br />
             <br />
-            <button id="submit" type="submit">
-              Submit
-            </button>
+            <button type="submit">Submit</button>
           </form>
         </main>
       </div>
