@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { getISOLocalDate } from '@wojtekmaj/date-utils';
 
 type ValidityOptionsProps = {
@@ -17,6 +18,10 @@ export default function ValidityOptions({
   setMinDate,
   setRequired,
 }: ValidityOptionsProps) {
+  const minDateId = useId();
+  const maxDateId = useId();
+  const requiredId = useId();
+
   function onMinChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
 
@@ -34,9 +39,9 @@ export default function ValidityOptions({
       <legend>Minimum and maximum date</legend>
 
       <div>
-        <label htmlFor="minDate">Minimum date</label>
+        <label htmlFor={minDateId}>Minimum date</label>
         <input
-          id="minDate"
+          id={minDateId}
           onChange={onMinChange}
           type="date"
           value={minDate ? getISOLocalDate(minDate) : ''}
@@ -48,9 +53,9 @@ export default function ValidityOptions({
       </div>
 
       <div>
-        <label htmlFor="maxDate">Maximum date</label>
+        <label htmlFor={maxDateId}>Maximum date</label>
         <input
-          id="maxDate"
+          id={maxDateId}
           onChange={onMaxChange}
           type="date"
           value={maxDate ? getISOLocalDate(maxDate) : ''}
@@ -64,11 +69,11 @@ export default function ValidityOptions({
       <div>
         <input
           checked={required}
-          id="required"
+          id={requiredId}
           onChange={(event) => setRequired(event.target.checked)}
           type="checkbox"
         />
-        <label htmlFor="required">Required</label>
+        <label htmlFor={requiredId}>Required</label>
       </div>
     </fieldset>
   );

@@ -1,3 +1,5 @@
+import { useId } from 'react';
+
 type ViewOptionsProps = {
   disabled: boolean;
   renderInPortal: boolean;
@@ -23,6 +25,12 @@ export default function ViewOptions({
   showNeighboringMonth,
   showWeekNumbers,
 }: ViewOptionsProps) {
+  const disabledId = useId();
+  const showLeadingZerosId = useId();
+  const showWeekNumbersId = useId();
+  const showNeighboringMonthId = useId();
+  const renderInPortalId = useId();
+
   function onDisabledChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target;
 
@@ -58,48 +66,48 @@ export default function ViewOptions({
       <legend>View options</legend>
 
       <div>
-        <input checked={disabled} id="disabled" onChange={onDisabledChange} type="checkbox" />
-        <label htmlFor="disabled">Disabled</label>
+        <input checked={disabled} id={disabledId} onChange={onDisabledChange} type="checkbox" />
+        <label htmlFor={disabledId}>Disabled</label>
       </div>
 
       <div>
         <input
           checked={showLeadingZeros}
-          id="showLeadingZeros"
+          id={showLeadingZerosId}
           onChange={onShowLeadingZerosChange}
           type="checkbox"
         />
-        <label htmlFor="showLeadingZeros">Show leading zeros</label>
+        <label htmlFor={showLeadingZerosId}>Show leading zeros</label>
       </div>
 
       <div>
         <input
           checked={showWeekNumbers}
-          id="showWeekNumbers"
+          id={showWeekNumbersId}
           onChange={onShowWeekNumbersChange}
           type="checkbox"
         />
-        <label htmlFor="showWeekNumbers">Show week numbers</label>
+        <label htmlFor={showWeekNumbersId}>Show week numbers</label>
       </div>
 
       <div>
         <input
           checked={showNeighboringMonth}
-          id="showNeighboringMonth"
+          id={showNeighboringMonthId}
           onChange={onShowNeighboringMonthChange}
           type="checkbox"
         />
-        <label htmlFor="showNeighboringMonth">Show neighboring month's days</label>
+        <label htmlFor={showNeighboringMonthId}>Show neighboring month's days</label>
       </div>
 
       <div>
         <input
           checked={renderInPortal}
-          id="renderInPortal"
+          id={renderInPortalId}
           onChange={onRenderInPortalChange}
           type="checkbox"
         />
-        <label htmlFor="renderInPortal">Render in portal</label>
+        <label htmlFor={renderInPortalId}>Render in portal</label>
       </div>
     </fieldset>
   );
