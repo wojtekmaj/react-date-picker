@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createRef } from 'react';
 import { render } from '@testing-library/react';
 
-import DayInput from './DayInput.js';
+import DayInput, { checkDayInputValidity, getMinMaxDays } from './DayInput.js';
 
 describe('DayInput', () => {
   const defaultProps = {
@@ -203,5 +203,93 @@ describe('DayInput', () => {
     const input = container.querySelector('input');
 
     expect(input).toHaveAttribute('max', '15');
+  });
+});
+
+describe('getMinMaxDays', () => {
+  it('returns 1-31 by default', () => {
+    const result = getMinMaxDays({});
+    expect(result).toEqual({ minDay: 1, maxDay: 31 });
+  });
+
+  it('returns 1-29 given month is 2 and year is a leap year', () => {
+    const result = getMinMaxDays({ month: '2', year: '2020' });
+    expect(result).toEqual({ minDay: 1, maxDay: 29 });
+  });
+
+  it('returns 1-28 given month is 2 and year is not a leap year', () => {
+    const result = getMinMaxDays({ month: '2', year: '2021' });
+    expect(result).toEqual({ minDay: 1, maxDay: 28 });
+  });
+
+  it('returns 1-31 for january', () => {
+    const result = getMinMaxDays({ month: '1', year: '2021' });
+    expect(result).toEqual({ minDay: 1, maxDay: 31 });
+  });
+
+  it('returns 1-30 for november', () => {
+    const result = getMinMaxDays({ month: '11', year: '2021' });
+    expect(result).toEqual({ minDay: 1, maxDay: 30 });
+  });
+
+  it('returns minDay 15 if the given minDate fall on the same month and has a day value of 15', () => {
+    const result = getMinMaxDays({ minDate: new Date(2021, 10, 15), month: '11', year: '2021' });
+    expect(result).toEqual({ minDay: 15, maxDay: 30 });
+  });
+
+  it('returns maxDay 15 if the given maxDate fall on the same month and has a day value of 15', () => {
+    const result = getMinMaxDays({ maxDate: new Date(2021, 10, 15), month: '11', year: '2021' });
+    expect(result).toEqual({ minDay: 1, maxDay: 15 });
+  });
+});
+
+describe('checkDayInputValidity', () => {
+  const testCases = [
+    {
+      month: '1',
+      year: '2024',
+      dayValue: '1',
+      expectedValidity: true,
+    },
+
+    {
+      month: '2',
+      year: '2023',
+      dayValue: '29',
+      expectedValidity: false,
+    },
+    {
+      month: '2',
+      year: '2024',
+      dayValue: '29',
+      expectedValidity: true,
+    },
+    {
+      month: '2',
+      year: '2024',
+      dayValue: '30',
+      expectedValidity: false,
+    },
+    {
+      dayValue: '32',
+      expectedValidity: false,
+    },
+    {
+      dayValue: '31',
+      expectedValidity: true,
+    },
+  ];
+
+  testCases.forEach((testCase) => {
+    it(`returns ${testCase.expectedValidity} for day ${testCase.dayValue} in month ${testCase.month} and year ${testCase.year}`, () => {
+      const result = checkDayInputValidity(
+        {
+          month: testCase.month,
+          year: testCase.year,
+        },
+        testCase.dayValue,
+      );
+      expect(result).toBe(testCase.expectedValidity);
+    });
   });
 });

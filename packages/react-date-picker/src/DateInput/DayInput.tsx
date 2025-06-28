@@ -18,6 +18,17 @@ export default function DayInput({
   year,
   ...otherProps
 }: DayInputProps): React.ReactElement {
+  const { maxDay, minDay } = getMinMaxDays({ minDate, maxDate, month, year });
+
+  return <Input max={maxDay} min={minDay} name="day" {...otherProps} />;
+}
+
+export function getMinMaxDays(args: DayInputProps): {
+  maxDay: number;
+  minDay: number;
+} {
+  const { minDate, maxDate, month, year } = args;
+
   const currentMonthMaxDays = (() => {
     if (!month) {
       return 31;
@@ -33,5 +44,19 @@ export default function DayInput({
   const maxDay = safeMin(currentMonthMaxDays, maxDate && isSameMonth(maxDate) && getDate(maxDate));
   const minDay = safeMax(1, minDate && isSameMonth(minDate) && getDate(minDate));
 
-  return <Input max={maxDay} min={minDay} name="day" {...otherProps} />;
+  return { maxDay, minDay };
+}
+
+export function checkDayInputValidity(inputProps: DayInputProps, dayValue?: string): boolean {
+  const { minDay, maxDay } = getMinMaxDays(inputProps);
+  // Create an in-memory input element
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.name = 'day';
+  input.min = minDay.toString();
+  input.max = maxDay.toString();
+  input.required = true;
+  input.value = dayValue || '';
+  // The browser will now validate the value based on min/max/required
+  return input.checkValidity();
 }
