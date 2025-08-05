@@ -1395,10 +1395,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-element-overflow@npm:^1.4.0":
-  version: 1.4.1
-  resolution: "detect-element-overflow@npm:1.4.1"
-  checksum: 10c0/7e8a83a6f3311f3ed433b3e1bf90ee98fe44084d8e309b887456bb9c843381958eb864be982e7fb0fe9ca9412420a860dfa979b7cdce9fb7c0924a3f649749c1
+"detect-element-overflow@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "detect-element-overflow@npm:2.0.0"
+  checksum: 10c0/43d764fd84a3bd54bca5aca30069cf573036f95380746c6d405c73f36b3cd14f357c5c04684fcbccfee272c60f1f67d5eeb76aa0a08df58f329be4f61a5fdb38
   languageName: node
   linkType: hard
 
@@ -2472,7 +2472,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-calendar: "npm:^6.0.0"
     react-dom: "npm:^18.2.0"
-    react-fit: "npm:^2.0.0"
+    react-fit: "npm:^3.0.0"
     typescript: "npm:^5.5.2"
     update-input-width: "npm:^1.4.0"
     vitest: "npm:^3.2.3"
@@ -2499,11 +2499,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-fit@npm:^2.0.0":
-  version: 2.0.1
-  resolution: "react-fit@npm:2.0.1"
+"react-fit@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "react-fit@npm:3.0.0"
   dependencies:
-    detect-element-overflow: "npm:^1.4.0"
+    detect-element-overflow: "npm:^2.0.0"
     warning: "npm:^4.0.0"
   peerDependencies:
     "@types/react": ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -2512,9 +2512,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-    "@types/react-dom":
-      optional: true
-  checksum: 10c0/0202f4e3241bd2e967ec3728c97ab57842353ae48f218ca56d28be14737a7a759e40c3cd05700d9e328ab88e377eccb296f1e33530e6775d3acc05df97084018
+  checksum: 10c0/f850183151e80cca474146fd530a1d81a97dd6457341f3bba4366c6d60ae464c60ff0adc0677b9a77b0ba7057b8e3e081870d406d649c3d72b767b666c9f5e8f
   languageName: node
   linkType: hard
 
