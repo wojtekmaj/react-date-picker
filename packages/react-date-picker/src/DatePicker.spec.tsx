@@ -1,6 +1,6 @@
+import { userEvent } from '@vitest/browser/context';
 import { describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 
 import DatePicker from './DatePicker.js';
 
@@ -407,7 +407,7 @@ describe('DatePicker', () => {
   it('closes Calendar component when clicked outside', async () => {
     const { container } = render(<DatePicker isOpen />);
 
-    userEvent.click(document.body);
+    await userEvent.click(document.body);
 
     await waitForElementToBeRemovedOrHidden(() =>
       container.querySelector('.react-date-picker__calendar'),

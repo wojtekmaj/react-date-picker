@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { userEvent } from '@vitest/browser/context';
+import { describe, expect, it, vi } from 'vitest';
 import { fireEvent, render } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 
 import DateInput from './DateInput.js';
 
@@ -25,13 +25,6 @@ describe('DateInput', () => {
   const defaultProps = {
     className: 'react-date-picker__inputGroup',
   };
-
-  let user: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
-    user = userEvent.setup({
-      advanceTimers: vi.advanceTimersByTime.bind(vi),
-    });
-  });
 
   it('renders a native input and custom inputs', () => {
     const { container } = render(<DateInput {...defaultProps} />);
@@ -311,7 +304,7 @@ describe('DateInput', () => {
     const monthInput = customInputs[0] as HTMLInputElement;
     const dayInput = customInputs[1];
 
-    await user.type(monthInput, '{arrowright}');
+    await userEvent.type(monthInput, '{arrowright}');
 
     expect(dayInput).toHaveFocus();
   });
@@ -328,7 +321,7 @@ describe('DateInput', () => {
     ) as HTMLSpanElement;
     const separatorKey = separator.textContent as string;
 
-    await user.type(monthInput, separatorKey);
+    await userEvent.type(monthInput, separatorKey);
 
     expect(dayInput).toHaveFocus();
   });
@@ -339,7 +332,7 @@ describe('DateInput', () => {
     const customInputs = container.querySelectorAll('input[data-input]');
     const yearInput = customInputs[2] as HTMLInputElement;
 
-    await user.type(yearInput, '{arrowright}');
+    await userEvent.type(yearInput, '{arrowright}');
 
     expect(yearInput).toHaveFocus();
   });
@@ -351,7 +344,7 @@ describe('DateInput', () => {
     const monthInput = customInputs[0];
     const dayInput = customInputs[1] as HTMLInputElement;
 
-    await user.type(dayInput, '{arrowleft}');
+    await userEvent.type(dayInput, '{arrowleft}');
 
     expect(monthInput).toHaveFocus();
   });
@@ -362,7 +355,7 @@ describe('DateInput', () => {
     const customInputs = container.querySelectorAll('input[data-input]');
     const monthInput = customInputs[0] as HTMLInputElement;
 
-    await user.type(monthInput, '{arrowleft}');
+    await userEvent.type(monthInput, '{arrowleft}');
 
     expect(monthInput).toHaveFocus();
   });
@@ -374,7 +367,7 @@ describe('DateInput', () => {
     const monthInput = customInputs[0] as HTMLInputElement;
     const dayInput = customInputs[1];
 
-    await user.type(monthInput, '4');
+    await userEvent.type(monthInput, '4');
 
     expect(dayInput).toHaveFocus();
   });
@@ -386,7 +379,7 @@ describe('DateInput', () => {
     const monthInput = customInputs[0] as HTMLInputElement;
     const dayInput = customInputs[1];
 
-    await user.type(monthInput, '03');
+    await userEvent.type(monthInput, '03');
 
     expect(dayInput).toHaveFocus();
   });
@@ -434,7 +427,7 @@ describe('DateInput', () => {
     const customInputs = container.querySelectorAll('input[data-input]');
     const monthInput = customInputs[0] as HTMLInputElement;
 
-    await user.type(monthInput, '1');
+    await userEvent.type(monthInput, '1');
 
     expect(monthInput).toHaveFocus();
   });
