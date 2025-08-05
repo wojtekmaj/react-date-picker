@@ -1,4 +1,4 @@
-import { getYear, getISOLocalDate, getISOLocalMonth } from '@wojtekmaj/date-utils';
+import { getISOLocalDate, getISOLocalMonth, getYear } from '@wojtekmaj/date-utils';
 
 type NativeInputProps = {
   ariaLabel?: string;

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { getBegin, getEnd } from './dates.js';
 
 describe('getBegin', () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { createRef } from 'react';
 import { render } from '@testing-library/react';
+import { createRef } from 'react';
 
 import YearInput from './YearInput.js';
 

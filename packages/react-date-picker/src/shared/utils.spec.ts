@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { between, safeMin, safeMax } from './utils.js';
+
+import { between, safeMax, safeMin } from './utils.js';
 
 describe('between', () => {
   it('returns value when value is within set boundaries', () => {

@@ -1,8 +1,8 @@
+import { getMonthHuman, getYear } from '@wojtekmaj/date-utils';
 import clsx from 'clsx';
-import { getYear, getMonthHuman } from '@wojtekmaj/date-utils';
 
 import { formatMonth, formatShortMonth } from '../shared/dateFormatter.js';
-import { safeMin, safeMax } from '../shared/utils.js';
+import { safeMax, safeMin } from '../shared/utils.js';
 
 type MonthSelectProps = {
   ariaLabel?: string;

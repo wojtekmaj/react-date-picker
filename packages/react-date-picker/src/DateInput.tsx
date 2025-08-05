@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { getYear, getMonthHuman, getDate } from '@wojtekmaj/date-utils';
+import { getDate, getMonthHuman, getYear } from '@wojtekmaj/date-utils';
 
-import Divider from './Divider.js';
 import DayInput from './DateInput/DayInput.js';
 import MonthInput from './DateInput/MonthInput.js';
 import MonthSelect from './DateInput/MonthSelect.js';
-import YearInput from './DateInput/YearInput.js';
 import NativeInput from './DateInput/NativeInput.js';
+import YearInput from './DateInput/YearInput.js';
+import Divider from './Divider.js';
 
 import { getFormatter } from './shared/dateFormatter.js';
 import { getBegin, getEnd } from './shared/dates.js';
