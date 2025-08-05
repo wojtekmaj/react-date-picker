@@ -100,7 +100,7 @@
     "clsx": "^2.0.0",
     "get-user-locale": "^3.0.0",
     "make-event-props": "^2.0.0",
-    "react-calendar": "^5.0.0",
+    "react-calendar": "^6.0.0",
     "react-fit": "^2.0.0",
     "update-input-width": "^1.4.0"
   },

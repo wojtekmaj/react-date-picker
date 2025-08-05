@@ -906,22 +906,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash.memoize@npm:^4.1.7":
-  version: 4.1.7
-  resolution: "@types/lodash.memoize@npm:4.1.7"
-  dependencies:
-    "@types/lodash": "npm:*"
-  checksum: 10c0/979a59dbbae968a03834fdb544dc5ddd34620a2912d5030c997a1aa919326425a900c93bc69554b2a873cf54f09b4dd2752b3a1c29ab4bffac5983113c58b1b5
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:*":
-  version: 4.14.192
-  resolution: "@types/lodash@npm:4.14.192"
-  checksum: 10c0/6807402e293cb943808a444d1ef514ce13de4f870b3b382fe729f8235ea280c4d037b9514443723afd3d04b2cf9e8f1b3fc0075d947edfeb1078347dc2b471b0
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:*":
   version: 22.15.33
   resolution: "@types/node@npm:22.15.33"
@@ -1061,13 +1045,6 @@ __metadata:
     loupe: "npm:^3.1.3"
     tinyrainbow: "npm:^2.0.0"
   checksum: 10c0/c7a785a73bc0d7c0202ced0d9912639b9deb6f05dd6c25700a13d97e13320ccec57660f11ad1f9225419ac485339fdf7af28c8d77456bcb9558e6c7d73ad538a
-  languageName: node
-  linkType: hard
-
-"@wojtekmaj/date-utils@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "@wojtekmaj/date-utils@npm:1.1.3"
-  checksum: 10c0/c7af27dc4e5836382c44cd0a4be3b5594705e33976b99269d46b87208154f7d55b4ebb3a56bac7f1ff70136d943bd69ed454a96c672a40ff1ea98db4b6b79e1f
   languageName: node
   linkType: hard
 
@@ -1717,16 +1694,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-user-locale@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "get-user-locale@npm:2.2.1"
-  dependencies:
-    "@types/lodash.memoize": "npm:^4.1.7"
-    lodash.memoize: "npm:^4.1.1"
-  checksum: 10c0/c820c890aed5fa661435f0364cde6ec90ed9f497a5451528123571f1a77db45a6e2b92462808648499573cb3f2924f90f629ce4f82a60dc1d55047932a3abe71
-  languageName: node
-  linkType: hard
-
 "get-user-locale@npm:^3.0.0":
   version: 3.0.0
   resolution: "get-user-locale@npm:3.0.0"
@@ -1998,13 +1965,6 @@ __metadata:
   version: 4.0.1
   resolution: "junk@npm:4.0.1"
   checksum: 10c0/091117a5dcf65b19a3e4b8506d95d6ab152b5b5fe6f10e8998de950b0f9d689f14d9b63bb07863b8c86c18511fd1b9a21e9a16e686246436558338ed2e8a4548
-  languageName: node
-  linkType: hard
-
-"lodash.memoize@npm:^4.1.1":
-  version: 4.1.2
-  resolution: "lodash.memoize@npm:4.1.2"
-  checksum: 10c0/c8713e51eccc650422716a14cece1809cfe34bc5ab5e242b7f8b4e2241c2483697b971a604252807689b9dd69bfe3a98852e19a5b89d506b000b4187a1285df8
   languageName: node
   linkType: hard
 
@@ -2464,13 +2424,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-calendar@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "react-calendar@npm:5.0.0"
+"react-calendar@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "react-calendar@npm:6.0.0"
   dependencies:
-    "@wojtekmaj/date-utils": "npm:^1.1.3"
+    "@wojtekmaj/date-utils": "npm:^2.0.2"
     clsx: "npm:^2.0.0"
-    get-user-locale: "npm:^2.2.1"
+    get-user-locale: "npm:^3.0.0"
     warning: "npm:^4.0.0"
   peerDependencies:
     "@types/react": ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -2479,7 +2439,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/d0b393b22fb1607dd2a7743f104f6d7fe2f3dba39bfbce301b5100d35bed239f51a7b08eec2a7fea77d88af60aecc0b36c2435f36d0e07b88f4a826a67c5a91e
+  checksum: 10c0/4c79d7a7d757eb35fb85c3c8f48ce36f2565d9889c1c67392ecb8cb031e46894fb320c5771d9e7293333230d2776b9b5250a5828833c3c1cb67eb41394fb3bc2
   languageName: node
   linkType: hard
 
@@ -2510,7 +2470,7 @@ __metadata:
     happy-dom: "npm:^15.10.2"
     make-event-props: "npm:^2.0.0"
     react: "npm:^18.2.0"
-    react-calendar: "npm:^5.0.0"
+    react-calendar: "npm:^6.0.0"
     react-dom: "npm:^18.2.0"
     react-fit: "npm:^2.0.0"
     typescript: "npm:^5.5.2"
