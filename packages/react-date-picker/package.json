@@ -6,73 +6,26 @@
   "sideEffects": [
     "*.css"
   ],
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
+  "main": "./dist/index.js",
   "source": "./src/index.ts",
-  "types": "./dist/cjs/index.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
-    },
-    "./dist/DateInput": {
-      "import": "./dist/esm/DateInput.js",
-      "require": "./dist/cjs/DateInput.js"
-    },
-    "./dist/DateInput.js": {
-      "import": "./dist/esm/DateInput.js",
-      "require": "./dist/cjs/DateInput.js"
-    },
-    "./dist/DateInput/DayInput": {
-      "import": "./dist/esm/DateInput/DayInput.js",
-      "require": "./dist/cjs/DateInput/DayInput.js"
-    },
-    "./dist/DateInput/DayInput.js": {
-      "import": "./dist/esm/DateInput/DayInput.js",
-      "require": "./dist/cjs/DateInput/DayInput.js"
-    },
-    "./dist/DateInput/MonthInput": {
-      "import": "./dist/esm/DateInput/MonthInput.js",
-      "require": "./dist/cjs/DateInput/MonthInput.js"
-    },
-    "./dist/DateInput/MonthInput.js": {
-      "import": "./dist/esm/DateInput/MonthInput.js",
-      "require": "./dist/cjs/DateInput/MonthInput.js"
-    },
-    "./dist/DateInput/MonthSelect": {
-      "import": "./dist/esm/DateInput/MonthSelect.js",
-      "require": "./dist/cjs/DateInput/MonthSelect.js"
-    },
-    "./dist/DateInput/MonthSelect.js": {
-      "import": "./dist/esm/DateInput/MonthSelect.js",
-      "require": "./dist/cjs/DateInput/MonthSelect.js"
-    },
-    "./dist/DateInput/YearInput": {
-      "import": "./dist/esm/DateInput/YearInput.js",
-      "require": "./dist/cjs/DateInput/YearInput.js"
-    },
-    "./dist/DateInput/YearInput.js": {
-      "import": "./dist/esm/DateInput/YearInput.js",
-      "require": "./dist/cjs/DateInput/YearInput.js"
-    },
-    "./dist/cjs/DateInput": "./dist/cjs/DateInput.js",
-    "./dist/cjs/DateInput/DayInput": "./dist/cjs/DateInput/DayInput.js",
-    "./dist/cjs/DateInput/MonthInput": "./dist/cjs/DateInput/MonthInput.js",
-    "./dist/cjs/DateInput/MonthSelect": "./dist/cjs/DateInput/MonthSelect.js",
-    "./dist/cjs/DateInput/YearInput": "./dist/cjs/DateInput/YearInput.js",
-    "./dist/esm/DateInput": "./dist/esm/DateInput.js",
-    "./dist/esm/DateInput/DayInput": "./dist/esm/DateInput/DayInput.js",
-    "./dist/esm/DateInput/MonthInput": "./dist/esm/DateInput/MonthInput.js",
-    "./dist/esm/DateInput/MonthSelect": "./dist/esm/DateInput/MonthSelect.js",
-    "./dist/esm/DateInput/YearInput": "./dist/esm/DateInput/YearInput.js",
+    ".": "./dist/index.js",
+    "./dist/DateInput": "./dist/DateInput.js",
+    "./dist/DateInput.js": "./dist/DateInput.js",
+    "./dist/DateInput/DayInput": "./dist/DateInput/DayInput.js",
+    "./dist/DateInput/DayInput.js": "./dist/DateInput/DayInput.js",
+    "./dist/DateInput/MonthInput": "./dist/DateInput/MonthInput.js",
+    "./dist/DateInput/MonthInput.js": "./dist/DateInput/MonthInput.js",
+    "./dist/DateInput/MonthSelect": "./dist/DateInput/MonthSelect.js",
+    "./dist/DateInput/MonthSelect.js": "./dist/DateInput/MonthSelect.js",
+    "./dist/DateInput/YearInput": "./dist/DateInput/YearInput.js",
+    "./dist/DateInput/YearInput.js": "./dist/DateInput/YearInput.js",
     "./*": "./*"
   },
   "scripts": {
     "build": "yarn build-js && yarn copy-styles",
-    "build-js": "yarn build-js-esm && yarn build-js-cjs && yarn build-js-cjs-package",
-    "build-js-esm": "tsc --project tsconfig.build.json --outDir dist/esm",
-    "build-js-cjs": "tsc --project tsconfig.build.json --outDir dist/cjs --module commonjs --moduleResolution node --verbatimModuleSyntax false",
-    "build-js-cjs-package": "echo '{\n  \"type\": \"commonjs\"\n}' > dist/cjs/package.json",
+    "build-js": "tsc --project tsconfig.build.json",
     "clean": "node -e \"fs.rmSync('./dist', { recursive: true, force: true })\"",
     "copy-styles": "cpy 'src/**/*.css' dist",
     "format": "biome format",
@@ -81,7 +34,7 @@
     "test": "yarn lint && yarn tsc && yarn format && yarn unit",
     "tsc": "tsc",
     "unit": "vitest",
-    "watch": "yarn build-js-esm --watch & yarn build-js-cjs --watch & node --eval \"fs.watch('src', () => child_process.exec('yarn copy-styles'))\""
+    "watch": "yarn build-js --watch & node --eval \"fs.watch('src', () => child_process.exec('yarn copy-styles'))\""
   },
   "keywords": [
     "calendar",
