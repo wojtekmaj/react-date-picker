@@ -10,6 +10,9 @@ type NativeInputProps = {
   required?: boolean;
   value?: Date | null;
   valueType: 'century' | 'decade' | 'year' | 'month' | 'day';
+  ariaDescribedBy?: string,
+  ariaLabelledBy?: string,
+  ariaRequired?: boolean | 'true' | 'false',
 };
 
 export default function NativeInput({
@@ -22,6 +25,9 @@ export default function NativeInput({
   required,
   value,
   valueType,
+  ariaDescribedBy,
+  ariaLabelledBy,
+  ariaRequired,
 }: NativeInputProps): React.ReactElement {
   const nativeInputType = (() => {
     switch (valueType) {
@@ -73,6 +79,9 @@ export default function NativeInput({
       }}
       type={nativeInputType}
       value={value ? nativeValueParser(value) : ''}
+      aria-describedby={ariaDescribedBy}
+      aria-labelledby={ariaLabelledBy}
+      aria-required={ariaRequired}
     />
   );
 }

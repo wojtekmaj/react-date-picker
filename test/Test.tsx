@@ -126,6 +126,9 @@ export default function Test() {
               returnValue={returnValue}
               showLeadingZeros={showLeadingZeros}
               value={value}
+              ariaDescribedBy='my-describedby-id'
+              ariaLabelledBy='my-labelledby-id'
+              ariaRequired={required}
             />
             <div ref={portalContainer} />
             <br />
