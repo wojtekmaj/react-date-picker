@@ -198,9 +198,9 @@ type DateInputProps = {
   value?: LooseValuePiece;
   yearAriaLabel?: string;
   yearPlaceholder?: string;
-  ariaDescribedBy?: string,
-  ariaLabelledBy?: string,
-  ariaRequired?: boolean,
+  ariaDescribedBy?: string;
+  ariaLabelledBy?: string;
+  ariaRequired?: boolean;
 };
 
 export default function DateInput({

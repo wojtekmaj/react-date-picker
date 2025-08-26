@@ -10,9 +10,9 @@ type NativeInputProps = {
   required?: boolean;
   value?: Date | null;
   valueType: 'century' | 'decade' | 'year' | 'month' | 'day';
-  ariaDescribedBy?: string,
-  ariaLabelledBy?: string,
-  ariaRequired?: boolean | 'true' | 'false',
+  ariaDescribedBy?: string;
+  ariaLabelledBy?: string;
+  ariaRequired?: boolean | 'true' | 'false';
 };
 
 export default function NativeInput({
