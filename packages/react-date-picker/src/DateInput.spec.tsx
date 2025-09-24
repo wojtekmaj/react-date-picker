@@ -6,7 +6,6 @@ import DateInput from './DateInput.js';
 
 import { muteConsole, restoreConsole } from '../../../test-utils.js';
 
-// biome-ignore lint/correctness/useHookAtTopLevel: False positive, see https://github.com/biomejs/biome/issues/6396
 vi.useFakeTimers();
 
 const hasFullICU = (() => {
