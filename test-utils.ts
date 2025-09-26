@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-export function muteConsole() {
+export function muteConsole(): void {
   vi.spyOn(globalThis.console, 'log').mockImplementation(() => {
     // Intentionally empty
   });
@@ -12,7 +12,7 @@ export function muteConsole() {
   });
 }
 
-export function restoreConsole() {
+export function restoreConsole(): void {
   vi.mocked(globalThis.console.log).mockRestore();
   vi.mocked(globalThis.console.error).mockRestore();
   vi.mocked(globalThis.console.warn).mockRestore();
