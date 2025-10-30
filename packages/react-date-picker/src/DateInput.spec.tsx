@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { fireEvent, render } from '@testing-library/react';
+import { render } from 'vitest-browser-react';
 
 import DateInput from './DateInput.js';
 
@@ -25,8 +25,8 @@ describe('DateInput', () => {
     className: 'react-date-picker__inputGroup',
   };
 
-  it('renders a native input and custom inputs', () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+  it('renders a native input and custom inputs', async () => {
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
     const customInputs = container.querySelectorAll('input[data-input]');
@@ -35,8 +35,8 @@ describe('DateInput', () => {
     expect(customInputs).toHaveLength(3);
   });
 
-  it('does not render day input when maxDetail is "year" or less', () => {
-    const { container } = render(<DateInput {...defaultProps} maxDetail="year" />);
+  it('does not render day input when maxDetail is "year" or less', async () => {
+    const { container } = await render(<DateInput {...defaultProps} maxDetail="year" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const dayInput = container.querySelector('input[name="day"]');
@@ -49,8 +49,8 @@ describe('DateInput', () => {
     expect(yearInput).toBeInTheDocument();
   });
 
-  it('does not render day and month inputs when maxDetail is "decade" or less', () => {
-    const { container } = render(<DateInput {...defaultProps} maxDetail="decade" />);
+  it('does not render day and month inputs when maxDetail is "decade" or less', async () => {
+    const { container } = await render(<DateInput {...defaultProps} maxDetail="decade" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const dayInput = container.querySelector('input[name="day"]');
@@ -63,10 +63,10 @@ describe('DateInput', () => {
     expect(yearInput).toBeInTheDocument();
   });
 
-  it('shows a given date in all inputs correctly given Date (12-hour format)', () => {
+  it('shows a given date in all inputs correctly given Date (12-hour format)', async () => {
     const date = new Date(2017, 8, 30);
 
-    const { container } = render(<DateInput {...defaultProps} value={date} />);
+    const { container } = await render(<DateInput {...defaultProps} value={date} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
     const customInputs = container.querySelectorAll('input[data-input]');
@@ -77,10 +77,10 @@ describe('DateInput', () => {
     expect(customInputs[2]).toHaveValue(2017);
   });
 
-  it('shows a given date in all inputs correctly given ISO string (12-hour format)', () => {
+  it('shows a given date in all inputs correctly given ISO string (12-hour format)', async () => {
     const date = '2017-09-30T00:00:00.000';
 
-    const { container } = render(<DateInput {...defaultProps} value={date} />);
+    const { container } = await render(<DateInput {...defaultProps} value={date} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
     const customInputs = container.querySelectorAll('input[data-input]');
@@ -88,29 +88,17 @@ describe('DateInput', () => {
     expect(nativeInput).toHaveValue('2017-09-30');
     expect(customInputs[0]).toHaveValue(9);
     expect(customInputs[1]).toHaveValue(30);
-    expect(customInputs[2]).toHaveValue(2017);
-  });
-
-  itIfFullICU('shows a given date in all inputs correctly given Date (24-hour format)', () => {
-    const date = new Date(2017, 8, 30);
-
-    const { container } = render(<DateInput {...defaultProps} locale="de-DE" value={date} />);
-
-    const nativeInput = container.querySelector('input[type="date"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
-
-    expect(nativeInput).toHaveValue('2017-09-30');
-    expect(customInputs[0]).toHaveValue(30);
-    expect(customInputs[1]).toHaveValue(9);
     expect(customInputs[2]).toHaveValue(2017);
   });
 
   itIfFullICU(
-    'shows a given date in all inputs correctly given ISO string (24-hour format)',
-    () => {
-      const date = '2017-09-30T00:00:00.000';
+    'shows a given date in all inputs correctly given Date (24-hour format)',
+    async () => {
+      const date = new Date(2017, 8, 30);
 
-      const { container } = render(<DateInput {...defaultProps} locale="de-DE" value={date} />);
+      const { container } = await render(
+        <DateInput {...defaultProps} locale="de-DE" value={date} />,
+      );
 
       const nativeInput = container.querySelector('input[type="date"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -122,8 +110,27 @@ describe('DateInput', () => {
     },
   );
 
-  it('shows empty value in all inputs correctly given null', () => {
-    const { container } = render(<DateInput {...defaultProps} value={null} />);
+  itIfFullICU(
+    'shows a given date in all inputs correctly given ISO string (24-hour format)',
+    async () => {
+      const date = '2017-09-30T00:00:00.000';
+
+      const { container } = await render(
+        <DateInput {...defaultProps} locale="de-DE" value={date} />,
+      );
+
+      const nativeInput = container.querySelector('input[type="date"]');
+      const customInputs = container.querySelectorAll('input[data-input]');
+
+      expect(nativeInput).toHaveValue('2017-09-30');
+      expect(customInputs[0]).toHaveValue(30);
+      expect(customInputs[1]).toHaveValue(9);
+      expect(customInputs[2]).toHaveValue(2017);
+    },
+  );
+
+  it('shows empty value in all inputs correctly given null', async () => {
+    const { container } = await render(<DateInput {...defaultProps} value={null} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
     const customInputs = container.querySelectorAll('input[data-input]');
@@ -134,12 +141,12 @@ describe('DateInput', () => {
     expect(customInputs[2]).toHaveAttribute('value', '');
   });
 
-  it('clears the value correctly', () => {
+  it('clears the value correctly', async () => {
     const date = new Date(2017, 8, 30);
 
-    const { container, rerender } = render(<DateInput {...defaultProps} value={date} />);
+    const { container, rerender } = await render(<DateInput {...defaultProps} value={date} />);
 
-    rerender(<DateInput {...defaultProps} value={null} />);
+    await rerender(<DateInput {...defaultProps} value={null} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
     const customInputs = container.querySelectorAll('input[data-input]');
@@ -150,8 +157,8 @@ describe('DateInput', () => {
     expect(customInputs[2]).toHaveAttribute('value', '');
   });
 
-  it('renders custom inputs in a proper order (12-hour format)', () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+  it('renders custom inputs in a proper order (12-hour format)', async () => {
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
 
@@ -160,8 +167,8 @@ describe('DateInput', () => {
     expect(customInputs[2]).toHaveAttribute('name', 'year');
   });
 
-  itIfFullICU('renders custom inputs in a proper order (24-hour format)', () => {
-    const { container } = render(<DateInput {...defaultProps} locale="de-DE" />);
+  itIfFullICU('renders custom inputs in a proper order (24-hour format)', async () => {
+    const { container } = await render(<DateInput {...defaultProps} locale="de-DE" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
 
@@ -171,8 +178,8 @@ describe('DateInput', () => {
   });
 
   describe('renders custom inputs in a proper order given format', () => {
-    it('renders "y" properly', () => {
-      const { container } = render(<DateInput {...defaultProps} format="y" />);
+    it('renders "y" properly', async () => {
+      const { container } = await render(<DateInput {...defaultProps} format="y" />);
 
       const componentInput = container.querySelector('input[name="year"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -181,8 +188,8 @@ describe('DateInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "yyyy" properly', () => {
-      const { container } = render(<DateInput {...defaultProps} format="yyyy" />);
+    it('renders "yyyy" properly', async () => {
+      const { container } = await render(<DateInput {...defaultProps} format="yyyy" />);
 
       const componentInput = container.querySelector('input[name="year"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -191,8 +198,8 @@ describe('DateInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "M" properly', () => {
-      const { container } = render(<DateInput {...defaultProps} format="M" />);
+    it('renders "M" properly', async () => {
+      const { container } = await render(<DateInput {...defaultProps} format="M" />);
 
       const componentInput = container.querySelector('input[name="month"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -201,8 +208,8 @@ describe('DateInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "MM" properly', () => {
-      const { container } = render(<DateInput {...defaultProps} format="MM" />);
+    it('renders "MM" properly', async () => {
+      const { container } = await render(<DateInput {...defaultProps} format="MM" />);
 
       const componentInput = container.querySelector('input[name="month"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -211,8 +218,8 @@ describe('DateInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "MMM" properly', () => {
-      const { container } = render(<DateInput {...defaultProps} format="MMM" />);
+    it('renders "MMM" properly', async () => {
+      const { container } = await render(<DateInput {...defaultProps} format="MMM" />);
 
       const componentSelect = container.querySelector('select[name="month"]');
       const customInputs = container.querySelectorAll('select');
@@ -221,8 +228,8 @@ describe('DateInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "MMMM" properly', () => {
-      const { container } = render(<DateInput {...defaultProps} format="MMMM" />);
+    it('renders "MMMM" properly', async () => {
+      const { container } = await render(<DateInput {...defaultProps} format="MMMM" />);
 
       const componentSelect = container.querySelector('select[name="month"]');
       const customInputs = container.querySelectorAll('select');
@@ -231,8 +238,8 @@ describe('DateInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "d" properly', () => {
-      const { container } = render(<DateInput {...defaultProps} format="d" />);
+    it('renders "d" properly', async () => {
+      const { container } = await render(<DateInput {...defaultProps} format="d" />);
 
       const componentInput = container.querySelector('input[name="day"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -241,8 +248,8 @@ describe('DateInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "dd" properly', () => {
-      const { container } = render(<DateInput {...defaultProps} format="dd" />);
+    it('renders "dd" properly', async () => {
+      const { container } = await render(<DateInput {...defaultProps} format="dd" />);
 
       const componentInput = container.querySelector('input[name="day"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -251,18 +258,18 @@ describe('DateInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('throws error for "ddd"', () => {
+    it('throws error for "ddd"', async () => {
       muteConsole();
 
       const renderComponent = () => render(<DateInput {...defaultProps} format="ddd" />);
 
-      expect(renderComponent).toThrow('Unsupported token: ddd');
+      await expect(renderComponent).rejects.toThrowError('Unsupported token: ddd');
 
       restoreConsole();
     });
 
-    it('renders "yyyy-MM-dd" properly', () => {
-      const { container } = render(<DateInput {...defaultProps} format="yyyy-MM-d" />);
+    it('renders "yyyy-MM-dd" properly', async () => {
+      const { container } = await render(<DateInput {...defaultProps} format="yyyy-MM-d" />);
 
       const monthInput = container.querySelector('input[name="month"]');
       const dayInput = container.querySelector('input[name="day"]');
@@ -277,8 +284,8 @@ describe('DateInput', () => {
     });
   });
 
-  it('renders proper input separators', () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+  it('renders proper input separators', async () => {
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const separators = container.querySelectorAll('.react-date-picker__inputGroup__divider');
 
@@ -287,8 +294,8 @@ describe('DateInput', () => {
     expect(separators[1]).toHaveTextContent('/');
   });
 
-  it('renders proper amount of separators', () => {
-    const { container } = render(<DateInput {...defaultProps} maxDetail="year" />);
+  it('renders proper amount of separators', async () => {
+    const { container } = await render(<DateInput {...defaultProps} maxDetail="year" />);
 
     const separators = container.querySelectorAll('.react-date-picker__inputGroup__divider');
     const customInputs = container.querySelectorAll('input[data-input]');
@@ -297,7 +304,7 @@ describe('DateInput', () => {
   });
 
   it('jumps to the next field when right arrow is pressed', async () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const monthInput = customInputs[0] as HTMLInputElement;
@@ -309,7 +316,7 @@ describe('DateInput', () => {
   });
 
   it('jumps to the next field when separator key is pressed', async () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const monthInput = customInputs[0] as HTMLInputElement;
@@ -326,7 +333,7 @@ describe('DateInput', () => {
   });
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', async () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const yearInput = customInputs[2] as HTMLInputElement;
@@ -337,7 +344,7 @@ describe('DateInput', () => {
   });
 
   it('jumps to the previous field when left arrow is pressed', async () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const monthInput = customInputs[0];
@@ -349,7 +356,7 @@ describe('DateInput', () => {
   });
 
   it('does not jump to the previous field when left arrow is pressed when the first input is focused', async () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const monthInput = customInputs[0] as HTMLInputElement;
@@ -360,7 +367,7 @@ describe('DateInput', () => {
   });
 
   it("jumps to the next field when a value which can't be extended to another valid value is entered", async () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const monthInput = customInputs[0] as HTMLInputElement;
@@ -372,7 +379,7 @@ describe('DateInput', () => {
   });
 
   it('jumps to the next field when a value as long as the length of maximum value is entered', async () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const monthInput = customInputs[0] as HTMLInputElement;
@@ -383,25 +390,32 @@ describe('DateInput', () => {
     expect(dayInput).toHaveFocus();
   });
 
+  function triggerKeyDown(element: HTMLElement, key: string) {
+    element.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+  }
+
+  function triggerKeyPress(element: HTMLElement, key: string) {
+    element.dispatchEvent(new KeyboardEvent('keypress', { key, bubbles: true }));
+  }
+
+  function triggerKeyUp(element: HTMLElement, key: string) {
+    element.dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true }));
+  }
+
   it("jumps to the next field when a value which can't be extended to another valid value is entered by typing with multiple keys", async () => {
-    function getActiveElement() {
-      return document.activeElement as HTMLInputElement;
+    function keyDown(element: HTMLInputElement, key: string) {
+      triggerKeyDown(element, key);
+      triggerKeyPress(element, key);
+      element.value += key;
     }
 
-    function keyDown(key: string, initial = false) {
-      const element = getActiveElement();
-      fireEvent.keyDown(element, { key });
-      fireEvent.keyPress(element, { key });
-      element.value = (initial ? '' : element.value) + key;
-    }
-
-    function keyUp(key: string) {
-      fireEvent.keyUp(getActiveElement(), { key });
+    function keyUp(element: HTMLInputElement, key: string) {
+      triggerKeyUp(element, key);
     }
 
     const date = new Date(2023, 3, 1);
 
-    const { container } = render(<DateInput {...defaultProps} locale="de-DE" value={date} />);
+    const { container } = await render(<DateInput {...defaultProps} locale="de-DE" value={date} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const dayInput = customInputs[0] as HTMLInputElement;
@@ -410,18 +424,20 @@ describe('DateInput', () => {
     dayInput.focus();
     expect(dayInput).toHaveFocus();
 
-    keyDown('1', true);
-    keyDown('2');
+    await userEvent.clear(dayInput);
 
-    keyUp('1');
+    keyDown(dayInput, '1');
+    keyDown(dayInput, '2');
+
+    keyUp(dayInput, '1');
     expect(dayInput).toHaveFocus();
 
-    keyUp('2');
+    keyUp(dayInput, '2');
     expect(monthInput).toHaveFocus();
   });
 
   it('does not jump the next field when a value which can be extended to another valid value is entered', async () => {
-    const { container } = render(<DateInput {...defaultProps} />);
+    const { container } = await render(<DateInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const monthInput = customInputs[0] as HTMLInputElement;
@@ -431,33 +447,39 @@ describe('DateInput', () => {
     expect(monthInput).toHaveFocus();
   });
 
-  it('triggers onChange correctly when changed custom input', () => {
+  it('triggers onChange correctly when changed custom input', async () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
-    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = await render(
+      <DateInput {...defaultProps} onChange={onChange} value={date} />,
+    );
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const dayInput = customInputs[1] as HTMLInputElement;
 
-    fireEvent.change(dayInput, { target: { value: '20' } });
+    await userEvent.clear(dayInput);
+    await userEvent.type(dayInput, '20');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
   });
 
-  it('triggers onChange correctly when changed custom input with year < 100', () => {
+  it('triggers onChange correctly when changed custom input with year < 100', async () => {
     const onChange = vi.fn();
     const date = new Date();
     date.setFullYear(19, 8, 30);
     date.setHours(0, 0, 0, 0);
 
-    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = await render(
+      <DateInput {...defaultProps} onChange={onChange} value={date} />,
+    );
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const dayInput = customInputs[1] as HTMLInputElement;
 
-    fireEvent.change(dayInput, { target: { value: '20' } });
+    await userEvent.clear(dayInput);
+    await userEvent.type(dayInput, '20');
 
     const nextDate = new Date();
     nextDate.setFullYear(19, 8, 20);
@@ -467,18 +489,19 @@ describe('DateInput', () => {
     expect(onChange).toHaveBeenCalledWith(nextDate, false);
   });
 
-  it('triggers onChange correctly when changed custom input with no year', () => {
+  it('triggers onChange correctly when changed custom input with no year', async () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
-    const { container } = render(
+    const { container } = await render(
       <DateInput {...defaultProps} format="dd.MM" onChange={onChange} value={date} />,
     );
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const dayInput = customInputs[0] as HTMLInputElement;
 
-    fireEvent.change(dayInput, { target: { value: '20' } });
+    await userEvent.clear(dayInput);
+    await userEvent.type(dayInput, '20');
 
     const currentYear = new Date().getFullYear();
 
@@ -486,45 +509,51 @@ describe('DateInput', () => {
     expect(onChange).toHaveBeenCalledWith(new Date(currentYear, 8, 20), false);
   });
 
-  it('triggers onChange correctly when cleared custom inputs', () => {
+  it('triggers onChange correctly when cleared custom inputs', async () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
-    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = await render(
+      <DateInput {...defaultProps} onChange={onChange} value={date} />,
+    );
 
     const customInputs = Array.from(container.querySelectorAll('input[data-input]'));
 
     for (const customInput of customInputs) {
-      fireEvent.change(customInput, { target: { value: '' } });
+      await userEvent.clear(customInput);
     }
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith(null, false);
   });
 
-  it('triggers onChange correctly when changed native input', () => {
+  it('triggers onChange correctly when changed native input', async () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
-    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = await render(
+      <DateInput {...defaultProps} onChange={onChange} value={date} />,
+    );
 
     const nativeInput = container.querySelector('input[type="date"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '2017-09-20' } });
+    await userEvent.type(nativeInput, '2017-09-20');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
   });
 
-  it('triggers onChange correctly when changed native input with year < 100', () => {
+  it('triggers onChange correctly when changed native input with year < 100', async () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
-    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = await render(
+      <DateInput {...defaultProps} onChange={onChange} value={date} />,
+    );
 
     const nativeInput = container.querySelector('input[type="date"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '0019-09-20' } });
+    await userEvent.type(nativeInput, '0019-09-20');
 
     const nextDate = new Date();
     nextDate.setFullYear(19, 8, 20);
@@ -534,15 +563,17 @@ describe('DateInput', () => {
     expect(onChange).toHaveBeenCalledWith(nextDate, false);
   });
 
-  it('triggers onChange correctly when cleared native input', () => {
+  it('triggers onChange correctly when cleared native input', async () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
-    const { container } = render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
+    const { container } = await render(
+      <DateInput {...defaultProps} onChange={onChange} value={date} />,
+    );
 
     const nativeInput = container.querySelector('input[type="date"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '' } });
+    await userEvent.clear(nativeInput);
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(null, false);
