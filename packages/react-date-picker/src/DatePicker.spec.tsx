@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import { act, fireEvent, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 
 import DatePicker from './DatePicker.js';
 
@@ -9,13 +9,9 @@ async function waitForElementToBeRemovedOrHidden(callback: () => HTMLElement | n
   const element = callback();
 
   if (element) {
-    try {
-      await waitFor(() =>
-        expect(element).toHaveAttribute('class', expect.stringContaining('--closed')),
-      );
-    } catch {
-      await waitForElementToBeRemoved(element);
-    }
+    await vi.waitFor(() =>
+      expect(element).toHaveAttribute('class', expect.stringContaining('--closed')),
+    );
   }
 }
 
