@@ -322,6 +322,15 @@ describe('DatePicker', () => {
     expect(calendar2).toBeInTheDocument();
   });
 
+  function triggerFocusEvent(element: HTMLElement) {
+    element.dispatchEvent(
+      new FocusEvent('focusin', { bubbles: true, cancelable: false, composed: true }),
+    );
+    element.dispatchEvent(
+      new FocusEvent('focus', { bubbles: false, cancelable: false, composed: true }),
+    );
+  }
+
   describe('handles opening Calendar component when focusing on an input inside properly', () => {
     it('opens Calendar component when focusing on an input inside by default', async () => {
       const { container } = await render(<DatePicker />);
@@ -331,7 +340,9 @@ describe('DatePicker', () => {
 
       expect(calendar).toBeFalsy();
 
-      fireEvent.focus(input);
+      act(() => {
+        triggerFocusEvent(input);
+      });
 
       const calendar2 = container.querySelector('.react-calendar');
 
@@ -346,7 +357,9 @@ describe('DatePicker', () => {
 
       expect(calendar).toBeFalsy();
 
-      fireEvent.focus(input);
+      act(() => {
+        triggerFocusEvent(input);
+      });
 
       const calendar2 = container.querySelector('.react-calendar');
 
@@ -361,7 +374,9 @@ describe('DatePicker', () => {
 
       expect(calendar).toBeFalsy();
 
-      fireEvent.focus(input);
+      act(() => {
+        triggerFocusEvent(input);
+      });
 
       const calendar2 = container.querySelector('.react-calendar');
 
@@ -378,7 +393,7 @@ describe('DatePicker', () => {
 
       expect(calendar).toBeFalsy();
 
-      fireEvent.focus(input);
+      triggerFocusEvent(input);
 
       const calendar2 = container.querySelector('.react-calendar');
 
@@ -393,7 +408,7 @@ describe('DatePicker', () => {
       expect(calendar).toBeFalsy();
 
       const select = container.querySelector('select[name="month"]') as HTMLSelectElement;
-      fireEvent.focus(select);
+      triggerFocusEvent(select);
 
       const calendar2 = container.querySelector('.react-calendar');
 
@@ -414,7 +429,7 @@ describe('DatePicker', () => {
   it('closes Calendar component when focused outside', async () => {
     const { container } = await render(<DatePicker isOpen />);
 
-    fireEvent.focus(document.body);
+    triggerFocusEvent(document.body);
 
     await waitForElementToBeRemovedOrHidden(() =>
       container.querySelector('.react-date-picker__calendar'),
@@ -443,7 +458,7 @@ describe('DatePicker', () => {
     const dayInput = customInputs[1] as HTMLInputElement;
 
     fireEvent.blur(monthInput);
-    fireEvent.focus(dayInput);
+    triggerFocusEvent(dayInput);
 
     const calendar = container.querySelector('.react-calendar');
 
