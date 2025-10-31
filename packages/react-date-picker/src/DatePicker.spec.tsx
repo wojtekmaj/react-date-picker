@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import { act, fireEvent } from '@testing-library/react';
+import { act } from '@testing-library/react';
 
 import DatePicker from './DatePicker.js';
 
@@ -455,6 +455,20 @@ describe('DatePicker', () => {
     );
   });
 
+  function triggerFocusOutEvent(element: HTMLElement) {
+    element.dispatchEvent(
+      new FocusEvent('focusout', { bubbles: true, cancelable: false, composed: true }),
+    );
+  }
+
+  function triggerBlurEvent(element: HTMLElement) {
+    triggerFocusOutEvent(element);
+
+    element.dispatchEvent(
+      new FocusEvent('blur', { bubbles: false, cancelable: false, composed: true }),
+    );
+  }
+
   it('does not close Calendar component when focused inside', async () => {
     const { container } = await render(<DatePicker isOpen />);
 
@@ -462,7 +476,7 @@ describe('DatePicker', () => {
     const monthInput = customInputs[0] as HTMLInputElement;
     const dayInput = customInputs[1] as HTMLInputElement;
 
-    fireEvent.blur(monthInput);
+    triggerBlurEvent(monthInput);
     triggerFocusEvent(dayInput);
 
     const calendar = container.querySelector('.react-calendar');
