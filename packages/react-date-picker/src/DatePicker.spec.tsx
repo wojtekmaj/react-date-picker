@@ -322,10 +322,15 @@ describe('DatePicker', () => {
     expect(calendar2).toBeInTheDocument();
   });
 
-  function triggerFocusEvent(element: HTMLElement) {
+  function triggerFocusInEvent(element: HTMLElement) {
     element.dispatchEvent(
       new FocusEvent('focusin', { bubbles: true, cancelable: false, composed: true }),
     );
+  }
+
+  function triggerFocusEvent(element: HTMLElement) {
+    triggerFocusInEvent(element);
+
     element.dispatchEvent(
       new FocusEvent('focus', { bubbles: false, cancelable: false, composed: true }),
     );
