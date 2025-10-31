@@ -12,8 +12,8 @@ describe('MonthSelect', () => {
     },
   } satisfies React.ComponentProps<typeof MonthSelect>;
 
-  it('renders a select', () => {
-    const { container } = render(<MonthSelect {...defaultProps} />);
+  it('renders a select', async () => {
+    const { container } = await render(<MonthSelect {...defaultProps} />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
     expect(select).toBeInTheDocument();
@@ -22,18 +22,20 @@ describe('MonthSelect', () => {
     expect(options).toHaveLength(13); // 12 months + empty option
   });
 
-  it('applies given aria-label properly', () => {
+  it('applies given aria-label properly', async () => {
     const monthAriaLabel = 'Month';
 
-    const { container } = render(<MonthSelect {...defaultProps} ariaLabel={monthAriaLabel} />);
+    const { container } = await render(
+      <MonthSelect {...defaultProps} ariaLabel={monthAriaLabel} />,
+    );
 
     const select = container.querySelector('select');
 
     expect(select).toHaveAttribute('aria-label', monthAriaLabel);
   });
 
-  it('has proper placeholder by default', () => {
-    const { container } = render(<MonthSelect {...defaultProps} />);
+  it('has proper placeholder by default', async () => {
+    const { container } = await render(<MonthSelect {...defaultProps} />);
 
     const options = container.querySelectorAll('option');
     const firstOption = options[0];
@@ -41,10 +43,12 @@ describe('MonthSelect', () => {
     expect(firstOption).toHaveTextContent('--');
   });
 
-  it('displays given placeholder properly', () => {
+  it('displays given placeholder properly', async () => {
     const monthPlaceholder = 'mm';
 
-    const { container } = render(<MonthSelect {...defaultProps} placeholder={monthPlaceholder} />);
+    const { container } = await render(
+      <MonthSelect {...defaultProps} placeholder={monthPlaceholder} />,
+    );
 
     const options = container.querySelectorAll('option');
     const firstOption = options[0];
@@ -52,18 +56,18 @@ describe('MonthSelect', () => {
     expect(firstOption).toHaveTextContent(monthPlaceholder);
   });
 
-  it('has proper name defined', () => {
-    const { container } = render(<MonthSelect {...defaultProps} />);
+  it('has proper name defined', async () => {
+    const { container } = await render(<MonthSelect {...defaultProps} />);
 
     const select = container.querySelector('select');
 
     expect(select).toHaveAttribute('name', 'month');
   });
 
-  it('has proper className defined', () => {
+  it('has proper className defined', async () => {
     const className = 'react-date-picker';
 
-    const { container } = render(<MonthSelect {...defaultProps} className={className} />);
+    const { container } = await render(<MonthSelect {...defaultProps} className={className} />);
 
     const select = container.querySelector('select');
 
@@ -71,58 +75,58 @@ describe('MonthSelect', () => {
     expect(select).toHaveClass('react-date-picker__month');
   });
 
-  it('displays given value properly', () => {
+  it('displays given value properly', async () => {
     const value = '11';
 
-    const { container } = render(<MonthSelect {...defaultProps} value={value} />);
+    const { container } = await render(<MonthSelect {...defaultProps} value={value} />);
 
     const select = container.querySelector('select');
 
     expect(select).toHaveValue(value);
   });
 
-  it('does not disable select by default', () => {
-    const { container } = render(<MonthSelect {...defaultProps} />);
+  it('does not disable select by default', async () => {
+    const { container } = await render(<MonthSelect {...defaultProps} />);
 
     const select = container.querySelector('select');
 
     expect(select).not.toBeDisabled();
   });
 
-  it('disables select given disabled flag', () => {
-    const { container } = render(<MonthSelect {...defaultProps} disabled />);
+  it('disables select given disabled flag', async () => {
+    const { container } = await render(<MonthSelect {...defaultProps} disabled />);
 
     const select = container.querySelector('select');
 
     expect(select).toBeDisabled();
   });
 
-  it('is not required select by default', () => {
-    const { container } = render(<MonthSelect {...defaultProps} />);
+  it('is not required select by default', async () => {
+    const { container } = await render(<MonthSelect {...defaultProps} />);
 
     const select = container.querySelector('select');
 
     expect(select).not.toBeRequired();
   });
 
-  it('required select given required flag', () => {
-    const { container } = render(<MonthSelect {...defaultProps} required />);
+  it('required select given required flag', async () => {
+    const { container } = await render(<MonthSelect {...defaultProps} required />);
 
     const select = container.querySelector('select');
 
     expect(select).toBeRequired();
   });
 
-  it('handles inputRef properly', () => {
+  it('handles inputRef properly', async () => {
     const inputRef = createRef<HTMLSelectElement>();
 
-    render(<MonthSelect {...defaultProps} inputRef={inputRef} />);
+    await render(<MonthSelect {...defaultProps} inputRef={inputRef} />);
 
     expect(inputRef.current).toBeInstanceOf(HTMLSelectElement);
   });
 
-  it('has all options enabled by default', () => {
-    const { container } = render(<MonthSelect {...defaultProps} />);
+  it('has all options enabled by default', async () => {
+    const { container } = await render(<MonthSelect {...defaultProps} />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
     const options = Array.from(select.querySelectorAll('option'));
@@ -132,8 +136,8 @@ describe('MonthSelect', () => {
     }
   });
 
-  it('has all options enabled given minDate in a past year', () => {
-    const { container } = render(
+  it('has all options enabled given minDate in a past year', async () => {
+    const { container } = await render(
       <MonthSelect {...defaultProps} minDate={new Date(2017, 6, 1)} year="2018" />,
     );
 
@@ -145,8 +149,8 @@ describe('MonthSelect', () => {
     }
   });
 
-  it('has first (month in minDate) options disabled given minDate in a current year', () => {
-    const { container } = render(
+  it('has first (month in minDate) options disabled given minDate in a current year', async () => {
+    const { container } = await render(
       <MonthSelect {...defaultProps} minDate={new Date(2018, 6, 1)} year="2018" />,
     );
 
@@ -163,8 +167,8 @@ describe('MonthSelect', () => {
     }
   });
 
-  it('has all options enabled given maxDate in a future year', () => {
-    const { container } = render(
+  it('has all options enabled given maxDate in a future year', async () => {
+    const { container } = await render(
       <MonthSelect {...defaultProps} maxDate={new Date(2019, 6, 1)} year="2018" />,
     );
 
@@ -176,8 +180,8 @@ describe('MonthSelect', () => {
     }
   });
 
-  it('has last (month in maxDate) options disabled given maxDate in a current year', () => {
-    const { container } = render(
+  it('has last (month in maxDate) options disabled given maxDate in a current year', async () => {
+    const { container } = await render(
       <MonthSelect {...defaultProps} maxDate={new Date(2018, 6, 1)} year="2018" />,
     );
 

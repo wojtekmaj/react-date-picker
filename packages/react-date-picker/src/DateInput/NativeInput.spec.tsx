@@ -11,18 +11,18 @@ describe('NativeInput', () => {
     valueType: 'day',
   } satisfies React.ComponentProps<typeof NativeInput>;
 
-  it('renders an input', () => {
-    const { container } = render(<NativeInput {...defaultProps} />);
+  it('renders an input', async () => {
+    const { container } = await render(<NativeInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
     expect(input).toBeInTheDocument();
   });
 
-  it('applies given aria-label properly', () => {
+  it('applies given aria-label properly', async () => {
     const nativeInputAriaLabel = 'Date';
 
-    const { container } = render(
+    const { container } = await render(
       <NativeInput {...defaultProps} ariaLabel={nativeInputAriaLabel} />,
     );
 
@@ -31,10 +31,10 @@ describe('NativeInput', () => {
     expect(input).toHaveAttribute('aria-label', nativeInputAriaLabel);
   });
 
-  it('has proper name defined', () => {
+  it('has proper name defined', async () => {
     const name = 'testName';
 
-    const { container } = render(<NativeInput {...defaultProps} name={name} />);
+    const { container } = await render(<NativeInput {...defaultProps} name={name} />);
 
     const input = container.querySelector('input');
 
@@ -47,52 +47,55 @@ describe('NativeInput', () => {
     ${'month'}  | ${'2019-06'}
     ${'year'}   | ${2019}
     ${'decade'} | ${2019}
-  `('displays given value properly if valueType is $valueType', ({ valueType, parsedValue }) => {
-    const value = new Date(2019, 5, 1);
+  `(
+    'displays given value properly if valueType is $valueType',
+    async ({ valueType, parsedValue }) => {
+      const value = new Date(2019, 5, 1);
 
-    const { container } = render(
-      <NativeInput {...defaultProps} value={value} valueType={valueType} />,
-    );
+      const { container } = await render(
+        <NativeInput {...defaultProps} value={value} valueType={valueType} />,
+      );
 
-    const input = container.querySelector('input');
+      const input = container.querySelector('input');
 
-    expect(input).toHaveValue(parsedValue);
-  });
+      expect(input).toHaveValue(parsedValue);
+    },
+  );
 
-  it('does not disable input by default', () => {
-    const { container } = render(<NativeInput {...defaultProps} />);
+  it('does not disable input by default', async () => {
+    const { container } = await render(<NativeInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
     expect(input).not.toBeDisabled();
   });
 
-  it('disables input given disabled flag', () => {
-    const { container } = render(<NativeInput {...defaultProps} disabled />);
+  it('disables input given disabled flag', async () => {
+    const { container } = await render(<NativeInput {...defaultProps} disabled />);
 
     const input = container.querySelector('input');
 
     expect(input).toBeDisabled();
   });
 
-  it('is not required input by default', () => {
-    const { container } = render(<NativeInput {...defaultProps} />);
+  it('is not required input by default', async () => {
+    const { container } = await render(<NativeInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
     expect(input).not.toBeRequired();
   });
 
-  it('required input given required flag', () => {
-    const { container } = render(<NativeInput {...defaultProps} required />);
+  it('required input given required flag', async () => {
+    const { container } = await render(<NativeInput {...defaultProps} required />);
 
     const input = container.querySelector('input');
 
     expect(input).toBeRequired();
   });
 
-  it('has no min by default', () => {
-    const { container } = render(<NativeInput {...defaultProps} />);
+  it('has no min by default', async () => {
+    const { container } = await render(<NativeInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
@@ -107,8 +110,8 @@ describe('NativeInput', () => {
     ${'decade'} | ${'2019'}
   `(
     'has proper min for minDate which is a full year if valueType is $valueType',
-    ({ valueType, parsedMin }) => {
-      const { container } = render(
+    async ({ valueType, parsedMin }) => {
+      const { container } = await render(
         <NativeInput {...defaultProps} minDate={new Date(2019, 0, 1)} valueType={valueType} />,
       );
 
@@ -126,8 +129,8 @@ describe('NativeInput', () => {
     ${'decade'} | ${'2019'}
   `(
     'has proper min for minDate which is not a full year if valueType is $valueType',
-    ({ valueType, parsedMin }) => {
-      const { container } = render(
+    async ({ valueType, parsedMin }) => {
+      const { container } = await render(
         <NativeInput {...defaultProps} minDate={new Date(2019, 5, 1)} valueType={valueType} />,
       );
 
@@ -137,8 +140,8 @@ describe('NativeInput', () => {
     },
   );
 
-  it('has no max by default', () => {
-    const { container } = render(<NativeInput {...defaultProps} />);
+  it('has no max by default', async () => {
+    const { container } = await render(<NativeInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
@@ -153,8 +156,8 @@ describe('NativeInput', () => {
     ${'decade'} | ${'2020'}
   `(
     'has proper max for maxDate which is a full year if valueType is $valueType',
-    ({ valueType, parsedMax }) => {
-      const { container } = render(
+    async ({ valueType, parsedMax }) => {
+      const { container } = await render(
         <NativeInput {...defaultProps} maxDate={new Date(2020, 0, 1)} valueType={valueType} />,
       );
 
@@ -172,8 +175,8 @@ describe('NativeInput', () => {
     ${'decade'} | ${'2020'}
   `(
     'has proper max for maxDate which is not a full year if valueType is $valueType',
-    ({ valueType, parsedMax }) => {
-      const { container } = render(
+    async ({ valueType, parsedMax }) => {
+      const { container } = await render(
         <NativeInput {...defaultProps} maxDate={new Date(2020, 5, 1)} valueType={valueType} />,
       );
 
