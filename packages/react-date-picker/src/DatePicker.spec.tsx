@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import { act } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 
 import DatePicker from './DatePicker.js';
 
