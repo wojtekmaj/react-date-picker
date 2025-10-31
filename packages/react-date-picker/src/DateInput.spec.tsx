@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import { fireEvent } from '@testing-library/react';
 
 import DateInput from './DateInput.js';
 
@@ -391,6 +390,18 @@ describe('DateInput', () => {
     expect(dayInput).toHaveFocus();
   });
 
+  function triggerKeyDown(element: HTMLElement, { key }: { key: string }) {
+    element.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+  }
+
+  function triggerKeyPress(element: HTMLElement, { key }: { key: string }) {
+    element.dispatchEvent(new KeyboardEvent('keypress', { key, bubbles: true, cancelable: true }));
+  }
+
+  function triggerKeyUp(element: HTMLElement, { key }: { key: string }) {
+    element.dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true, cancelable: true }));
+  }
+
   it("jumps to the next field when a value which can't be extended to another valid value is entered by typing with multiple keys", async () => {
     function getActiveElement() {
       return document.activeElement as HTMLInputElement;
@@ -398,13 +409,13 @@ describe('DateInput', () => {
 
     function keyDown(key: string, initial = false) {
       const element = getActiveElement();
-      fireEvent.keyDown(element, { key });
-      fireEvent.keyPress(element, { key });
+      triggerKeyDown(element, { key });
+      triggerKeyPress(element, { key });
       element.value = (initial ? '' : element.value) + key;
     }
 
     function keyUp(key: string) {
-      fireEvent.keyUp(getActiveElement(), { key });
+      triggerKeyUp(getActiveElement(), { key });
     }
 
     const date = new Date(2023, 3, 1);
