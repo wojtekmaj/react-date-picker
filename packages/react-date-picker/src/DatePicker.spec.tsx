@@ -1,9 +1,11 @@
 import { describe, expect, it, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { act } from 'react-dom/test-utils';
 
 import DatePicker from './DatePicker.js';
+
+import type { Locator } from 'vitest/browser';
 
 async function waitForElementToBeRemovedOrHidden(callback: () => HTMLElement | null) {
   const element = callback();
@@ -16,8 +18,14 @@ async function waitForElementToBeRemovedOrHidden(callback: () => HTMLElement | n
 }
 
 describe('DatePicker', () => {
+  const defaultProps = {
+    dayAriaLabel: 'day',
+    monthAriaLabel: 'month',
+    yearAriaLabel: 'year',
+  };
+
   it('passes default name to DateInput', async () => {
-    const { container } = await render(<DatePicker />);
+    const { container } = await render(<DatePicker {...defaultProps} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
 
@@ -27,7 +35,9 @@ describe('DatePicker', () => {
   it('passes custom name to DateInput', async () => {
     const name = 'testName';
 
-    const { container } = await render(<DatePicker name={name} value={new Date(2020, 10, 11)} />);
+    const { container } = await render(
+      <DatePicker {...defaultProps} name={name} value={new Date(2020, 10, 11)} />,
+    );
 
     const nativeInput = container.querySelector('input[type="date"]');
 
@@ -35,15 +45,15 @@ describe('DatePicker', () => {
   });
 
   it('passes autoFocus flag to DateInput', async () => {
-    const { container } = await render(<DatePicker autoFocus />);
+    await render(<DatePicker {...defaultProps} autoFocus />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
-    expect(customInputs[0]).toHaveFocus();
+    expect(customInputs.nth(0)).toHaveFocus();
   });
 
   it('passes disabled flag to DateInput', async () => {
-    const { container } = await render(<DatePicker disabled />);
+    const { container } = await render(<DatePicker {...defaultProps} disabled />);
 
     const nativeInput = container.querySelector('input[type="date"]');
 
@@ -51,12 +61,12 @@ describe('DatePicker', () => {
   });
 
   it('passes format to DateInput', async () => {
-    const { container } = await render(<DatePicker format="yyyy" />);
+    await render(<DatePicker {...defaultProps} format="yyyy" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(customInputs).toHaveLength(1);
-    expect(customInputs[0]).toHaveAttribute('name', 'year');
+    expect(customInputs.nth(0)).toHaveAttribute('name', 'year');
   });
 
   it('passes aria-label props to DateInput', async () => {
@@ -71,8 +81,8 @@ describe('DatePicker', () => {
 
     const { container } = await render(<DatePicker {...ariaLabelProps} />);
 
-    const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
-    const clearButton = container.querySelector('button.react-date-picker__clear-button');
+    const calendarButton = page.getByTestId('calendar-button');
+    const clearButton = page.getByTestId('clear-button');
 
     const nativeInput = container.querySelector('input[type="date"]');
     const dayInput = container.querySelector('input[name="day"]');
@@ -95,11 +105,11 @@ describe('DatePicker', () => {
       yearPlaceholder: 'yyyy',
     };
 
-    const { container } = await render(<DatePicker {...placeholderProps} />);
+    await render(<DatePicker {...defaultProps} {...placeholderProps} />);
 
-    const dayInput = container.querySelector('input[name="day"]');
-    const monthInput = container.querySelector('input[name="month"]');
-    const yearInput = container.querySelector('input[name="year"]');
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const yearInput = page.getByRole('spinbutton', { name: 'year' });
 
     expect(dayInput).toHaveAttribute('placeholder', 'dd');
     expect(monthInput).toHaveAttribute('placeholder', 'mm');
@@ -110,7 +120,7 @@ describe('DatePicker', () => {
     it('passes single value to DateInput', async () => {
       const value = new Date(2019, 0, 1);
 
-      const { container } = await render(<DatePicker value={value} />);
+      const { container } = await render(<DatePicker {...defaultProps} value={value} />);
 
       const nativeInput = container.querySelector('input[type="date"]');
 
@@ -121,7 +131,7 @@ describe('DatePicker', () => {
       const value1 = new Date(2019, 0, 1);
       const value2 = new Date(2019, 6, 1);
 
-      const { container } = await render(<DatePicker value={[value1, value2]} />);
+      const { container } = await render(<DatePicker {...defaultProps} value={[value1, value2]} />);
 
       const nativeInput = container.querySelector('input[type="date"]');
 
@@ -132,7 +142,7 @@ describe('DatePicker', () => {
   it('applies className to its wrapper when given a string', async () => {
     const className = 'testClassName';
 
-    const { container } = await render(<DatePicker className={className} />);
+    const { container } = await render(<DatePicker {...defaultProps} className={className} />);
 
     const wrapper = container.firstElementChild;
 
@@ -140,7 +150,7 @@ describe('DatePicker', () => {
   });
 
   it('applies "--open" className to its wrapper when given isOpen flag', async () => {
-    const { container } = await render(<DatePicker isOpen />);
+    const { container } = await render(<DatePicker {...defaultProps} isOpen />);
 
     const wrapper = container.firstElementChild;
 
@@ -151,7 +161,7 @@ describe('DatePicker', () => {
     const calendarClassName = 'testClassName';
 
     const { container } = await render(
-      <DatePicker calendarProps={{ className: calendarClassName }} isOpen />,
+      <DatePicker {...defaultProps} calendarProps={{ className: calendarClassName }} isOpen />,
     );
 
     const calendar = container.querySelector('.react-calendar');
@@ -160,7 +170,7 @@ describe('DatePicker', () => {
   });
 
   it('renders DateInput component', async () => {
-    const { container } = await render(<DatePicker />);
+    const { container } = await render(<DatePicker {...defaultProps} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
 
@@ -169,29 +179,27 @@ describe('DatePicker', () => {
 
   describe('renders clear button properly', () => {
     it('renders clear button', async () => {
-      const { container } = await render(<DatePicker />);
+      await render(<DatePicker {...defaultProps} />);
 
-      const clearButton = container.querySelector('button.react-date-picker__clear-button');
+      const clearButton = page.getByTestId('clear-button');
 
       expect(clearButton).toBeInTheDocument();
     });
 
     it('renders clear icon by default when clearIcon is not given', async () => {
-      const { container } = await render(<DatePicker />);
+      await render(<DatePicker {...defaultProps} />);
 
-      const clearButton = container.querySelector(
-        'button.react-date-picker__clear-button',
-      ) as HTMLButtonElement;
+      const clearButton = page.getByTestId('clear-button');
 
-      const clearIcon = clearButton.querySelector('svg');
+      const clearIcon = clearButton.element().querySelector('svg');
 
       expect(clearIcon).toBeInTheDocument();
     });
 
     it('renders clear icon when given clearIcon as a string', async () => {
-      const { container } = await render(<DatePicker clearIcon="❌" />);
+      await render(<DatePicker {...defaultProps} clearIcon="❌" />);
 
-      const clearButton = container.querySelector('button.react-date-picker__clear-button');
+      const clearButton = page.getByTestId('clear-button');
 
       expect(clearButton).toHaveTextContent('❌');
     });
@@ -201,9 +209,9 @@ describe('DatePicker', () => {
         return <>❌</>;
       }
 
-      const { container } = await render(<DatePicker clearIcon={<ClearIcon />} />);
+      await render(<DatePicker {...defaultProps} clearIcon={<ClearIcon />} />);
 
-      const clearButton = container.querySelector('button.react-date-picker__clear-button');
+      const clearButton = page.getByTestId('clear-button');
 
       expect(clearButton).toHaveTextContent('❌');
     });
@@ -213,9 +221,9 @@ describe('DatePicker', () => {
         return <>❌</>;
       }
 
-      const { container } = await render(<DatePicker clearIcon={ClearIcon} />);
+      await render(<DatePicker {...defaultProps} clearIcon={ClearIcon} />);
 
-      const clearButton = container.querySelector('button.react-date-picker__clear-button');
+      const clearButton = page.getByTestId('clear-button');
 
       expect(clearButton).toHaveTextContent('❌');
     });
@@ -223,29 +231,27 @@ describe('DatePicker', () => {
 
   describe('renders calendar button properly', () => {
     it('renders calendar button', async () => {
-      const { container } = await render(<DatePicker />);
+      await render(<DatePicker {...defaultProps} />);
 
-      const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
+      const calendarButton = page.getByTestId('calendar-button');
 
       expect(calendarButton).toBeInTheDocument();
     });
 
     it('renders calendar icon by default when calendarIcon is not given', async () => {
-      const { container } = await render(<DatePicker />);
+      await render(<DatePicker {...defaultProps} />);
 
-      const calendarButton = container.querySelector(
-        'button.react-date-picker__calendar-button',
-      ) as HTMLButtonElement;
+      const calendarButton = page.getByTestId('calendar-button');
 
-      const calendarIcon = calendarButton.querySelector('svg');
+      const calendarIcon = calendarButton.element().querySelector('svg');
 
       expect(calendarIcon).toBeInTheDocument();
     });
 
     it('renders calendar icon when given calendarIcon as a string', async () => {
-      const { container } = await render(<DatePicker calendarIcon="📅" />);
+      await render(<DatePicker {...defaultProps} calendarIcon="📅" />);
 
-      const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
+      const calendarButton = page.getByTestId('calendar-button');
 
       expect(calendarButton).toHaveTextContent('📅');
     });
@@ -255,9 +261,9 @@ describe('DatePicker', () => {
         return <>📅</>;
       }
 
-      const { container } = await render(<DatePicker calendarIcon={<CalendarIcon />} />);
+      await render(<DatePicker {...defaultProps} calendarIcon={<CalendarIcon />} />);
 
-      const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
+      const calendarButton = page.getByTestId('calendar-button');
 
       expect(calendarButton).toHaveTextContent('📅');
     });
@@ -267,16 +273,16 @@ describe('DatePicker', () => {
         return <>📅</>;
       }
 
-      const { container } = await render(<DatePicker calendarIcon={CalendarIcon} />);
+      await render(<DatePicker {...defaultProps} calendarIcon={CalendarIcon} />);
 
-      const calendarButton = container.querySelector('button.react-date-picker__calendar-button');
+      const calendarButton = page.getByTestId('calendar-button');
 
       expect(calendarButton).toHaveTextContent('📅');
     });
   });
 
   it('renders Calendar component when given isOpen flag', async () => {
-    const { container } = await render(<DatePicker isOpen />);
+    const { container } = await render(<DatePicker {...defaultProps} isOpen />);
 
     const calendar = container.querySelector('.react-calendar');
 
@@ -284,21 +290,21 @@ describe('DatePicker', () => {
   });
 
   it('does not render Calendar component when given disableCalendar & isOpen flags', async () => {
-    const { container } = await render(<DatePicker disableCalendar isOpen />);
+    const { container } = await render(<DatePicker {...defaultProps} disableCalendar isOpen />);
 
     const calendar = container.querySelector('.react-calendar');
 
-    expect(calendar).toBeFalsy();
+    expect(calendar).not.toBeInTheDocument();
   });
 
   it('opens Calendar component when given isOpen flag by changing props', async () => {
-    const { container, rerender } = await render(<DatePicker />);
+    const { container, rerender } = await render(<DatePicker {...defaultProps} />);
 
     const calendar = container.querySelector('.react-calendar');
 
-    expect(calendar).toBeFalsy();
+    expect(calendar).not.toBeInTheDocument();
 
-    rerender(<DatePicker isOpen />);
+    rerender(<DatePicker {...defaultProps} isOpen />);
 
     const calendar2 = container.querySelector('.react-calendar');
 
@@ -306,15 +312,13 @@ describe('DatePicker', () => {
   });
 
   it('opens Calendar component when clicking on a button', async () => {
-    const { container } = await render(<DatePicker />);
+    const { container } = await render(<DatePicker {...defaultProps} />);
 
     const calendar = container.querySelector('.react-calendar');
 
-    expect(calendar).toBeFalsy();
+    expect(calendar).not.toBeInTheDocument();
 
-    const button = container.querySelector(
-      'button.react-date-picker__calendar-button',
-    ) as HTMLButtonElement;
+    const button = page.getByTestId('calendar-button');
     await userEvent.click(button);
 
     const calendar2 = container.querySelector('.react-calendar');
@@ -322,14 +326,18 @@ describe('DatePicker', () => {
     expect(calendar2).toBeInTheDocument();
   });
 
-  function triggerFocusInEvent(element: HTMLElement) {
+  function triggerFocusInEvent(locator: Locator) {
+    const element = locator.element();
+
     element.dispatchEvent(
       new FocusEvent('focusin', { bubbles: true, cancelable: false, composed: true }),
     );
   }
 
-  function triggerFocusEvent(element: HTMLElement) {
-    triggerFocusInEvent(element);
+  function triggerFocusEvent(locator: Locator) {
+    triggerFocusInEvent(locator);
+
+    const element = locator.element();
 
     element.dispatchEvent(
       new FocusEvent('focus', { bubbles: false, cancelable: false, composed: true }),
@@ -338,12 +346,12 @@ describe('DatePicker', () => {
 
   describe('handles opening Calendar component when focusing on an input inside properly', () => {
     it('opens Calendar component when focusing on an input inside by default', async () => {
-      const { container } = await render(<DatePicker />);
+      const { container } = await render(<DatePicker {...defaultProps} />);
 
       const calendar = container.querySelector('.react-calendar');
-      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
+      const input = page.getByRole('spinbutton', { name: 'day' });
 
-      expect(calendar).toBeFalsy();
+      expect(calendar).not.toBeInTheDocument();
 
       act(() => {
         triggerFocusEvent(input);
@@ -355,12 +363,12 @@ describe('DatePicker', () => {
     });
 
     it('opens Calendar component when focusing on an input inside given openCalendarOnFocus = true', async () => {
-      const { container } = await render(<DatePicker openCalendarOnFocus />);
+      const { container } = await render(<DatePicker {...defaultProps} openCalendarOnFocus />);
 
       const calendar = container.querySelector('.react-calendar');
-      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
+      const input = page.getByRole('spinbutton', { name: 'day' });
 
-      expect(calendar).toBeFalsy();
+      expect(calendar).not.toBeInTheDocument();
 
       act(() => {
         triggerFocusEvent(input);
@@ -372,12 +380,14 @@ describe('DatePicker', () => {
     });
 
     it('does not open Calendar component when focusing on an input inside given openCalendarOnFocus = false', async () => {
-      const { container } = await render(<DatePicker openCalendarOnFocus={false} />);
+      const { container } = await render(
+        <DatePicker {...defaultProps} openCalendarOnFocus={false} />,
+      );
 
       const calendar = container.querySelector('.react-calendar');
-      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
+      const input = page.getByRole('spinbutton', { name: 'day' });
 
-      expect(calendar).toBeFalsy();
+      expect(calendar).not.toBeInTheDocument();
 
       act(() => {
         triggerFocusEvent(input);
@@ -391,12 +401,14 @@ describe('DatePicker', () => {
     it('does not open Calendar when focusing on an input inside given shouldOpenCalendar function returning false', async () => {
       const shouldOpenCalendar = () => false;
 
-      const { container } = await render(<DatePicker shouldOpenCalendar={shouldOpenCalendar} />);
+      const { container } = await render(
+        <DatePicker {...defaultProps} shouldOpenCalendar={shouldOpenCalendar} />,
+      );
 
       const calendar = container.querySelector('.react-calendar');
-      const input = container.querySelector('input[name="day"]') as HTMLInputElement;
+      const input = page.getByRole('spinbutton', { name: 'day' });
 
-      expect(calendar).toBeFalsy();
+      expect(calendar).not.toBeInTheDocument();
 
       triggerFocusEvent(input);
 
@@ -406,13 +418,13 @@ describe('DatePicker', () => {
     });
 
     it('does not open Calendar component when focusing on a select element', async () => {
-      const { container } = await render(<DatePicker format="dd.MMMM.yyyy" />);
+      const { container } = await render(<DatePicker {...defaultProps} format="dd.MMMM.yyyy" />);
 
       const calendar = container.querySelector('.react-calendar');
 
-      expect(calendar).toBeFalsy();
+      expect(calendar).not.toBeInTheDocument();
 
-      const select = container.querySelector('select[name="month"]') as HTMLSelectElement;
+      const select = page.getByRole('combobox', { name: 'month' });
       triggerFocusEvent(select);
 
       const calendar2 = container.querySelector('.react-calendar');
@@ -422,7 +434,7 @@ describe('DatePicker', () => {
   });
 
   it('closes Calendar component when clicked outside', async () => {
-    const { container } = await render(<DatePicker isOpen />);
+    const { container } = await render(<DatePicker {...defaultProps} isOpen />);
 
     await userEvent.click(document.body);
 
@@ -432,9 +444,9 @@ describe('DatePicker', () => {
   });
 
   it('closes Calendar component when focused outside', async () => {
-    const { container } = await render(<DatePicker isOpen />);
+    const { container } = await render(<DatePicker {...defaultProps} isOpen />);
 
-    triggerFocusEvent(document.body);
+    triggerFocusEvent(page.elementLocator(document.body));
 
     await waitForElementToBeRemovedOrHidden(() =>
       container.querySelector('.react-date-picker__calendar'),
@@ -446,7 +458,7 @@ describe('DatePicker', () => {
   }
 
   it('closes Calendar component when tapped outside', async () => {
-    const { container } = await render(<DatePicker isOpen />);
+    const { container } = await render(<DatePicker {...defaultProps} isOpen />);
 
     triggerTouchStart(document.body);
 
@@ -455,14 +467,18 @@ describe('DatePicker', () => {
     );
   });
 
-  function triggerFocusOutEvent(element: HTMLElement) {
+  function triggerFocusOutEvent(locator: Locator) {
+    const element = locator.element();
+
     element.dispatchEvent(
       new FocusEvent('focusout', { bubbles: true, cancelable: false, composed: true }),
     );
   }
 
-  function triggerBlurEvent(element: HTMLElement) {
-    triggerFocusOutEvent(element);
+  function triggerBlurEvent(locator: Locator) {
+    triggerFocusOutEvent(locator);
+
+    const element = locator.element();
 
     element.dispatchEvent(
       new FocusEvent('blur', { bubbles: false, cancelable: false, composed: true }),
@@ -470,11 +486,10 @@ describe('DatePicker', () => {
   }
 
   it('does not close Calendar component when focused inside', async () => {
-    const { container } = await render(<DatePicker isOpen />);
+    const { container } = await render(<DatePicker {...defaultProps} isOpen />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0] as HTMLInputElement;
-    const dayInput = customInputs[1] as HTMLInputElement;
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     triggerBlurEvent(monthInput);
     triggerFocusEvent(dayInput);
@@ -485,7 +500,7 @@ describe('DatePicker', () => {
   });
 
   it('closes Calendar when changing value by default', async () => {
-    const { container } = await render(<DatePicker isOpen />);
+    const { container } = await render(<DatePicker {...defaultProps} isOpen />);
 
     const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 
@@ -499,7 +514,7 @@ describe('DatePicker', () => {
   });
 
   it('closes Calendar when changing value with prop closeCalendar = true', async () => {
-    const { container } = await render(<DatePicker closeCalendar isOpen />);
+    const { container } = await render(<DatePicker {...defaultProps} closeCalendar isOpen />);
 
     const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 
@@ -513,7 +528,9 @@ describe('DatePicker', () => {
   });
 
   it('does not close Calendar when changing value with prop closeCalendar = false', async () => {
-    const { container } = await render(<DatePicker closeCalendar={false} isOpen />);
+    const { container } = await render(
+      <DatePicker {...defaultProps} closeCalendar={false} isOpen />,
+    );
 
     const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 
@@ -530,7 +547,7 @@ describe('DatePicker', () => {
     const shouldCloseCalendar = () => false;
 
     const { container } = await render(
-      <DatePicker isOpen shouldCloseCalendar={shouldCloseCalendar} />,
+      <DatePicker {...defaultProps} isOpen shouldCloseCalendar={shouldCloseCalendar} />,
     );
 
     const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
@@ -545,9 +562,9 @@ describe('DatePicker', () => {
   });
 
   it('does not close Calendar when changing value using inputs', async () => {
-    const { container } = await render(<DatePicker isOpen />);
+    const { container } = await render(<DatePicker {...defaultProps} isOpen />);
 
-    const dayInput = container.querySelector('input[name="day"]') as HTMLInputElement;
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     await act(async () => {
       await userEvent.fill(dayInput, '1');
@@ -562,9 +579,9 @@ describe('DatePicker', () => {
     const value = new Date(2023, 0, 31);
     const onChange = vi.fn();
 
-    const { container } = await render(<DatePicker onChange={onChange} value={value} />);
+    await render(<DatePicker {...defaultProps} onChange={onChange} value={value} />);
 
-    const dayInput = container.querySelector('input[name="day"]') as HTMLInputElement;
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     await act(async () => {
       await userEvent.fill(dayInput, '1');
@@ -577,11 +594,9 @@ describe('DatePicker', () => {
     const value = new Date(2023, 0, 31);
     const onInvalidChange = vi.fn();
 
-    const { container } = await render(
-      <DatePicker onInvalidChange={onInvalidChange} value={value} />,
-    );
+    await render(<DatePicker {...defaultProps} onInvalidChange={onInvalidChange} value={value} />);
 
-    const dayInput = container.querySelector('input[name="day"]') as HTMLInputElement;
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     await act(async () => {
       await userEvent.fill(dayInput, '32');
@@ -593,15 +608,13 @@ describe('DatePicker', () => {
   it('clears the value when clicking on a button', async () => {
     const onChange = vi.fn();
 
-    const { container } = await render(<DatePicker onChange={onChange} />);
+    const { container } = await render(<DatePicker {...defaultProps} onChange={onChange} />);
 
     const calendar = container.querySelector('.react-calendar');
 
-    expect(calendar).toBeFalsy();
+    expect(calendar).not.toBeInTheDocument();
 
-    const button = container.querySelector(
-      'button.react-date-picker__clear-button',
-    ) as HTMLButtonElement;
+    const button = page.getByTestId('clear-button');
 
     await userEvent.click(button);
 
@@ -611,7 +624,7 @@ describe('DatePicker', () => {
   it('calls onClick callback when clicked a page (sample of mouse events family)', async () => {
     const onClick = vi.fn();
 
-    const { container } = await render(<DatePicker onClick={onClick} />);
+    const { container } = await render(<DatePicker {...defaultProps} onClick={onClick} />);
 
     const wrapper = container.firstElementChild as HTMLDivElement;
     await userEvent.click(wrapper);
@@ -622,7 +635,9 @@ describe('DatePicker', () => {
   it('calls onTouchStart callback when touched a page (sample of touch events family)', async () => {
     const onTouchStart = vi.fn();
 
-    const { container } = await render(<DatePicker onTouchStart={onTouchStart} />);
+    const { container } = await render(
+      <DatePicker {...defaultProps} onTouchStart={onTouchStart} />,
+    );
 
     const wrapper = container.firstElementChild as HTMLDivElement;
 

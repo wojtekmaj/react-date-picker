@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { page } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { createRef } from 'react';
 
@@ -13,9 +14,9 @@ describe('MonthInput', () => {
   } satisfies React.ComponentProps<typeof MonthInput>;
 
   it('renders an input', async () => {
-    const { container } = await render(<MonthInput {...defaultProps} />);
+    await render(<MonthInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toBeInTheDocument();
   });
@@ -23,7 +24,7 @@ describe('MonthInput', () => {
   it('renders "0" given showLeadingZeros if month is <10', async () => {
     const { container } = await render(<MonthInput {...defaultProps} showLeadingZeros value="9" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(container).toHaveTextContent('0');
     expect(input).toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
@@ -34,7 +35,7 @@ describe('MonthInput', () => {
       <MonthInput {...defaultProps} showLeadingZeros value="09" />,
     );
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(container).not.toHaveTextContent('0');
     expect(input).not.toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
@@ -45,7 +46,7 @@ describe('MonthInput', () => {
       <MonthInput {...defaultProps} showLeadingZeros value="10" />,
     );
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(container).not.toHaveTextContent('0');
     expect(input).not.toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
@@ -54,7 +55,7 @@ describe('MonthInput', () => {
   it('does not render "0" if not given showLeadingZeros', async () => {
     const { container } = await render(<MonthInput {...defaultProps} value="9" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(container).not.toHaveTextContent('0');
     expect(input).not.toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
@@ -63,9 +64,9 @@ describe('MonthInput', () => {
   it('applies given aria-label properly', async () => {
     const monthAriaLabel = 'Month';
 
-    const { container } = await render(<MonthInput {...defaultProps} ariaLabel={monthAriaLabel} />);
+    await render(<MonthInput {...defaultProps} ariaLabel={monthAriaLabel} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('aria-label', monthAriaLabel);
   });
@@ -73,19 +74,17 @@ describe('MonthInput', () => {
   it('applies given placeholder properly', async () => {
     const monthPlaceholder = 'mm';
 
-    const { container } = await render(
-      <MonthInput {...defaultProps} placeholder={monthPlaceholder} />,
-    );
+    await render(<MonthInput {...defaultProps} placeholder={monthPlaceholder} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('placeholder', monthPlaceholder);
   });
 
   it('has proper name defined', async () => {
-    const { container } = await render(<MonthInput {...defaultProps} />);
+    await render(<MonthInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('name', 'month');
   });
@@ -93,9 +92,9 @@ describe('MonthInput', () => {
   it('has proper className defined', async () => {
     const className = 'react-date-picker';
 
-    const { container } = await render(<MonthInput {...defaultProps} className={className} />);
+    await render(<MonthInput {...defaultProps} className={className} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveClass('react-date-picker__input');
     expect(input).toHaveClass('react-date-picker__month');
@@ -104,41 +103,41 @@ describe('MonthInput', () => {
   it('displays given value properly', async () => {
     const value = '11';
 
-    const { container } = await render(<MonthInput {...defaultProps} value={value} />);
+    await render(<MonthInput {...defaultProps} value={value} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveValue(Number(value));
   });
 
   it('does not disable input by default', async () => {
-    const { container } = await render(<MonthInput {...defaultProps} />);
+    await render(<MonthInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).not.toBeDisabled();
   });
 
   it('disables input given disabled flag', async () => {
-    const { container } = await render(<MonthInput {...defaultProps} disabled />);
+    await render(<MonthInput {...defaultProps} disabled />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toBeDisabled();
   });
 
   it('is not required input by default', async () => {
-    const { container } = await render(<MonthInput {...defaultProps} />);
+    await render(<MonthInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).not.toBeRequired();
   });
 
   it('required input given required flag', async () => {
-    const { container } = await render(<MonthInput {...defaultProps} required />);
+    await render(<MonthInput {...defaultProps} required />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toBeRequired();
   });
@@ -152,57 +151,49 @@ describe('MonthInput', () => {
   });
 
   it('has min = "1" by default', async () => {
-    const { container } = await render(<MonthInput {...defaultProps} />);
+    await render(<MonthInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '1');
   });
 
   it('has min = "1" given minDate in a past year', async () => {
-    const { container } = await render(
-      <MonthInput {...defaultProps} minDate={new Date(2017, 6, 1)} year="2018" />,
-    );
+    await render(<MonthInput {...defaultProps} minDate={new Date(2017, 6, 1)} year="2018" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '1');
   });
 
   it('has min = (month in minDate) given minDate in a current year', async () => {
-    const { container } = await render(
-      <MonthInput {...defaultProps} minDate={new Date(2018, 6, 1)} year="2018" />,
-    );
+    await render(<MonthInput {...defaultProps} minDate={new Date(2018, 6, 1)} year="2018" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '7');
   });
 
   it('has max = "12" by default', async () => {
-    const { container } = await render(<MonthInput {...defaultProps} year="2018" />);
+    await render(<MonthInput {...defaultProps} year="2018" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '12');
   });
 
   it('has max = "12" given maxDate in a future year', async () => {
-    const { container } = await render(
-      <MonthInput {...defaultProps} maxDate={new Date(2019, 6, 1)} year="2018" />,
-    );
+    await render(<MonthInput {...defaultProps} maxDate={new Date(2019, 6, 1)} year="2018" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '12');
   });
 
   it('has max = (month in maxDate) given maxDate in a current year', async () => {
-    const { container } = await render(
-      <MonthInput {...defaultProps} maxDate={new Date(2018, 6, 1)} year="2018" />,
-    );
+    await render(<MonthInput {...defaultProps} maxDate={new Date(2018, 6, 1)} year="2018" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '7');
   });

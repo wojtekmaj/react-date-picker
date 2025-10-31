@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { page } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { createRef } from 'react';
 
@@ -13,32 +14,30 @@ describe('MonthSelect', () => {
   } satisfies React.ComponentProps<typeof MonthSelect>;
 
   it('renders a select', async () => {
-    const { container } = await render(<MonthSelect {...defaultProps} />);
+    await render(<MonthSelect {...defaultProps} />);
 
-    const select = container.querySelector('select') as HTMLSelectElement;
+    const select = page.getByRole('combobox');
     expect(select).toBeInTheDocument();
 
-    const options = select.querySelectorAll('option');
+    const options = select.getByRole('option');
     expect(options).toHaveLength(13); // 12 months + empty option
   });
 
   it('applies given aria-label properly', async () => {
     const monthAriaLabel = 'Month';
 
-    const { container } = await render(
-      <MonthSelect {...defaultProps} ariaLabel={monthAriaLabel} />,
-    );
+    await render(<MonthSelect {...defaultProps} ariaLabel={monthAriaLabel} />);
 
-    const select = container.querySelector('select');
+    const select = page.getByRole('combobox');
 
     expect(select).toHaveAttribute('aria-label', monthAriaLabel);
   });
 
   it('has proper placeholder by default', async () => {
-    const { container } = await render(<MonthSelect {...defaultProps} />);
+    await render(<MonthSelect {...defaultProps} />);
 
-    const options = container.querySelectorAll('option');
-    const firstOption = options[0];
+    const options = page.getByRole('option');
+    const firstOption = options.first();
 
     expect(firstOption).toHaveTextContent('--');
   });
@@ -46,20 +45,18 @@ describe('MonthSelect', () => {
   it('displays given placeholder properly', async () => {
     const monthPlaceholder = 'mm';
 
-    const { container } = await render(
-      <MonthSelect {...defaultProps} placeholder={monthPlaceholder} />,
-    );
+    await render(<MonthSelect {...defaultProps} placeholder={monthPlaceholder} />);
 
-    const options = container.querySelectorAll('option');
-    const firstOption = options[0];
+    const options = page.getByRole('option');
+    const firstOption = options.first();
 
     expect(firstOption).toHaveTextContent(monthPlaceholder);
   });
 
   it('has proper name defined', async () => {
-    const { container } = await render(<MonthSelect {...defaultProps} />);
+    await render(<MonthSelect {...defaultProps} />);
 
-    const select = container.querySelector('select');
+    const select = page.getByRole('combobox');
 
     expect(select).toHaveAttribute('name', 'month');
   });
@@ -67,9 +64,9 @@ describe('MonthSelect', () => {
   it('has proper className defined', async () => {
     const className = 'react-date-picker';
 
-    const { container } = await render(<MonthSelect {...defaultProps} className={className} />);
+    await render(<MonthSelect {...defaultProps} className={className} />);
 
-    const select = container.querySelector('select');
+    const select = page.getByRole('combobox');
 
     expect(select).toHaveClass('react-date-picker__input');
     expect(select).toHaveClass('react-date-picker__month');
@@ -78,41 +75,41 @@ describe('MonthSelect', () => {
   it('displays given value properly', async () => {
     const value = '11';
 
-    const { container } = await render(<MonthSelect {...defaultProps} value={value} />);
+    await render(<MonthSelect {...defaultProps} value={value} />);
 
-    const select = container.querySelector('select');
+    const select = page.getByRole('combobox');
 
     expect(select).toHaveValue(value);
   });
 
   it('does not disable select by default', async () => {
-    const { container } = await render(<MonthSelect {...defaultProps} />);
+    await render(<MonthSelect {...defaultProps} />);
 
-    const select = container.querySelector('select');
+    const select = page.getByRole('combobox');
 
     expect(select).not.toBeDisabled();
   });
 
   it('disables select given disabled flag', async () => {
-    const { container } = await render(<MonthSelect {...defaultProps} disabled />);
+    await render(<MonthSelect {...defaultProps} disabled />);
 
-    const select = container.querySelector('select');
+    const select = page.getByRole('combobox');
 
     expect(select).toBeDisabled();
   });
 
   it('is not required select by default', async () => {
-    const { container } = await render(<MonthSelect {...defaultProps} />);
+    await render(<MonthSelect {...defaultProps} />);
 
-    const select = container.querySelector('select');
+    const select = page.getByRole('combobox');
 
     expect(select).not.toBeRequired();
   });
 
   it('required select given required flag', async () => {
-    const { container } = await render(<MonthSelect {...defaultProps} required />);
+    await render(<MonthSelect {...defaultProps} required />);
 
-    const select = container.querySelector('select');
+    const select = page.getByRole('combobox');
 
     expect(select).toBeRequired();
   });
@@ -126,10 +123,10 @@ describe('MonthSelect', () => {
   });
 
   it('has all options enabled by default', async () => {
-    const { container } = await render(<MonthSelect {...defaultProps} />);
+    await render(<MonthSelect {...defaultProps} />);
 
-    const select = container.querySelector('select') as HTMLSelectElement;
-    const options = Array.from(select.querySelectorAll('option'));
+    const select = page.getByRole('combobox');
+    const options = select.getByRole('option').all();
 
     for (const option of options) {
       expect(option).not.toBeDisabled();
@@ -137,12 +134,10 @@ describe('MonthSelect', () => {
   });
 
   it('has all options enabled given minDate in a past year', async () => {
-    const { container } = await render(
-      <MonthSelect {...defaultProps} minDate={new Date(2017, 6, 1)} year="2018" />,
-    );
+    await render(<MonthSelect {...defaultProps} minDate={new Date(2017, 6, 1)} year="2018" />);
 
-    const select = container.querySelector('select') as HTMLSelectElement;
-    const options = Array.from(select.querySelectorAll('option[value]'));
+    const select = page.getByRole('combobox');
+    const options = select.getByRole('option').all().slice(1); // Getting rid of "--" option
 
     for (const option of options) {
       expect(option).not.toBeDisabled();
@@ -150,12 +145,10 @@ describe('MonthSelect', () => {
   });
 
   it('has first (month in minDate) options disabled given minDate in a current year', async () => {
-    const { container } = await render(
-      <MonthSelect {...defaultProps} minDate={new Date(2018, 6, 1)} year="2018" />,
-    );
+    await render(<MonthSelect {...defaultProps} minDate={new Date(2018, 6, 1)} year="2018" />);
 
-    const select = container.querySelector('select') as HTMLSelectElement;
-    const options = Array.from(select.querySelectorAll('option')).slice(1); // Getting rid of "--" option
+    const select = page.getByRole('combobox');
+    const options = select.getByRole('option').all().slice(1); // Getting rid of "--" option
 
     // January - June
     for (const option of options.slice(0, 6)) {
@@ -168,12 +161,10 @@ describe('MonthSelect', () => {
   });
 
   it('has all options enabled given maxDate in a future year', async () => {
-    const { container } = await render(
-      <MonthSelect {...defaultProps} maxDate={new Date(2019, 6, 1)} year="2018" />,
-    );
+    await render(<MonthSelect {...defaultProps} maxDate={new Date(2019, 6, 1)} year="2018" />);
 
-    const select = container.querySelector('select') as HTMLSelectElement;
-    const options = Array.from(select.querySelectorAll('option')).slice(1); // Getting rid of "--" option
+    const select = page.getByRole('combobox');
+    const options = select.getByRole('option').all().slice(1); // Getting rid of "--" option
 
     for (const option of options) {
       expect(option).not.toBeDisabled();
@@ -181,12 +172,10 @@ describe('MonthSelect', () => {
   });
 
   it('has last (month in maxDate) options disabled given maxDate in a current year', async () => {
-    const { container } = await render(
-      <MonthSelect {...defaultProps} maxDate={new Date(2018, 6, 1)} year="2018" />,
-    );
+    await render(<MonthSelect {...defaultProps} maxDate={new Date(2018, 6, 1)} year="2018" />);
 
-    const select = container.querySelector('select') as HTMLSelectElement;
-    const options = Array.from(select.querySelectorAll('option')).slice(1); // Getting rid of "--" option
+    const select = page.getByRole('combobox');
+    const options = select.getByRole('option').all().slice(1); // Getting rid of "--" option
 
     // January - July
     for (const option of options.slice(0, 7)) {

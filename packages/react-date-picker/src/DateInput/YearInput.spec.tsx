@@ -3,6 +3,7 @@ import { render } from 'vitest-browser-react';
 import { createRef } from 'react';
 
 import YearInput from './YearInput.js';
+import { page } from 'vitest/browser';
 
 describe('YearInput', () => {
   const defaultProps = {
@@ -13,9 +14,9 @@ describe('YearInput', () => {
   } satisfies React.ComponentProps<typeof YearInput>;
 
   it('renders an input', async () => {
-    const { container } = await render(<YearInput {...defaultProps} />);
+    await render(<YearInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toBeInTheDocument();
   });
@@ -23,9 +24,9 @@ describe('YearInput', () => {
   it('applies given aria-label properly', async () => {
     const yearAriaLabel = 'Year';
 
-    const { container } = await render(<YearInput {...defaultProps} ariaLabel={yearAriaLabel} />);
+    await render(<YearInput {...defaultProps} ariaLabel={yearAriaLabel} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('aria-label', yearAriaLabel);
   });
@@ -33,19 +34,17 @@ describe('YearInput', () => {
   it('applies given placeholder properly', async () => {
     const yearPlaceholder = 'Year';
 
-    const { container } = await render(
-      <YearInput {...defaultProps} placeholder={yearPlaceholder} />,
-    );
+    await render(<YearInput {...defaultProps} placeholder={yearPlaceholder} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('placeholder', yearPlaceholder);
   });
 
   it('has proper name defined', async () => {
-    const { container } = await render(<YearInput {...defaultProps} />);
+    await render(<YearInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('name', 'year');
   });
@@ -53,9 +52,9 @@ describe('YearInput', () => {
   it('has proper className defined', async () => {
     const className = 'react-date-picker';
 
-    const { container } = await render(<YearInput {...defaultProps} className={className} />);
+    await render(<YearInput {...defaultProps} className={className} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveClass('react-date-picker__input');
     expect(input).toHaveClass('react-date-picker__year');
@@ -64,41 +63,41 @@ describe('YearInput', () => {
   it('displays given value properly', async () => {
     const value = '2018';
 
-    const { container } = await render(<YearInput {...defaultProps} value={value} />);
+    await render(<YearInput {...defaultProps} value={value} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveValue(Number(value));
   });
 
   it('does not disable input by default', async () => {
-    const { container } = await render(<YearInput {...defaultProps} />);
+    await render(<YearInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).not.toBeDisabled();
   });
 
   it('disables input given disabled flag', async () => {
-    const { container } = await render(<YearInput {...defaultProps} disabled />);
+    await render(<YearInput {...defaultProps} disabled />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toBeDisabled();
   });
 
   it('is not required input by default', async () => {
-    const { container } = await render(<YearInput {...defaultProps} />);
+    await render(<YearInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).not.toBeRequired();
   });
 
   it('required input given required flag', async () => {
-    const { container } = await render(<YearInput {...defaultProps} required />);
+    await render(<YearInput {...defaultProps} required />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toBeRequired();
   });
@@ -112,37 +111,33 @@ describe('YearInput', () => {
   });
 
   it('has min = "1" by default', async () => {
-    const { container } = await render(<YearInput {...defaultProps} />);
+    await render(<YearInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '1');
   });
 
   it('has min = (year in minDate) given minDate', async () => {
-    const { container } = await render(
-      <YearInput {...defaultProps} minDate={new Date(2018, 6, 1)} />,
-    );
+    await render(<YearInput {...defaultProps} minDate={new Date(2018, 6, 1)} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '2018');
   });
 
   it('has max = "275760" by default', async () => {
-    const { container } = await render(<YearInput {...defaultProps} />);
+    await render(<YearInput {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '275760');
   });
 
   it('has max = (year in maxDate) given maxDate', async () => {
-    const { container } = await render(
-      <YearInput {...defaultProps} maxDate={new Date(2018, 6, 1)} />,
-    );
+    await render(<YearInput {...defaultProps} maxDate={new Date(2018, 6, 1)} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '2018');
   });

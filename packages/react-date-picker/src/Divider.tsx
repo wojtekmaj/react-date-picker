@@ -3,5 +3,9 @@ type DividerProps = {
 };
 
 export default function Divider({ children }: DividerProps): React.ReactElement {
-  return <span className="react-date-picker__inputGroup__divider">{children}</span>;
+  return (
+    <span className="react-date-picker__inputGroup__divider" data-testid="divider">
+      {children}
+    </span>
+  );
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 
 import DateInput from './DateInput.js';
@@ -23,43 +23,46 @@ const itIfFullICU = it.skipIf(!hasFullICU);
 describe('DateInput', () => {
   const defaultProps = {
     className: 'react-date-picker__inputGroup',
+    dayAriaLabel: 'day',
+    monthAriaLabel: 'month',
+    yearAriaLabel: 'year',
   };
 
   it('renders a native input and custom inputs', async () => {
     const { container } = await render(<DateInput {...defaultProps} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(nativeInput).toBeInTheDocument();
     expect(customInputs).toHaveLength(3);
   });
 
   it('does not render day input when maxDetail is "year" or less', async () => {
-    const { container } = await render(<DateInput {...defaultProps} maxDetail="year" />);
+    await render(<DateInput {...defaultProps} maxDetail="year" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = container.querySelector('input[name="day"]');
-    const monthInput = container.querySelector('input[name="month"]');
-    const yearInput = container.querySelector('input[name="year"]');
+    const customInputs = page.getByRole('spinbutton');
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const yearInput = page.getByRole('spinbutton', { name: 'year' });
 
     expect(customInputs).toHaveLength(2);
-    expect(dayInput).toBeFalsy();
+    expect(dayInput).not.toBeInTheDocument();
     expect(monthInput).toBeInTheDocument();
     expect(yearInput).toBeInTheDocument();
   });
 
   it('does not render day and month inputs when maxDetail is "decade" or less', async () => {
-    const { container } = await render(<DateInput {...defaultProps} maxDetail="decade" />);
+    await render(<DateInput {...defaultProps} maxDetail="decade" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = container.querySelector('input[name="day"]');
-    const monthInput = container.querySelector('input[name="month"]');
-    const yearInput = container.querySelector('input[name="year"]');
+    const customInputs = page.getByRole('spinbutton');
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const yearInput = page.getByRole('spinbutton', { name: 'year' });
 
     expect(customInputs).toHaveLength(1);
-    expect(dayInput).toBeFalsy();
-    expect(monthInput).toBeFalsy();
+    expect(dayInput).not.toBeInTheDocument();
+    expect(monthInput).not.toBeInTheDocument();
     expect(yearInput).toBeInTheDocument();
   });
 
@@ -69,12 +72,12 @@ describe('DateInput', () => {
     const { container } = await render(<DateInput {...defaultProps} value={date} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(nativeInput).toHaveValue('2017-09-30');
-    expect(customInputs[0]).toHaveValue(9);
-    expect(customInputs[1]).toHaveValue(30);
-    expect(customInputs[2]).toHaveValue(2017);
+    expect(customInputs.nth(0)).toHaveValue(9);
+    expect(customInputs.nth(1)).toHaveValue(30);
+    expect(customInputs.nth(2)).toHaveValue(2017);
   });
 
   it('shows a given date in all inputs correctly given ISO string (12-hour format)', async () => {
@@ -83,12 +86,12 @@ describe('DateInput', () => {
     const { container } = await render(<DateInput {...defaultProps} value={date} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(nativeInput).toHaveValue('2017-09-30');
-    expect(customInputs[0]).toHaveValue(9);
-    expect(customInputs[1]).toHaveValue(30);
-    expect(customInputs[2]).toHaveValue(2017);
+    expect(customInputs.nth(0)).toHaveValue(9);
+    expect(customInputs.nth(1)).toHaveValue(30);
+    expect(customInputs.nth(2)).toHaveValue(2017);
   });
 
   itIfFullICU(
@@ -101,12 +104,12 @@ describe('DateInput', () => {
       );
 
       const nativeInput = container.querySelector('input[type="date"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const customInputs = page.getByRole('spinbutton');
 
       expect(nativeInput).toHaveValue('2017-09-30');
-      expect(customInputs[0]).toHaveValue(30);
-      expect(customInputs[1]).toHaveValue(9);
-      expect(customInputs[2]).toHaveValue(2017);
+      expect(customInputs.nth(0)).toHaveValue(30);
+      expect(customInputs.nth(1)).toHaveValue(9);
+      expect(customInputs.nth(2)).toHaveValue(2017);
     },
   );
 
@@ -120,12 +123,12 @@ describe('DateInput', () => {
       );
 
       const nativeInput = container.querySelector('input[type="date"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const customInputs = page.getByRole('spinbutton');
 
       expect(nativeInput).toHaveValue('2017-09-30');
-      expect(customInputs[0]).toHaveValue(30);
-      expect(customInputs[1]).toHaveValue(9);
-      expect(customInputs[2]).toHaveValue(2017);
+      expect(customInputs.nth(0)).toHaveValue(30);
+      expect(customInputs.nth(1)).toHaveValue(9);
+      expect(customInputs.nth(2)).toHaveValue(2017);
     },
   );
 
@@ -133,12 +136,12 @@ describe('DateInput', () => {
     const { container } = await render(<DateInput {...defaultProps} value={null} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(nativeInput).toHaveAttribute('value', '');
-    expect(customInputs[0]).toHaveAttribute('value', '');
-    expect(customInputs[1]).toHaveAttribute('value', '');
-    expect(customInputs[2]).toHaveAttribute('value', '');
+    expect(customInputs.nth(0)).toHaveAttribute('value', '');
+    expect(customInputs.nth(1)).toHaveAttribute('value', '');
+    expect(customInputs.nth(2)).toHaveAttribute('value', '');
   });
 
   it('clears the value correctly', async () => {
@@ -149,110 +152,110 @@ describe('DateInput', () => {
     rerender(<DateInput {...defaultProps} value={null} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(nativeInput).toHaveAttribute('value', '');
-    expect(customInputs[0]).toHaveAttribute('value', '');
-    expect(customInputs[1]).toHaveAttribute('value', '');
-    expect(customInputs[2]).toHaveAttribute('value', '');
+    expect(customInputs.nth(0)).toHaveAttribute('value', '');
+    expect(customInputs.nth(1)).toHaveAttribute('value', '');
+    expect(customInputs.nth(2)).toHaveAttribute('value', '');
   });
 
   it('renders custom inputs in a proper order (12-hour format)', async () => {
-    const { container } = await render(<DateInput {...defaultProps} />);
+    await render(<DateInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
-    expect(customInputs[0]).toHaveAttribute('name', 'month');
-    expect(customInputs[1]).toHaveAttribute('name', 'day');
-    expect(customInputs[2]).toHaveAttribute('name', 'year');
+    expect(customInputs.nth(0)).toHaveAttribute('name', 'month');
+    expect(customInputs.nth(1)).toHaveAttribute('name', 'day');
+    expect(customInputs.nth(2)).toHaveAttribute('name', 'year');
   });
 
   itIfFullICU('renders custom inputs in a proper order (24-hour format)', async () => {
-    const { container } = await render(<DateInput {...defaultProps} locale="de-DE" />);
+    await render(<DateInput {...defaultProps} locale="de-DE" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
-    expect(customInputs[0]).toHaveAttribute('name', 'day');
-    expect(customInputs[1]).toHaveAttribute('name', 'month');
-    expect(customInputs[2]).toHaveAttribute('name', 'year');
+    expect(customInputs.nth(0)).toHaveAttribute('name', 'day');
+    expect(customInputs.nth(1)).toHaveAttribute('name', 'month');
+    expect(customInputs.nth(2)).toHaveAttribute('name', 'year');
   });
 
   describe('renders custom inputs in a proper order given format', () => {
     it('renders "y" properly', async () => {
-      const { container } = await render(<DateInput {...defaultProps} format="y" />);
+      await render(<DateInput {...defaultProps} format="y" />);
 
-      const componentInput = container.querySelector('input[name="year"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'year' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "yyyy" properly', async () => {
-      const { container } = await render(<DateInput {...defaultProps} format="yyyy" />);
+      await render(<DateInput {...defaultProps} format="yyyy" />);
 
-      const componentInput = container.querySelector('input[name="year"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'year' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "M" properly', async () => {
-      const { container } = await render(<DateInput {...defaultProps} format="M" />);
+      await render(<DateInput {...defaultProps} format="M" />);
 
-      const componentInput = container.querySelector('input[name="month"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'month' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "MM" properly', async () => {
-      const { container } = await render(<DateInput {...defaultProps} format="MM" />);
+      await render(<DateInput {...defaultProps} format="MM" />);
 
-      const componentInput = container.querySelector('input[name="month"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'month' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "MMM" properly', async () => {
-      const { container } = await render(<DateInput {...defaultProps} format="MMM" />);
+      await render(<DateInput {...defaultProps} format="MMM" />);
 
-      const componentSelect = container.querySelector('select[name="month"]');
-      const customInputs = container.querySelectorAll('select');
+      const componentSelect = page.getByRole('combobox', { name: 'month' });
+      const customInputs = page.getByRole('combobox');
 
       expect(componentSelect).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "MMMM" properly', async () => {
-      const { container } = await render(<DateInput {...defaultProps} format="MMMM" />);
+      await render(<DateInput {...defaultProps} format="MMMM" />);
 
-      const componentSelect = container.querySelector('select[name="month"]');
-      const customInputs = container.querySelectorAll('select');
+      const componentSelect = page.getByRole('combobox', { name: 'month' });
+      const customInputs = page.getByRole('combobox');
 
       expect(componentSelect).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "d" properly', async () => {
-      const { container } = await render(<DateInput {...defaultProps} format="d" />);
+      await render(<DateInput {...defaultProps} format="d" />);
 
-      const componentInput = container.querySelector('input[name="day"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'day' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "dd" properly', async () => {
-      const { container } = await render(<DateInput {...defaultProps} format="dd" />);
+      await render(<DateInput {...defaultProps} format="dd" />);
 
-      const componentInput = container.querySelector('input[name="day"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'day' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
@@ -269,46 +272,45 @@ describe('DateInput', () => {
     });
 
     it('renders "yyyy-MM-dd" properly', async () => {
-      const { container } = await render(<DateInput {...defaultProps} format="yyyy-MM-d" />);
+      await render(<DateInput {...defaultProps} format="yyyy-MM-d" />);
 
-      const monthInput = container.querySelector('input[name="month"]');
-      const dayInput = container.querySelector('input[name="day"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const monthInput = page.getByRole('spinbutton', { name: 'month' });
+      const dayInput = page.getByRole('spinbutton', { name: 'day' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(monthInput).toBeInTheDocument();
       expect(dayInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(3);
-      expect(customInputs[0]).toHaveAttribute('name', 'year');
-      expect(customInputs[1]).toHaveAttribute('name', 'month');
-      expect(customInputs[2]).toHaveAttribute('name', 'day');
+      expect(customInputs.nth(0)).toHaveAttribute('name', 'year');
+      expect(customInputs.nth(1)).toHaveAttribute('name', 'month');
+      expect(customInputs.nth(2)).toHaveAttribute('name', 'day');
     });
   });
 
   it('renders proper input separators', async () => {
-    const { container } = await render(<DateInput {...defaultProps} />);
+    await render(<DateInput {...defaultProps} />);
 
-    const separators = container.querySelectorAll('.react-date-picker__inputGroup__divider');
+    const separators = page.getByTestId('divider');
 
     expect(separators).toHaveLength(2);
-    expect(separators[0]).toHaveTextContent('/');
-    expect(separators[1]).toHaveTextContent('/');
+    expect(separators.nth(0)).toHaveTextContent('/');
+    expect(separators.nth(1)).toHaveTextContent('/');
   });
 
   it('renders proper amount of separators', async () => {
-    const { container } = await render(<DateInput {...defaultProps} maxDetail="year" />);
+    await render(<DateInput {...defaultProps} maxDetail="year" />);
 
-    const separators = container.querySelectorAll('.react-date-picker__inputGroup__divider');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const separators = page.getByTestId('divider');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(separators).toHaveLength(customInputs.length - 1);
   });
 
   it('jumps to the next field when right arrow is pressed', async () => {
-    const { container } = await render(<DateInput {...defaultProps} />);
+    await render(<DateInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0] as HTMLInputElement;
-    const dayInput = customInputs[1];
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     await userEvent.type(monthInput, '{arrowright}');
 
@@ -316,16 +318,13 @@ describe('DateInput', () => {
   });
 
   it('jumps to the next field when separator key is pressed', async () => {
-    const { container } = await render(<DateInput {...defaultProps} />);
+    await render(<DateInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0] as HTMLInputElement;
-    const dayInput = customInputs[1];
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
-    const separator = container.querySelector(
-      '.react-date-picker__inputGroup__divider',
-    ) as HTMLSpanElement;
-    const separatorKey = separator.textContent as string;
+    const separator = page.getByTestId('divider').first();
+    const separatorKey = separator.element().textContent;
 
     await userEvent.type(monthInput, separatorKey);
 
@@ -333,10 +332,9 @@ describe('DateInput', () => {
   });
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', async () => {
-    const { container } = await render(<DateInput {...defaultProps} />);
+    await render(<DateInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const yearInput = customInputs[2] as HTMLInputElement;
+    const yearInput = page.getByRole('spinbutton', { name: 'year' });
 
     await userEvent.type(yearInput, '{arrowright}');
 
@@ -344,11 +342,10 @@ describe('DateInput', () => {
   });
 
   it('jumps to the previous field when left arrow is pressed', async () => {
-    const { container } = await render(<DateInput {...defaultProps} />);
+    await render(<DateInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0];
-    const dayInput = customInputs[1] as HTMLInputElement;
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     await userEvent.type(dayInput, '{arrowleft}');
 
@@ -356,10 +353,9 @@ describe('DateInput', () => {
   });
 
   it('does not jump to the previous field when left arrow is pressed when the first input is focused', async () => {
-    const { container } = await render(<DateInput {...defaultProps} />);
+    await render(<DateInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0] as HTMLInputElement;
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
 
     await userEvent.type(monthInput, '{arrowleft}');
 
@@ -367,11 +363,10 @@ describe('DateInput', () => {
   });
 
   it("jumps to the next field when a value which can't be extended to another valid value is entered", async () => {
-    const { container } = await render(<DateInput {...defaultProps} />);
+    await render(<DateInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0] as HTMLInputElement;
-    const dayInput = customInputs[1];
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     await userEvent.type(monthInput, '4');
 
@@ -379,11 +374,10 @@ describe('DateInput', () => {
   });
 
   it('jumps to the next field when a value as long as the length of maximum value is entered', async () => {
-    const { container } = await render(<DateInput {...defaultProps} />);
+    await render(<DateInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0] as HTMLInputElement;
-    const dayInput = customInputs[1];
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     await userEvent.type(monthInput, '03');
 
@@ -420,13 +414,12 @@ describe('DateInput', () => {
 
     const date = new Date(2023, 3, 1);
 
-    const { container } = await render(<DateInput {...defaultProps} locale="de-DE" value={date} />);
+    await render(<DateInput {...defaultProps} locale="de-DE" value={date} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[0] as HTMLInputElement;
-    const monthInput = customInputs[1];
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
 
-    dayInput.focus();
+    dayInput.element().focus();
     expect(dayInput).toHaveFocus();
 
     keyDown('1', true);
@@ -440,10 +433,9 @@ describe('DateInput', () => {
   });
 
   it('does not jump the next field when a value which can be extended to another valid value is entered', async () => {
-    const { container } = await render(<DateInput {...defaultProps} />);
+    await render(<DateInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const monthInput = customInputs[0] as HTMLInputElement;
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
 
     await userEvent.type(monthInput, '1');
 
@@ -454,12 +446,9 @@ describe('DateInput', () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
-    const { container } = await render(
-      <DateInput {...defaultProps} onChange={onChange} value={date} />,
-    );
+    await render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[1] as HTMLInputElement;
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     await userEvent.fill(dayInput, '20');
 
@@ -473,12 +462,9 @@ describe('DateInput', () => {
     date.setFullYear(19, 8, 30);
     date.setHours(0, 0, 0, 0);
 
-    const { container } = await render(
-      <DateInput {...defaultProps} onChange={onChange} value={date} />,
-    );
+    await render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[1] as HTMLInputElement;
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     await userEvent.fill(dayInput, '20');
 
@@ -494,12 +480,9 @@ describe('DateInput', () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
-    const { container } = await render(
-      <DateInput {...defaultProps} format="dd.MM" onChange={onChange} value={date} />,
-    );
+    await render(<DateInput {...defaultProps} format="dd.MM" onChange={onChange} value={date} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const dayInput = customInputs[0] as HTMLInputElement;
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
 
     await userEvent.fill(dayInput, '20');
 
@@ -513,11 +496,9 @@ describe('DateInput', () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
 
-    const { container } = await render(
-      <DateInput {...defaultProps} onChange={onChange} value={date} />,
-    );
+    await render(<DateInput {...defaultProps} onChange={onChange} value={date} />);
 
-    const customInputs = Array.from(container.querySelectorAll('input[data-input]'));
+    const customInputs = page.getByRole('spinbutton').elements();
 
     for (const customInput of customInputs) {
       await userEvent.clear(customInput);

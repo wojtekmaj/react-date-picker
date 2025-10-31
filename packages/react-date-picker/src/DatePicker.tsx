@@ -551,6 +551,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
           <button
             aria-label={clearAriaLabel}
             className={`${baseClassName}__clear-button ${baseClassName}__button`}
+            data-testid="clear-button"
             disabled={disabled}
             onClick={clear}
             onFocus={stopPropagation}
@@ -564,6 +565,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
             aria-expanded={isOpen || false}
             aria-label={calendarAriaLabel}
             className={`${baseClassName}__calendar-button ${baseClassName}__button`}
+            data-testid="calendar-button"
             disabled={disabled}
             onClick={toggleCalendar}
             onFocus={stopPropagation}
