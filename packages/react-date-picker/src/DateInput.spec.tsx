@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { fireEvent, render } from '@testing-library/react';
+import { render } from 'vitest-browser-react';
+import { fireEvent } from '@testing-library/react';
 
 import DateInput from './DateInput.js';
 
@@ -263,7 +264,7 @@ describe('DateInput', () => {
 
       const renderComponent = () => render(<DateInput {...defaultProps} format="ddd" />);
 
-      expect(renderComponent).toThrow('Unsupported token: ddd');
+      await expect(renderComponent).rejects.toThrowError('Unsupported token: ddd');
 
       restoreConsole();
     });
