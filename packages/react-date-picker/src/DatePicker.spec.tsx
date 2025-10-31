@@ -319,7 +319,7 @@ describe('DatePicker', () => {
     const button = container.querySelector(
       'button.react-date-picker__calendar-button',
     ) as HTMLButtonElement;
-    fireEvent.click(button);
+    await userEvent.click(button);
 
     const calendar2 = container.querySelector('.react-calendar');
 
@@ -455,8 +455,8 @@ describe('DatePicker', () => {
 
     const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 
-    act(() => {
-      fireEvent.click(firstTile);
+    await act(async () => {
+      await userEvent.click(firstTile);
     });
 
     await waitForElementToBeRemovedOrHidden(() =>
@@ -469,8 +469,8 @@ describe('DatePicker', () => {
 
     const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 
-    act(() => {
-      fireEvent.click(firstTile);
+    await act(async () => {
+      await userEvent.click(firstTile);
     });
 
     await waitForElementToBeRemovedOrHidden(() =>
@@ -483,8 +483,8 @@ describe('DatePicker', () => {
 
     const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 
-    act(() => {
-      fireEvent.click(firstTile);
+    await act(async () => {
+      await userEvent.click(firstTile);
     });
 
     const calendar = container.querySelector('.react-calendar');
@@ -501,8 +501,8 @@ describe('DatePicker', () => {
 
     const firstTile = container.querySelector('.react-calendar__tile') as HTMLButtonElement;
 
-    act(() => {
-      fireEvent.click(firstTile);
+    await act(async () => {
+      await userEvent.click(firstTile);
     });
 
     const calendar = container.querySelector('.react-calendar');
@@ -569,7 +569,7 @@ describe('DatePicker', () => {
       'button.react-date-picker__clear-button',
     ) as HTMLButtonElement;
 
-    fireEvent.click(button);
+    await userEvent.click(button);
 
     expect(onChange).toHaveBeenCalledWith(null);
   });
@@ -580,7 +580,7 @@ describe('DatePicker', () => {
     const { container } = await render(<DatePicker onClick={onClick} />);
 
     const wrapper = container.firstElementChild as HTMLDivElement;
-    fireEvent.click(wrapper);
+    await userEvent.click(wrapper);
 
     expect(onClick).toHaveBeenCalled();
   });
