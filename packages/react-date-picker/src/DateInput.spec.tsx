@@ -450,7 +450,7 @@ describe('DateInput', () => {
     const customInputs = container.querySelectorAll('input[data-input]');
     const dayInput = customInputs[1] as HTMLInputElement;
 
-    fireEvent.change(dayInput, { target: { value: '20' } });
+    await userEvent.fill(dayInput, '20');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
@@ -469,7 +469,7 @@ describe('DateInput', () => {
     const customInputs = container.querySelectorAll('input[data-input]');
     const dayInput = customInputs[1] as HTMLInputElement;
 
-    fireEvent.change(dayInput, { target: { value: '20' } });
+    await userEvent.fill(dayInput, '20');
 
     const nextDate = new Date();
     nextDate.setFullYear(19, 8, 20);
@@ -490,7 +490,7 @@ describe('DateInput', () => {
     const customInputs = container.querySelectorAll('input[data-input]');
     const dayInput = customInputs[0] as HTMLInputElement;
 
-    fireEvent.change(dayInput, { target: { value: '20' } });
+    await userEvent.fill(dayInput, '20');
 
     const currentYear = new Date().getFullYear();
 
@@ -509,12 +509,27 @@ describe('DateInput', () => {
     const customInputs = Array.from(container.querySelectorAll('input[data-input]'));
 
     for (const customInput of customInputs) {
-      fireEvent.change(customInput, { target: { value: '' } });
+      await userEvent.fill(customInput, '');
     }
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith(null, false);
   });
+
+  function setNativeValue(element: HTMLInputElement, value: string) {
+    const prototype = Object.getPrototypeOf(element);
+    const propertyDescriptor = Object.getOwnPropertyDescriptor(prototype, 'value');
+    const prototypeValueSetter = propertyDescriptor?.set;
+
+    if (prototypeValueSetter) {
+      prototypeValueSetter.call(element, value);
+    }
+  }
+
+  function triggerChange(element: HTMLInputElement, value: string) {
+    setNativeValue(element, value);
+    element.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
+  }
 
   it('triggers onChange correctly when changed native input', async () => {
     const onChange = vi.fn();
@@ -526,7 +541,7 @@ describe('DateInput', () => {
 
     const nativeInput = container.querySelector('input[type="date"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '2017-09-20' } });
+    triggerChange(nativeInput, '2017-09-20');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
@@ -542,7 +557,7 @@ describe('DateInput', () => {
 
     const nativeInput = container.querySelector('input[type="date"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '0019-09-20' } });
+    triggerChange(nativeInput, '0019-09-20');
 
     const nextDate = new Date();
     nextDate.setFullYear(19, 8, 20);
@@ -562,7 +577,7 @@ describe('DateInput', () => {
 
     const nativeInput = container.querySelector('input[type="date"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '' } });
+    triggerChange(nativeInput, '');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(null, false);
