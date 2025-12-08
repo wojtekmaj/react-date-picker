@@ -1,20 +1,13 @@
-"use client";
+'use client';
 
-import {
-  createElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { createPortal } from "react-dom";
-import clsx from "clsx";
-import makeEventProps from "make-event-props";
-import Calendar, { type OnArgs } from "react-calendar";
-import Fit from "react-fit";
+import { createElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import clsx from 'clsx';
+import makeEventProps from 'make-event-props';
+import Calendar, { type OnArgs } from 'react-calendar';
+import Fit from 'react-fit';
 
-import DateInput from "./DateInput.js";
+import DateInput from './DateInput.js';
 
 import type {
   ClassName,
@@ -23,19 +16,19 @@ import type {
   LooseValue,
   OpenReason,
   Value,
-} from "./shared/types.js";
-import type { View } from "react-calendar/src/shared/types.js";
-import { normalizeToDate } from "./shared/utils.js";
+} from './shared/types.js';
+import type { View } from 'react-calendar/src/shared/types.js';
+import { normalizeToDate } from './shared/utils.js';
 
-const baseClassName = "react-date-picker";
-const outsideActionEvents = ["mousedown", "focusin", "touchstart"] as const;
+const baseClassName = 'react-date-picker';
+const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
 
 const iconProps = {
-  xmlns: "http://www.w3.org/2000/svg",
+  xmlns: 'http://www.w3.org/2000/svg',
   width: 19,
   height: 19,
-  viewBox: "0 0 19 19",
-  stroke: "black",
+  viewBox: '0 0 19 19',
+  stroke: 'black',
   strokeWidth: 2,
 };
 
@@ -62,13 +55,7 @@ const ClearIcon = (
   </svg>
 );
 
-type ReactNodeLike =
-  | React.ReactNode
-  | string
-  | number
-  | boolean
-  | null
-  | undefined;
+type ReactNodeLike = React.ReactNode | string | number | boolean | null | undefined;
 
 type Icon = ReactNodeLike | ReactNodeLike[];
 
@@ -76,7 +63,7 @@ type IconOrRenderFunction = Icon | React.ComponentType | React.ReactElement;
 
 type CalendarProps = Omit<
   React.ComponentPropsWithoutRef<typeof Calendar>,
-  "onChange" | "selectRange" | "value"
+  'onChange' | 'selectRange' | 'value'
 >;
 
 type EventProps = ReturnType<typeof makeEventProps>;
@@ -107,7 +94,7 @@ export type DatePickerProps = {
    */
   calendarProps?: CalendarProps;
   /**
-   * Class name(s) that will be added along with `"react-date-picker"` to the main React-Date-Picker `<div>` element.
+   * Class name(s) that will be added along with `'react-date-picker'` to the main React-Date-Picker `<div>` element.
    *
    * @example 'class1 class2'
    * @example ['class1', 'class2 class3']
@@ -141,7 +128,7 @@ export type DatePickerProps = {
    *
    * @example 'date-picker'
    */
-  "data-testid"?: string;
+  'data-testid'?: string;
   /**
    * `aria-label` for the day input.
    *
@@ -205,7 +192,7 @@ export type DatePickerProps = {
    */
   maxDate?: Date;
   /**
-   * The most detailed calendar view that the user shall see. View defined here also becomes the one on which clicking an item in the calendar will select a date and pass it to onChange. Can be `"month"`, `"year"`, `"decade"` or `"century"`.
+   * The most detailed calendar view that the user shall see. View defined here also becomes the one on which clicking an item in the calendar will select a date and pass it to onChange. Can be `'month'`, `'year'`, `'decade'` or `'century'`.
    *
    * @default 'month'
    * @example 'year'
@@ -255,7 +242,7 @@ export type DatePickerProps = {
    */
   onCalendarOpen?: () => void;
   /**
-   * Function called when the user picks a valid date. If any of the fields were excluded using custom `format`, `new Date(y, 0, 1, 0, 0, 0)`, where `y` is the current year, is going to serve as a "base".
+   * Function called when the user picks a valid date. If any of the fields were excluded using custom `format`, `new Date(y, 0, 1, 0, 0, 0)`, where `y` is the current year, is going to serve as a 'base'.
    *
    * @example (value) => alert('New date is: ', value)
    */
@@ -293,20 +280,20 @@ export type DatePickerProps = {
    */
   required?: boolean;
   /**
-   * Which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be `"start"`, `"end"` or `"range"`. The latter will cause an array with start and end values to be passed.
+   * Which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be `'start'`, `'end'` or `'range'`. The latter will cause an array with start and end values to be passed.
    *
    * @default 'start'
    * @example 'range'
    */
-  returnValue?: "start" | "end" | "range";
+  returnValue?: 'start' | 'end' | 'range';
   /**
-   * Function called before the calendar closes. `reason` can be `"buttonClick"`, `"escape"`, `"outsideAction"`, or `"select"`. If it returns `false`, the calendar will not close.
+   * Function called before the calendar closes. `reason` can be `'buttonClick'`, `'escape'`, `'outsideAction'`, or `'select'`. If it returns `false`, the calendar will not close.
    *
    * @example ({ reason }) => reason !== 'outsideAction'
    */
   shouldCloseCalendar?: (props: { reason: CloseReason }) => boolean;
   /**
-   * Function called before the calendar opens. `reason` can be `"buttonClick"` or `"focus"`. If it returns `false`, the calendar will not open.
+   * Function called before the calendar opens. `reason` can be `'buttonClick'` or `'focus'`. If it returns `false`, the calendar will not open.
    *
    * @example ({ reason }) => reason !== 'focus'
    */
@@ -339,7 +326,7 @@ export type DatePickerProps = {
    * @example 'yyyy'
    */
   yearPlaceholder?: string;
-} & Omit<EventProps, "onChange" | "onFocus">;
+} & Omit<EventProps, 'onChange' | 'onFocus'>;
 
 export default function DatePicker(props: DatePickerProps): React.ReactElement {
   const {
@@ -350,7 +337,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     clearAriaLabel,
     clearIcon = ClearIcon,
     closeCalendar: shouldCloseCalendarOnSelect = true,
-    "data-testid": dataTestid,
+    'data-testid': dataTestid,
     dayAriaLabel,
     dayPlaceholder,
     disableCalendar,
@@ -360,11 +347,11 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     isOpen: isOpenProps = null,
     locale,
     maxDate,
-    maxDetail = "month",
+    maxDetail = 'month',
     minDate,
     monthAriaLabel,
     monthPlaceholder,
-    name = "date",
+    name = 'date',
     nativeInputAriaLabel,
     onCalendarClose,
     onCalendarOpen,
@@ -373,7 +360,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     onInvalidChange,
     openCalendarOnFocus = true,
     required,
-    returnValue = "start",
+    returnValue = 'start',
     shouldCloseCalendar,
     shouldOpenCalendar,
     showLeadingZeros,
@@ -384,9 +371,8 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
   } = props;
 
   const [isOpen, setIsOpen] = useState<boolean | null>(isOpenProps);
-  const [internalActiveStartDate, setInternalActiveStartDate] =
-    useState<Date | null>(null);
-  const [internalView, setInternalView] = useState<View>("month");
+  const [internalActiveStartDate, setInternalActiveStartDate] = useState<Date | null>(null);
+  const [internalView, setInternalView] = useState<View>('month');
   const wrapper = useRef<HTMLDivElement>(null);
   const calendarWrapper = useRef<HTMLDivElement>(null);
 
@@ -404,7 +390,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
       }
       const startDate = normalizeToDate(value);
       setInternalActiveStartDate(startDate);
-      setInternalView(maxDetail === "month" ? "month" : maxDetail);
+      setInternalView(maxDetail === 'month' ? 'month' : maxDetail);
 
       setIsOpen(true);
 
@@ -412,7 +398,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
         onCalendarOpen();
       }
     },
-    [value, onCalendarOpen, shouldOpenCalendar]
+    [value, onCalendarOpen, shouldOpenCalendar, maxDetail],
   );
 
   const closeCalendar = useCallback(
@@ -429,25 +415,20 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
         onCalendarClose();
       }
     },
-    [onCalendarClose, shouldCloseCalendar]
+    [onCalendarClose, shouldCloseCalendar],
   );
 
   // user to get to the month view everytime , even though they drilled up to decade/century and closed the calender without selecting date
-  function onActiveStartDateChange({
-    action,
-    activeStartDate,
-    view,
-    value,
-  }: OnArgs) {
+  function onActiveStartDateChange({ action, activeStartDate, view }: OnArgs) {
     let nextDate = activeStartDate;
     switch (action) {
-      case "drillUp":
-      case "drillDown":
-      case "next":
-      case "prev":
-      case "next2":
-      case "prev2":
-      case "onChange":
+      case 'drillUp':
+      case 'drillDown':
+      case 'next':
+      case 'prev':
+      case 'next2':
+      case 'prev2':
+      case 'onChange':
         nextDate = activeStartDate;
         break;
 
@@ -461,18 +442,15 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
 
   function toggleCalendar() {
     if (isOpen) {
-      closeCalendar({ reason: "buttonClick" });
+      closeCalendar({ reason: 'buttonClick' });
     } else {
-      openCalendar({ reason: "buttonClick" });
+      openCalendar({ reason: 'buttonClick' });
     }
   }
 
-  function onChange(
-    value: Value,
-    shouldCloseCalendar: boolean = shouldCloseCalendarOnSelect
-  ) {
+  function onChange(value: Value, shouldCloseCalendar: boolean = shouldCloseCalendarOnSelect) {
     if (shouldCloseCalendar) {
-      closeCalendar({ reason: "select" });
+      closeCalendar({ reason: 'select' });
     }
 
     if (onChangeProps) {
@@ -490,21 +468,21 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
       disabled ||
       isOpen ||
       !openCalendarOnFocus ||
-      event.target.dataset.select === "true"
+      event.target.dataset.select === 'true'
     ) {
       return;
     }
 
-    openCalendar({ reason: "focus" });
+    openCalendar({ reason: 'focus' });
   }
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeCalendar({ reason: "escape" });
+      if (event.key === 'Escape') {
+        closeCalendar({ reason: 'escape' });
       }
     },
-    [closeCalendar]
+    [closeCalendar],
   );
 
   function clear() {
@@ -522,9 +500,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
 
       // Try event.composedPath first to handle clicks inside a Shadow DOM.
       const target = (
-        "composedPath" in event
-          ? event.composedPath()[0]
-          : (event as Event).target
+        'composedPath' in event ? event.composedPath()[0] : (event as Event).target
       ) as HTMLElement;
 
       if (
@@ -533,10 +509,10 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
         !wrapperEl.contains(target) &&
         (!calendarWrapperEl || !calendarWrapperEl.contains(target))
       ) {
-        closeCalendar({ reason: "outsideAction" });
+        closeCalendar({ reason: 'outsideAction' });
       }
     },
-    [closeCalendar]
+    [closeCalendar],
   );
 
   const handleOutsideActionListeners = useCallback(
@@ -550,12 +526,12 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
       }
 
       if (shouldListen) {
-        document.addEventListener("keydown", onKeyDown);
+        document.addEventListener('keydown', onKeyDown);
       } else {
-        document.removeEventListener("keydown", onKeyDown);
+        document.removeEventListener('keydown', onKeyDown);
       }
     },
-    [isOpen, onOutsideAction, onKeyDown]
+    [isOpen, onOutsideAction, onKeyDown],
   );
 
   useEffect(() => {
@@ -613,9 +589,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
             onFocus={stopPropagation}
             type="button"
           >
-            {typeof clearIcon === "function"
-              ? createElement(clearIcon)
-              : clearIcon}
+            {typeof clearIcon === 'function' ? createElement(clearIcon) : clearIcon}
           </button>
         )}
         {calendarIcon !== null && !disableCalendar && (
@@ -628,9 +602,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
             onFocus={stopPropagation}
             type="button"
           >
-            {typeof calendarIcon === "function"
-              ? createElement(calendarIcon)
-              : calendarIcon}
+            {typeof calendarIcon === 'function' ? createElement(calendarIcon) : calendarIcon}
           </button>
         )}
       </div>
@@ -645,10 +617,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     const { calendarProps, portalContainer, value } = props;
 
     const className = `${baseClassName}__calendar`;
-    const classNames = clsx(
-      className,
-      `${className}--${isOpen ? "open" : "closed"}`
-    );
+    const classNames = clsx(className, `${className}--${isOpen ? 'open' : 'closed'}`);
 
     const calendar = (
       <Calendar
@@ -670,14 +639,14 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
         <div ref={calendarWrapper} className={classNames}>
           {calendar}
         </div>,
-        portalContainer
+        portalContainer,
       )
     ) : (
       <Fit>
         <div
           ref={(ref) => {
             if (ref && !isOpen) {
-              ref.removeAttribute("style");
+              ref.removeAttribute('style');
             }
           }}
           className={classNames}
@@ -691,7 +660,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
   const eventProps = useMemo(
     () => makeEventProps(otherProps),
     // biome-ignore lint/correctness/useExhaustiveDependencies: FIXME
-    [otherProps]
+    [otherProps],
   );
 
   return (
@@ -699,9 +668,9 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     <div
       className={clsx(
         baseClassName,
-        `${baseClassName}--${isOpen ? "open" : "closed"}`,
-        `${baseClassName}--${disabled ? "disabled" : "enabled"}`,
-        className
+        `${baseClassName}--${isOpen ? 'open' : 'closed'}`,
+        `${baseClassName}--${disabled ? 'disabled' : 'enabled'}`,
+        className,
       )}
       data-testid={dataTestid}
       id={id}

@@ -6,11 +6,7 @@
  * @param {Date} max Maximum return value.
  * @returns {Date} Value between min and max.
  */
-export function between<T extends Date>(
-  value: T,
-  min?: T | null,
-  max?: T | null
-): T {
+export function between<T extends Date>(value: T, min?: T | null, max?: T | null): T {
   if (min && min > value) {
     return min;
   }
@@ -40,7 +36,7 @@ export function normalizeToDate<T>(v: T): Date {
 
   if (v instanceof Date) return v;
 
-  if (typeof v === "string") return new Date(v);
+  if (typeof v === 'string') return new Date(v);
 
   // range value: pick start date
   if (Array.isArray(v) && v[0] instanceof Date) return v[0];
