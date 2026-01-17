@@ -4,7 +4,7 @@ import { createElement, useCallback, useEffect, useMemo, useRef, useState } from
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import makeEventProps from 'make-event-props';
-import Calendar from 'react-calendar';
+import Calendar, { type OnArgs } from 'react-calendar';
 import Fit from 'react-fit';
 
 import DateInput from './DateInput.js';
@@ -17,6 +17,8 @@ import type {
   OpenReason,
   Value,
 } from './shared/types.js';
+import type { View } from 'react-calendar/src/shared/types.js';
+import { normalizeToDate } from './shared/utils.js';
 
 const baseClassName = 'react-date-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
@@ -92,7 +94,7 @@ export type DatePickerProps = {
    */
   calendarProps?: CalendarProps;
   /**
-   * Class name(s) that will be added along with `"react-date-picker"` to the main React-Date-Picker `<div>` element.
+   * Class name(s) that will be added along with `'react-date-picker'` to the main React-Date-Picker `<div>` element.
    *
    * @example 'class1 class2'
    * @example ['class1', 'class2 class3']
@@ -190,7 +192,7 @@ export type DatePickerProps = {
    */
   maxDate?: Date;
   /**
-   * The most detailed calendar view that the user shall see. View defined here also becomes the one on which clicking an item in the calendar will select a date and pass it to onChange. Can be `"month"`, `"year"`, `"decade"` or `"century"`.
+   * The most detailed calendar view that the user shall see. View defined here also becomes the one on which clicking an item in the calendar will select a date and pass it to onChange. Can be `'month'`, `'year'`, `'decade'` or `'century'`.
    *
    * @default 'month'
    * @example 'year'
@@ -240,7 +242,7 @@ export type DatePickerProps = {
    */
   onCalendarOpen?: () => void;
   /**
-   * Function called when the user picks a valid date. If any of the fields were excluded using custom `format`, `new Date(y, 0, 1, 0, 0, 0)`, where `y` is the current year, is going to serve as a "base".
+   * Function called when the user picks a valid date. If any of the fields were excluded using custom `format`, `new Date(y, 0, 1, 0, 0, 0)`, where `y` is the current year, is going to serve as a 'base'.
    *
    * @example (value) => alert('New date is: ', value)
    */
@@ -278,20 +280,20 @@ export type DatePickerProps = {
    */
   required?: boolean;
   /**
-   * Which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be `"start"`, `"end"` or `"range"`. The latter will cause an array with start and end values to be passed.
+   * Which dates shall be passed by the calendar to the onChange function and onClick{Period} functions. Can be `'start'`, `'end'` or `'range'`. The latter will cause an array with start and end values to be passed.
    *
    * @default 'start'
    * @example 'range'
    */
   returnValue?: 'start' | 'end' | 'range';
   /**
-   * Function called before the calendar closes. `reason` can be `"buttonClick"`, `"escape"`, `"outsideAction"`, or `"select"`. If it returns `false`, the calendar will not close.
+   * Function called before the calendar closes. `reason` can be `'buttonClick'`, `'escape'`, `'outsideAction'`, or `'select'`. If it returns `false`, the calendar will not close.
    *
    * @example ({ reason }) => reason !== 'outsideAction'
    */
   shouldCloseCalendar?: (props: { reason: CloseReason }) => boolean;
   /**
-   * Function called before the calendar opens. `reason` can be `"buttonClick"` or `"focus"`. If it returns `false`, the calendar will not open.
+   * Function called before the calendar opens. `reason` can be `'buttonClick'` or `'focus'`. If it returns `false`, the calendar will not open.
    *
    * @example ({ reason }) => reason !== 'focus'
    */
@@ -369,6 +371,8 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
   } = props;
 
   const [isOpen, setIsOpen] = useState<boolean | null>(isOpenProps);
+  const [internalActiveStartDate, setInternalActiveStartDate] = useState<Date | null>(null);
+  const [internalView, setInternalView] = useState<View>('month');
   const wrapper = useRef<HTMLDivElement>(null);
   const calendarWrapper = useRef<HTMLDivElement>(null);
 
@@ -376,19 +380,26 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     setIsOpen(isOpenProps);
   }, [isOpenProps]);
 
-  function openCalendar({ reason }: { reason: OpenReason }) {
-    if (shouldOpenCalendar) {
-      if (!shouldOpenCalendar({ reason })) {
-        return;
+  // made this callback and preventing it to re render
+  const openCalendar = useCallback(
+    ({ reason }: { reason: OpenReason }) => {
+      if (shouldOpenCalendar) {
+        if (!shouldOpenCalendar({ reason })) {
+          return;
+        }
       }
-    }
+      const startDate = normalizeToDate(value);
+      setInternalActiveStartDate(startDate);
+      setInternalView(maxDetail === 'month' ? 'month' : maxDetail);
 
-    setIsOpen(true);
+      setIsOpen(true);
 
-    if (onCalendarOpen) {
-      onCalendarOpen();
-    }
-  }
+      if (onCalendarOpen) {
+        onCalendarOpen();
+      }
+    },
+    [value, onCalendarOpen, shouldOpenCalendar, maxDetail],
+  );
 
   const closeCalendar = useCallback(
     ({ reason }: { reason: CloseReason }) => {
@@ -406,6 +417,28 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     },
     [onCalendarClose, shouldCloseCalendar],
   );
+
+  // user to get to the month view everytime , even though they drilled up to decade/century and closed the calender without selecting date
+  function onActiveStartDateChange({ action, activeStartDate, view }: OnArgs) {
+    let nextDate = activeStartDate;
+    switch (action) {
+      case 'drillUp':
+      case 'drillDown':
+      case 'next':
+      case 'prev':
+      case 'next2':
+      case 'prev2':
+      case 'onChange':
+        nextDate = activeStartDate;
+        break;
+
+      default:
+        nextDate = activeStartDate;
+    }
+
+    setInternalActiveStartDate(nextDate);
+    setInternalView(view);
+  }
 
   function toggleCalendar() {
     if (isOpen) {
@@ -551,7 +584,6 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
           <button
             aria-label={clearAriaLabel}
             className={`${baseClassName}__clear-button ${baseClassName}__button`}
-            data-testid="clear-button"
             disabled={disabled}
             onClick={clear}
             onFocus={stopPropagation}
@@ -565,7 +597,6 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
             aria-expanded={isOpen || false}
             aria-label={calendarAriaLabel}
             className={`${baseClassName}__calendar-button ${baseClassName}__button`}
-            data-testid="calendar-button"
             disabled={disabled}
             onClick={toggleCalendar}
             onFocus={stopPropagation}
@@ -596,6 +627,9 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
         minDate={minDate}
         onChange={(value) => onChange(value)}
         value={value}
+        activeStartDate={internalActiveStartDate ?? undefined}
+        onActiveStartDateChange={onActiveStartDateChange}
+        view={internalView}
         {...calendarProps}
       />
     );
