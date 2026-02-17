@@ -17,3 +17,10 @@ export type RangeType = 'century' | 'decade' | 'year' | 'month' | 'day';
 type ValuePiece = Date | null;
 
 export type Value = ValuePiece | Range<ValuePiece>;
+
+export type ActiveStartDateChangeArgs = {
+  action: 'prev' | 'prev2' | 'next' | 'next2' | 'drillUp' | 'drillDown' | 'onChange';
+  activeStartDate: Date;
+  value: Date | Date[] | null;
+  view: 'month' | 'year' | 'decade' | 'century';
+};
