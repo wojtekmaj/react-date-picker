@@ -141,6 +141,18 @@ export type DatePickerProps = {
    */
   dayPlaceholder?: string;
   /**
+   * Identifies the element that labels this input.
+   */
+  ariaLabelledBy?: string;
+  /**
+   * Identifies the element(s) that describe this input.
+   */
+  ariaDescribedBy?: string;
+  /**
+   * Indicates that the input is required.
+   */
+  ariaRequired?: boolean;
+  /**
    * When set to `true`, will remove the calendar and the button toggling its visibility.
    *
    * @default false
@@ -365,6 +377,9 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     value,
     yearAriaLabel,
     yearPlaceholder,
+    ariaDescribedBy,
+    ariaLabelledBy,
+    ariaRequired,
     ...otherProps
   } = props;
 
@@ -517,6 +532,9 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
       monthAriaLabel,
       nativeInputAriaLabel,
       yearAriaLabel,
+      ariaDescribedBy,
+      ariaLabelledBy,
+      ariaRequired,
     };
 
     const placeholderProps = {
