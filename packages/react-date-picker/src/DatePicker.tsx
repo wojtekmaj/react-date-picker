@@ -472,6 +472,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
 
       if (
         target &&
+        (!target.id || !target.id.startsWith('radix-')) &&
         wrapperEl &&
         !wrapperEl.contains(target) &&
         (!calendarWrapperEl || !calendarWrapperEl.contains(target))
@@ -645,7 +646,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
       ref={wrapper}
     >
       {renderInputs()}
-      {renderCalendar()}
+      {isOpen ? renderCalendar() : null}
     </div>
   );
 }
