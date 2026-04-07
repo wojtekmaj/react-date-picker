@@ -492,6 +492,27 @@ describe('DateInput', () => {
     expect(onChange).toHaveBeenCalledWith(new Date(currentYear, 8, 20), false);
   });
 
+  it('does not call onChange for leap day until yyyy year is complete', async () => {
+    const onChange = vi.fn();
+
+    await render(<DateInput {...defaultProps} format="MM/dd/yyyy" onChange={onChange} />);
+
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
+    const yearInput = page.getByRole('spinbutton', { name: 'year' });
+
+    await userEvent.fill(monthInput, '02');
+    await userEvent.fill(dayInput, '29');
+    await userEvent.type(yearInput, '200');
+
+    expect(onChange).not.toHaveBeenCalled();
+
+    await userEvent.type(yearInput, '0');
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(new Date(2000, 1, 29), false);
+  });
+
   it('triggers onChange correctly when cleared custom inputs', async () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);

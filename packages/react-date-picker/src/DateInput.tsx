@@ -235,6 +235,7 @@ export default function DateInput({
   const dayInput = useRef<HTMLInputElement>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(isCalendarOpenProps);
   const lastPressedKey = useRef<KeyboardEvent['key'] | undefined>(undefined);
+  const hasPendingInternalChange = useRef(false);
 
   useEffect(() => {
     setIsCalendarOpen(isCalendarOpenProps);
@@ -365,6 +366,16 @@ export default function DateInput({
     return dividers ? dividers[0] : null;
   })();
 
+  const yearMinLength = (() => {
+    const yearMatch = format?.match(/y+/);
+
+    if (!yearMatch || yearMatch[0].length <= 1) {
+      return null;
+    }
+
+    return yearMatch[0].length;
+  })();
+
   function onClick(event: React.MouseEvent<HTMLDivElement> & { target: HTMLDivElement }) {
     if (event.target === event.currentTarget) {
       // Wrapper was directly clicked
@@ -468,6 +479,15 @@ export default function DateInput({
       return;
     }
 
+    const isIncompleteYear =
+      yearMinLength !== null &&
+      yearInput.current?.value &&
+      yearInput.current.value.length < yearMinLength;
+
+    if (isIncompleteYear) {
+      return;
+    }
+
     const isEveryValueFilled = formElements.every((formElement) => formElement.value);
     const isEveryValueValid = formElements.every((formElement) => formElement.validity.valid);
 
@@ -500,6 +520,8 @@ export default function DateInput({
   ) {
     const { name, value } = event.target;
 
+    hasPendingInternalChange.current = true;
+
     switch (name) {
       case 'year':
         setYear(value);
@@ -511,9 +533,17 @@ export default function DateInput({
         setDay(value);
         break;
     }
-
-    onChangeExternal();
   }
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: onChangeExternal must run after internal value state updates
+  useEffect(() => {
+    if (!hasPendingInternalChange.current) {
+      return;
+    }
+
+    hasPendingInternalChange.current = false;
+    onChangeExternal();
+  }, [day, month, year]);
 
   /**
    * Called when native date input is changed.
