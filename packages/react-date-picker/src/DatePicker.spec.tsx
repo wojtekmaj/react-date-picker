@@ -304,7 +304,7 @@ describe('DatePicker', () => {
 
     expect(calendar).not.toBeInTheDocument();
 
-    rerender(<DatePicker {...defaultProps} isOpen />);
+    await rerender(<DatePicker {...defaultProps} isOpen />);
 
     const calendar2 = container.querySelector('.react-calendar');
 

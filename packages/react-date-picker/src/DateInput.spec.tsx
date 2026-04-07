@@ -149,7 +149,7 @@ describe('DateInput', () => {
 
     const { container, rerender } = await render(<DateInput {...defaultProps} value={date} />);
 
-    rerender(<DateInput {...defaultProps} value={null} />);
+    await rerender(<DateInput {...defaultProps} value={null} />);
 
     const nativeInput = container.querySelector('input[type="date"]');
     const customInputs = page.getByRole('spinbutton');
