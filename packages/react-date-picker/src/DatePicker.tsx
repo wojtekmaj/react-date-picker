@@ -474,7 +474,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
         target &&
         wrapperEl &&
         !wrapperEl.contains(target) &&
-        (!calendarWrapperEl || !calendarWrapperEl.contains(target))
+        !calendarWrapperEl?.contains(target)
       ) {
         closeCalendar({ reason: 'outsideAction' });
       }
