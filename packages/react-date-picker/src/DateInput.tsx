@@ -192,6 +192,7 @@ type DateInputProps = {
   nativeInputAriaLabel?: string;
   onChange?: (value: Value, shouldCloseCalendar: boolean) => void;
   onInvalidChange?: () => void;
+  renderAriaLabelAsTitle?: boolean;
   required?: boolean;
   returnValue?: 'start' | 'end' | 'range';
   showLeadingZeros?: boolean;
@@ -218,6 +219,7 @@ export default function DateInput({
   nativeInputAriaLabel,
   onChange: onChangeProps,
   onInvalidChange,
+  renderAriaLabelAsTitle,
   required,
   returnValue = 'start',
   showLeadingZeros,
@@ -586,6 +588,7 @@ export default function DateInput({
     onChange,
     onKeyDown,
     onKeyUp,
+    renderAriaLabelAsTitle,
     // This is only for showing validity when editing
     required: Boolean(required || isCalendarOpen),
   };
