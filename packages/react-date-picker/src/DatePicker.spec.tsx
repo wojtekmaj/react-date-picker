@@ -206,7 +206,7 @@ describe('DatePicker', () => {
 
     it('renders clear icon when given clearIcon as a React element', async () => {
       function ClearIcon() {
-        return <>❌</>;
+        return <span>❌</span>;
       }
 
       await render(<DatePicker {...defaultProps} clearIcon={<ClearIcon />} />);
@@ -218,7 +218,7 @@ describe('DatePicker', () => {
 
     it('renders clear icon when given clearIcon as a function', async () => {
       function ClearIcon() {
-        return <>❌</>;
+        return <span>❌</span>;
       }
 
       await render(<DatePicker {...defaultProps} clearIcon={ClearIcon} />);
@@ -258,7 +258,7 @@ describe('DatePicker', () => {
 
     it('renders calendar icon when given calendarIcon as a React element', async () => {
       function CalendarIcon() {
-        return <>📅</>;
+        return <span>📅</span>;
       }
 
       await render(<DatePicker {...defaultProps} calendarIcon={<CalendarIcon />} />);
@@ -270,7 +270,7 @@ describe('DatePicker', () => {
 
     it('renders calendar icon when given calendarIcon as a function', async () => {
       function CalendarIcon() {
-        return <>📅</>;
+        return <span>📅</span>;
       }
 
       await render(<DatePicker {...defaultProps} calendarIcon={CalendarIcon} />);
