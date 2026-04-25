@@ -21,6 +21,14 @@ import type {
 const baseClassName = 'react-date-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
 
+function getActiveStartDateFromValue(value: LooseValue | undefined) {
+  if (Array.isArray(value)) {
+    value = value[0];
+  }
+
+  return value instanceof Date ? value : undefined;
+}
+
 const iconProps = {
   xmlns: 'http://www.w3.org/2000/svg',
   width: 19,
@@ -369,8 +377,17 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
   } = props;
 
   const [isOpen, setIsOpen] = useState<boolean | null>(isOpenProps);
+  const [activeStartDate, setActiveStartDate] = useState<Date | null | undefined>(
+    getActiveStartDateFromValue(value),
+  );
   const wrapper = useRef<HTMLDivElement>(null);
   const calendarWrapper = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setActiveStartDate(getActiveStartDateFromValue(value));
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     setIsOpen(isOpenProps);
@@ -590,10 +607,12 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
 
     const calendar = (
       <Calendar
+        activeStartDate={activeStartDate ?? undefined}
         locale={locale}
         maxDate={maxDate}
         maxDetail={maxDetail}
         minDate={minDate}
+        onActiveStartDateChange={({ activeStartDate }) => setActiveStartDate(activeStartDate)}
         onChange={(value) => onChange(value)}
         value={value}
         {...calendarProps}

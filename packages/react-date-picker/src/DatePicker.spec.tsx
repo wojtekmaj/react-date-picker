@@ -326,6 +326,34 @@ describe('DatePicker', () => {
     expect(calendar2).toBeInTheDocument();
   });
 
+  it('resets calendar view to selected value when reopened', async () => {
+    const value = new Date(2026, 3, 15);
+    const { container } = await render(
+      <DatePicker {...defaultProps} locale="en-US" value={value} onChange={() => {}} />,
+    );
+
+    const button = page.getByTestId('calendar-button');
+    await userEvent.click(button);
+
+    const navigationLabel = container.querySelector('button.react-calendar__navigation__label');
+    expect(navigationLabel).toHaveTextContent('April 2026');
+
+    const arrows = container.querySelectorAll('button.react-calendar__navigation__arrow');
+    const nextArrow = arrows[2] as HTMLElement; // Index 2 is the next month arrow (›)
+
+    await userEvent.click(nextArrow);
+
+    expect(navigationLabel).toHaveTextContent('May 2026');
+
+    await userEvent.click(button);
+    await userEvent.click(button);
+
+    const reopenedNavigationLabel = container.querySelector(
+      'button.react-calendar__navigation__label',
+    );
+    expect(reopenedNavigationLabel).toHaveTextContent('April 2026');
+  });
+
   function triggerFocusInEvent(locator: Locator) {
     const element = locator.element();
 
