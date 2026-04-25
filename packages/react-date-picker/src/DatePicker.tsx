@@ -400,6 +400,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
       }
     }
 
+    setActiveStartDate(getActiveStartDateFromValue(value));
     setIsOpen(true);
 
     if (onCalendarOpen) {
