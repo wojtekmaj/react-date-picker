@@ -235,6 +235,7 @@ export default function DateInput({
   const dayInput = useRef<HTMLInputElement>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(isCalendarOpenProps);
   const lastPressedKey = useRef<KeyboardEvent['key'] | undefined>(undefined);
+  const previousValueProps = useRef(valueProps);
 
   useEffect(() => {
     setIsCalendarOpen(isCalendarOpenProps);
@@ -254,12 +255,14 @@ export default function DateInput({
       setMonth(getMonthHuman(nextValue).toString());
       setDay(getDate(nextValue).toString());
       setValue(nextValue);
-    } else {
+    } else if (valueProps !== previousValueProps.current || valueProps != null) {
       setYear(null);
       setMonth(null);
       setDay(null);
       setValue(null);
     }
+
+    previousValueProps.current = valueProps;
   }, [
     valueProps,
     minDate,

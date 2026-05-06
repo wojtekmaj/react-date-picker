@@ -160,6 +160,30 @@ describe('DateInput', () => {
     expect(customInputs.nth(2)).toHaveAttribute('value', '');
   });
 
+  it('does not clear partial value when reopened with updated min/max props', async () => {
+    const { rerender } = await render(
+      <DateInput
+        {...defaultProps}
+        isCalendarOpen={false}
+        maxDate={new Date(3000, 11, 31)}
+        value={null}
+      />,
+    );
+
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+    const yearInput = page.getByRole('spinbutton', { name: 'year' });
+
+    await userEvent.fill(monthInput, '9');
+    await userEvent.fill(yearInput, '2025');
+
+    await rerender(
+      <DateInput {...defaultProps} isCalendarOpen maxDate={new Date(3000, 11, 31)} value={null} />,
+    );
+
+    expect(monthInput).toHaveValue(9);
+    expect(yearInput).toHaveValue(2025);
+  });
+
   it('renders custom inputs in a proper order (12-hour format)', async () => {
     await render(<DateInput {...defaultProps} />);
 
