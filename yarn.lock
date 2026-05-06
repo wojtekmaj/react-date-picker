@@ -1207,7 +1207,7 @@ __metadata:
     react-dom: "npm:^19.2.0"
     react-fit: "npm:^3.0.0"
     typescript: "npm:^6.0.2"
-    update-input-width: "npm:^1.4.0"
+    update-input-width: "npm:^2.0.0"
     vitest: "npm:^4.1.0"
     vitest-browser-react: "npm:^2.2.0"
   peerDependencies:
@@ -1479,10 +1479,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"update-input-width@npm:^1.4.0":
-  version: 1.4.1
-  resolution: "update-input-width@npm:1.4.1"
-  checksum: 10c0/eb7b3242cfabccfcb1c8a506c4462bc015dbcabe330deb24c5cf895a8d20dd808be6885cdc04a09c6a90f1a7ef474ae2038e460c572954f5cd7cb27231c05231
+"update-input-width@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "update-input-width@npm:2.0.0"
+  checksum: 10c0/7764ed4f4e55185caf2fe85c9a38cd00d15d18b49b58433b3140ff5937b1acba18ce2bccc5933541e811ce4d7ea3dfa7e04d1fd9627f2ce947e52d2547f2d077
   languageName: node
   linkType: hard
 

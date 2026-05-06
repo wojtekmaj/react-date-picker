@@ -55,7 +55,7 @@
     "make-event-props": "^2.0.0",
     "react-calendar": "^6.0.0",
     "react-fit": "^3.0.0",
-    "update-input-width": "^1.4.0"
+    "update-input-width": "^2.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
