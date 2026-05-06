@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
+import { page } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { createRef } from 'react';
 
 import YearInput from './YearInput.js';
-import { page } from 'vitest/browser';
 
 describe('YearInput', () => {
   const defaultProps = {
