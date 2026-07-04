@@ -380,18 +380,23 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
   const [activeStartDate, setActiveStartDate] = useState<Date | null | undefined>(
     getActiveStartDateFromValue(value),
   );
+  const [selectedValue, setSelectedValue] = useState<LooseValue | undefined>(value);
   const wrapper = useRef<HTMLDivElement>(null);
   const calendarWrapper = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
-      setActiveStartDate(getActiveStartDateFromValue(value));
+      setActiveStartDate(getActiveStartDateFromValue(selectedValue ?? value));
     }
-  }, [isOpen]);
+  }, [isOpen, selectedValue, value]);
 
   useEffect(() => {
     setIsOpen(isOpenProps);
   }, [isOpenProps]);
+
+  useEffect(() => {
+    setSelectedValue(value);
+  }, [value]);
 
   function openCalendar({ reason }: { reason: OpenReason }) {
     if (shouldOpenCalendar) {
@@ -434,6 +439,8 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
   }
 
   function onChange(value: Value, shouldCloseCalendar: boolean = shouldCloseCalendarOnSelect) {
+    setSelectedValue(value);
+
     if (shouldCloseCalendar) {
       closeCalendar({ reason: 'select' });
     }
@@ -528,7 +535,8 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
   }, [handleOutsideActionListeners]);
 
   function renderInputs() {
-    const [valueFrom] = Array.isArray(value) ? value : [value];
+    const currentValue = selectedValue ?? value;
+    const [valueFrom] = Array.isArray(currentValue) ? currentValue : [currentValue];
 
     const ariaLabelProps = {
       dayAriaLabel,
@@ -601,7 +609,8 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
       return null;
     }
 
-    const { calendarProps, portalContainer, value } = props;
+    const { calendarProps, portalContainer } = props;
+    const currentValue = selectedValue ?? value;
 
     const className = `${baseClassName}__calendar`;
     const classNames = clsx(className, `${className}--${isOpen ? 'open' : 'closed'}`);
@@ -615,7 +624,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
         minDate={minDate}
         onActiveStartDateChange={({ activeStartDate }) => setActiveStartDate(activeStartDate)}
         onChange={(value) => onChange(value)}
-        value={value}
+        value={currentValue}
         {...calendarProps}
       />
     );
