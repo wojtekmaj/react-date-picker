@@ -98,6 +98,26 @@ describe('DatePicker', () => {
     expect(yearInput).toHaveAttribute('aria-label', ariaLabelProps.yearAriaLabel);
   });
 
+  it('can render input aria-label props as title attributes', async () => {
+    const ariaLabelProps = {
+      dayAriaLabel: 'Day',
+      monthAriaLabel: 'Month',
+      yearAriaLabel: 'Year',
+    };
+
+    const { container } = await render(
+      <DatePicker {...ariaLabelProps} renderAriaLabelAsTitle value={new Date(2019, 0, 1)} />,
+    );
+
+    const dayInput = container.querySelector('input[name="day"]');
+    const monthInput = container.querySelector('input[name="month"]');
+    const yearInput = container.querySelector('input[name="year"]');
+
+    expect(dayInput).toHaveAttribute('title', ariaLabelProps.dayAriaLabel);
+    expect(monthInput).toHaveAttribute('title', ariaLabelProps.monthAriaLabel);
+    expect(yearInput).toHaveAttribute('title', ariaLabelProps.yearAriaLabel);
+  });
+
   it('passes placeholder props to DateInput', async () => {
     const placeholderProps = {
       dayPlaceholder: 'dd',
