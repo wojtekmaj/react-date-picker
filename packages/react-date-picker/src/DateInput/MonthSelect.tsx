@@ -18,6 +18,7 @@ type MonthSelectProps = {
     event: React.KeyboardEvent<HTMLSelectElement> & { target: HTMLSelectElement },
   ) => void;
   placeholder?: string;
+  renderAriaLabelAsTitle?: boolean;
   required?: boolean;
   short?: boolean;
   value?: string | null;
@@ -36,6 +37,7 @@ export default function MonthSelect({
   onChange,
   onKeyDown,
   placeholder = '--',
+  renderAriaLabelAsTitle,
   required,
   short,
   value,
@@ -66,6 +68,7 @@ export default function MonthSelect({
       // Assertion is needed for React 18 compatibility
       ref={inputRef as React.RefObject<HTMLSelectElement>}
       required={required}
+      title={renderAriaLabelAsTitle ? ariaLabel : undefined}
       value={value !== null ? value : ''}
     >
       {!value && <option value="">{placeholder}</option>}

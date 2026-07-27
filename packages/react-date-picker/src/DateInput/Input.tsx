@@ -16,6 +16,7 @@ type InputProps = {
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement }) => void;
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement }) => void;
   placeholder?: string;
+  renderAriaLabelAsTitle?: boolean;
   required?: boolean;
   showLeadingZeros?: boolean;
   step?: number;
@@ -142,6 +143,7 @@ export default function Input({
   onKeyDown,
   onKeyUp,
   placeholder = '--',
+  renderAriaLabelAsTitle,
   required,
   showLeadingZeros,
   step,
@@ -199,6 +201,7 @@ export default function Input({
         ref={inputRef as React.RefObject<HTMLInputElement>}
         required={required}
         step={step}
+        title={renderAriaLabelAsTitle ? ariaLabel : undefined}
         type="number"
         value={value !== null ? value : ''}
       />

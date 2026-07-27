@@ -271,6 +271,13 @@ export type DatePickerProps = {
    */
   portalContainer?: HTMLElement | null;
   /**
+   * Whether to render input `aria-label` values as `title` attributes as well.
+   *
+   * @default false
+   * @example true
+   */
+  renderAriaLabelAsTitle?: boolean;
+  /**
    * Whether date input should be required.
    *
    * @default false
@@ -357,6 +364,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     onFocus: onFocusProps,
     onInvalidChange,
     openCalendarOnFocus = true,
+    renderAriaLabelAsTitle,
     required,
     returnValue = 'start',
     shouldCloseCalendar,
@@ -542,6 +550,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
           name={name}
           onChange={onChange}
           onInvalidChange={onInvalidChange}
+          renderAriaLabelAsTitle={renderAriaLabelAsTitle}
           required={required}
           returnValue={returnValue}
           showLeadingZeros={showLeadingZeros}
