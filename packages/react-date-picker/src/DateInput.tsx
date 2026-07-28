@@ -177,6 +177,7 @@ function renderCustomInputs(
 type DateInputProps = {
   autoFocus?: boolean;
   className: string;
+  customInputsForm?: string;
   dayAriaLabel?: string;
   dayPlaceholder?: string;
   disabled?: boolean;
@@ -203,6 +204,7 @@ type DateInputProps = {
 export default function DateInput({
   autoFocus,
   className,
+  customInputsForm,
   dayAriaLabel,
   dayPlaceholder,
   disabled,
@@ -581,6 +583,7 @@ export default function DateInput({
   const commonInputProps = {
     className,
     disabled,
+    form: customInputsForm,
     maxDate: maxDate || defaultMaxDate,
     minDate: minDate || defaultMinDate,
     onChange,

@@ -7,6 +7,7 @@ type InputProps = {
   autoFocus?: boolean;
   className?: string;
   disabled?: boolean;
+  form?: string;
   inputRef?: React.RefObject<HTMLInputElement | null>;
   max: number;
   min: number;
@@ -133,6 +134,7 @@ export default function Input({
   autoFocus,
   className,
   disabled,
+  form,
   inputRef,
   max,
   min,
@@ -179,6 +181,7 @@ export default function Input({
         )}
         data-input="true"
         disabled={disabled}
+        form={form}
         inputMode="numeric"
         max={max}
         min={min}

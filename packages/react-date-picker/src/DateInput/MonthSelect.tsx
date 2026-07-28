@@ -9,6 +9,7 @@ type MonthSelectProps = {
   autoFocus?: boolean;
   className: string;
   disabled?: boolean;
+  form?: string;
   inputRef?: React.RefObject<HTMLSelectElement | null>;
   locale?: string;
   maxDate?: Date;
@@ -29,6 +30,7 @@ export default function MonthSelect({
   autoFocus,
   className,
   disabled,
+  form,
   inputRef,
   locale,
   maxDate,
@@ -60,6 +62,7 @@ export default function MonthSelect({
       data-input="true"
       data-select="true"
       disabled={disabled}
+      form={form}
       name={name}
       onChange={onChange}
       onKeyDown={onKeyDown}

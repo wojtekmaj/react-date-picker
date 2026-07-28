@@ -122,6 +122,12 @@ export type DatePickerProps = {
    */
   closeCalendar?: boolean;
   /**
+   * `form` attribute for the custom day, month, and year inputs.
+   *
+   * @example 'my-form'
+   */
+  customInputsForm?: string;
+  /**
    * `data-testid` attribute for the main React-Date-Picker `<div>` element.
    *
    * @example 'date-picker'
@@ -335,6 +341,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     clearAriaLabel,
     clearIcon = ClearIcon,
     closeCalendar: shouldCloseCalendarOnSelect = true,
+    customInputsForm,
     'data-testid': dataTestid,
     dayAriaLabel,
     dayPlaceholder,
@@ -532,6 +539,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
           {...placeholderProps}
           autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
+          customInputsForm={customInputsForm}
           disabled={disabled}
           format={format}
           isCalendarOpen={isOpen}
