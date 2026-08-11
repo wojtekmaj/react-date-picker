@@ -3,10 +3,10 @@ import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 
-import ValidityOptions from './ValidityOptions.js';
+import LocaleOptions from './LocaleOptions.js';
 import MaxDetailOptions from './MaxDetailOptions.js';
 import MinDetailOptions from './MinDetailOptions.js';
-import LocaleOptions from './LocaleOptions.js';
+import ValidityOptions from './ValidityOptions.js';
 import ValueOptions from './ValueOptions.js';
 import ViewOptions from './ViewOptions.js';
 
