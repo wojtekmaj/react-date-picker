@@ -199,6 +199,9 @@ type DateInputProps = {
   value?: LooseValuePiece;
   yearAriaLabel?: string;
   yearPlaceholder?: string;
+  ariaDescribedBy?: string;
+  ariaLabelledBy?: string;
+  ariaRequired?: boolean;
 };
 
 export default function DateInput({
@@ -226,6 +229,9 @@ export default function DateInput({
   value: valueProps,
   yearAriaLabel,
   yearPlaceholder,
+  ariaDescribedBy,
+  ariaLabelledBy,
+  ariaRequired,
 }: DateInputProps): React.ReactElement {
   const [year, setYear] = useState<string | null>(null);
   const [month, setMonth] = useState<string | null>(null);
@@ -694,6 +700,9 @@ export default function DateInput({
         required={required}
         value={value}
         valueType={valueType}
+        ariaDescribedBy={ariaDescribedBy}
+        ariaLabelledBy={ariaLabelledBy}
+        ariaRequired={ariaRequired}
       />
     );
   }
