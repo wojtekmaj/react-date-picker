@@ -574,7 +574,7 @@ export default function DateInput({
       proposedValue.setFullYear(year, monthIndex, day);
       proposedValue.setHours(0, 0, 0, 0);
 
-      return proposedValue;
+      return getProcessedValue(proposedValue);
     })();
 
     onChangeProps(processedValue, false);
