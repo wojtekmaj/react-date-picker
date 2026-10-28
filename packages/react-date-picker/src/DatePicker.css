@@ -84,13 +84,12 @@
   cursor: pointer;
 }
 
+.react-date-picker__button:disabled .react-date-picker__button__icon {
+  stroke: #6d6d6d;
+}
 .react-date-picker__button:enabled:hover .react-date-picker__button__icon,
 .react-date-picker__button:enabled:focus .react-date-picker__button__icon {
   stroke: #0078d7;
-}
-
-.react-date-picker__button:disabled .react-date-picker__button__icon {
-  stroke: #6d6d6d;
 }
 
 .react-date-picker__button svg {

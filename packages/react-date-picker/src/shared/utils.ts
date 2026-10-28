@@ -29,3 +29,17 @@ export function safeMin(...args: unknown[]): number {
 export function safeMax(...args: unknown[]): number {
   return Math.max(...args.filter(isValidNumber));
 }
+
+// date validation , if user provided or need to put default date i.e. today
+export function normalizeToDate<T>(v: T): Date {
+  if (!v) return new Date(); // no value → today
+
+  if (v instanceof Date) return v;
+
+  if (typeof v === 'string') return new Date(v);
+
+  // range value: pick start date
+  if (Array.isArray(v) && v[0] instanceof Date) return v[0];
+
+  return new Date();
+}
