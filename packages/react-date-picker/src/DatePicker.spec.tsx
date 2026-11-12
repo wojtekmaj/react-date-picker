@@ -77,6 +77,24 @@ describe('DatePicker', () => {
     expect(customInputs.nth(0)).toHaveFocus();
   });
 
+  it('hides the open calendar when disabled', async () => {
+    const onChange = vi.fn();
+    const props = { ...defaultProps, isOpen: true, onChange };
+    const { container, rerender } = await render(<DatePicker {...props} />);
+    expect(container.querySelector('.react-calendar')).toBeInTheDocument();
+
+    await rerender(<DatePicker {...props} disabled />);
+    expect(container.querySelector('.react-calendar')).not.toBeInTheDocument();
+    expect(page.getByTestId('calendar-button')).toHaveAttribute('aria-expanded', 'false');
+    expect(onChange).not.toHaveBeenCalled();
+
+    await rerender(<DatePicker {...props} />);
+    expect(container.querySelector('.react-calendar')).toBeInTheDocument();
+    const day = container.querySelector<HTMLButtonElement>('.react-calendar__tile');
+    day?.click();
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
+
   it('passes disabled flag to DateInput', async () => {
     const { container } = await render(<DatePicker {...defaultProps} disabled />);
 
