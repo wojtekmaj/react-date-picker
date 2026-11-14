@@ -401,7 +401,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     ({ reason }: { reason: CloseReason }) => {
       if (shouldCloseCalendar) {
         if (!shouldCloseCalendar({ reason })) {
-          return;
+          return false;
         }
       }
 
@@ -410,6 +410,8 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
       if (onCalendarClose) {
         onCalendarClose();
       }
+
+      return true;
     },
     [onCalendarClose, shouldCloseCalendar],
   );
@@ -452,8 +454,10 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        closeCalendar({ reason: 'escape' });
+      if (event.key === 'Escape' && !event.defaultPrevented) {
+        if (closeCalendar({ reason: 'escape' })) {
+          event.preventDefault();
+        }
       }
     },
     [closeCalendar],

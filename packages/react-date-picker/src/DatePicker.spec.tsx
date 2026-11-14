@@ -492,6 +492,97 @@ describe('DatePicker', () => {
     );
   });
 
+  describe('handles pressing Escape properly', () => {
+    it('closes Calendar component when pressing Escape', async () => {
+      const { container } = await render(<DatePicker {...defaultProps} isOpen />);
+
+      await userEvent.keyboard('{Escape}');
+
+      await waitForElementToBeRemovedOrHidden(() =>
+        container.querySelector('.react-date-picker__calendar'),
+      );
+    });
+
+    it('calls preventDefault when Escape closes Calendar component, but not on subsequent Escape', async () => {
+      const defaultPreventedEvents: boolean[] = [];
+
+      function onWindowKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+          defaultPreventedEvents.push(event.defaultPrevented);
+        }
+      }
+
+      window.addEventListener('keydown', onWindowKeyDown);
+
+      try {
+        const { container } = await render(<DatePicker {...defaultProps} isOpen />);
+
+        await userEvent.keyboard('{Escape}');
+
+        await waitForElementToBeRemovedOrHidden(() =>
+          container.querySelector('.react-date-picker__calendar'),
+        );
+
+        expect(defaultPreventedEvents).toEqual([true]);
+
+        await userEvent.keyboard('{Escape}');
+
+        expect(defaultPreventedEvents).toEqual([true, false]);
+      } finally {
+        window.removeEventListener('keydown', onWindowKeyDown);
+      }
+    });
+
+    it('does not close Calendar or call preventDefault on Escape given shouldCloseCalendar function returning false', async () => {
+      const shouldCloseCalendar = () => false;
+      const defaultPreventedEvents: boolean[] = [];
+
+      function onWindowKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+          defaultPreventedEvents.push(event.defaultPrevented);
+        }
+      }
+
+      window.addEventListener('keydown', onWindowKeyDown);
+
+      try {
+        const { container } = await render(
+          <DatePicker {...defaultProps} isOpen shouldCloseCalendar={shouldCloseCalendar} />,
+        );
+
+        await userEvent.keyboard('{Escape}');
+
+        const calendar = container.querySelector('.react-date-picker__calendar');
+
+        expect(calendar).toHaveClass('react-date-picker__calendar--open');
+        expect(defaultPreventedEvents).toEqual([false]);
+      } finally {
+        window.removeEventListener('keydown', onWindowKeyDown);
+      }
+    });
+
+    it('does not close Calendar on Escape when event is already default-prevented', async () => {
+      const { container } = await render(
+        <DatePicker
+          {...defaultProps}
+          autoFocus
+          isOpen
+          onKeyDown={(event) => {
+            if (event.key === 'Escape') {
+              event.preventDefault();
+            }
+          }}
+        />,
+      );
+
+      await userEvent.keyboard('{Escape}');
+
+      const calendar = container.querySelector('.react-date-picker__calendar');
+
+      expect(calendar).toHaveClass('react-date-picker__calendar--open');
+    });
+  });
+
   function triggerFocusOutEvent(locator: Locator) {
     const element = locator.element();
 
