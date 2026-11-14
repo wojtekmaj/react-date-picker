@@ -453,7 +453,9 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && !event.defaultPrevented) {
+        event.preventDefault();
+
         closeCalendar({ reason: 'escape' });
       }
     },
