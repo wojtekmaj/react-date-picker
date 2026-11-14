@@ -375,7 +375,8 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     ...otherProps
   } = props;
 
-  const [isOpen, setIsOpen] = useState<boolean | null>(isOpenProps);
+  const [isOpenState, setIsOpen] = useState<boolean | null>(isOpenProps);
+  const isOpen = disabled ? null : isOpenState;
   const wrapper = useRef<HTMLDivElement>(null);
   const calendarWrapper = useRef<HTMLDivElement>(null);
 
