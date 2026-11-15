@@ -25,7 +25,7 @@ A minimal demo page can be found in `sample` directory.
 If you don't need to support legacy browsers and don't need the advanced features this package provides, consider using native date input instead. It's more accessible, adds no extra weight to your bundle, and works better on mobile devices.
 
 ```tsx
-<input aria-label="Date" type="date" />
+<input aria-label="Date" type="date" />;
 ```
 
 ## Looking for a time picker or a datetime picker?

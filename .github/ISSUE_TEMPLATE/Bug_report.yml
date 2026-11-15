@@ -55,6 +55,6 @@ body:
           - **React-Date-Picker version**: 8.0.0
           - **React version**: 17.0.0
       value: |
-          - **Browser (if applicable)**:
-          - **React-Date-Picker version**:
-          - **React version**:
+        - **Browser (if applicable)**:
+        - **React-Date-Picker version**:
+        - **React version**:
