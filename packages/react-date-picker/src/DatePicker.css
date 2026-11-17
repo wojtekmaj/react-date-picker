@@ -103,10 +103,6 @@
   z-index: 1;
 }
 
-.react-date-picker__calendar--closed {
-  display: none;
-}
-
 .react-date-picker__calendar .react-calendar {
   border-width: thin;
 }

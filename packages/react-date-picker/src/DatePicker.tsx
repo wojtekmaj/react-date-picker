@@ -590,7 +590,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
   }
 
   function renderCalendar() {
-    if (isOpen === null || disableCalendar) {
+    if (!isOpen || disableCalendar) {
       return null;
     }
 
@@ -620,16 +620,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
       )
     ) : (
       <Fit>
-        <div
-          ref={(ref) => {
-            if (ref && !isOpen) {
-              ref.removeAttribute('style');
-            }
-          }}
-          className={classNames}
-        >
-          {calendar}
-        </div>
+        <div className={classNames}>{calendar}</div>
       </Fit>
     );
   }

@@ -7,14 +7,8 @@ import DatePicker from './DatePicker.js';
 
 import type { Locator } from 'vitest/browser';
 
-async function waitForElementToBeRemovedOrHidden(callback: () => HTMLElement | null) {
-  const element = callback();
-
-  if (element) {
-    await vi.waitFor(() =>
-      expect(element).toHaveAttribute('class', expect.stringContaining('--closed')),
-    );
-  }
+async function waitForElementToBeRemoved(callback: () => HTMLElement | null) {
+  await vi.waitFor(() => expect(callback()).not.toBeInTheDocument());
 }
 
 describe('DatePicker', () => {
@@ -497,9 +491,7 @@ describe('DatePicker', () => {
 
     await userEvent.click(document.body);
 
-    await waitForElementToBeRemovedOrHidden(() =>
-      container.querySelector('.react-date-picker__calendar'),
-    );
+    await waitForElementToBeRemoved(() => container.querySelector('.react-date-picker__calendar'));
   });
 
   it('closes Calendar component when focused outside', async () => {
@@ -507,9 +499,7 @@ describe('DatePicker', () => {
 
     triggerFocusEvent(page.elementLocator(document.body));
 
-    await waitForElementToBeRemovedOrHidden(() =>
-      container.querySelector('.react-date-picker__calendar'),
-    );
+    await waitForElementToBeRemoved(() => container.querySelector('.react-date-picker__calendar'));
   });
 
   function triggerTouchStart(element: HTMLElement) {
@@ -521,9 +511,7 @@ describe('DatePicker', () => {
 
     triggerTouchStart(document.body);
 
-    await waitForElementToBeRemovedOrHidden(() =>
-      container.querySelector('.react-date-picker__calendar'),
-    );
+    await waitForElementToBeRemoved(() => container.querySelector('.react-date-picker__calendar'));
   });
 
   it('closes Calendar component when Escape key is pressed', async () => {
@@ -533,9 +521,7 @@ describe('DatePicker', () => {
 
     document.body.dispatchEvent(event);
 
-    await waitForElementToBeRemovedOrHidden(() =>
-      container.querySelector('.react-date-picker__calendar'),
-    );
+    await waitForElementToBeRemoved(() => container.querySelector('.react-date-picker__calendar'));
 
     // Mark Escape as handled so surrounding dialogs can stay open
     expect(event.defaultPrevented).toBe(true);
@@ -582,9 +568,7 @@ describe('DatePicker', () => {
       await userEvent.click(firstTile);
     });
 
-    await waitForElementToBeRemovedOrHidden(() =>
-      container.querySelector('.react-date-picker__calendar'),
-    );
+    await waitForElementToBeRemoved(() => container.querySelector('.react-date-picker__calendar'));
   });
 
   it('closes Calendar when changing value with prop closeCalendar = true', async () => {
@@ -596,9 +580,7 @@ describe('DatePicker', () => {
       await userEvent.click(firstTile);
     });
 
-    await waitForElementToBeRemovedOrHidden(() =>
-      container.querySelector('.react-date-picker__calendar'),
-    );
+    await waitForElementToBeRemoved(() => container.querySelector('.react-date-picker__calendar'));
   });
 
   it('does not close Calendar when changing value with prop closeCalendar = false', async () => {
