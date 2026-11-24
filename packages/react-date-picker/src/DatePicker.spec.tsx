@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import { act } from 'react';
+import { act, createRef } from 'react';
 
 import DatePicker from './DatePicker.js';
 
@@ -67,6 +67,20 @@ describe('DatePicker', () => {
     await render(<DatePicker {...defaultProps} autoFocus />);
 
     const customInputs = page.getByRole('spinbutton');
+
+    expect(customInputs.nth(0)).toHaveFocus();
+  });
+
+  it('passes firstInputRef to DateInput', async () => {
+    const firstInputRef = createRef<HTMLInputElement | HTMLSelectElement>();
+
+    await render(<DatePicker {...defaultProps} firstInputRef={firstInputRef} />);
+
+    const customInputs = page.getByRole('spinbutton');
+
+    act(() => {
+      firstInputRef.current?.focus();
+    });
 
     expect(customInputs.nth(0)).toHaveFocus();
   });

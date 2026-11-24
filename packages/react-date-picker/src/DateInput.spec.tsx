@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import { createRef } from 'react';
 
 import DateInput from './DateInput.js';
 
@@ -309,6 +310,50 @@ describe('DateInput', () => {
       expect(customInputs.nth(1)).toHaveAttribute('name', 'month');
       expect(customInputs.nth(2)).toHaveAttribute('name', 'day');
     });
+  });
+
+  it('passes firstInputRef to the first input', async () => {
+    const firstInputRef = createRef<HTMLInputElement | HTMLSelectElement>();
+
+    await render(<DateInput {...defaultProps} firstInputRef={firstInputRef} />);
+
+    const monthInput = page.getByRole('spinbutton', { name: 'month' });
+
+    expect(firstInputRef.current).toBe(monthInput.element());
+  });
+
+  it('passes firstInputRef to the first input given format', async () => {
+    const firstInputRef = createRef<HTMLInputElement | HTMLSelectElement>();
+
+    await render(<DateInput {...defaultProps} firstInputRef={firstInputRef} format="dd.MM.y" />);
+
+    const dayInput = page.getByRole('spinbutton', { name: 'day' });
+
+    expect(firstInputRef.current).toBe(dayInput.element());
+  });
+
+  it('passes firstInputRef to the month select given format starting with "MMM"', async () => {
+    const firstInputRef = createRef<HTMLInputElement | HTMLSelectElement>();
+
+    await render(<DateInput {...defaultProps} firstInputRef={firstInputRef} format="MMM d, y" />);
+
+    const monthSelect = page.getByRole('combobox', { name: 'month' });
+
+    expect(firstInputRef.current).toBe(monthSelect.element());
+  });
+
+  it('updates firstInputRef when format changes', async () => {
+    const firstInputRef = createRef<HTMLInputElement | HTMLSelectElement>();
+
+    const { rerender } = await render(
+      <DateInput {...defaultProps} firstInputRef={firstInputRef} format="dd.MM.y" />,
+    );
+
+    await rerender(<DateInput {...defaultProps} firstInputRef={firstInputRef} format="y-MM-dd" />);
+
+    const yearInput = page.getByRole('spinbutton', { name: 'year' });
+
+    expect(firstInputRef.current).toBe(yearInput.element());
   });
 
   it('renders proper input separators', async () => {
