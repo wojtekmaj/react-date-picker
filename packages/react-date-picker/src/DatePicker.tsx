@@ -161,6 +161,14 @@ export type DatePickerProps = {
    */
   disabled?: boolean;
   /**
+   * A prop that behaves like [ref](https://reactjs.org/docs/refs-and-the-dom.html), but it's passed to the first custom input rendered by `<DatePicker>` component. It's a `<select>` if `format` starts with `MMM` or `MMMM`.
+   *
+   * @example (ref) => { this.myFirstInput = ref; }
+   * @example this.ref
+   * @example ref
+   */
+  firstInputRef?: React.Ref<HTMLInputElement | HTMLSelectElement>;
+  /**
    * Input format based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table). Supported values are: `y`, `M`, `MM`, `MMM`, `MMMM`, `d`, `dd`.
    *
    * **Note**: When using SSR, setting this prop may help resolving hydration errors caused by locale mismatch between server and client.
@@ -347,6 +355,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
     dayPlaceholder,
     disableCalendar,
     disabled,
+    firstInputRef,
     format,
     id,
     isOpen: isOpenProps = null,
@@ -544,6 +553,7 @@ export default function DatePicker(props: DatePickerProps): React.ReactElement {
           className={`${baseClassName}__inputGroup`}
           customInputsForm={customInputsForm}
           disabled={disabled}
+          firstInputRef={firstInputRef}
           format={format}
           isCalendarOpen={isOpen}
           locale={locale}

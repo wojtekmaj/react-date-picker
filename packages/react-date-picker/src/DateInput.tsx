@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { getDate, getMonthHuman, getYear } from '@wojtekmaj/date-utils';
 
 import DayInput from './DateInput/DayInput.js';
@@ -181,6 +181,7 @@ type DateInputProps = {
   dayAriaLabel?: string;
   dayPlaceholder?: string;
   disabled?: boolean;
+  firstInputRef?: React.Ref<HTMLInputElement | HTMLSelectElement>;
   format?: string;
   isCalendarOpen?: boolean | null;
   locale?: string;
@@ -208,6 +209,7 @@ export default function DateInput({
   dayAriaLabel,
   dayPlaceholder,
   disabled,
+  firstInputRef,
   format,
   isCalendarOpen: isCalendarOpenProps = null,
   locale,
@@ -231,6 +233,7 @@ export default function DateInput({
   const [month, setMonth] = useState<string | null>(null);
   const [day, setDay] = useState<string | null>(null);
   const [value, setValue] = useState<Date | null>(null);
+  const wrapper = useRef<HTMLDivElement>(null);
   const yearInput = useRef<HTMLInputElement>(null);
   const monthInput = useRef<HTMLInputElement>(null);
   const monthSelect = useRef<HTMLSelectElement>(null);
@@ -365,6 +368,16 @@ export default function DateInput({
 
       return placeholder;
     })();
+
+  useImperativeHandle(
+    firstInputRef,
+    () =>
+      wrapper.current?.querySelector('[data-input="true"]') as HTMLInputElement | HTMLSelectElement,
+    [
+      // Placeholder decides which input is rendered first
+      placeholder,
+    ],
+  );
 
   const divider = (() => {
     const dividers = placeholder.match(/[^0-9a-z]/i);
@@ -701,7 +714,7 @@ export default function DateInput({
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: This interaction is designed for mouse users only
     // biome-ignore lint/a11y/noStaticElementInteractions: This interaction is designed for mouse users only
-    <div className={className} onClick={onClick}>
+    <div className={className} onClick={onClick} ref={wrapper}>
       {renderNativeInput()}
       {renderCustomInputsInternal()}
     </div>
