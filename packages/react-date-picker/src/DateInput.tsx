@@ -10,13 +10,11 @@ import NativeInput from './DateInput/NativeInput.js';
 import YearInput from './DateInput/YearInput.js';
 import Divider from './Divider.js';
 
-import { getFormatter } from './shared/dateFormatter.js';
+import { getDateInputFormat } from './shared/dateFormatter.js';
 import { getBegin, getEnd } from './shared/dates.js';
 import { between } from './shared/utils.js';
 
 import type { Detail, LooseValuePiece, Value } from './shared/types.js';
-
-const getFormatterOptionsCache: Record<string, Intl.DateTimeFormatOptions> = {};
 
 const defaultMinDate = new Date();
 defaultMinDate.setFullYear(1, 0, 1);
@@ -277,27 +275,6 @@ export default function DateInput({
 
   const valueType = getValueType(maxDetail);
 
-  const formatDate = (() => {
-    const level = allViews.indexOf(maxDetail);
-    const formatterOptions =
-      getFormatterOptionsCache[level] ||
-      (() => {
-        const options: Intl.DateTimeFormatOptions = { year: 'numeric' };
-        if (level >= 2) {
-          options.month = 'numeric';
-        }
-        if (level >= 3) {
-          options.day = 'numeric';
-        }
-
-        getFormatterOptionsCache[level] = options;
-
-        return options;
-      })();
-
-    return getFormatter(formatterOptions);
-  })();
-
   /**
    * Gets current value in a desired format.
    */
@@ -323,48 +300,7 @@ export default function DateInput({
     });
   }
 
-  const placeholder =
-    format ||
-    (() => {
-      const year = 2017;
-      const monthIndex = 11;
-      const day = 11;
-
-      const date = new Date(year, monthIndex, day);
-      const formattedDate = formatDate(locale, date);
-
-      const datePieces = ['year', 'month', 'day'] as const;
-      const datePieceReplacements = ['y', 'M', 'd'];
-
-      function formatDatePiece(name: keyof Intl.DateTimeFormatOptions, dateToFormat: Date) {
-        const formatterOptions =
-          getFormatterOptionsCache[name] ||
-          (() => {
-            const options = { [name]: 'numeric' };
-
-            getFormatterOptionsCache[name] = options;
-
-            return options;
-          })();
-
-        return getFormatter(formatterOptions)(locale, dateToFormat).match(/\d{1,}/);
-      }
-
-      let placeholder = formattedDate;
-      datePieces.forEach((datePiece, index) => {
-        const match = formatDatePiece(datePiece, date);
-
-        if (match) {
-          const formattedDatePiece = match[0];
-          const datePieceReplacement = datePieceReplacements[index] as string;
-          placeholder = placeholder.replace(formattedDatePiece, datePieceReplacement);
-        }
-      });
-      // See https://github.com/wojtekmaj/react-date-picker/issues/396
-      placeholder = placeholder.replace('17', 'y');
-
-      return placeholder;
-    })();
+  const placeholder = format || getDateInputFormat(locale, maxDetail);
 
   const divider = (() => {
     const dividers = placeholder.match(/[^0-9a-z]/i);
