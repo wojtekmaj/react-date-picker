@@ -1,7 +1,12 @@
 import { describe, expect, it, vi } from 'vitest';
 import getUserLocale from 'get-user-locale';
 
-import { formatMonth, formatShortMonth, getDateInputFormat } from './dateFormatter.js';
+import {
+  formatMonth,
+  formatShortMonth,
+  getDateInputDivider,
+  getDateInputFormat,
+} from './dateFormatter.js';
 
 import type { Detail } from './types.js';
 
@@ -47,21 +52,71 @@ describe('getDateInputFormat', () => {
     );
   });
 
+  it.each(['ksh', 'sc'])(
+    'returns year and month fields without formatting to parts for %s',
+    (locale) => {
+      const formatToParts = vi
+        .spyOn(Intl.DateTimeFormat.prototype, 'formatToParts')
+        .mockImplementation(() => {
+          throw new Error('formatToParts may abort the process for year-month patterns');
+        });
+
+      try {
+        expect(getDateInputFormat(locale, 'year').split(/[-/]/).sort()).toEqual(['M', 'y']);
+        expect(formatToParts).not.toHaveBeenCalled();
+      } finally {
+        formatToParts.mockRestore();
+      }
+    },
+  );
+
   it('replaces a short year with a year field', () => {
-    const formatToParts = vi.spyOn(Intl.DateTimeFormat.prototype, 'formatToParts');
-    formatToParts.mockReturnValueOnce([
-      { type: 'day', value: '11' },
-      { type: 'literal', value: '/' },
-      { type: 'month', value: '12' },
-      { type: 'literal', value: '/' },
-      { type: 'year', value: '17' },
-    ]);
+    const DateTimeFormat = Intl.DateTimeFormat;
+    const dateTimeFormat = vi.spyOn(Intl, 'DateTimeFormat').mockImplementation(
+      class extends DateTimeFormat {
+        constructor(...args: ConstructorParameters<typeof DateTimeFormat>) {
+          super(...args);
+          const [, options] = args;
+          const format = this.format;
+          if (options?.day && options?.month && options?.year) {
+            Object.defineProperty(this, 'format', {
+              value: (date: Date) => format(date).replace('2017', '17'),
+            });
+          }
+        }
+      },
+    );
 
     try {
-      expect(getDateInputFormat('en-AU', 'month')).toBe('d/M/y');
+      expect(getDateInputFormat('en-NZ', 'month')).toBe('d/M/y');
     } finally {
-      formatToParts.mockRestore();
+      dateTimeFormat.mockRestore();
     }
+  });
+});
+
+describe('getDateInputDivider', () => {
+  it.each(['ar-EG', 'ar'])('uses the visible separator for keyboard navigation in %s', (locale) => {
+    expect(getDateInputDivider(getDateInputFormat(locale, 'month'))).toBe('/');
+  });
+
+  it.each(['\u200e', '\u200f', '\u061c'])(
+    'ignores the direction mark %j before a separator',
+    (mark) => {
+      expect(getDateInputDivider(`d${mark}/M${mark}/y`)).toBe('/');
+      expect(getDateInputDivider(`y${mark}`)).toBeNull();
+    },
+  );
+
+  it.each<[string, string | null]>([
+    ['M/d/y', '/'],
+    ['d.M.y', '.'],
+    ['yyyy-MM-dd', '-'],
+    ['y M d', ' '],
+    ['y', null],
+    ['', null],
+  ])('preserves the separator of %j', (placeholder, expected) => {
+    expect(getDateInputDivider(placeholder)).toBe(expected);
   });
 });
 

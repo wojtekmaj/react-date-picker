@@ -10,7 +10,7 @@ import NativeInput from './DateInput/NativeInput.js';
 import YearInput from './DateInput/YearInput.js';
 import Divider from './Divider.js';
 
-import { getDateInputFormat } from './shared/dateFormatter.js';
+import { getDateInputDivider, getDateInputFormat } from './shared/dateFormatter.js';
 import { getBegin, getEnd } from './shared/dates.js';
 import { between } from './shared/utils.js';
 
@@ -302,10 +302,7 @@ export default function DateInput({
 
   const placeholder = format || getDateInputFormat(locale, maxDetail);
 
-  const divider = (() => {
-    const dividers = placeholder.match(/[^0-9a-z]/i);
-    return dividers ? dividers[0] : null;
-  })();
+  const divider = getDateInputDivider(placeholder);
 
   const yearMinLength = (() => {
     const yearMatch = format?.match(/y+/);

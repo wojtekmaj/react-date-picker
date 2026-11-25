@@ -4,54 +4,62 @@ import type { Detail } from './types.js';
 
 const formatterCache = new Map();
 
-function getDateTimeFormat(
-  locale: string | undefined,
-  options: Intl.DateTimeFormatOptions,
-): Intl.DateTimeFormat {
-  const localeWithDefault = locale || getUserLocale();
-
-  if (!formatterCache.has(localeWithDefault)) {
-    formatterCache.set(localeWithDefault, new Map());
-  }
-
-  const formatterCacheLocale = formatterCache.get(localeWithDefault);
-
-  if (!formatterCacheLocale.has(options)) {
-    const formatter = new Intl.DateTimeFormat(localeWithDefault || undefined, options);
-
-    formatterCacheLocale.set(options, formatter);
-  }
-
-  return formatterCacheLocale.get(options);
-}
-
 export function getFormatter(
   options: Intl.DateTimeFormatOptions,
 ): (locale: string | undefined, date: Date) => string {
-  return (locale, date) => getDateTimeFormat(locale, options).format(date);
+  return function formatter(locale: string | undefined, date: Date): string {
+    const localeWithDefault = locale || getUserLocale();
+
+    if (!formatterCache.has(localeWithDefault)) {
+      formatterCache.set(localeWithDefault, new Map());
+    }
+
+    const formatterCacheLocale = formatterCache.get(localeWithDefault);
+
+    if (!formatterCacheLocale.has(options)) {
+      const formatter = new Intl.DateTimeFormat(localeWithDefault || undefined, options);
+
+      formatterCacheLocale.set(options, formatter.format.bind(formatter));
+    }
+
+    return formatterCacheLocale.get(options)(date);
+  };
 }
 
+// Not part of Intl.DateTimeFormatOptions in the ES2018 library typings
+const latinDigits = { numberingSystem: 'latn' };
+
 const dateInputOptions: Record<Detail, Intl.DateTimeFormatOptions> = {
-  century: { year: 'numeric' },
-  decade: { year: 'numeric' },
-  year: { year: 'numeric', month: 'numeric' },
-  month: { year: 'numeric', month: 'numeric', day: 'numeric' },
+  century: { year: 'numeric', ...latinDigits },
+  decade: { year: 'numeric', ...latinDigits },
+  year: { year: 'numeric', month: 'numeric', ...latinDigits },
+  month: { year: 'numeric', month: 'numeric', day: 'numeric', ...latinDigits },
 };
 
-const dateInputTokens: Record<string, string> = {
-  year: 'y',
-  relatedYear: 'y',
-  month: 'M',
-  day: 'd',
-};
+const datePieces = [
+  { options: { year: 'numeric', ...latinDigits }, replacement: 'y' },
+  { options: { month: 'numeric', ...latinDigits }, replacement: 'M' },
+  { options: { day: 'numeric', ...latinDigits }, replacement: 'd' },
+] satisfies { options: Intl.DateTimeFormatOptions; replacement: string }[];
 
 export function getDateInputFormat(locale: string | undefined, maxDetail: Detail): string {
-  const formatter = getDateTimeFormat(locale, dateInputOptions[maxDetail]);
+  const date = new Date(2017, 11, 11);
 
-  return formatter
-    .formatToParts(new Date(2017, 11, 11))
-    .map(({ type, value }) => dateInputTokens[type] || value)
-    .join('');
+  let placeholder = getFormatter(dateInputOptions[maxDetail])(locale, date);
+  for (const { options, replacement } of datePieces) {
+    const match = getFormatter(options)(locale, date).match(/\d{1,}/);
+
+    if (match) {
+      placeholder = placeholder.replace(match[0], replacement);
+    }
+  }
+  // See https://github.com/wojtekmaj/react-date-picker/issues/396
+  return placeholder.replace('17', 'y');
+}
+
+export function getDateInputDivider(placeholder: string): string | null {
+  const dividers = placeholder.match(/[^0-9a-z\u200e\u200f\u061c]/i);
+  return dividers ? dividers[0] : null;
 }
 
 /**
