@@ -584,6 +584,21 @@ describe('DateInput', () => {
     expect(onChange).toHaveBeenCalledWith(new Date(2017, 8, 20), false);
   });
 
+  it.each([
+    ['end', new Date(2017, 8, 20, 23, 59, 59, 999)],
+    ['range', [new Date(2017, 8, 20), new Date(2017, 8, 20, 23, 59, 59, 999)]],
+  ] as const)('applies returnValue=%s to native input changes', async (returnValue, expected) => {
+    const onChange = vi.fn();
+    const { container } = await render(
+      <DateInput {...defaultProps} onChange={onChange} returnValue={returnValue} />,
+    );
+
+    const nativeInput = container.querySelector('input[type="date"]') as HTMLInputElement;
+    triggerChange(nativeInput, '2017-09-20');
+
+    expect(onChange).toHaveBeenCalledWith(expected, false);
+  });
+
   it('triggers onChange correctly when changed native input with year < 100', async () => {
     const onChange = vi.fn();
     const date = new Date(2017, 8, 30);
